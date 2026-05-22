@@ -1,0 +1,10 @@
+# Canonical rules: SHARED/extension.gitignore (catalog layout)
+node_modules/
+.DS_Store
+dist/
+build/
+out/
+*.tsbuildinfo
+.env
+.env.*
+.cursor/
