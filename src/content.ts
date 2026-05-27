@@ -8,6 +8,7 @@ import { registerDocumentOperabilityProbeListener } from "../../lib/src/page-ope
 import { bootstrapPanelPopupPageIfNeeded } from "./panel-popup/page";
 import { bootstrapPanelTabPageIfNeeded } from "./panel-tab";
 import {
+  copyElementToClipboard,
   CopierPickUI,
   notifyElementPicked,
   PICK_ROOT_ID,
@@ -127,6 +128,24 @@ function attachMessageHandler(state: ContentState): void {
     }
   };
 
+  let pickCopyInFlight = false;
+
+  const handleElementPicked = async (element: Element): Promise<void> => {
+    if (pickCopyInFlight || !state.active) return;
+    pickCopyInFlight = true;
+    try {
+      const copied = await copyElementToClipboard(element);
+      if (!copied) {
+        console.warn("[Element Copier] clipboard copy failed");
+        return;
+      }
+      notifyElementPicked(element);
+      deactivate();
+    } finally {
+      pickCopyInFlight = false;
+    }
+  };
+
   const ensurePick = async (): Promise<CopierPickUI> => {
     if (state.pick?.isHostConnected() && isPickRootConnected()) {
       return state.pick;
@@ -136,7 +155,9 @@ function attachMessageHandler(state: ContentState): void {
       state.pickInit = (async () => {
         await waitForDomRoot();
         await waitForNextFrame();
-        const pick = new CopierPickUI((element) => notifyElementPicked(element));
+        const pick = new CopierPickUI((element) => {
+          void handleElementPicked(element);
+        });
         state.pick = pick;
         return pick;
       })();
