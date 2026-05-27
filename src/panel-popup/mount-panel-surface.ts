@@ -6,6 +6,7 @@ import {
   PANEL_POPUP_ROOT_ID,
   type PanelPopupTab,
 } from "./constants";
+import { fitActionPopupToHost } from "./fit-popup-height";
 import { StartPanelWindow } from "./window";
 
 export type PanelMountSurface = {
@@ -19,7 +20,7 @@ export async function mountPanelSurface(
 ): Promise<void> {
   let locale: Locale = "en";
 
-  const { shadow } = mountPanelShadowHost({
+  const { host, shadow } = mountPanelShadowHost({
     rootId: PANEL_POPUP_ROOT_ID,
     hostClassName: "ec-panel-popup",
     hostAttr: PANEL_POPUP_HOST_ATTR,
@@ -37,4 +38,7 @@ export async function mountPanelSurface(
   });
 
   panelWindow.openStartPanel();
+  if (surface === "popup") {
+    fitActionPopupToHost(host);
+  }
 }

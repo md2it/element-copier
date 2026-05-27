@@ -14,9 +14,10 @@ const watch = process.argv.includes("--watch");
 
 const stylesDir = join(root, "styles");
 const panelHeaderCss = readFileSync(join(stylesDir, "panel-header.css"), "utf8");
+const panelFooterCss = readFileSync(join(stylesDir, "panel-footer.css"), "utf8");
 const panelCss = readFileSync(join(stylesDir, "panel-popup.css"), "utf8");
 const pickModeCss = readFileSync(join(stylesDir, "pick-mode.css"), "utf8");
-const panelSurfaceCss = `${panelHeaderCss}\n${panelCss}`;
+const panelSurfaceCss = `${panelHeaderCss}\n${panelFooterCss}\n${panelCss}`;
 
 const define = {
   "process.env.PANEL_CSS_CONTENT": JSON.stringify(panelSurfaceCss),

@@ -1,8 +1,10 @@
 import { PANEL_TITLE } from "../brand";
 import { toolbarWelcomeIconSvg } from "../icons";
 import { localeToHtmlLang } from "../../../lib/src/i18n/locale-code";
+import { createPanelFooter } from "../../../lib/src/panel-footer";
 import { createPanelDivider, createPanelHeader } from "../../../lib/src/panel-header";
 import { isRtlLocale, t, type Locale } from "../i18n";
+import { PANEL_FOOTER_CONFIG } from "../ui-config";
 import { PANEL_POPUP_HOST_ATTR } from "./constants";
 
 export type StartPanelHost = {
@@ -54,9 +56,18 @@ export class StartPanelWindow {
     const body = document.createElement("div");
     body.className = "ec-panel-body";
 
-    const message = document.createElement("p");
-    message.className = "ec-start-message";
-    message.textContent = strings.startBodyText;
+    const instruction = document.createElement("div");
+    instruction.className = "ec-start-instruction";
+
+    const lead = document.createElement("p");
+    lead.className = "ec-start-instruction-lead";
+    lead.textContent = strings.startBodyLead;
+
+    const action = document.createElement("p");
+    action.className = "ec-start-instruction-action";
+    action.textContent = strings.startBodyAction;
+
+    instruction.append(lead, action);
 
     const actions = document.createElement("div");
     actions.className = "ec-start-actions";
@@ -65,8 +76,16 @@ export class StartPanelWindow {
       createStartActionButton(strings.startHistory, strings.startButtonComingSoon),
     );
 
-    body.append(message, actions);
-    panelRoot.append(header, createPanelDivider(), body);
+    const footer = createPanelFooter(PANEL_FOOTER_CONFIG);
+
+    body.append(instruction, actions);
+    panelRoot.append(
+      header,
+      createPanelDivider(),
+      body,
+      createPanelDivider(),
+      footer,
+    );
     panelRoot.setAttribute(PANEL_POPUP_HOST_ATTR, "true");
     this.host.shadow.appendChild(panelRoot);
     this.bindDismissOnLeave(panelRoot);

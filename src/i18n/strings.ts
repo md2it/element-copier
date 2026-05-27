@@ -6,8 +6,8 @@ const MESSAGES: Record<Locale, Strings> = {
       "Browser extensions don't work on this page or site.",
     panelSubtitle: "browser extension",
     titleSettings: "Start",
-    startBodyText:
-      "Simply select any text block on the page and click on it.",
+    startBodyLead: "To copy:",
+    startBodyAction: "HOVER and CLICK",
     startSettings: "Settings",
     startHistory: "History",
     startButtonComingSoon: "Coming soon",

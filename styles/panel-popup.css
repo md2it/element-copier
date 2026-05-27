@@ -2,7 +2,7 @@
   position: relative;
   inset: auto;
   width: 100%;
-  min-height: 280px;
+  min-height: 0;
   height: auto;
   pointer-events: auto;
   z-index: 1;
@@ -48,11 +48,16 @@
 
 .ec-panel--surface-popup {
   width: 100%;
-  min-height: 280px;
+  min-height: 0;
   max-height: none;
   border-radius: 0;
   border: none;
   box-shadow: none;
+}
+
+/* Как в welcome: --welcome-gap (12px) между header и разделителем */
+.ec-panel > .dd-panel-divider {
+  margin-top: 0.75rem;
 }
 
 .ec-panel-body {
@@ -61,11 +66,38 @@
   overflow: auto;
 }
 
-.ec-start-message {
+.ec-panel--surface-popup .ec-panel-body {
+  flex: 0 0 auto;
+  overflow: visible;
+}
+
+.ec-start-instruction {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.12rem;
   margin: 0 0 1.125rem;
   text-align: center;
-  font-size: 1rem;
+}
+
+.ec-start-instruction-lead,
+.ec-start-instruction-action {
+  margin: 0;
+  line-height: 1.2;
+}
+
+.ec-start-instruction-lead {
+  font-size: 1.125rem;
+  font-weight: 600;
   color: #111827;
+}
+
+.ec-start-instruction-action {
+  font-size: 1.2rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #012292;
 }
 
 .ec-start-actions {
