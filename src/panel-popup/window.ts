@@ -7,6 +7,8 @@ import { isRtlLocale, t, type Locale } from "../i18n";
 import { PANEL_FOOTER_CONFIG } from "../ui-config";
 import { PANEL_POPUP_HOST_ATTR } from "./constants";
 
+const START_DISMISS_DELAY_MS = 1000;
+
 export type StartPanelHost = {
   shadow: ShadowRoot;
   surface?: "popup";
@@ -31,8 +33,15 @@ function createStartActionButton(
 
 export class StartPanelWindow {
   private dismissListeners: (() => void) | null = null;
+  private dismissTimer: ReturnType<typeof setTimeout> | null = null;
 
   constructor(private readonly host: StartPanelHost) {}
+
+  private clearDismissTimer(): void {
+    if (this.dismissTimer === null) return;
+    clearTimeout(this.dismissTimer);
+    this.dismissTimer = null;
+  }
 
   openStartPanel(): void {
     this.close();
@@ -96,10 +105,15 @@ export class StartPanelWindow {
 
     const onEnter = (): void => {
       hasEntered = true;
+      this.clearDismissTimer();
     };
     const onLeave = (): void => {
       if (!hasEntered) return;
-      this.close();
+      this.clearDismissTimer();
+      this.dismissTimer = setTimeout(() => {
+        this.dismissTimer = null;
+        this.close();
+      }, START_DISMISS_DELAY_MS);
     };
 
     panel.addEventListener("mouseenter", onEnter);
@@ -107,10 +121,12 @@ export class StartPanelWindow {
     this.dismissListeners = () => {
       panel.removeEventListener("mouseenter", onEnter);
       panel.removeEventListener("mouseleave", onLeave);
+      this.clearDismissTimer();
     };
   }
 
   close(): void {
+    this.clearDismissTimer();
     this.dismissListeners?.();
     this.dismissListeners = null;
 
