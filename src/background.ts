@@ -28,7 +28,10 @@ import {
   openCopiedPanelFromCopy,
   openPanelFromSender,
   openStartPanelFromToolbar,
+  PANEL_POPUP_PAGE,
+  type PanelPopupTab,
 } from "./panel-popup";
+import { readPanelTargetTabId } from "./panel-popup/panel-target-tab";
 import { ensureLocaleInStorage } from "./storage";
 import { showWelcome, stopWelcomePinWatcher, watchWelcomePinStatus } from "./welcome";
 
@@ -59,6 +62,14 @@ let lastToggleAt = 0;
 const BADGE_TEXT_COLOR = "#ffffff";
 const BADGE_RUNNING_TEXT = "✓";
 const BADGE_BLOCKED_TEXT = "✕";
+
+/**
+ * Badge state priority (lib/PROJECTS.md):
+ * 1) prefix letter (lib prefix badge; we only suppress/restore)
+ * 2) cannot operate on page => ✕ (while blocked notice is shown)
+ * 3) running => ✓
+ * 4) off => no badge
+ */
 
 const tabBlockedBadge = new Map<number, boolean>();
 const tabPrefixBadgeShown = new Map<number, boolean>();
@@ -243,6 +254,67 @@ async function deactivateTab(tabId: number, windowId?: number): Promise<void> {
   await setTabActive(tabId, false, windowId);
 }
 
+async function activateTab(tabId: number, windowId?: number): Promise<void> {
+  if (getTabActiveState(tabId)) {
+    await setTabActive(tabId, true, windowId);
+    return;
+  }
+
+  if (!(await canOperateOnTab(tabId))) {
+    setTabActiveState(tabId, false);
+    await syncIconForTab(tabId);
+    await showBlockedPageFeedback(tabId, windowId, "canOperateOnTab:activateTab");
+    return;
+  }
+
+  setTabActiveState(tabId, true);
+  clearBlockedBadgeState(tabId);
+  await syncIconForTab(tabId);
+  await syncToolbarBadge(tabId);
+  await setTabActive(tabId, true, windowId);
+}
+
+function isExtensionPanelSenderUrl(url: string | undefined): boolean {
+  if (!url) return false;
+  return url.includes(PANEL_POPUP_PAGE) || url.includes("welcome.html");
+}
+
+async function resolvePickModeTabId(
+  sender: chrome.runtime.MessageSender,
+): Promise<number | undefined> {
+  const senderUrl = sender.tab?.url;
+  if (sender.tab?.id !== undefined && !isExtensionPanelSenderUrl(senderUrl)) {
+    return sender.tab.id;
+  }
+
+  const remembered = await readPanelTargetTabId();
+  if (remembered !== undefined) return remembered;
+
+  const tab = await getActiveCommandTab();
+  return tab?.id;
+}
+
+function isPickModeMenuTab(tab: PanelPopupTab): tab is "settings" | "history" | "about" {
+  return tab === "settings" || tab === "history" || tab === "about";
+}
+
+async function syncPickModeForPanelTab(
+  tab: PanelPopupTab,
+  sender: chrome.runtime.MessageSender,
+): Promise<void> {
+  const tabId = await resolvePickModeTabId(sender);
+  if (tabId === undefined) return;
+
+  if (tab === "start") {
+    await activateTab(tabId, sender.tab?.windowId);
+    return;
+  }
+
+  if (isPickModeMenuTab(tab)) {
+    await deactivateTab(tabId, sender.tab?.windowId);
+  }
+}
+
 async function toggleTab(
   tabId: number,
   windowId?: number,
@@ -272,18 +344,7 @@ async function toggleTab(
     openStartPanelFromToolbar({ id: tabId, windowId } as chrome.tabs.Tab);
   }
 
-  if (!(await canOperateOnTab(tabId))) {
-    setTabActiveState(tabId, false);
-    await syncIconForTab(tabId);
-    await showBlockedPageFeedback(tabId, windowId, "canOperateOnTab:toggleTab");
-    return;
-  }
-
-  setTabActiveState(tabId, true);
-  clearBlockedBadgeState(tabId);
-  await syncIconForTab(tabId);
-  await syncToolbarBadge(tabId);
-  await setTabActive(tabId, true, windowId);
+  await activateTab(tabId, windowId);
 }
 
 function getActiveCommandTab(): Promise<chrome.tabs.Tab | undefined> {
@@ -343,12 +404,12 @@ ext.runtime.onMessage.addListener(
         return;
       }
       void (async () => {
-        const tabId = sender.tab?.id;
-        if (tabId !== undefined && getTabActiveState(tabId)) {
-          await deactivateTab(tabId, sender.tab?.windowId);
-        }
+        await syncPickModeForPanelTab(contentMessage.tab, sender);
         openPanelFromSender(contentMessage.tab, sender.tab);
       })();
+    }
+    if (contentMessage.type === "PANEL_TAB_CHANGED") {
+      void syncPickModeForPanelTab(contentMessage.tab, sender);
     }
     if (contentMessage.type === "WATCH_PIN_STATUS" && sender.tab?.id !== undefined) {
       watchWelcomePinStatus(sender.tab.id);

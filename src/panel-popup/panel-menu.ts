@@ -2,8 +2,6 @@ import type { Strings } from "../i18n";
 import { FILES, HISTORY, INFO, SETTINGS } from "../icons";
 import type { PanelMenuTab } from "./constants";
 
-const MENU_TOOLTIP_DELAY_MS = 500;
-
 type MenuItemDef = {
   tab: PanelMenuTab;
   iconSvg: string;
@@ -11,10 +9,10 @@ type MenuItemDef = {
 };
 
 const MENU_ITEMS: readonly MenuItemDef[] = [
-  { tab: "start", iconSvg: FILES, label: (s) => s.menuPageStart },
-  { tab: "settings", iconSvg: SETTINGS, label: (s) => s.menuPageSettings },
-  { tab: "history", iconSvg: HISTORY, label: (s) => s.menuPageHistory },
-  { tab: "about", iconSvg: INFO, label: (s) => s.menuPageAbout },
+  { tab: "start", iconSvg: FILES, label: (s) => s.titleSettings },
+  { tab: "settings", iconSvg: SETTINGS, label: (s) => s.pageSettingsTitle },
+  { tab: "history", iconSvg: HISTORY, label: (s) => s.pageHistoryTitle },
+  { tab: "about", iconSvg: INFO, label: (s) => s.tabAbout },
 ];
 
 export type PanelMenuHandle = {
@@ -38,7 +36,6 @@ export function createPanelMenu(strings: Strings): PanelMenuHandle {
     button.innerHTML = item.iconSvg;
     button.setAttribute("aria-label", label);
     button.dataset.tooltip = label;
-    button.style.setProperty("--ec-menu-tooltip-delay", `${MENU_TOOLTIP_DELAY_MS}ms`);
     buttons.set(item.tab, button);
     nav.append(button);
   }

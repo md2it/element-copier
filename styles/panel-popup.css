@@ -88,10 +88,18 @@
 }
 
 .ec-panel--surface-popup .ec-panel-menu {
+  --ec-menu-gap: 0.35rem;
   align-self: stretch;
-  margin-top: 0;
-  margin-bottom: 0;
-  margin-right: 0;
+  justify-content: flex-start;
+  gap: var(--ec-menu-gap);
+  margin-top: 2mm;
+  margin-bottom: 2mm;
+  margin-inline-start: 2mm;
+  margin-inline-end: 0;
+  padding-block-start: var(--ec-menu-gap);
+  padding-inline-end: var(--ec-menu-gap);
+  padding-block-end: 0;
+  padding-inline-start: 0;
 }
 
 .ec-panel-content {
@@ -158,15 +166,15 @@
   opacity: 0;
   visibility: hidden;
   transition:
-    opacity 0.12s ease var(--ec-menu-tooltip-delay, 500ms),
-    visibility 0s linear calc(var(--ec-menu-tooltip-delay, 500ms) + 120ms);
+    opacity 0.12s ease,
+    visibility 0s linear 0.12s;
 }
 
 .ec-panel-menu-btn:hover::after,
 .ec-panel-menu-btn:focus-visible::after {
   opacity: 1;
   visibility: visible;
-  transition-delay: var(--ec-menu-tooltip-delay, 500ms), 0s;
+  transition-delay: 0s, 0s;
 }
 
 .ec-panel--surface-popup .ec-panel-body.ec-panel-body--centered {

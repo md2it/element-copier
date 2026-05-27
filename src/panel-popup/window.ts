@@ -12,6 +12,7 @@ import {
   PANEL_BODY_CENTERED_CLASS,
 } from "./panel-body";
 import type { PanelMenuHandle } from "./panel-menu";
+import { notifyPanelTabChanged } from "./lifecycle";
 
 export type CopierPanelHost = {
   shadow: ShadowRoot;
@@ -47,6 +48,7 @@ export class CopierPanelWindow {
     }
 
     this.renderTab(tab);
+    this.syncPickModeForTab(tab);
     this.host.shadow.appendChild(panelRoot);
     this.dismissHandle = bindDismissOnLeave(panelRoot, () => this.close());
   }
@@ -54,6 +56,7 @@ export class CopierPanelWindow {
   showTab(tab: PanelPopupTab): void {
     if (!this.body || !this.panelRoot) return;
     this.renderTab(tab);
+    this.syncPickModeForTab(tab);
   }
 
   close(): void {
@@ -69,6 +72,10 @@ export class CopierPanelWindow {
     if (!panelRoots.length) return;
     panelRoots.forEach((node) => node.remove());
     this.host.onClose?.();
+  }
+
+  private syncPickModeForTab(tab: PanelPopupTab): void {
+    notifyPanelTabChanged(tab);
   }
 
   private renderTab(tab: PanelPopupTab): void {

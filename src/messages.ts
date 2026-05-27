@@ -1,10 +1,12 @@
 import type { PrefixHintContentToBg } from "../../lib/src/hotkeys/prefix-hint-messages";
+import type { PanelPopupTab } from "./panel-popup/constants";
 
 export type BgToContent = { type: "SET_ACTIVE"; active: boolean };
 
 export type ContentToBg =
   | { type: "ACTIVE_CHANGED"; active: boolean }
   | { type: "OPEN_PANEL"; tab: "start" | "copied" }
+  | { type: "PANEL_TAB_CHANGED"; tab: PanelPopupTab }
   | { type: "WATCH_PIN_STATUS" }
   | { type: "TOGGLE_REQUEST" }
   | {

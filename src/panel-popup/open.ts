@@ -5,6 +5,7 @@ import {
 } from "../../../lib/src/panel-popup";
 import { openPanelInTab } from "../panel-tab";
 import { PANEL_PAGE_CONFIG, type PanelPopupTab } from "./constants";
+import { rememberPanelTargetTab } from "./panel-target-tab";
 
 export type { PanelPageOpenTarget as PanelPopupOpenTarget };
 
@@ -17,6 +18,9 @@ export function openPanelInActionPopup(
   panelTab: PanelPopupTab,
   target: PanelPageOpenTarget,
 ): void {
+  if (target.tabId !== undefined) {
+    void rememberPanelTargetTab(target.tabId);
+  }
   openLibPanelInActionPopup(
     PANEL_PAGE_CONFIG,
     panelTab,

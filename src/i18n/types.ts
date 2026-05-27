@@ -10,10 +10,6 @@ export type Strings = {
   startBodyAction: string;
   copiedTitle: string;
   copiedSubtitle: string;
-  menuPageStart: string;
-  menuPageSettings: string;
-  menuPageHistory: string;
-  menuPageAbout: string;
   pageSettingsTitle: string;
   pageHistoryTitle: string;
   pagePlaceholderTodo: string;
