@@ -30,7 +30,8 @@ export type Strings = {
   welcomePinStep2: string;
   welcomePinStep3: string;
   aboutBullets: readonly string[];
-  aboutCopyright: string;
+  aboutProductName: string;
+  aboutCreditAuthor: string;
 };
 
 export function isLocale(value: unknown): value is Locale {

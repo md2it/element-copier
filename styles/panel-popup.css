@@ -245,15 +245,34 @@
   color: #374151;
 }
 
-.ec-shortcuts-note {
-  margin: 0.2rem 0 0;
+.ec-shortcuts-stop {
+  margin: 0.5rem 0 0;
   font-size: 0.84rem;
   line-height: 1.45;
   color: #374151;
 }
 
+.ec-shortcuts-stop strong {
+  font-weight: 700;
+}
+
+.ec-shortcuts-note {
+  margin: 0.2rem 0 0;
+  font-size: 0.84rem;
+  line-height: 1.45;
+  color: #6b7280;
+}
+
+.ec-shortcuts-steps + .ec-shortcuts-note {
+  margin-top: 0.65rem;
+}
+
 .ec-shortcuts-divider {
   margin: 0.55rem 0 0.35rem;
+}
+
+.ec-shortcuts-stop + .ec-shortcuts-divider {
+  margin-top: 0.35rem;
 }
 
 /* Как в welcome: --welcome-gap (12px) между header и разделителем */
@@ -357,18 +376,37 @@
 }
 
 .ec-about-credit {
-  display: block;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
   margin-top: auto;
   padding-top: 0.75rem;
   text-align: center;
   font-size: 0.75rem;
-  color: #999;
-  text-decoration: none;
+  color: #6b7280;
 }
 
-.ec-about-credit:hover,
-.ec-about-credit:focus-visible {
-  color: #012292;
+.ec-about-credit-divider {
+  width: 100%;
+  margin: 0 0 0.5rem;
+  background: currentColor;
+}
+
+.ec-about-credit-line {
+  margin: 0;
+  line-height: 1.35;
+  color: inherit;
+}
+
+.ec-about-credit a:any-link {
+  color: inherit;
+  text-decoration: underline;
+}
+
+.ec-about-credit a:hover,
+.ec-about-credit a:focus-visible {
+  color: inherit;
 }
 
 .ec-panel-page--about .ec-panel-page-title {
@@ -436,6 +474,10 @@
 .ec-shortcuts-steps li:last-child,
 .ec-about-steps li:last-child {
   margin-bottom: 0;
+}
+
+.ec-shortcuts-step-emphasis {
+  font-weight: 600;
 }
 
 .ec-shortcuts-step-press-grid,

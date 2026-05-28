@@ -5,7 +5,6 @@ import {
   ABOUT_PREFIX_CHORD_MAC_DISPLAY,
   ABOUT_PREFIX_CHORD_WIN_DISPLAY,
 } from "../hotkeys/keys";
-import { PREFIX_ACTION_KEY } from "../hotkeys/commands";
 
 export const PANEL_BODY_CENTERED_CLASS = "ec-panel-body--centered";
 
@@ -30,6 +29,26 @@ function createKbd(text: string): HTMLElement {
   kbd.className = "ec-about-kbd";
   kbd.textContent = text;
   return kbd;
+}
+
+const SHORTCUTS_STEP_RELEASE_EMPHASIS = "Release";
+
+function appendShortcutsStepRelease(step: HTMLLIElement, text: string): void {
+  if (text.startsWith(SHORTCUTS_STEP_RELEASE_EMPHASIS)) {
+    const emphasis = document.createElement("span");
+    emphasis.className = "ec-shortcuts-step-emphasis";
+    emphasis.textContent = SHORTCUTS_STEP_RELEASE_EMPHASIS;
+    step.append(emphasis, document.createTextNode(text.slice(SHORTCUTS_STEP_RELEASE_EMPHASIS.length)));
+    return;
+  }
+  step.textContent = text;
+}
+
+function createShortcutsSectionDivider(): HTMLDivElement {
+  const divider = document.createElement("div");
+  divider.className = "dd-panel-divider ec-shortcuts-divider";
+  divider.setAttribute("aria-hidden", "true");
+  return divider;
 }
 
 function buildShortcutsSteps(strings: Strings): HTMLOListElement {
@@ -62,28 +81,44 @@ function buildShortcutsSteps(strings: Strings): HTMLOListElement {
   step1.append(pressGrid);
 
   const step2 = document.createElement("li");
-  step2.textContent = strings.shortcutsStepRelease;
+  appendShortcutsStepRelease(step2, strings.shortcutsStepRelease);
 
   const step3 = document.createElement("li");
   step3.append(
     document.createTextNode(`${strings.shortcutsStepThenPress} `),
-    createKbd(PREFIX_ACTION_KEY.toUpperCase()),
+    createKbd("D"),
   );
 
   steps.append(step1, step2, step3);
   return steps;
 }
 
-function createAboutCopyright(strings: Strings): HTMLAnchorElement {
-  const credit = document.createElement("a");
+function createAboutCredit(strings: Strings): HTMLDivElement {
+  const credit = document.createElement("div");
   credit.className = "ec-about-credit";
-  credit.href = PANEL_FOOTER_LINKEDIN_URL;
-  credit.target = "_blank";
-  credit.rel = "noopener noreferrer";
-  credit.textContent = strings.aboutCopyright;
-  credit.addEventListener("click", (e: MouseEvent) => {
+
+  const divider = document.createElement("div");
+  divider.className = "dd-panel-divider ec-about-credit-divider";
+  divider.setAttribute("aria-hidden", "true");
+
+  const productLine = document.createElement("p");
+  productLine.className = "ec-about-credit-line";
+  productLine.textContent = strings.aboutProductName;
+
+  const copyrightLine = document.createElement("p");
+  copyrightLine.className = "ec-about-credit-line";
+
+  const link = document.createElement("a");
+  link.href = PANEL_FOOTER_LINKEDIN_URL;
+  link.target = "_blank";
+  link.rel = "noopener noreferrer";
+  link.textContent = strings.aboutCreditAuthor;
+  link.addEventListener("click", (e: MouseEvent) => {
     e.stopPropagation();
   });
+
+  copyrightLine.append("© ", link);
+  credit.append(divider, productLine, copyrightLine);
   return credit;
 }
 
@@ -162,7 +197,7 @@ export function buildAboutPanelBody(body: HTMLDivElement, strings: Strings): voi
     list.appendChild(li);
   }
 
-  page.append(title, createPageDivider(), list, createAboutCopyright(strings));
+  page.append(title, createPageDivider(), list, createAboutCredit(strings));
   body.append(page);
 }
 
@@ -180,15 +215,11 @@ export function buildShortcutsPanelBody(body: HTMLDivElement, strings: Strings):
   runStopHeading.className = "ec-shortcuts-heading";
   runStopHeading.textContent = strings.shortcutsRunStopHeading;
 
-  const stopHeading = document.createElement("p");
-  stopHeading.className = "ec-shortcuts-heading";
-  stopHeading.append(
-    document.createTextNode(`${strings.shortcutsStopHeading} `),
-    createKbd("Esc"),
-  );
-
-  const divider = document.createElement("div");
-  divider.className = "dd-panel-divider ec-shortcuts-divider";
+  const stopLine = document.createElement("p");
+  stopLine.className = "ec-shortcuts-stop";
+  const stopLabel = document.createElement("strong");
+  stopLabel.textContent = strings.shortcutsStopHeading;
+  stopLine.append(stopLabel, " ", createKbd("Esc"));
 
   const safetyLine1 = document.createElement("p");
   safetyLine1.className = "ec-shortcuts-note";
@@ -203,10 +234,11 @@ export function buildShortcutsPanelBody(body: HTMLDivElement, strings: Strings):
     createPageDivider(),
     runStopHeading,
     buildShortcutsSteps(strings),
-    stopHeading,
-    divider,
     safetyLine1,
     safetyLine2,
+    createShortcutsSectionDivider(),
+    stopLine,
+    createShortcutsSectionDivider(),
   );
   body.append(page);
 }

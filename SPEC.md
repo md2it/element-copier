@@ -177,23 +177,26 @@ U = user, E = extension
 - *SHORTCUTS*
    - To run / stop the extension: // bold line
       - 1. Press:  `Ctrl+Shift+X`
-           On Mac: `Cmd+Shift+X`
-      - 2. Release the keys
-      - 3. Then press `C`
-   - To stop: `Esc` // bold line
+         On Mac: `Cmd+Shift+X`
+      - 2. Release the keys // "Release" semi-bold
+      - 3. Then press `D`
+      - <небольшой отступ>
+      - "The 3-step shortcut is not obvious." // серый
+      - "But it is safer and avoids conflicts with other apps." // серый
    - <разделительная черта>
-   - The 3-step shortcut is not obvious.
-   - But it is safer and avoids conflicts with other apps.
+   - To stop: `Esc` // "To stop:" bold, `Esc` monospace
+   - <разделительная черта>
 - *ABOUT*
    - <circle-power> On/Off with one click
    - <keyboard> On/Off with shortcuts
    - <files> Copy to clipboard
    - <shield-check> Doesn't use the network
    - <shield-check> Doesn't collect data
-   - Внизу по центру подпись
-      - "Element-Deleter © Alex T"
-      - Всё серое, одного цвета
-      - Подстрока "Alex T" = ссылка на https://www.linkedin.com/in/alex-terekhov/ , underline
+   - Минифутер внизу:
+      - <разделительная черта>
+      - "Element-Copier"
+      - "© Alex T" // "Alex T" = ссылка на https://www.linkedin.com/in/alex-terekhov/ , underline
+      - Текст, включая ссылку серый, центрирован
 - *COPIED*
    - "Copied!". Крупный, зелёный, центрованный
    - "Saved to your clipboard". Просто центрованный, обычный

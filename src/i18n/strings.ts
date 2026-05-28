@@ -36,7 +36,8 @@ const MESSAGES: Record<Locale, Strings> = {
       "Doesn't use the network",
       "Doesn't collect data",
     ],
-    aboutCopyright: "© Alex T",
+    aboutProductName: "Element-Copier",
+    aboutCreditAuthor: "Alex T",
   },
 };
 
