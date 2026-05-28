@@ -209,21 +209,63 @@ U = user, E = extension
 
 ---
 
-## НЕ ОБРАЩАТЬ ВНИМАНИЯ, НИЖЕ ЧЕРНОВИК
+## ЧЕРНОВИК
 
+### Different
 - Save whole page
 - History
-- Clipboard
-- Word
-- PDF
-- JPG
-- PNG
-- markdown
-- element
-- outerHTML
-- selector
-- JS path
-- styles
-- XPath
-- full XPath
 - meta: weight, symbols, history
+
+### Raw data about the DOM element
+> При необходимости, можно посмотреть как реализован аналог https://github.com/viren-vii/quick-dom , мы должны сделать не хуже
+- 🟢 element = outerHTML -- content script в том же frame, без доп. permissions; `element.outerHTML`
+- 🟡 selector -- content script в том же frame, без доп. permissions; в DOM не хранится, генерируется
+  - обход вверх по `parentElement`, сборка `#id` / `[attr]` / `tag:nth-of-type`, проверка `querySelectorAll(sel).length === 1`
+  - библиотека-генератор уникального CSS-селектора
+- 🟡 JS path -- content script в том же frame, без доп. permissions; в DOM не хранится, собирается строкой
+  - `document.querySelector(...)` после готового селектора
+  - цепочка `document.body.children[i].…` по индексам среди siblings
+- 🟢🟡🔴 styles -- content script в том же frame, без доп. permissions
+  - 🟢 inline: `element.style`, `getAttribute('style')`
+  - 🟡 computed (итоговый вид): `getComputedStyle(element)`; псевдоэлементы — второй аргумент `'::before'` / `'::after'`
+  - 🔴 matched rules с текстом из cross-origin stylesheet — браузер ограничивает доступ к правилам
+- 🟡 XPath -- content script в том же frame, без доп. permissions; в DOM не хранится
+  - генерация от якоря (`@id`, стабильный `@data-*`) или `tag[n]` среди siblings
+  - проверка: `document.evaluate(xpath, context, null, FIRST_ORDERED_NODE_TYPE, null).singleNodeValue === element`
+- 🟡 full XPath -- content script в том же frame, без доп. permissions; абсолютный путь от `/html`
+  - от `document.documentElement` вниз: `/html/body/div[2]/span[1]` по позициям среди одноимённых siblings
+  - та же `document.evaluate` для проверки
+
+### Convert to file from the DOM element
+> [!TASK-2]
+> Каждую строку отформатировать:
+> `- 🟢🟡🔴 str -- requred permissions, possible solutions`
+> Если вариантов "possible solutions" много, то подпунктами
+- 🟢🟡 Word / Google-words formated text
+  - 🟢 html-to-docx
+  - 🟡 outerHTML → Clipboard API (`text/html`) — вставка в Word и Google Docs без файла
+- 🟢 markdown formated text
+  - Turndown
+  - node-html-markdown
+
+### Generate and save files from DOM element
+> [!TASK-3]
+> Каждую строку отформатировать:
+> `- 🟢🟡🔴 str -- requred permissions, possible solutions`
+> Если вариантов "possible solutions" много, то подпунктами
+- 🟢 Word
+  - html-to-docx
+  - файл: `Blob` → `URL.createObjectURL` → `<a download>` в content script
+- 🟢 markdown
+  - Turndown
+  - файл: `Blob` (`text/markdown`) → тот же download в content script
+- 🟢🟡 PDF
+  - 🟢 html2pdf.js, jsPDF + html2canvas
+  - 🟡 файл: `Blob` (`application/pdf`) → download в content script; слабая поддержка сложного CSS
+  - 🟡 рендер из service worker — offscreen document или message в content script
+- 🟢 JPG
+  - html2canvas, modern-screenshot
+  - файл: `canvas.toBlob('image/jpeg')` → download в content script
+- 🟢 PNG
+  - html2canvas, modern-screenshot
+  - файл: `canvas.toBlob('image/png')` → download в content script
