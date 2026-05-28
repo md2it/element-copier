@@ -16,6 +16,7 @@ import {
   registerPrefixHintBadgeListeners,
   registerPrefixHintOperabilityListeners,
 } from "../../lib/src/hotkeys";
+import { createBadgeTextColorAnimation } from "../../lib/src/badge/text-color-animation";
 import type { BgToContent, ContentActivationResponse, ContentToBg } from "./messages";
 import {
   canOperateOnTab,
@@ -67,8 +68,20 @@ const BADGE_COPIED_BACKGROUND_COLOR = "#008000";
 const BADGE_BLOCKED_BACKGROUND_COLOR = "#d3d3d3";
 const BADGE_BLOCKED_TEXT_COLOR = "#4a4a4a";
 const BADGE_SELECTION_TEXT = "◉";
+const BADGE_SELECTION_TEXT_COLOR_WHITE: readonly [number, number, number] = [255, 255, 255];
+const BADGE_SELECTION_TEXT_COLOR_BLUE: readonly [number, number, number] = [1, 34, 146];
 const BADGE_COPIED_TEXT = "✓";
 const BADGE_BLOCKED_TEXT = "✕";
+const BADGE_SELECTION_ANIMATION_STEPS = 40;
+const BADGE_SELECTION_ANIMATION_STEP_MS = 25;
+
+const selectionBadgeTextAnimation = createBadgeTextColorAnimation({
+  startColor: BADGE_SELECTION_TEXT_COLOR_WHITE,
+  endColor: BADGE_SELECTION_TEXT_COLOR_BLUE,
+  steps: BADGE_SELECTION_ANIMATION_STEPS,
+  stepIntervalMs: BADGE_SELECTION_ANIMATION_STEP_MS,
+  mode: "ping-pong",
+});
 
 /**
  * Badge state priority (lib/PROJECTS.md):
@@ -82,6 +95,8 @@ const tabBlockedBadge = new Map<number, boolean>();
 const tabPrefixBadgeShown = new Map<number, boolean>();
 const tabCopiedBadge = new Map<number, boolean>();
 const blockedBadgeClearTimers = new Map<number, ReturnType<typeof setTimeout>>();
+const selectionBadgeAnimationIntervals = new Map<number, ReturnType<typeof setInterval>>();
+const selectionBadgeAnimationFrame = new Map<number, number>();
 
 function clearBlockedBadgeTimer(tabId: number): void {
   const timer = blockedBadgeClearTimers.get(tabId);
@@ -93,6 +108,35 @@ function clearBlockedBadgeTimer(tabId: number): void {
 function clearBlockedBadgeState(tabId: number): void {
   clearBlockedBadgeTimer(tabId);
   tabBlockedBadge.set(tabId, false);
+}
+
+function clearSelectionBadgeAnimation(tabId: number): void {
+  const interval = selectionBadgeAnimationIntervals.get(tabId);
+  if (interval !== undefined) {
+    clearInterval(interval);
+    selectionBadgeAnimationIntervals.delete(tabId);
+  }
+  selectionBadgeAnimationFrame.delete(tabId);
+}
+
+function ensureSelectionBadgeAnimation(tabId: number): void {
+  if (selectionBadgeAnimationIntervals.has(tabId)) return;
+  selectionBadgeAnimationFrame.set(tabId, 0);
+  selectionBadgeAnimationIntervals.set(
+    tabId,
+    setInterval(() => {
+      if (!getTabActiveState(tabId)) {
+        clearSelectionBadgeAnimation(tabId);
+        return;
+      }
+      const currentFrame = selectionBadgeAnimationFrame.get(tabId) ?? 0;
+      selectionBadgeAnimationFrame.set(
+        tabId,
+        selectionBadgeTextAnimation.nextFrame(currentFrame),
+      );
+      void syncToolbarBadge(tabId);
+    }, selectionBadgeTextAnimation.stepIntervalMs),
+  );
 }
 
 function onBlockedNoticeDismissed(tabId: number): void {
@@ -150,9 +194,13 @@ async function setToolbarBadge(
 }
 
 async function syncToolbarBadge(tabId: number): Promise<void> {
-  if (tabPrefixBadgeShown.get(tabId)) return;
+  if (tabPrefixBadgeShown.get(tabId)) {
+    clearSelectionBadgeAnimation(tabId);
+    return;
+  }
 
   if (tabBlockedBadge.get(tabId)) {
+    clearSelectionBadgeAnimation(tabId);
     await setToolbarBadge(
       tabId,
       BADGE_BLOCKED_TEXT,
@@ -163,15 +211,24 @@ async function syncToolbarBadge(tabId: number): Promise<void> {
   }
 
   if (getTabActiveState(tabId)) {
-    await setToolbarBadge(tabId, BADGE_SELECTION_TEXT, BADGE_SELECTION_BACKGROUND_COLOR);
+    ensureSelectionBadgeAnimation(tabId);
+    const frame = selectionBadgeAnimationFrame.get(tabId) ?? 0;
+    await setToolbarBadge(
+      tabId,
+      BADGE_SELECTION_TEXT,
+      BADGE_SELECTION_BACKGROUND_COLOR,
+      selectionBadgeTextAnimation.getColor(frame),
+    );
     return;
   }
 
   if (tabCopiedBadge.get(tabId)) {
+    clearSelectionBadgeAnimation(tabId);
     await setToolbarBadge(tabId, BADGE_COPIED_TEXT, BADGE_COPIED_BACKGROUND_COLOR);
     return;
   }
 
+  clearSelectionBadgeAnimation(tabId);
   await setToolbarBadge(tabId, "");
 }
 
@@ -480,6 +537,7 @@ ext.runtime.onMessage.addListener(
 
 ext.tabs.onRemoved.addListener((tabId) => {
   clearBlockedBadgeTimer(tabId);
+  clearSelectionBadgeAnimation(tabId);
   tabBlockedBadge.delete(tabId);
   tabPrefixBadgeShown.delete(tabId);
   tabCopiedBadge.delete(tabId);
