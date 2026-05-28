@@ -7,6 +7,7 @@ import {
   type PanelPopupTab,
 } from "./constants";
 import { fitActionPopupToHost } from "./fit-popup-height";
+import { notifyPanelClosed } from "./lifecycle";
 import { CopierPanelWindow } from "./window";
 
 export type PanelMountSurface = {
@@ -38,6 +39,13 @@ export async function mountPanelSurface(
   });
 
   panelWindow.openPanel(initialTab);
+  window.addEventListener(
+    "pagehide",
+    () => {
+      notifyPanelClosed();
+    },
+    { once: true },
+  );
   if (surface === "popup") {
     fitActionPopupToHost(host, locale);
   }

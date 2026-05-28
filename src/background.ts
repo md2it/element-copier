@@ -64,8 +64,9 @@ const BADGE_PREFIX_BACKGROUND_COLOR = "#ffffff";
 const BADGE_PREFIX_TEXT_COLOR = COPIER_ACTIVE_COLOR;
 const BADGE_SELECTION_BACKGROUND_COLOR = COPIER_ACTIVE_COLOR;
 const BADGE_COPIED_BACKGROUND_COLOR = "#008000";
-const BADGE_BLOCKED_BACKGROUND_COLOR = "#ff0000";
-const BADGE_SELECTION_TEXT = "⌖";
+const BADGE_BLOCKED_BACKGROUND_COLOR = "#d3d3d3";
+const BADGE_BLOCKED_TEXT_COLOR = "#4a4a4a";
+const BADGE_SELECTION_TEXT = "◉";
 const BADGE_COPIED_TEXT = "✓";
 const BADGE_BLOCKED_TEXT = "✕";
 
@@ -152,7 +153,12 @@ async function syncToolbarBadge(tabId: number): Promise<void> {
   if (tabPrefixBadgeShown.get(tabId)) return;
 
   if (tabBlockedBadge.get(tabId)) {
-    await setToolbarBadge(tabId, BADGE_BLOCKED_TEXT, BADGE_BLOCKED_BACKGROUND_COLOR);
+    await setToolbarBadge(
+      tabId,
+      BADGE_BLOCKED_TEXT,
+      BADGE_BLOCKED_BACKGROUND_COLOR,
+      BADGE_BLOCKED_TEXT_COLOR,
+    );
     return;
   }
 
