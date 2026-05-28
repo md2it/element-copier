@@ -269,3 +269,14 @@ U = user, E = extension
 - 🟢 PNG
   - html2canvas, modern-screenshot
   - файл: `canvas.toBlob('image/png')` → download в content script
+
+### Инструменты и лицензии и размер кода Kb
+> Размер: min bundle (esbuild), кроме html-to-docx — `dist/html-to-docx.esm.js` из npm
+- html-to-docx -- MIT -- 703 Kb
+- Turndown -- MIT -- 11 Kb
+- node-html-markdown -- MIT -- 265 Kb
+- html2pdf.js -- MIT -- 967 Kb
+- jsPDF -- MIT -- 795 Kb
+- html2canvas -- MIT -- 200 Kb
+- modern-screenshot -- MIT -- 24 Kb
+
