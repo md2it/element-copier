@@ -9,12 +9,17 @@ import {
   buildCopiedPanelBody,
   buildLanguagePanelBody,
   buildPlaceholderPanelBody,
+  buildSettingsPanelBody,
   buildStartPanelBody,
   buildShortcutsPanelBody,
   PANEL_BODY_CENTERED_CLASS,
 } from "./panel-body";
 import type { PanelMenuHandle } from "./panel-menu";
-import { notifyPanelClosed, notifyPanelTabChanged } from "./lifecycle";
+import {
+  notifyPanelClosed,
+  notifyPanelTabChanged,
+  notifyStartPickMode,
+} from "./lifecycle";
 
 export type CopierPanelHost = {
   shadow: ShadowRoot;
@@ -91,12 +96,19 @@ export class CopierPanelWindow {
 
     switch (tab) {
       case "start":
-        buildStartPanelBody(this.body, strings);
+        buildStartPanelBody(this.body, strings, {
+          onStart: () => {
+            notifyStartPickMode();
+            this.close();
+          },
+        });
         break;
       case "copied":
         buildCopiedPanelBody(this.body, strings);
         break;
       case "settings":
+        buildSettingsPanelBody(this.body, strings);
+        break;
       case "history":
         buildPlaceholderPanelBody(this.body, tab, strings);
         break;

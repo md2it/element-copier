@@ -6,8 +6,8 @@ export type Strings = {
   restrictedPageNotice: string;
   panelSubtitle: string;
   titleSettings: string;
-  startBodyLead: string;
-  startBodyAction: string;
+  startButtonLabel: string;
+  skipStartPageToggleLabel: string;
   copiedTitle: string;
   copiedSubtitle: string;
   pageSavedTitle: string;

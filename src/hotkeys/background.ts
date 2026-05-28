@@ -16,7 +16,12 @@ export function shouldSuppressToolbarClickAfterHotkeyCommand(
 
 export type BackgroundHotkeysHost = {
   getActiveCommandTab: () => Promise<chrome.tabs.Tab | undefined>;
-  toggleTab: (tabId: number, windowId?: number, tabUrl?: string) => Promise<void>;
+  toggleTab: (
+    tabId: number,
+    windowId?: number,
+    tabUrl?: string,
+    source?: "toolbar" | "hotkey",
+  ) => Promise<void>;
 };
 
 /** Content prefix chord + `TOGGLE_REQUEST` after action letter (no manifest suggested_key). */
@@ -26,7 +31,8 @@ export function registerBackgroundHotkeys(host: BackgroundHotkeysHost): void {
     getActiveCommandTab: host.getActiveCommandTab,
     isToggleEnabled: getStartHotkeyEnabled,
     toggleRequestMessageType: "TOGGLE_REQUEST",
-    onToggleRequest: (tabId, windowId) => host.toggleTab(tabId, windowId),
+    onToggleRequest: (tabId, windowId) =>
+      host.toggleTab(tabId, windowId, undefined, "hotkey"),
     suppress: toggleCommandSuppress,
   });
 }

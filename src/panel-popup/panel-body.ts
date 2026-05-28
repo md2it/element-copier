@@ -5,10 +5,27 @@ import {
   ABOUT_PREFIX_CHORD_MAC_DISPLAY,
   ABOUT_PREFIX_CHORD_WIN_DISPLAY,
 } from "../hotkeys/keys";
+import { getSkipStartPage, setSkipStartPage } from "../settings/skip-start-page";
+import { createToggleRow } from "./toggle-row";
 
 export const PANEL_BODY_CENTERED_CLASS = "ec-panel-body--centered";
 
-export type PlaceholderPanelTab = "settings" | "history";
+export type PlaceholderPanelTab = "history";
+
+export type StartPanelActions = {
+  onStart: () => void;
+};
+
+function appendSkipStartToggle(page: HTMLElement, strings: Strings): void {
+  void (async () => {
+    const enabled = await getSkipStartPage();
+    const row = createToggleRow(strings.skipStartPageToggleLabel, enabled, (next) => {
+      void setSkipStartPage(next);
+    });
+    row.classList.add("ec-skip-start-toggle");
+    page.append(row);
+  })();
+}
 
 function createPageDivider(): HTMLDivElement {
   const divider = document.createElement("div");
@@ -122,7 +139,11 @@ function createAboutCredit(strings: Strings): HTMLDivElement {
   return credit;
 }
 
-export function buildStartPanelBody(body: HTMLDivElement, strings: Strings): void {
+export function buildStartPanelBody(
+  body: HTMLDivElement,
+  strings: Strings,
+  actions: StartPanelActions,
+): void {
   body.replaceChildren();
 
   const page = document.createElement("div");
@@ -132,19 +153,35 @@ export function buildStartPanelBody(body: HTMLDivElement, strings: Strings): voi
   title.className = "ec-panel-page-title";
   title.textContent = strings.titleSettings.toUpperCase();
 
-  const instruction = document.createElement("div");
-  instruction.className = "ec-start-instruction";
+  const center = document.createElement("div");
+  center.className = "ec-start-center";
 
-  const lead = document.createElement("p");
-  lead.className = "ec-start-instruction-lead";
-  lead.textContent = strings.startBodyLead;
+  const startBtn = document.createElement("button");
+  startBtn.type = "button";
+  startBtn.className = "ec-start-btn";
+  startBtn.textContent = strings.startButtonLabel;
+  startBtn.addEventListener("click", () => {
+    actions.onStart();
+  });
 
-  const action = document.createElement("p");
-  action.className = "ec-start-instruction-action";
-  action.textContent = strings.startBodyAction;
+  center.append(startBtn);
+  page.append(title, createPageDivider(), center);
+  appendSkipStartToggle(page, strings);
+  body.append(page);
+}
 
-  instruction.append(lead, action);
-  page.append(title, createPageDivider(), instruction);
+export function buildSettingsPanelBody(body: HTMLDivElement, strings: Strings): void {
+  body.replaceChildren();
+
+  const page = document.createElement("div");
+  page.className = "ec-panel-page ec-panel-page--settings";
+
+  const title = document.createElement("h2");
+  title.className = "ec-panel-page-title";
+  title.textContent = strings.pageSettingsTitle;
+
+  page.append(title, createPageDivider());
+  appendSkipStartToggle(page, strings);
   body.append(page);
 }
 
@@ -160,8 +197,7 @@ export function buildPlaceholderPanelBody(
 
   const title = document.createElement("h2");
   title.className = "ec-panel-page-title";
-  title.textContent =
-    tab === "settings" ? strings.pageSettingsTitle : strings.pageHistoryTitle;
+  title.textContent = strings.pageHistoryTitle;
 
   const text = document.createElement("p");
   text.className = "ec-panel-page-text";

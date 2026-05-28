@@ -8,6 +8,7 @@ export type ContentToBg =
   | { type: "OPEN_PANEL"; tab: "start" | "copied" }
   | { type: "PANEL_TAB_CHANGED"; tab: PanelPopupTab }
   | { type: "PANEL_CLOSED" }
+  | { type: "REQUEST_START_PICK_MODE" }
   | { type: "WATCH_PIN_STATUS" }
   | { type: "TOGGLE_REQUEST" }
   | {
@@ -29,4 +30,6 @@ export const LOCALE_DETECT_VERSION_KEY = "localeDetectVersion";
 export const LOCALE_DETECT_VERSION = 1;
 export const START_HOTKEY_ENABLED_KEY = "startHotkeyEnabled";
 export const ESC_HOTKEY_ENABLED_KEY = "escHotkeyEnabled";
+/** Default off — pick mode starts from START button unless enabled. */
+export const SKIP_START_PAGE_KEY = "skipStartPage";
 export const DEFAULT_NOTIFICATION_SECONDS = 4;

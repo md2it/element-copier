@@ -7,6 +7,7 @@ import {
   buildAboutPanelBody,
   buildCopiedPanelBody,
   buildPlaceholderPanelBody,
+  buildSettingsPanelBody,
   buildStartPanelBody,
   buildShortcutsPanelBody,
   PANEL_BODY_CENTERED_CLASS,
@@ -41,12 +42,14 @@ function fillPanelTabBody(body: HTMLDivElement, tab: PanelPopupTab, strings: Ret
 
   switch (tab) {
     case "start":
-      buildStartPanelBody(body, strings);
+      buildStartPanelBody(body, strings, { onStart: () => {} });
       break;
     case "copied":
       buildCopiedPanelBody(body, strings);
       break;
     case "settings":
+      buildSettingsPanelBody(body, strings);
+      break;
     case "history":
       buildPlaceholderPanelBody(body, tab, strings);
       break;

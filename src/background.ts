@@ -36,8 +36,11 @@ import {
 import { readPanelTargetTabId } from "./panel-popup/panel-target-tab";
 import { isRtlLocale, t, type Locale } from "./i18n";
 import type { Strings } from "./i18n/types";
+import { getSkipStartPage } from "./settings/skip-start-page";
 import { ensureLocaleInStorage, getLocale } from "./storage";
 import { showWelcome, stopWelcomePinWatcher, watchWelcomePinStatus } from "./welcome";
+
+type ToggleSource = "toolbar" | "hotkey";
 
 const TOGGLE_DEBOUNCE_MS = 80;
 /** Pick UI runs in the top document only (content_scripts use all_frames). */
@@ -379,39 +382,21 @@ async function resolvePickModeTabId(
   return tab?.id;
 }
 
-function isPickModeMenuTab(
-  tab: PanelPopupTab,
-): tab is "settings" | "history" | "shortcuts" | "language" | "about" {
-  return (
-    tab === "settings" ||
-    tab === "history" ||
-    tab === "shortcuts" ||
-    tab === "language" ||
-    tab === "about"
-  );
-}
-
+/** Pick mode is off while any extension popup panel is open. */
 async function syncPickModeForPanelTab(
-  tab: PanelPopupTab,
+  _tab: PanelPopupTab,
   sender: chrome.runtime.MessageSender,
 ): Promise<void> {
   const tabId = await resolvePickModeTabId(sender);
   if (tabId === undefined) return;
-
-  if (tab === "start") {
-    await activateTab(tabId, sender.tab?.windowId);
-    return;
-  }
-
-  if (isPickModeMenuTab(tab)) {
-    await deactivateTab(tabId, sender.tab?.windowId);
-  }
+  await deactivateTab(tabId, sender.tab?.windowId);
 }
 
 async function toggleTab(
   tabId: number,
   windowId?: number,
   tabUrl?: string,
+  source: ToggleSource = "toolbar",
 ): Promise<void> {
   const now = Date.now();
   if (tabId === lastToggleTabId && now - lastToggleAt < TOGGLE_DEBOUNCE_MS) {
@@ -431,14 +416,25 @@ async function toggleTab(
     return;
   }
 
-  const skipStartPanelForBlockedUrl =
-    tabUrl !== undefined && isLikelyNonOperableTabUrl(tabUrl);
-  if (!skipStartPanelForBlockedUrl) {
-    // Sync before first await — action.openPopup needs the toolbar user gesture.
-    openStartPanelFromToolbar({ id: tabId, windowId } as chrome.tabs.Tab);
+  if (source === "hotkey") {
+    await activateTab(tabId, windowId);
+    return;
   }
 
-  await activateTab(tabId, windowId);
+  if (tabUrl !== undefined && isLikelyNonOperableTabUrl(tabUrl)) {
+    await activateTab(tabId, windowId);
+    return;
+  }
+
+  const skipStartPage = await getSkipStartPage();
+  if (skipStartPage) {
+    await activateTab(tabId, windowId);
+    return;
+  }
+
+  // Sync before first await — action.openPopup needs the toolbar user gesture.
+  openStartPanelFromToolbar({ id: tabId, windowId } as chrome.tabs.Tab);
+  await deactivateTab(tabId, windowId);
 }
 
 function getActiveCommandTab(): Promise<chrome.tabs.Tab | undefined> {
@@ -635,6 +631,13 @@ ext.runtime.onMessage.addListener(
         if (tabId === undefined) return;
         tabCopiedBadge.set(tabId, false);
         await syncToolbarBadge(tabId);
+      })();
+    }
+    if (contentMessage.type === "REQUEST_START_PICK_MODE") {
+      void (async () => {
+        const tabId = await resolvePickModeTabId(sender);
+        if (tabId === undefined) return;
+        await activateTab(tabId, sender.tab?.windowId);
       })();
     }
     if (contentMessage.type === "WATCH_PIN_STATUS" && sender.tab?.id !== undefined) {
