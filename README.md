@@ -1,6 +1,7 @@
 # AGENT
 
 ## Всегда
+- Избегать оверинженеринга!
 - Не коммитить без запроса
 - Сборка после каждой итерации кода
    - Из корня `browser-extensions/`: `cd element-copier && npm run build` → stdout: `build ok`

@@ -1,11 +1,6 @@
 import { createElementCopyCache } from "../../../lib/src/element-copy";
 import { COPY_FORMATS, type CopyFormatId } from "../formats/definitions";
 import type { EnabledFormatsMap } from "../settings/format-settings";
-import { ELEMENT_COPY_INJECTED_CLASS_NAMES } from "../element-copy/injected-classes";
-
-const extractOptions = {
-  injectedClassNames: ELEMENT_COPY_INJECTED_CLASS_NAMES,
-};
 
 const cache = createElementCopyCache();
 
@@ -17,7 +12,7 @@ export function snapshotPickCopyCache(
   const formatIds = COPY_FORMATS.filter((format) => enabledFormats[format.id]).map(
     (format) => format.id,
   );
-  cache.snapshot(element, formatIds, extractOptions);
+  cache.snapshot(element, formatIds);
 }
 
 export function getCachedCopyText(formatId: CopyFormatId): string | undefined {
