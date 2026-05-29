@@ -45,7 +45,7 @@
 - ✅ outerHTML
 - ✅ selector
 - ✅ JS path
-- ✅ declared styles
+- ✅ styles // приближено к тому, что получаем из DevTools
 - ✅ computed styles
 - ✅ XPath
 - ✅ full XPath

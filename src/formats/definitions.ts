@@ -8,7 +8,7 @@ export type CopyFormatId =
   | "selector"
   | "jsPath"
   | "computedStyles"
-  | "declaredStyles"
+  | "styles"
   | "xpath"
   | "fullXPath";
 
@@ -41,8 +41,8 @@ export const COPY_FORMATS: readonly FormatDefinition[] = [
     actionIcon: "copy",
   },
   {
-    id: "declaredStyles",
-    label: (s) => s.formatDeclaredStyles,
+    id: "styles",
+    label: (s) => s.formatStyles,
     actionIcon: "copy",
   },
   {
@@ -61,4 +61,17 @@ export const DEFAULT_CLIPBOARD_FORMAT_ID: CopyFormatId = "outerHTML";
 
 export function isCopyFormatId(value: unknown): value is CopyFormatId {
   return COPY_FORMATS.some((format) => format.id === value);
+}
+
+const LEGACY_COPY_FORMAT_ID_ALIASES: Readonly<Record<string, CopyFormatId>> = {
+  declaredStyles: "styles",
+};
+
+export function normalizeCopyFormatId(value: unknown): CopyFormatId | undefined {
+  if (isCopyFormatId(value)) return value;
+  if (typeof value === "string") {
+    const aliased = LEGACY_COPY_FORMAT_ID_ALIASES[value];
+    if (aliased) return aliased;
+  }
+  return undefined;
 }

@@ -14,7 +14,7 @@ export type Strings = {
   formatSelector: string;
   formatJsPath: string;
   formatComputedStyles: string;
-  formatDeclaredStyles: string;
+  formatStyles: string;
   formatXPath: string;
   formatFullXPath: string;
   copiedTitle: string;

@@ -2,7 +2,7 @@ import { ext } from "../api";
 import {
   COPY_FORMATS,
   DEFAULT_CLIPBOARD_FORMAT_ID,
-  isCopyFormatId,
+  normalizeCopyFormatId,
   type CopyFormatId,
 } from "../formats/definitions";
 import {
@@ -27,11 +27,16 @@ export async function getEnabledFormats(): Promise<EnabledFormatsMap> {
     return defaults;
   }
 
-  const stored = raw as Partial<Record<CopyFormatId, unknown>>;
+  const stored = raw as Partial<Record<string, unknown>>;
   for (const format of COPY_FORMATS) {
-    if (typeof stored[format.id] === "boolean") {
-      defaults[format.id] = stored[format.id]!;
+    const enabled = stored[format.id];
+    if (typeof enabled === "boolean") {
+      defaults[format.id] = enabled;
     }
+  }
+
+  if (typeof stored.declaredStyles === "boolean" && typeof stored.styles !== "boolean") {
+    defaults.styles = stored.declaredStyles;
   }
 
   return defaults;
@@ -49,7 +54,7 @@ export async function setFormatEnabled(
 export async function getClipboardDefaultFormat(): Promise<CopyFormatId> {
   const data = await ext.storage.local.get(CLIPBOARD_DEFAULT_FORMAT_KEY);
   const raw = data[CLIPBOARD_DEFAULT_FORMAT_KEY];
-  return isCopyFormatId(raw) ? raw : DEFAULT_CLIPBOARD_FORMAT_ID;
+  return normalizeCopyFormatId(raw) ?? DEFAULT_CLIPBOARD_FORMAT_ID;
 }
 
 export async function setClipboardDefaultFormat(formatId: CopyFormatId): Promise<void> {

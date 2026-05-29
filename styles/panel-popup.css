@@ -337,6 +337,10 @@
   padding-top: 0.75rem;
 }
 
+.ec-panel-page--start .ec-skip-start-toggle {
+  justify-content: center;
+}
+
 .ec-panel-page--settings {
   display: flex;
   flex-direction: column;

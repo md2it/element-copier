@@ -14,7 +14,7 @@ const MESSAGES: Record<Locale, Strings> = {
     formatSelector: "selector",
     formatJsPath: "JS path",
     formatComputedStyles: "computed styles",
-    formatDeclaredStyles: "declared styles",
+    formatStyles: "styles",
     formatXPath: "XPath",
     formatFullXPath: "full XPath",
     copiedTitle: "Copied!",
