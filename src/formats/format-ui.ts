@@ -55,13 +55,22 @@ function createFormatChip(
   return chip;
 }
 
-export async function createFormatChipList(strings: Strings): Promise<HTMLElement> {
+export async function createCopiedPageOptionsSection(strings: Strings): Promise<HTMLElement> {
   const enabled = await getEnabledFormats();
+
+  const section = document.createElement("div");
+  section.className = "ec-settings-copied-options";
+
+  const headingId = "ec-settings-copied-options-label";
+  const heading = document.createElement("p");
+  heading.id = headingId;
+  heading.className = "ec-settings-copied-options-label";
+  heading.textContent = strings.settingsFormatsGroupLabel;
 
   const list = document.createElement("div");
   list.className = "ec-format-chip-list";
   list.setAttribute("role", "group");
-  list.setAttribute("aria-label", strings.settingsFormatsGroupLabel);
+  list.setAttribute("aria-labelledby", headingId);
 
   for (const format of COPY_FORMATS) {
     list.append(
@@ -72,7 +81,8 @@ export async function createFormatChipList(strings: Strings): Promise<HTMLElemen
     );
   }
 
-  return list;
+  section.append(heading, list);
+  return section;
 }
 
 export async function createClipboardDefaultFormatSelect(strings: Strings): Promise<HTMLElement> {

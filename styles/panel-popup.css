@@ -385,12 +385,31 @@
   outline-offset: 1px;
 }
 
+.ec-settings-copied-options {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  width: 100%;
+  margin-top: 0.85rem;
+}
+
+.ec-settings-copied-options-label {
+  margin: 0;
+  font-size: 0.8rem;
+  font-weight: 600;
+  line-height: 1.2;
+  color: #1f2937;
+}
+
+.ec-panel-page--settings .ec-panel-page-divider {
+  margin-top: 0.85rem;
+}
+
 .ec-format-chip-list {
   display: flex;
   flex-wrap: wrap;
   gap: 0.4rem;
   width: 100%;
-  margin-top: 0.85rem;
 }
 
 .ec-format-chip {

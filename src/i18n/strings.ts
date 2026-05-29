@@ -9,7 +9,7 @@ const MESSAGES: Record<Locale, Strings> = {
     startButtonLabel: "START",
     skipStartPageToggleLabel: "Skip START page",
     settingsClipboardDefaultFormatLabel: "Clipboard default format",
-    settingsFormatsGroupLabel: "Enabled formats",
+    settingsFormatsGroupLabel: "COPIED page options",
     formatOuterHtml: "outerHTML",
     formatSelector: "selector",
     formatJsPath: "JS path",

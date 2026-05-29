@@ -5,7 +5,7 @@ import {
 import {
   createClipboardDefaultFormatSelect,
   createCopiedOtherOptionsRow,
-  createFormatChipList,
+  createCopiedPageOptionsSection,
 } from "../formats/format-ui";
 import type { Strings } from "../i18n";
 import { PANEL_FOOTER_LINKEDIN_URL } from "../../../lib/src/panel-footer/constants";
@@ -199,12 +199,19 @@ export function buildSettingsPanelBody(body: HTMLDivElement, strings: Strings): 
   body.append(page);
 
   void (async () => {
-    const [clipboardDefaultFormat, formatChips] = await Promise.all([
+    const [clipboardDefaultFormat, copiedPageOptions] = await Promise.all([
       createClipboardDefaultFormatSelect(strings),
-      createFormatChipList(strings),
+      createCopiedPageOptionsSection(strings),
     ]);
-    appendSkipStartToggle(page, strings, clipboardDefaultFormat);
-    page.append(clipboardDefaultFormat, formatChips);
+    const dividerBeforeClipboard = createPageDivider();
+    appendSkipStartToggle(page, strings, dividerBeforeClipboard);
+    page.append(
+      dividerBeforeClipboard,
+      clipboardDefaultFormat,
+      createPageDivider(),
+      copiedPageOptions,
+      createPageDivider(),
+    );
   })();
 }
 

@@ -23,11 +23,13 @@
 - Toggler "Skip START page", default off
 - Выпадающий список "Clipboard default format", позволяет выбрать из имеющихся форматов, что именно сохранять в буфер обмена при копировании
 - Чипсы с названиями форматов:
+   - Заголовок "COPIED page options"
    - Inline
    - Включённые имеют зелёный цвет и жирный чёрный текст
    - Выключенные имеют серый цвет и обычный серый текст
    - Иконки на чипсах аналогичны тем, что пользователь увидит на странице SAVED
    - По умолчанию включены все
+- Между всеми блоками настроек разделительная черта
 
 ## HISTORY
 - Text: "TODO"
@@ -38,7 +40,7 @@
     n Mac: `Cmd+Shift+X`
   - 1. Release the keys // "Release" semi-bold
   - 1. Then press `C`
-  - < небольшой отступ >
+  - [небольшой отступ]
   - "The 3-step shortcut is not obvious." // серый
   - "But it is safer and avoids conflicts with other apps." // серый
 - [разделительная черта]

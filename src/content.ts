@@ -146,6 +146,7 @@ function attachMessageHandler(state: ContentState): void {
     try {
       deactivate();
 
+      await refreshFormatSettingsCache();
       snapshotPickCopyCache(element, getCachedEnabledFormats());
 
       const formatId = getCachedClipboardDefaultFormat();
