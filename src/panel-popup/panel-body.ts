@@ -185,35 +185,34 @@ export function buildStartPanelBody(
   body.append(page);
 }
 
-export function buildSettingsPanelBody(body: HTMLDivElement, strings: Strings): void {
+export async function buildSettingsPanelBody(
+  body: HTMLDivElement,
+  strings: Strings,
+): Promise<void> {
   body.replaceChildren();
 
-  void (async () => {
-    const [clipboardDefaultFormat, copiedPageOptions, skipStartEnabled] = await Promise.all([
-      createClipboardDefaultFormatSelect(strings),
-      createCopiedPageOptionsSection(strings),
-      getSkipStartPage(),
-    ]);
+  const [clipboardDefaultFormat, copiedPageOptions, skipStartEnabled] = await Promise.all([
+    createClipboardDefaultFormatSelect(strings),
+    createCopiedPageOptionsSection(strings),
+    getSkipStartPage(),
+  ]);
 
-    const page = document.createElement("div");
-    page.className = "ec-panel-page ec-panel-page--settings";
+  const page = document.createElement("div");
+  page.className = "ec-panel-page ec-panel-page--settings";
 
-    const title = document.createElement("h2");
-    title.className = "ec-panel-page-title";
-    title.textContent = strings.pageSettingsTitle;
+  const title = document.createElement("h2");
+  title.className = "ec-panel-page-title";
+  title.textContent = strings.pageSettingsTitle;
 
-    page.append(
-      title,
-      createPageDivider(),
-      createSkipStartToggleRow(strings, skipStartEnabled),
-      createPageDivider(),
-      clipboardDefaultFormat,
-      createPageDivider(),
-      copiedPageOptions,
-      createPageDivider(),
-    );
-    body.append(page);
-  })();
+  page.append(
+    title,
+    createPageDivider(),
+    createSkipStartToggleRow(strings, skipStartEnabled),
+    clipboardDefaultFormat,
+    createPageDivider(),
+    copiedPageOptions,
+  );
+  body.append(page);
 }
 
 export function buildPlaceholderPanelBody(
@@ -328,58 +327,56 @@ export type CopiedPanelActions = {
   onOpenSettings?: () => void;
 };
 
-export function buildCopiedPanelBody(
+export async function buildCopiedPanelBody(
   body: HTMLDivElement,
   strings: Strings,
   actions: CopiedPanelActions = {},
-): void {
+): Promise<void> {
   body.replaceChildren();
 
-  void (async () => {
-    const [enabledFormats, lastCopiedFormatId] = await Promise.all([
-      getEnabledFormats(),
-      getLastCopiedFormat(),
-    ]);
+  const [enabledFormats, lastCopiedFormatId] = await Promise.all([
+    getEnabledFormats(),
+    getLastCopiedFormat(),
+  ]);
 
-    const page = document.createElement("div");
-    page.className = "ec-panel-page ec-panel-page--copied";
+  const page = document.createElement("div");
+  page.className = "ec-panel-page ec-panel-page--copied";
 
-    const title = document.createElement("h2");
-    title.className = "ec-copied-title";
-    title.textContent = strings.copiedTitle;
+  const title = document.createElement("h2");
+  title.className = "ec-copied-title";
+  title.textContent = strings.copiedTitle;
 
-    const header = document.createElement("div");
-    header.className = "ec-copied-header";
-    header.append(title);
+  const header = document.createElement("div");
+  header.className = "ec-copied-header";
+  header.append(title);
 
-    if (lastCopiedFormatId !== null) {
-      const savedFormat = COPY_FORMATS.find((format) => format.id === lastCopiedFormatId);
-      if (savedFormat) {
-        const savedMessage = document.createElement("p");
-        savedMessage.className = "ec-copied-saved-message";
-        const [savedMessageBefore, savedMessageAfter] =
-          strings.copiedSavedMessage.split("{format}");
-        const savedFormatName = document.createElement("strong");
-        savedFormatName.textContent = savedFormat.label(strings);
-        if (savedMessageBefore) savedMessage.append(savedMessageBefore);
-        savedMessage.append(savedFormatName);
-        if (savedMessageAfter) savedMessage.append(savedMessageAfter);
-        header.append(savedMessage);
-      }
+  if (lastCopiedFormatId !== null) {
+    const savedFormat = COPY_FORMATS.find((format) => format.id === lastCopiedFormatId);
+    if (savedFormat) {
+      const savedMessage = document.createElement("p");
+      savedMessage.className = "ec-copied-saved-message";
+      const [savedMessageBefore, savedMessageAfter] =
+        strings.copiedSavedMessage.split("{format}");
+      const savedFormatName = document.createElement("strong");
+      savedFormatName.textContent = savedFormat.label(strings);
+      if (savedMessageBefore) savedMessage.append(savedMessageBefore);
+      savedMessage.append(savedFormatName);
+      if (savedMessageAfter) savedMessage.append(savedMessageAfter);
+      header.append(savedMessage);
     }
+  }
 
-    const divider = createPageDivider();
-    divider.classList.add("ec-copied-divider");
+  const divider = createPageDivider();
+  divider.classList.add("ec-copied-divider");
 
-    const otherOptions = createCopiedOtherOptionsRow(strings, {
-      enabledFormats,
-      onCopyFormat: (formatId) => {
-        notifyCopyPickedFormat(formatId);
-      },
-      onOpenSettings: actions.onOpenSettings,
-    });
+  const otherOptions = createCopiedOtherOptionsRow(strings, {
+    enabledFormats,
+    onCopyFormat: (formatId) => {
+      notifyCopyPickedFormat(formatId);
+    },
+    onOpenSettings: actions.onOpenSettings,
+  });
 
-    page.append(header, divider, otherOptions);
-    body.append(page);
-  })();
+  page.append(header, divider, otherOptions);
+  body.append(page);
 }

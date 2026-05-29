@@ -46,9 +46,13 @@ export async function mountPanelSurface(
       window.close();
     },
     getLocale: () => locale,
+    onAfterTabRender:
+      surface === "popup"
+        ? () => fitActionPopupToHost(host, locale)
+        : undefined,
   });
 
-  panelWindow.openPanel(initialTab);
+  await panelWindow.openPanel(initialTab);
   window.addEventListener(
     "blur",
     () => {
@@ -71,7 +75,4 @@ export async function mountPanelSurface(
     },
     { once: true },
   );
-  if (surface === "popup") {
-    fitActionPopupToHost(host, locale);
-  }
 }

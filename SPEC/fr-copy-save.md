@@ -24,7 +24,13 @@
 ## Окно COPIED
 - Эта страница не может быть вызвана из меню
 - Содержит:
-   - Заголовок "Copied!". Крупный, зелёный, центрованный
+   - Заголовок "Copied: WHAT_COPIED"
+      - Крупный, центрованный
+      - Подстрока "Copied:" зелёная
+      - WHAT_COPIED = то, что скопировано в clopboard
+      - Если WHAT_COPIED = nothing, то серая
+      - Если WHAT_COPIED != nothing, то чёрная
+      - При сохранении в clopboard нового значения, WHAT_COPIED меняется соответственно 
    - Текст о том, что уже сделано:
       - Если задан "Copy default", то: "[saved format name] saved to your clipboard", [saved format name] жирным
       - Если "Copy default" не задан, то строки нет

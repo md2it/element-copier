@@ -335,7 +335,10 @@
 .ec-panel-page--start .ec-skip-start-toggle {
   margin-top: auto;
   padding-top: 0.75rem;
-  justify-content: center;
+  align-self: center;
+  width: auto;
+  justify-content: flex-start;
+  gap: 0.5rem;
 }
 
 .ec-panel-page--settings {
@@ -346,6 +349,8 @@
 
 .ec-panel-page--settings .ec-skip-start-toggle {
   margin-top: 0.85rem;
+  width: 100%;
+  justify-content: space-between;
 }
 
 .ec-copy-default-row {
@@ -599,9 +604,7 @@
 .ec-toggle-row {
   display: flex;
   align-items: center;
-  justify-content: flex-start;
   gap: 0.75rem;
-  width: 100%;
 }
 
 .ec-toggle-label {

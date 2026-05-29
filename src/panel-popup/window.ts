@@ -26,6 +26,7 @@ export type CopierPanelHost = {
   surface?: "popup";
   onClose?: () => void;
   getLocale: () => Locale;
+  onAfterTabRender?: () => void | Promise<void>;
 };
 
 function isMenuTab(tab: PanelPopupTab): tab is PanelMenuTab {
@@ -40,7 +41,7 @@ export class CopierPanelWindow {
 
   constructor(private readonly host: CopierPanelHost) {}
 
-  openPanel(tab: PanelPopupTab): void {
+  async openPanel(tab: PanelPopupTab): Promise<void> {
     this.close();
 
     const locale = this.host.getLocale();
@@ -51,19 +52,19 @@ export class CopierPanelWindow {
     this.menu = menu;
 
     if (menu) {
-      menu.onSelect = (nextTab) => this.showTab(nextTab);
+      menu.onSelect = (nextTab) => {
+        void this.showTab(nextTab);
+      };
     }
 
-    this.renderTab(tab);
-    this.syncPickModeForTab(tab);
     this.host.shadow.appendChild(panelRoot);
+    await this.renderTab(tab);
     this.dismissHandle = bindDismissOnLeave(panelRoot, () => this.close());
   }
 
-  showTab(tab: PanelPopupTab): void {
+  async showTab(tab: PanelPopupTab): Promise<void> {
     if (!this.body || !this.panelRoot) return;
-    this.renderTab(tab);
-    this.syncPickModeForTab(tab);
+    await this.renderTab(tab);
   }
 
   close(): void {
@@ -86,7 +87,7 @@ export class CopierPanelWindow {
     notifyPanelTabChanged(tab);
   }
 
-  private renderTab(tab: PanelPopupTab): void {
+  private async renderTab(tab: PanelPopupTab): Promise<void> {
     if (!this.body) return;
 
     const strings = t(this.host.getLocale());
@@ -104,12 +105,14 @@ export class CopierPanelWindow {
         });
         break;
       case "copied":
-        buildCopiedPanelBody(this.body, strings, {
-          onOpenSettings: () => this.showTab("settings"),
+        await buildCopiedPanelBody(this.body, strings, {
+          onOpenSettings: () => {
+            void this.showTab("settings");
+          },
         });
         break;
       case "settings":
-        buildSettingsPanelBody(this.body, strings);
+        await buildSettingsPanelBody(this.body, strings);
         break;
       case "history":
         buildPlaceholderPanelBody(this.body, tab, strings);
@@ -128,5 +131,8 @@ export class CopierPanelWindow {
     if (this.menu) {
       this.menu.setActive(isMenuTab(tab) ? tab : null);
     }
+
+    this.syncPickModeForTab(tab);
+    await this.host.onAfterTabRender?.();
   }
 }

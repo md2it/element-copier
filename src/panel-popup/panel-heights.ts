@@ -6,6 +6,7 @@ import { PANEL_POPUP_TABS } from "./constants";
 import {
   buildAboutPanelBody,
   buildCopiedPanelBody,
+  buildLanguagePanelBody,
   buildPlaceholderPanelBody,
   buildSettingsPanelBody,
   buildStartPanelBody,
@@ -15,10 +16,10 @@ import {
 
 let cachedMaxPopupHeightPx: number | null = null;
 
-function measurePanelBodyHeight(
+async function measurePanelBodyHeight(
   locale: Locale,
-  fillBody: (body: HTMLDivElement) => void,
-): number {
+  fillBody: (body: HTMLDivElement) => void | Promise<void>,
+): Promise<number> {
   const probeHost = document.createElement("div");
   probeHost.className = "ec-panel-popup";
   probeHost.style.cssText = `position:fixed;left:-9999px;width:${PANEL_POPUP_PROBE_WIDTH};visibility:hidden;pointer-events:none;`;
@@ -28,7 +29,7 @@ function measurePanelBodyHeight(
   shadow.append(style);
 
   const { panelRoot, body } = createPanelSurface(locale, "popup");
-  fillBody(body);
+  await fillBody(body);
   shadow.appendChild(panelRoot);
 
   document.body.appendChild(probeHost);
@@ -37,7 +38,11 @@ function measurePanelBodyHeight(
   return height;
 }
 
-function fillPanelTabBody(body: HTMLDivElement, tab: PanelPopupTab, strings: ReturnType<typeof t>): void {
+async function fillPanelTabBody(
+  body: HTMLDivElement,
+  tab: PanelPopupTab,
+  strings: ReturnType<typeof t>,
+): Promise<void> {
   body.classList.toggle(PANEL_BODY_CENTERED_CLASS, tab === "start" || tab === "copied");
 
   switch (tab) {
@@ -45,16 +50,19 @@ function fillPanelTabBody(body: HTMLDivElement, tab: PanelPopupTab, strings: Ret
       buildStartPanelBody(body, strings, { onStart: () => {} });
       break;
     case "copied":
-      buildCopiedPanelBody(body, strings);
+      await buildCopiedPanelBody(body, strings);
       break;
     case "settings":
-      buildSettingsPanelBody(body, strings);
+      await buildSettingsPanelBody(body, strings);
       break;
     case "history":
       buildPlaceholderPanelBody(body, tab, strings);
       break;
     case "shortcuts":
       buildShortcutsPanelBody(body, strings);
+      break;
+    case "language":
+      buildLanguagePanelBody(body, strings);
       break;
     case "about":
       buildAboutPanelBody(body, strings);
@@ -63,21 +71,17 @@ function fillPanelTabBody(body: HTMLDivElement, tab: PanelPopupTab, strings: Ret
 }
 
 /** Max toolbar popup height across all panel tabs (cached). */
-export function getMaxActionPopupHeightPx(locale: Locale): number {
+export async function getMaxActionPopupHeightPx(locale: Locale): Promise<number> {
   if (cachedMaxPopupHeightPx !== null) {
     return cachedMaxPopupHeightPx;
   }
 
   const strings = t(locale);
-  cachedMaxPopupHeightPx = PANEL_POPUP_TABS.reduce(
-    (max, tab) =>
-      Math.max(
-        max,
-        measurePanelBodyHeight(locale, (body) => {
-          fillPanelTabBody(body, tab, strings);
-        }),
-      ),
-    0,
+  const heights = await Promise.all(
+    PANEL_POPUP_TABS.map((tab) =>
+      measurePanelBodyHeight(locale, (body) => fillPanelTabBody(body, tab, strings)),
+    ),
   );
+  cachedMaxPopupHeightPx = heights.reduce((max, height) => Math.max(max, height), 0);
   return cachedMaxPopupHeightPx;
 }

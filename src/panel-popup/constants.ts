@@ -9,7 +9,8 @@ export const PANEL_POPUP_HOST_ATTR = "data-element-copier-ui";
 export const PANEL_POPUP_SESSION_TAB_KEY = "panelPopupTab";
 
 export const PANEL_POPUP_DISMISS_DELAY_MS = 1000;
-export const PANEL_POPUP_PROBE_WIDTH = "20rem";
+export const PANEL_POPUP_WIDTH_PX = 380;
+export const PANEL_POPUP_PROBE_WIDTH = `${PANEL_POPUP_WIDTH_PX}px`;
 
 export type PanelMenuTab =
   | "start"
