@@ -110,7 +110,6 @@ export class CopierPickUI {
     e.stopImmediatePropagation();
 
     this.onPick(target);
-    this.highlight.updateHighlightAt(e.clientX, e.clientY);
   }
 }
 

@@ -4,7 +4,8 @@ import type { PanelPopupTab } from "./panel-popup/constants";
 
 export type BgToContent =
   | { type: "SET_ACTIVE"; active: boolean }
-  | { type: "COPY_PICKED_FORMAT"; formatId: CopyFormatId };
+  | { type: "COPY_PICKED_FORMAT"; formatId: CopyFormatId }
+  | { type: "CLEAR_PICK_COPY_CACHE" };
 
 export type ContentToBg =
   | { type: "ACTIVE_CHANGED"; active: boolean }

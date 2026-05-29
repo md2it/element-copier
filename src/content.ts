@@ -7,16 +7,22 @@ import {
 import { registerDocumentOperabilityProbeListener } from "../../lib/src/page-operability";
 import { bootstrapPanelPopupPageIfNeeded } from "./panel-popup/page";
 import { bootstrapPanelTabPageIfNeeded } from "./panel-tab";
+import { copyTextToClipboard } from "../../lib/src/element-copy";
 import {
-  copyElementFormatToClipboard,
-  copyElementWithFormat,
+  bindPickCopyCacheLifecycle,
+  clearPickCopyCache,
   CopierPickUI,
-  getLastPickedElement,
+  getCachedCopyText,
   notifyElementPicked,
   PICK_ROOT_ID,
-  storeLastPickedElement,
+  snapshotPickCopyCache,
 } from "./pick-mode";
-import { getClipboardDefaultFormat } from "./settings/format-settings";
+import {
+  bindFormatSettingsCache,
+  getCachedClipboardDefaultFormat,
+  getCachedEnabledFormats,
+  refreshFormatSettingsCache,
+} from "./settings/format-settings-cache";
 import type { CopyFormatId } from "./formats/definitions";
 import type {
   BgToContent,
@@ -147,16 +153,23 @@ function attachMessageHandler(state: ContentState): void {
     if (pickCopyInFlight || !state.active) return;
     pickCopyInFlight = true;
     try {
-      const formatId = await getClipboardDefaultFormat();
-      const copied = await copyElementWithFormat(element, formatId);
-      if (!copied) {
-        console.warn("[Element Copier] clipboard copy failed");
-        return;
+      deactivate();
+
+      snapshotPickCopyCache(element, getCachedEnabledFormats());
+
+      const formatId = getCachedClipboardDefaultFormat();
+      const defaultText = getCachedCopyText(formatId);
+      if (defaultText !== undefined) {
+        const copied = await copyTextToClipboard(defaultText);
+        if (!copied) {
+          console.warn("[Element Copier] clipboard copy failed");
+        }
+      } else {
+        console.warn("[Element Copier] default format not cached (disabled?)");
       }
-      storeLastPickedElement(element);
+
       notifyElementPicked(element);
       requestCopiedPanel(formatId);
-      deactivate();
     } finally {
       pickCopyInFlight = false;
     }
@@ -206,6 +219,7 @@ function attachMessageHandler(state: ContentState): void {
     }
 
     try {
+      await refreshFormatSettingsCache();
       const pick = await ensurePick();
       state.active = true;
       mountCopierContentHotkeys(hotkeysHost);
@@ -246,15 +260,20 @@ function attachMessageHandler(state: ContentState): void {
         sendResponse({ ok: false });
         return;
       }
-      const element = getLastPickedElement();
-      if (!element) {
+      const text = getCachedCopyText(message.formatId);
+      if (text === undefined) {
         sendResponse({ ok: false });
         return;
       }
-      void copyElementFormatToClipboard(element, message.formatId).then((ok) => {
+      void copyTextToClipboard(text).then((ok) => {
         sendResponse({ ok });
       });
       return true;
+    }
+
+    if (message.type === "CLEAR_PICK_COPY_CACHE") {
+      clearPickCopyCache();
+      return;
     }
   };
 
@@ -271,6 +290,8 @@ if (window.__ecRuntimeId !== undefined && window.__ecRuntimeId !== runtimeId) {
 
 window.__ecRuntimeId = runtimeId;
 registerDocumentOperabilityProbeListener();
+bindFormatSettingsCache();
+bindPickCopyCacheLifecycle();
 attachMessageHandler(state);
 registerCopierStartHotkey(requestToggle);
 

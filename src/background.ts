@@ -291,6 +291,14 @@ async function sendWithInject(
   return sendToTab(tabId, message, frameId);
 }
 
+async function clearPickCopyCacheOnTab(tabId: number): Promise<void> {
+  try {
+    await ext.tabs.sendMessage(tabId, { type: "CLEAR_PICK_COPY_CACHE" });
+  } catch {
+    /* tab closed, navigated, or content script unavailable */
+  }
+}
+
 async function setTabActive(
   tabId: number,
   active: boolean,
@@ -617,6 +625,9 @@ ext.runtime.onMessage.addListener(
         if (tabId !== undefined) {
           tabCopiedBadge.set(tabId, contentMessage.tab === "copied");
           await syncToolbarBadge(tabId);
+          if (contentMessage.tab !== "copied") {
+            await clearPickCopyCacheOnTab(tabId);
+          }
         }
         await syncPickModeForPanelTab(contentMessage.tab, sender);
       })();
@@ -627,6 +638,7 @@ ext.runtime.onMessage.addListener(
         if (tabId === undefined) return;
         tabCopiedBadge.set(tabId, false);
         await syncToolbarBadge(tabId);
+        await clearPickCopyCacheOnTab(tabId);
       })();
     }
     if (contentMessage.type === "REQUEST_START_PICK_MODE") {
