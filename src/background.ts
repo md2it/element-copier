@@ -668,7 +668,13 @@ ext.runtime.onMessage.addListener(
           formatId: contentMessage.formatId,
         };
         try {
-          await ext.tabs.sendMessage<BgToContent, CopyPickedFormatResponse>(tabId, msg);
+          const response = await ext.tabs.sendMessage<BgToContent, CopyPickedFormatResponse>(
+            tabId,
+            msg,
+          );
+          if (response?.ok) {
+            await setLastCopiedFormat(contentMessage.formatId);
+          }
         } catch {
           /* tab navigated or content script unavailable */
         }

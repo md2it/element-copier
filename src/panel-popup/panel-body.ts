@@ -1,6 +1,7 @@
 import { buildAboutListItems } from "../about";
 import {
   COPY_FORMATS,
+  type CopyFormatId,
 } from "../formats/definitions";
 import {
   createClipboardDefaultFormatSelect,
@@ -15,7 +16,7 @@ import {
 } from "../hotkeys/keys";
 import { getSkipStartPage, setSkipStartPage } from "../settings/skip-start-page";
 import { getEnabledFormats } from "../settings/format-settings";
-import { getLastCopiedFormat } from "../settings/copied-session";
+import { getLastCopiedFormat, setLastCopiedFormat } from "../settings/copied-session";
 import { notifyCopyPickedFormat } from "./lifecycle";
 import { createToggleRow } from "./toggle-row";
 
@@ -327,6 +328,53 @@ export type CopiedPanelActions = {
   onOpenSettings?: () => void;
 };
 
+function copiedFormatLabel(formatId: CopyFormatId | null, strings: Strings): string {
+  if (formatId === null) return strings.settingsCopyDefaultNothing;
+  const format = COPY_FORMATS.find((entry) => entry.id === formatId);
+  return format ? format.label(strings) : strings.settingsCopyDefaultNothing;
+}
+
+function updateCopiedPageSubtitleWhat(
+  header: HTMLElement,
+  formatId: CopyFormatId | null,
+  strings: Strings,
+): void {
+  const what = header.querySelector<HTMLElement>(".ec-copied-subtitle-what");
+  if (!what) return;
+  what.textContent = copiedFormatLabel(formatId, strings);
+  what.classList.toggle("ec-copied-subtitle-what--nothing", formatId === null);
+}
+
+function createCopiedPageHeader(
+  formatId: CopyFormatId | null,
+  strings: Strings,
+): HTMLElement {
+  const header = document.createElement("div");
+  header.className = "ec-copied-header";
+
+  const title = document.createElement("h2");
+  title.className = "ec-copied-title";
+  title.textContent = strings.copiedTitle;
+
+  const subtitle = document.createElement("p");
+  subtitle.className = "ec-copied-subtitle";
+
+  const prefix = document.createElement("span");
+  prefix.className = "ec-copied-subtitle-prefix";
+  prefix.textContent = strings.copiedSubtitlePrefix;
+
+  const what = document.createElement("span");
+  what.className = "ec-copied-subtitle-what";
+  if (formatId === null) {
+    what.classList.add("ec-copied-subtitle-what--nothing");
+  }
+  what.textContent = copiedFormatLabel(formatId, strings);
+
+  subtitle.append(prefix, document.createTextNode(" "), what);
+  header.append(title, subtitle);
+  return header;
+}
+
 export async function buildCopiedPanelBody(
   body: HTMLDivElement,
   strings: Strings,
@@ -342,29 +390,7 @@ export async function buildCopiedPanelBody(
   const page = document.createElement("div");
   page.className = "ec-panel-page ec-panel-page--copied";
 
-  const title = document.createElement("h2");
-  title.className = "ec-copied-title";
-  title.textContent = strings.copiedTitle;
-
-  const header = document.createElement("div");
-  header.className = "ec-copied-header";
-  header.append(title);
-
-  if (lastCopiedFormatId !== null) {
-    const savedFormat = COPY_FORMATS.find((format) => format.id === lastCopiedFormatId);
-    if (savedFormat) {
-      const savedMessage = document.createElement("p");
-      savedMessage.className = "ec-copied-saved-message";
-      const [savedMessageBefore, savedMessageAfter] =
-        strings.copiedSavedMessage.split("{format}");
-      const savedFormatName = document.createElement("strong");
-      savedFormatName.textContent = savedFormat.label(strings);
-      if (savedMessageBefore) savedMessage.append(savedMessageBefore);
-      savedMessage.append(savedFormatName);
-      if (savedMessageAfter) savedMessage.append(savedMessageAfter);
-      header.append(savedMessage);
-    }
-  }
+  const header = createCopiedPageHeader(lastCopiedFormatId, strings);
 
   const divider = createPageDivider();
   divider.classList.add("ec-copied-divider");
@@ -373,6 +399,8 @@ export async function buildCopiedPanelBody(
     enabledFormats,
     onCopyFormat: (formatId) => {
       notifyCopyPickedFormat(formatId);
+      updateCopiedPageSubtitleWhat(header, formatId, strings);
+      void setLastCopiedFormat(formatId);
     },
     onOpenSettings: actions.onOpenSettings,
   });

@@ -19,7 +19,7 @@ export type Strings = {
   formatXPath: string;
   formatFullXPath: string;
   copiedTitle: string;
-  copiedSavedMessage: string;
+  copiedSubtitlePrefix: string;
   copiedSettingsLink: string;
   copiedFormatsGroupLabel: string;
   pageSettingsTitle: string;
