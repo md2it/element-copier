@@ -90,10 +90,10 @@ const selectionBadgeTextAnimation = createBadgeTextColorAnimation({
 });
 
 /**
- * Badge state priority (lib/PROJECTS.md):
+ * Badge state priority (lib/SPEC/ui-badge.md):
  * 1) prefix letter (lib prefix badge; we only suppress/restore)
  * 2) cannot operate on page => ✕ (while blocked notice is shown)
- * 3) running => ✓
+ * 3) running => ◉
  * 4) off => no badge
  */
 
