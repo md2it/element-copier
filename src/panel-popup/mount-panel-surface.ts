@@ -54,21 +54,6 @@ export async function mountPanelSurface(
 
   await panelWindow.openPanel(initialTab);
   window.addEventListener(
-    "blur",
-    () => {
-      notifyClosedOnce();
-    },
-    { once: true },
-  );
-  document.addEventListener(
-    "visibilitychange",
-    () => {
-      if (document.visibilityState !== "hidden") return;
-      notifyClosedOnce();
-    },
-    { once: true },
-  );
-  window.addEventListener(
     "pagehide",
     () => {
       notifyClosedOnce();

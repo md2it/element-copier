@@ -5,7 +5,7 @@ import type { PanelPopupTab } from "./panel-popup/constants";
 
 export type BgToContent =
   | { type: "SET_ACTIVE"; active: boolean }
-  | { type: "COPY_PICKED_FORMAT"; formatId: CopyFormatId }
+  | { type: "GET_PICK_COPY_TEXT"; formatId: CopyFormatId }
   | { type: "CLEAR_PICK_COPY_CACHE" };
 
 export type ContentToBg =
@@ -30,7 +30,10 @@ export type BgToWelcome = { type: "PIN_STATUS_CHANGED"; pinned: boolean };
 
 export type ContentActivationResponse = { ok: boolean };
 
-export type CopyPickedFormatResponse = { ok: boolean };
+export type GetPickCopyTextResponse = { ok: boolean; text?: string };
+
+/** Background → panel after fetching cached pick text from the target tab. */
+export type CopyPickedFormatPanelResponse = { ok: boolean; text?: string };
 
 export function sendToBackground(msg: ContentToBg): void {
   void ext.runtime.sendMessage(msg).catch(() => {

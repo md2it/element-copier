@@ -17,7 +17,13 @@ import {
   registerPrefixHintOperabilityListeners,
 } from "../../lib/src/hotkeys";
 import { createBadgeTextColorAnimation } from "../../lib/src/badge/text-color-animation";
-import type { BgToContent, ContentActivationResponse, ContentToBg, CopyPickedFormatResponse } from "./messages";
+import type {
+  BgToContent,
+  ContentActivationResponse,
+  ContentToBg,
+  CopyPickedFormatPanelResponse,
+  GetPickCopyTextResponse,
+} from "./messages";
 import {
   canOperateOnTab,
   getRestrictedNoticeDismissMs,
@@ -588,7 +594,11 @@ ext.contextMenus.onClicked.addListener((info, tab) => {
 });
 
 ext.runtime.onMessage.addListener(
-  (message: ContentToBg | unknown, sender): boolean | void => {
+  (
+    message: ContentToBg | unknown,
+    sender,
+    sendResponse: (response: CopyPickedFormatPanelResponse) => void,
+  ): boolean | void => {
     if (isBlockedNoticeDismissedMessage(message)) {
       onBlockedNoticeDismissed(message.tabId);
       return;
@@ -662,23 +672,29 @@ ext.runtime.onMessage.addListener(
     if (contentMessage.type === "COPY_PICKED_FORMAT") {
       void (async () => {
         const tabId = await resolvePickModeTabId(sender);
-        if (tabId === undefined) return;
+        if (tabId === undefined) {
+          sendResponse({ ok: false });
+          return;
+        }
         const msg: BgToContent = {
-          type: "COPY_PICKED_FORMAT",
+          type: "GET_PICK_COPY_TEXT",
           formatId: contentMessage.formatId,
         };
         try {
-          const response = await ext.tabs.sendMessage<BgToContent, CopyPickedFormatResponse>(
+          const response = await ext.tabs.sendMessage<BgToContent, GetPickCopyTextResponse>(
             tabId,
             msg,
           );
-          if (response?.ok) {
-            await setLastCopiedFormat(contentMessage.formatId);
+          if (!response?.ok || !response.text) {
+            sendResponse({ ok: false });
+            return;
           }
+          sendResponse({ ok: true, text: response.text });
         } catch {
-          /* tab navigated or content script unavailable */
+          sendResponse({ ok: false });
         }
       })();
+      return true;
     }
   },
 );

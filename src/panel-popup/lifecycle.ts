@@ -1,4 +1,3 @@
-import type { CopyFormatId } from "../formats/definitions";
 import { sendToBackground } from "../messages";
 import type { PanelPopupTab } from "./constants";
 
@@ -17,7 +16,4 @@ export function notifyPanelClosed(): void {
   sendToBackground({ type: "PANEL_CLOSED" });
 }
 
-/** COPIED page — copy another format from the last picked element on the target tab. */
-export function notifyCopyPickedFormat(formatId: CopyFormatId): void {
-  sendToBackground({ type: "COPY_PICKED_FORMAT", formatId });
-}
+export { copyPickedFormatFromPanel } from "./copy-picked-format";

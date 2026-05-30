@@ -28,7 +28,7 @@ import {
   sendToBackground,
   type BgToContent,
   type ContentActivationResponse,
-  type CopyPickedFormatResponse,
+  type GetPickCopyTextResponse,
 } from "./messages";
 
 type ContentState = {
@@ -239,7 +239,7 @@ function attachMessageHandler(state: ContentState): void {
   const handler = (
     message: BgToContent,
     _sender: chrome.runtime.MessageSender,
-    sendResponse: (response: ContentActivationResponse | CopyPickedFormatResponse) => void,
+    sendResponse: (response: ContentActivationResponse | GetPickCopyTextResponse) => void,
   ): boolean | void => {
     if (message.type === "SET_ACTIVE") {
       if (typeof window !== "undefined" && window.top !== window) {
@@ -253,7 +253,7 @@ function attachMessageHandler(state: ContentState): void {
       return;
     }
 
-    if (message.type === "COPY_PICKED_FORMAT") {
+    if (message.type === "GET_PICK_COPY_TEXT") {
       if (typeof window !== "undefined" && window.top !== window) {
         sendResponse({ ok: false });
         return;
@@ -263,10 +263,8 @@ function attachMessageHandler(state: ContentState): void {
         sendResponse({ ok: false });
         return;
       }
-      void copyToClipboardForFormat(message.formatId, text).then((ok) => {
-        sendResponse({ ok });
-      });
-      return true;
+      sendResponse({ ok: true, text });
+      return;
     }
 
     if (message.type === "CLEAR_PICK_COPY_CACHE") {
