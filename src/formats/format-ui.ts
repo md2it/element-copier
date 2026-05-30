@@ -8,6 +8,7 @@ import {
   type EnabledFormatsMap,
 } from "../settings/format-settings";
 import {
+  CLIPBOARD_COPY_FORMATS,
   COPY_FORMATS,
   type CopyFormatId,
   type FormatDefinition,
@@ -112,7 +113,7 @@ export async function createClipboardDefaultFormatSelect(strings: Strings): Prom
   nothingOption.selected = selectedFormatId === CLIPBOARD_DEFAULT_NOTHING;
   select.append(nothingOption);
 
-  for (const format of COPY_FORMATS) {
+  for (const format of CLIPBOARD_COPY_FORMATS) {
     const option = document.createElement("option");
     option.value = format.id;
     option.textContent = format.label(strings);
@@ -139,7 +140,7 @@ export async function createClipboardDefaultFormatSelect(strings: Strings): Prom
 function createFormatActionButton(
   format: FormatDefinition,
   strings: Strings,
-  onCopy: (formatId: CopyFormatId) => void,
+  onActivate: (formatId: CopyFormatId) => void,
 ): HTMLButtonElement {
   const button = document.createElement("button");
   button.type = "button";
@@ -155,7 +156,7 @@ function createFormatActionButton(
   button.append(label);
 
   button.addEventListener("click", () => {
-    onCopy(format.id);
+    onActivate(format.id);
   });
 
   return button;
@@ -164,6 +165,7 @@ function createFormatActionButton(
 export type CopiedOtherOptionsOptions = {
   enabledFormats: EnabledFormatsMap;
   onCopyFormat: (formatId: CopyFormatId) => void;
+  onSaveFormat?: (formatId: CopyFormatId) => void;
   onOpenSettings?: () => void;
 };
 
@@ -183,7 +185,12 @@ export function createCopiedOtherOptionsRow(
 
   for (const format of COPY_FORMATS) {
     if (!options.enabledFormats[format.id]) continue;
-    row.append(createFormatActionButton(format, strings, options.onCopyFormat));
+    const onActivate =
+      format.actionIcon === "file-down"
+        ? options.onSaveFormat
+        : options.onCopyFormat;
+    if (!onActivate) continue;
+    row.append(createFormatActionButton(format, strings, onActivate));
   }
 
   if (options.onOpenSettings) {

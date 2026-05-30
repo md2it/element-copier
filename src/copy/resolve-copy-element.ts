@@ -1,5 +1,5 @@
 import { parseFormattedTextCache } from "../../../lib/src/copy/formatted-text/index";
-import { COPY_FORMATS, type CopyFormatId } from "../formats/definitions";
+import { CLIPBOARD_COPY_FORMATS, type CopyFormatId } from "../formats/definitions";
 import type { EnabledFormatsMap } from "../settings/format-settings";
 import { extractElementCopyText } from "./extract";
 
@@ -20,7 +20,8 @@ function pickCheckFormat(
     return defaultFormatId;
   }
   if (enabledFormats.text) return "text";
-  return COPY_FORMATS.find((format) => enabledFormats[format.id])?.id ?? null;
+  if (enabledFormats.markdown) return "markdown";
+  return CLIPBOARD_COPY_FORMATS.find((format) => enabledFormats[format.id])?.id ?? null;
 }
 
 /** Walk up to parent when the picked element has nothing to copy for the active format. */

@@ -23,3 +23,4 @@ export function bindPanelSessionPort(): void {
 }
 
 export { copyPickedFormatFromPanel } from "./copy-picked-format";
+export { savePickedFormatFromPanel } from "./save-picked-format";

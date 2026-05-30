@@ -17,7 +17,7 @@ import {
 import { getSkipStartPage, setSkipStartPage } from "../settings/skip-start-page";
 import { getEnabledFormats } from "../settings/format-settings";
 import { getLastCopiedFormat, setLastCopiedFormat } from "../settings/copied-session";
-import { copyPickedFormatFromPanel } from "./lifecycle";
+import { copyPickedFormatFromPanel, savePickedFormatFromPanel } from "./lifecycle";
 import { createToggleRow } from "./toggle-row";
 
 export const PANEL_BODY_CENTERED_CLASS = "ec-panel-body--centered";
@@ -380,6 +380,9 @@ export async function buildCopiedPanelBody(
         updateCopiedPageSubtitleWhat(header, formatId, strings);
         await setLastCopiedFormat(formatId);
       })();
+    },
+    onSaveFormat: (formatId) => {
+      void savePickedFormatFromPanel(formatId);
     },
     onOpenSettings: actions.onOpenSettings,
   });

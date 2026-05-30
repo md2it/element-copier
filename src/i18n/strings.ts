@@ -19,6 +19,7 @@ const MESSAGES: Record<Locale, Strings> = {
     formatXPath: "XPath",
     formatFullXPath: "full XPath",
     formatText: "Text",
+    formatMarkdown: "Markdown",
     copiedTitle: "Copied!",
     copiedSubtitlePrefix: "Copied to clipboard:",
     copiedSettingsLink: "… change the options",

@@ -11,7 +11,9 @@ export type CopyFormatId =
   | "styles"
   | "xpath"
   | "fullXPath"
-  | "text";
+  | "text"
+  | "markdown"
+  | "markdownFile";
 
 export type FormatDefinition = {
   id: CopyFormatId;
@@ -61,7 +63,24 @@ export const COPY_FORMATS: readonly FormatDefinition[] = [
     label: (s) => s.formatText,
     actionIcon: "copy",
   },
+  {
+    id: "markdown",
+    label: (s) => s.formatMarkdown,
+    actionIcon: "copy",
+  },
+  {
+    id: "markdownFile",
+    label: (s) => s.formatMarkdown,
+    actionIcon: "file-down",
+  },
 ] as const;
+
+/** Formats that write plain text to the clipboard (excludes file/image download actions). */
+export function isClipboardCopyFormat(format: FormatDefinition): boolean {
+  return format.actionIcon === "copy";
+}
+
+export const CLIPBOARD_COPY_FORMATS = COPY_FORMATS.filter(isClipboardCopyFormat);
 
 export const DEFAULT_CLIPBOARD_FORMAT_ID: CopyFormatId = "text";
 
