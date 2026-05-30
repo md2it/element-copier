@@ -1,3 +1,4 @@
+import { cloneElementForClipboard } from "../../../lib/src/copy/formatted-text/clone";
 import {
   getFormattedText,
   serializeFormattedTextCache,
@@ -9,7 +10,19 @@ import { getElementStyles } from "../../../lib/src/copy/styles";
 import { getFullXPath, getXPath } from "../../../lib/src/copy/xpath";
 
 export function getOuterHtml(element: Element): string {
-  return element.outerHTML;
+  if (!element.shadowRoot) {
+    return element.outerHTML;
+  }
+
+  const clone = element.cloneNode(false) as Element;
+  const contents = cloneElementForClipboard(element);
+  while (contents.firstChild) {
+    clone.appendChild(contents.firstChild);
+  }
+
+  const wrapper = element.ownerDocument.createElement("div");
+  wrapper.appendChild(clone);
+  return wrapper.innerHTML;
 }
 
 export function extractElementCopyText(element: Element, format: string): string {
