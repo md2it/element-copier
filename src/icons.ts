@@ -9,6 +9,7 @@ export {
   INFO,
   KEYBOARD,
   PIN,
+  PLAY,
   PUZZLE,
   SETTINGS,
   SHIELD_CHECK,

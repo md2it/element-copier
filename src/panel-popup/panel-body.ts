@@ -309,6 +309,32 @@ export type CopiedPanelActions = {
   onStartOver?: () => void;
 };
 
+function buildCopiedEmptyPanelBody(
+  body: HTMLDivElement,
+  strings: Strings,
+  onStart: () => void,
+): void {
+  const page = document.createElement("div");
+  page.className = "ec-panel-page ec-panel-page--copied ec-panel-page--copied-empty";
+
+  const message = document.createElement("p");
+  message.className = "ec-copied-empty-text";
+  message.append(
+    document.createTextNode(strings.copiedEmptyLine1),
+    document.createElement("br"),
+    document.createTextNode(strings.copiedEmptyLine2),
+  );
+
+  const startBtn = document.createElement("button");
+  startBtn.type = "button";
+  startBtn.className = "ec-start-btn";
+  startBtn.textContent = strings.startButtonLabel;
+  startBtn.addEventListener("click", onStart);
+
+  page.append(message, startBtn);
+  body.append(page);
+}
+
 function createCopiedAgainBlock(strings: Strings, onStartOver: () => void): HTMLElement {
   const again = document.createElement("div");
   again.className = "ec-copied-again";
@@ -381,6 +407,11 @@ export async function buildCopiedPanelBody(
     getEnabledFormats(),
     getLastCopiedFormat(),
   ]);
+
+  if (lastCopiedFormatId === null) {
+    buildCopiedEmptyPanelBody(body, strings, actions.onStartOver ?? (() => {}));
+    return;
+  }
 
   const page = document.createElement("div");
   page.className = "ec-panel-page ec-panel-page--copied";

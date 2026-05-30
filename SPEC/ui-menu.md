@@ -5,7 +5,8 @@
 ## ПУНКТЫ МЕНЮ
 
 ### Содержит
-- files // START
+- play // START
+- files // COPIED
 - globe // LANGUAGE
 - settings // SETTINGS
 - keyboard // SHORTCUTS

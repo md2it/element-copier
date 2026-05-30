@@ -485,12 +485,16 @@ function getActiveCommandTab(): Promise<chrome.tabs.Tab | undefined> {
   });
 }
 
+const CONTEXT_MENU_START = "element-copier-start";
+const CONTEXT_MENU_COPIED = "element-copier-copied";
 const CONTEXT_MENU_LANGUAGE = "element-copier-language";
 const CONTEXT_MENU_SETTINGS = "element-copier-settings";
 const CONTEXT_MENU_SHORTCUTS = "element-copier-shortcuts";
 const CONTEXT_MENU_ABOUT = "element-copier-about";
 
 const ACTION_MENU_EMOJI = {
+  start: "▶️",
+  copied: "🗂️",
   language: "🌐",
   settings: "⚙️",
   shortcuts: "⌨️",
@@ -503,6 +507,18 @@ const CONTEXT_MENU_ITEMS: readonly {
   emoji: string;
   title: (strings: Strings) => string;
 }[] = [
+  {
+    id: CONTEXT_MENU_START,
+    tab: "start",
+    emoji: ACTION_MENU_EMOJI.start,
+    title: (strings) => strings.titleSettings,
+  },
+  {
+    id: CONTEXT_MENU_COPIED,
+    tab: "copied",
+    emoji: ACTION_MENU_EMOJI.copied,
+    title: (strings) => strings.tabCopied,
+  },
   {
     id: CONTEXT_MENU_LANGUAGE,
     tab: "language",

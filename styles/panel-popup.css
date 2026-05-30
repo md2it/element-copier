@@ -797,7 +797,7 @@
 
 .ec-copied-title {
   margin: 0;
-  font-size: 1.5rem;
+  font-size: 2.25rem;
   font-weight: 700;
   line-height: 1.25;
   color: #15803d;
@@ -833,6 +833,25 @@
   width: 100%;
   margin-top: 0.85rem;
   padding-top: 0.25rem;
+}
+
+.ec-panel--surface-popup .ec-panel-body:has(.ec-panel-page--copied-empty) {
+  justify-content: center;
+  align-items: center;
+}
+
+.ec-panel-page--copied-empty {
+  align-items: center;
+  justify-content: center;
+  gap: 1.25rem;
+  text-align: center;
+}
+
+.ec-copied-empty-text {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.45;
+  color: #6b7280;
 }
 
 .ec-panel--surface-popup .ec-panel-body:has(.ec-panel-page--about) {

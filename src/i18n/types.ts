@@ -29,11 +29,14 @@ export type Strings = {
   formatFullXPath: string;
   formatText: string;
   formatMarkdown: string;
+  tabCopied: string;
   copiedTitle: string;
   copiedSubtitlePrefix: string;
   copiedSettingsLink: string;
   copiedFormatsGroupLabel: string;
   copiedStartOverButtonLabel: string;
+  copiedEmptyLine1: string;
+  copiedEmptyLine2: string;
   pageSettingsTitle: string;
   tabShortcuts: string;
   tabLanguage: string;

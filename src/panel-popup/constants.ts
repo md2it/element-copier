@@ -17,6 +17,7 @@ export const PANEL_POPUP_PROBE_WIDTH = `${PANEL_POPUP_WIDTH_PX}px`;
 
 export type PanelMenuTab =
   | "start"
+  | "copied"
   | "settings"
   | "shortcuts"
   | "language"
@@ -24,18 +25,16 @@ export type PanelMenuTab =
 
 export const PANEL_MENU_TABS: readonly PanelMenuTab[] = [
   "start",
+  "copied",
   "settings",
   "shortcuts",
   "language",
   "about",
 ];
 
-export type PanelPopupTab = PanelMenuTab | "copied";
+export type PanelPopupTab = PanelMenuTab;
 
-export const PANEL_POPUP_TABS: readonly PanelPopupTab[] = [
-  ...PANEL_MENU_TABS,
-  "copied",
-];
+export const PANEL_POPUP_TABS: readonly PanelPopupTab[] = PANEL_MENU_TABS;
 
 export const PANEL_PAGE_CONFIG: PanelPageConfig = {
   pageHtml: PANEL_POPUP_PAGE,

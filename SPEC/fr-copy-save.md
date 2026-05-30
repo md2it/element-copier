@@ -35,17 +35,19 @@
 ## ДОСТУПНЫЕ ФОРМАТЫ
 
 ### Всякие devtools, только для копирования
-- ✅ outerHTML
-- ✅ selector
-- ✅ JS path
-- ✅ styles // приближено к тому, что получаем из DevTools
-- ✅ computed styles
-- ✅ XPath
-- ✅ full XPath
+- outerHTML
+- selector
+- JS path
+- styles // приближено к тому, что получаем из DevTools
+- computed styles
+- XPath
+- full XPath
+- Для всех lucide code
 
 ### Форматированные тексты для копирования
-- ✅ Text // Человекочитаемый текст с форматированием для GoogleDocs / Word
-      Пример сценария использования:
+- Text // Человекочитаемый текст с форматированием для GoogleDocs / Word
+   - lucide text-initial
+   - Пример сценария использования:
       1. Включил расширение
       2. Навёл на элемент
       3. Кликнул
@@ -53,6 +55,7 @@
       5. Вставил текст в GoogleDocs / Word
       Ожидаемый результат: Текст вставился с форматированием, как если бы человек выделял контент страницы через окно браузера
 - Markdown
+   - Иконка markdown-sigma.svg (у нас есть кастомизированная)
    - headingStyle atx
    - hr `---`
    - fence ```
@@ -61,11 +64,12 @@
    - link style [title](link)
 
 ### Файлы
+- Markdown
+   - Иконка markdown-square-sigma.svg (у нас есть кастомизированная)
 - Word
 - PDF
 - PNG
 - JPEG
-- Markdown
 
 ---
 
