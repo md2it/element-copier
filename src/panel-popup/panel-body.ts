@@ -305,7 +305,6 @@ export function buildLanguagePanelBody(body: HTMLDivElement, strings: Strings): 
 }
 
 export type CopiedPanelActions = {
-  onOpenSettings?: () => void;
   onStartOver?: () => void;
 };
 
@@ -435,7 +434,6 @@ export async function buildCopiedPanelBody(
     onSaveFormat: (formatId) => {
       void savePickedFormatFromPanel(formatId);
     },
-    onOpenSettings: actions.onOpenSettings,
   });
 
   const againDivider = createPageDivider();

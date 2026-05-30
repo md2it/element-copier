@@ -110,9 +110,6 @@ export class CopierPanelWindow {
         break;
       case "copied":
         await buildCopiedPanelBody(this.body, strings, {
-          onOpenSettings: () => {
-            void this.showTab("settings");
-          },
           onStartOver: () => {
             this.startPickModeAndClose();
           },

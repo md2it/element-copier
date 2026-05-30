@@ -691,25 +691,6 @@
   color: #374151;
 }
 
-.ec-copied-settings-link {
-  margin: 0;
-  padding: 0;
-  border: none;
-  background: none;
-  color: #012292;
-  font: inherit;
-  font-size: 0.78rem;
-  font-weight: 600;
-  line-height: 1.25;
-  text-decoration: underline;
-  cursor: pointer;
-}
-
-.ec-copied-settings-link:hover,
-.ec-copied-settings-link:focus-visible {
-  color: #011a6e;
-}
-
 .ec-toggle-row {
   display: flex;
   align-items: center;

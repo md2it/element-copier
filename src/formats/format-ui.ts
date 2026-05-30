@@ -303,7 +303,6 @@ export type CopiedOtherOptionsOptions = {
   selectedFormatId?: CopyFormatId | null;
   onCopyFormat: (formatId: CopyFormatId) => void;
   onSaveFormat?: (formatId: CopyFormatId) => void;
-  onOpenSettings?: () => void;
 };
 
 function copiedGroupHasEnabledFormats(
@@ -369,11 +368,6 @@ export function createCopiedOtherOptionsRow(
   section.setAttribute("role", "group");
   section.setAttribute("aria-label", strings.copiedFormatsGroupLabel);
 
-  const label = document.createElement("span");
-  label.className = "ec-copied-other-options-label";
-  label.textContent = strings.copiedFormatsGroupLabel;
-  section.append(label);
-
   const selectFormat = (formatId: CopyFormatId): void => {
     syncSelectedFormatActionButton(section, formatId);
   };
@@ -392,17 +386,6 @@ export function createCopiedOtherOptionsRow(
   }
 
   syncSelectedFormatActionButton(section, options.selectedFormatId ?? null);
-
-  if (options.onOpenSettings) {
-    const settingsLink = document.createElement("button");
-    settingsLink.type = "button";
-    settingsLink.className = "ec-copied-settings-link";
-    settingsLink.textContent = strings.copiedSettingsLink;
-    settingsLink.addEventListener("click", () => {
-      options.onOpenSettings!();
-    });
-    section.append(settingsLink);
-  }
 
   return section;
 }

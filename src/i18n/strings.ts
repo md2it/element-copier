@@ -33,7 +33,6 @@ const MESSAGES: Record<Locale, Strings> = {
     tabCopied: "COPIED",
     copiedTitle: "Copied!",
     copiedSubtitlePrefix: "Copied to clipboard:",
-    copiedSettingsLink: "… change the options",
     copiedFormatsGroupLabel: "Options:",
     copiedFilesLabel: "Files:",
     copiedCopyTextLabel: "Copy text:",
