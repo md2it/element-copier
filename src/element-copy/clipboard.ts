@@ -1,7 +1,7 @@
 import {
   copyFormattedTextToClipboard,
   parseFormattedTextCache,
-} from "../../../lib/src/copy/formatted-text";
+} from "../../../lib/src/copy/formatted-text/index";
 
 function copyTextToClipboardFallback(text: string): boolean {
   try {

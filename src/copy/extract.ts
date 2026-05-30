@@ -1,7 +1,7 @@
 import {
   getFormattedText,
   serializeFormattedTextCache,
-} from "../../../lib/src/copy/formatted-text";
+} from "../../../lib/src/copy/formatted-text/index";
 import { getCssSelector } from "../../../lib/src/copy/selector";
 import { getJsPath } from "../../../lib/src/copy/js-path";
 import { getElementComputedStyles } from "../../../lib/src/copy/styles-computed";
