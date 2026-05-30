@@ -51,6 +51,7 @@ export const ESC_HOTKEY_ENABLED_KEY = "escHotkeyEnabled";
 export const SKIP_START_PAGE_KEY = "skipStartPage";
 /** Per-format enable flags for SETTINGS chips and COPIED buttons. */
 export const ENABLED_FORMATS_KEY = "enabledFormats";
+export const DEVELOPER_TOOLS_ENABLED_KEY = "developerToolsEnabled";
 /** Default format saved to clipboard on copy (SETTINGS dropdown). */
 export const CLIPBOARD_DEFAULT_FORMAT_KEY = "clipboardDefaultFormat";
 /** Inline (data:) image handling for TEXT/MARKDOWN (SETTINGS dropdown). */

@@ -4,56 +4,82 @@ import {
   DEFAULT_CLIPBOARD_FORMAT_ID,
   normalizeCopyFormatId,
   type CopyFormatId,
+  type SettingsChipGroup,
 } from "../formats/definitions";
 import {
   CLIPBOARD_DEFAULT_FORMAT_KEY,
+  DEVELOPER_TOOLS_ENABLED_KEY,
   ENABLED_FORMATS_KEY,
 } from "../messages";
 
 export type EnabledFormatsMap = Record<CopyFormatId, boolean>;
 
-const DEFAULT_DISABLED_FORMAT_IDS = new Set<CopyFormatId>(["styles", "xpath"]);
+const DEVTOOLS_FORMAT_IDS = COPY_FORMATS.filter(
+  (format) => format.settingsGroup === "devtools",
+).map((format) => format.id);
 
-export function defaultEnabledFormats(): EnabledFormatsMap {
+function buildEnabledFormatsMap(developerToolsEnabled: boolean): EnabledFormatsMap {
   return Object.fromEntries(
     COPY_FORMATS.map((format) => [
       format.id,
-      !DEFAULT_DISABLED_FORMAT_IDS.has(format.id),
+      format.settingsGroup === "devtools" ? developerToolsEnabled : true,
     ]),
   ) as EnabledFormatsMap;
 }
 
-export async function getEnabledFormats(): Promise<EnabledFormatsMap> {
-  const data = await ext.storage.local.get(ENABLED_FORMATS_KEY);
-  const raw = data[ENABLED_FORMATS_KEY];
-  const defaults = defaultEnabledFormats();
+export function defaultEnabledFormats(): EnabledFormatsMap {
+  return buildEnabledFormatsMap(true);
+}
 
+function migrateDeveloperToolsFromLegacyEnabledFormats(
+  raw: unknown,
+): boolean | undefined {
   if (typeof raw !== "object" || raw === null) {
-    return defaults;
+    return undefined;
   }
 
   const stored = raw as Partial<Record<string, unknown>>;
-  for (const format of COPY_FORMATS) {
-    const enabled = stored[format.id];
-    if (typeof enabled === "boolean") {
-      defaults[format.id] = enabled;
-    }
+  if (DEVTOOLS_FORMAT_IDS.some((id) => stored[id] === true)) {
+    return true;
+  }
+  if (DEVTOOLS_FORMAT_IDS.every((id) => stored[id] === false)) {
+    return false;
   }
 
   if (typeof stored.declaredStyles === "boolean" && typeof stored.styles !== "boolean") {
-    defaults.styles = stored.declaredStyles;
+    if (stored.declaredStyles) return true;
   }
 
-  return defaults;
+  return undefined;
 }
 
-export async function setFormatEnabled(
-  formatId: CopyFormatId,
-  enabled: boolean,
-): Promise<void> {
-  const current = await getEnabledFormats();
-  current[formatId] = enabled;
-  await ext.storage.local.set({ [ENABLED_FORMATS_KEY]: current });
+export async function getDeveloperToolsEnabled(): Promise<boolean> {
+  const data = await ext.storage.local.get([
+    DEVELOPER_TOOLS_ENABLED_KEY,
+    ENABLED_FORMATS_KEY,
+  ]);
+  const stored = data[DEVELOPER_TOOLS_ENABLED_KEY];
+  if (typeof stored === "boolean") {
+    return stored;
+  }
+
+  const migrated = migrateDeveloperToolsFromLegacyEnabledFormats(
+    data[ENABLED_FORMATS_KEY],
+  );
+  return migrated ?? true;
+}
+
+export async function setDeveloperToolsEnabled(enabled: boolean): Promise<void> {
+  await ext.storage.local.set({ [DEVELOPER_TOOLS_ENABLED_KEY]: enabled });
+}
+
+export async function getEnabledFormats(): Promise<EnabledFormatsMap> {
+  const developerToolsEnabled = await getDeveloperToolsEnabled();
+  return buildEnabledFormatsMap(developerToolsEnabled);
+}
+
+export function isDeveloperToolsGroup(group: SettingsChipGroup): boolean {
+  return group === "devtools";
 }
 
 export const CLIPBOARD_DEFAULT_NOTHING = "nothing";

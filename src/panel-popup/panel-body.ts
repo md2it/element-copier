@@ -6,7 +6,7 @@ import {
 import {
   createClipboardDefaultFormatSelect,
   createCopiedOtherOptionsRow,
-  createCopiedPageOptionsSection,
+  createDeveloperToolsToggleRow,
   createInlineImagesSelect,
 } from "../formats/format-ui";
 import type { Strings } from "../i18n";
@@ -192,11 +192,11 @@ export async function buildSettingsPanelBody(
 ): Promise<void> {
   body.replaceChildren();
 
-  const [clipboardDefaultFormat, inlineImagesSelect, copiedPageOptions, skipStartEnabled] =
+  const [clipboardDefaultFormat, inlineImagesSelect, developerToolsToggle, skipStartEnabled] =
     await Promise.all([
       createClipboardDefaultFormatSelect(strings),
       createInlineImagesSelect(strings),
-      createCopiedPageOptionsSection(strings),
+      createDeveloperToolsToggleRow(strings),
       getSkipStartPage(),
     ]);
 
@@ -214,7 +214,7 @@ export async function buildSettingsPanelBody(
     clipboardDefaultFormat,
     inlineImagesSelect,
     createPageDivider(),
-    copiedPageOptions,
+    developerToolsToggle,
   );
   body.append(page);
 }

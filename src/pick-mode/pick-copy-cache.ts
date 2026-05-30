@@ -1,7 +1,6 @@
 import { extractElementCopyText } from "../copy";
 import { createStringCache } from "../element-copy";
 import { COPY_FORMATS, type CopyFormatId } from "../formats/definitions";
-import type { EnabledFormatsMap } from "../settings/format-settings";
 import { DEFAULT_INLINE_IMAGES_MODE, type InlineImageMode } from "../settings/inline-images";
 import {
   clearPickCopyCacheStorage,
@@ -11,15 +10,12 @@ import {
 
 const cache = createStringCache<CopyFormatId>();
 
-/** Sync snapshot of enabled formats; call only after pick-mode deactivate. */
+/** Sync snapshot of all copy formats; call only after pick-mode deactivate. */
 export async function snapshotPickCopyCache(
   element: Element,
-  enabledFormats: EnabledFormatsMap,
   inlineImages: InlineImageMode = DEFAULT_INLINE_IMAGES_MODE,
 ): Promise<void> {
-  const formatIds = COPY_FORMATS.filter((format) => enabledFormats[format.id]).map(
-    (format) => format.id,
-  );
+  const formatIds = COPY_FORMATS.map((format) => format.id);
   const entries: { key: CopyFormatId; value: string }[] = [];
   let markdownText: string | undefined;
 

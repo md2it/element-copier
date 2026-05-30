@@ -7,9 +7,10 @@ import type { Strings } from "../i18n";
 import {
   CLIPBOARD_DEFAULT_NOTHING,
   getClipboardDefaultFormat,
-  getEnabledFormats,
+  getDeveloperToolsEnabled,
+  isDeveloperToolsGroup,
   setClipboardDefaultFormat,
-  setFormatEnabled,
+  setDeveloperToolsEnabled,
   type EnabledFormatsMap,
 } from "../settings/format-settings";
 import {
@@ -18,6 +19,7 @@ import {
   setInlineImagesMode,
   type InlineImageMode,
 } from "../settings/inline-images";
+import { createToggleRow } from "../panel-popup/toggle-row";
 import {
   COPY_FORMATS,
   isClipboardCopyFormat,
@@ -103,56 +105,14 @@ export async function createInlineImagesSelect(strings: Strings): Promise<HTMLEl
   return row;
 }
 
-function createFormatChip(
-  format: FormatDefinition,
-  strings: Strings,
-  enabled: boolean,
-  onToggle: (next: boolean) => void,
-): HTMLButtonElement {
-  const chip = document.createElement("button");
-  chip.type = "button";
-  chip.className = "ec-format-chip";
-  chip.dataset.formatId = format.id;
-  chip.setAttribute("aria-pressed", enabled ? "true" : "false");
-  chip.setAttribute("aria-label", format.label(strings));
-
-  const sync = (on: boolean): void => {
-    chip.classList.toggle("is-enabled", on);
-    chip.setAttribute("aria-pressed", on ? "true" : "false");
-  };
-
-  sync(enabled);
-
-  chip.append(createFormatIcon(format.icon));
-
-  const labelText = format.label(strings);
-  const label = document.createElement("span");
-  label.className = "ec-format-chip-label";
-  label.dataset.text = labelText;
-
-  const labelContent = document.createElement("span");
-  labelContent.className = "ec-format-chip-label-text";
-  labelContent.textContent = labelText;
-  label.append(labelContent);
-  chip.append(label);
-
-  chip.addEventListener("click", () => {
-    const next = !chip.classList.contains("is-enabled");
-    sync(next);
-    onToggle(next);
+export async function createDeveloperToolsToggleRow(strings: Strings): Promise<HTMLElement> {
+  const enabled = await getDeveloperToolsEnabled();
+  const row = createToggleRow(strings.settingsDeveloperToolsToggleLabel, enabled, (next) => {
+    void setDeveloperToolsEnabled(next);
   });
-
-  return chip;
+  row.classList.add("ec-developer-tools-toggle");
+  return row;
 }
-
-const SETTINGS_CHIP_GROUPS: ReadonlyArray<{
-  group: SettingsChipGroup;
-  label: (strings: Strings) => string;
-}> = [
-  { group: "files", label: (strings) => strings.settingsFilesToDownloadLabel },
-  { group: "clipboard-text", label: (strings) => strings.settingsTextToClipboardLabel },
-  { group: "devtools", label: (strings) => strings.settingsDeveloperToolsLabel },
-];
 
 const COPIED_CHIP_GROUPS: ReadonlyArray<{
   group: SettingsChipGroup;
@@ -162,51 +122,6 @@ const COPIED_CHIP_GROUPS: ReadonlyArray<{
   { group: "clipboard-text", label: (strings) => strings.copiedCopyTextLabel },
   { group: "devtools", label: (strings) => strings.copiedDeveloperToolsLabel },
 ];
-
-function createSettingsFormatInlineList(
-  group: SettingsChipGroup,
-  labelText: string,
-  strings: Strings,
-  enabled: EnabledFormatsMap,
-): HTMLElement {
-  const row = document.createElement("div");
-  row.className = "ec-settings-format-inline-list";
-  row.setAttribute("role", "group");
-
-  const labelId = `ec-settings-formats-${group}`;
-  row.setAttribute("aria-labelledby", labelId);
-
-  const label = document.createElement("span");
-  label.id = labelId;
-  label.className = "ec-settings-format-inline-list-label";
-  label.textContent = labelText;
-  row.append(label);
-
-  for (const format of COPY_FORMATS) {
-    if (format.settingsGroup !== group) continue;
-    row.append(
-      createFormatChip(format, strings, enabled[format.id], (next) => {
-        enabled[format.id] = next;
-        void setFormatEnabled(format.id, next);
-      }),
-    );
-  }
-
-  return row;
-}
-
-export async function createCopiedPageOptionsSection(strings: Strings): Promise<HTMLElement> {
-  const enabled = await getEnabledFormats();
-
-  const section = document.createElement("div");
-  section.className = "ec-settings-copied-options";
-
-  for (const { group, label } of SETTINGS_CHIP_GROUPS) {
-    section.append(createSettingsFormatInlineList(group, label(strings), strings, enabled));
-  }
-
-  return section;
-}
 
 export async function createClipboardDefaultFormatSelect(strings: Strings): Promise<HTMLElement> {
   const selectedFormatId = await getClipboardDefaultFormat();
@@ -234,15 +149,13 @@ export async function createClipboardDefaultFormatSelect(strings: Strings): Prom
   nothingOption.selected = selectedFormatId === CLIPBOARD_DEFAULT_NOTHING;
   select.append(nothingOption);
 
-  for (const { group } of SETTINGS_CHIP_GROUPS) {
-    for (const format of COPY_FORMATS) {
-      if (format.settingsGroup !== group || !isClipboardCopyFormat(format)) continue;
-      const option = document.createElement("option");
-      option.value = format.id;
-      option.textContent = format.label(strings);
-      option.selected = format.id === selectedFormatId;
-      select.append(option);
-    }
+  for (const format of COPY_FORMATS) {
+    if (!isClipboardCopyFormat(format)) continue;
+    const option = document.createElement("option");
+    option.value = format.id;
+    option.textContent = format.label(strings);
+    option.selected = format.id === selectedFormatId;
+    select.append(option);
   }
 
   syncNothingSelectedStyle();
@@ -265,7 +178,9 @@ function syncSelectedFormatActionButton(
   container: HTMLElement,
   formatId: CopyFormatId | null,
 ): void {
-  for (const button of container.querySelectorAll<HTMLButtonElement>(".ec-format-action-btn")) {
+  for (const button of Array.from(
+    container.querySelectorAll<HTMLButtonElement>(".ec-format-action-btn"),
+  )) {
     const selected = formatId !== null && button.dataset.formatId === formatId;
     button.classList.toggle("ec-format-action-btn--selected", selected);
     button.setAttribute("aria-pressed", selected ? "true" : "false");
@@ -305,10 +220,21 @@ export type CopiedOtherOptionsOptions = {
   onSaveFormat?: (formatId: CopyFormatId) => void;
 };
 
-function copiedGroupHasEnabledFormats(
+function createCopiedFormatGroupDivider(): HTMLDivElement {
+  const divider = document.createElement("div");
+  divider.className = "dd-panel-divider ec-copied-format-group-divider";
+  divider.setAttribute("aria-hidden", "true");
+  return divider;
+}
+
+function copiedGroupHasFormats(
   group: SettingsChipGroup,
   options: CopiedOtherOptionsOptions,
 ): boolean {
+  if (isDeveloperToolsGroup(group) && !options.enabledFormats.outerHTML) {
+    return false;
+  }
+
   return COPY_FORMATS.some((format) => {
     if (format.settingsGroup !== group) return false;
     if (!options.enabledFormats[format.id]) return false;
@@ -372,8 +298,13 @@ export function createCopiedOtherOptionsRow(
     syncSelectedFormatActionButton(section, formatId);
   };
 
+  let hasPreviousGroup = false;
   for (const { group, label: groupLabel } of COPIED_CHIP_GROUPS) {
-    if (!copiedGroupHasEnabledFormats(group, options)) continue;
+    if (!copiedGroupHasFormats(group, options)) continue;
+    if (hasPreviousGroup) {
+      section.append(createCopiedFormatGroupDivider());
+    }
+    hasPreviousGroup = true;
     section.append(
       createCopiedFormatInlineList(
         group,

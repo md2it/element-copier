@@ -527,12 +527,12 @@
   outline-offset: 1px;
 }
 
-.ec-settings-copied-options {
-  display: flex;
-  flex-direction: column;
-  gap: 0.45rem;
+.ec-developer-tools-toggle {
   width: 100%;
-  margin-top: 0.85rem;
+}
+
+.ec-copied-format-group-divider {
+  margin-block: 0.15rem;
 }
 
 .ec-settings-format-inline-list {

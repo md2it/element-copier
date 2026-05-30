@@ -70,8 +70,7 @@ function getTextFromRecord(record, formatId) {
   assert.equal(getTextFromRecord(undefined, "markdownFile"), undefined);
 }
 
-// snapshotPickCopyCache dedup: markdown and markdownFile both enabled →
-// only one "markdown" entry is created (markdownFile is skipped in entries).
+// snapshotPickCopyCache: always snapshots all formats; markdown + markdownFile dedup.
 {
   const formatIds = ["markdown", "markdownFile"];
   const entries = [];
@@ -111,8 +110,8 @@ assert.doesNotMatch(contentSrc, /bindPickCopyCacheLifecycle/,
 assert.doesNotMatch(contentSrc, /clearPickCopyCache[^S]/,
   "content.ts must not call clearPickCopyCache");
 // snapshot must be awaited
-assert.match(contentSrc, /await snapshotPickCopyCache/,
-  "snapshotPickCopyCache must be awaited in content.ts");
+assert.match(contentSrc, /await snapshotPickCopyCache\(element, getCachedInlineImagesMode\(\)\)/,
+  "snapshotPickCopyCache must be awaited without enabledFormats in content.ts");
 // no message handlers for removed types
 assert.match(contentSrc, /GET_PICK_COPY_TEXT/);
 assert.match(contentSrc, /getCachedCopyText\(message\.formatId\)/);
@@ -156,6 +155,10 @@ assert.match(storageSrc, /record\.markdown/,
 const cacheSrc = readFileSync(
   join(src, "pick-mode/pick-copy-cache.ts"), "utf8",
 );
+assert.match(cacheSrc, /COPY_FORMATS\.map\(\(format\) => format\.id\)/,
+  "snapshotPickCopyCache must cache all formats");
+assert.doesNotMatch(cacheSrc, /enabledFormats/,
+  "snapshotPickCopyCache must not filter by enabledFormats");
 assert.match(cacheSrc, /async function snapshotPickCopyCache/,
   "snapshotPickCopyCache must be async");
 assert.match(cacheSrc, /await clearPickCopyCacheStorage/);

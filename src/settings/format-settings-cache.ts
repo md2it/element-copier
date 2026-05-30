@@ -2,6 +2,7 @@ import { ext } from "../api";
 import type { CopyFormatId } from "../formats/definitions";
 import {
   CLIPBOARD_DEFAULT_FORMAT_KEY,
+  DEVELOPER_TOOLS_ENABLED_KEY,
   ENABLED_FORMATS_KEY,
   INLINE_IMAGES_KEY,
 } from "../messages";
@@ -49,6 +50,7 @@ export function bindFormatSettingsCache(): void {
   ext.storage.onChanged.addListener((changes, area) => {
     if (area !== "local") return;
     if (
+      changes[DEVELOPER_TOOLS_ENABLED_KEY] ||
       changes[ENABLED_FORMATS_KEY] ||
       changes[CLIPBOARD_DEFAULT_FORMAT_KEY] ||
       changes[INLINE_IMAGES_KEY]
