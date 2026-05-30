@@ -35,26 +35,12 @@ export type FormatDefinition = {
   settingsGroup: SettingsChipGroup;
 };
 
-/** Copy-only formats from fr-copy.md (ДОСТУПНЫЕ ФОРМАТЫ). */
+/** Copy-only formats from fr-copy.md (ДОСТУПНЫЕ ФОРМАТЫ). Devtools order matches SPEC/fr-copy-save.md. */
 export const COPY_FORMATS: readonly FormatDefinition[] = [
   {
     id: "outerHTML",
     label: (s) => s.formatCode,
     icon: "code-xml",
-    actionIcon: "copy",
-    settingsGroup: "devtools",
-  },
-  {
-    id: "selector",
-    label: (s) => s.formatSelector,
-    icon: "terminal",
-    actionIcon: "copy",
-    settingsGroup: "devtools",
-  },
-  {
-    id: "jsPath",
-    label: (s) => s.formatJsPath,
-    icon: "terminal",
     actionIcon: "copy",
     settingsGroup: "devtools",
   },
@@ -69,6 +55,20 @@ export const COPY_FORMATS: readonly FormatDefinition[] = [
     id: "styles",
     label: (s) => s.formatStyles,
     icon: "list-minus",
+    actionIcon: "copy",
+    settingsGroup: "devtools",
+  },
+  {
+    id: "selector",
+    label: (s) => s.formatSelector,
+    icon: "terminal",
+    actionIcon: "copy",
+    settingsGroup: "devtools",
+  },
+  {
+    id: "jsPath",
+    label: (s) => s.formatJsPath,
+    icon: "terminal",
     actionIcon: "copy",
     settingsGroup: "devtools",
   },

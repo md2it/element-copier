@@ -12,9 +12,14 @@ import {
 
 export type EnabledFormatsMap = Record<CopyFormatId, boolean>;
 
+const DEFAULT_DISABLED_FORMAT_IDS = new Set<CopyFormatId>(["styles", "xpath"]);
+
 export function defaultEnabledFormats(): EnabledFormatsMap {
   return Object.fromEntries(
-    COPY_FORMATS.map((format) => [format.id, true]),
+    COPY_FORMATS.map((format) => [
+      format.id,
+      !DEFAULT_DISABLED_FORMAT_IDS.has(format.id),
+    ]),
   ) as EnabledFormatsMap;
 }
 

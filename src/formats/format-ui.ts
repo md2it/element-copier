@@ -250,10 +250,10 @@ export async function createClipboardDefaultFormatSelect(strings: Strings): Prom
 }
 
 function syncSelectedFormatActionButton(
-  row: HTMLElement,
+  container: HTMLElement,
   formatId: CopyFormatId | null,
 ): void {
-  for (const button of row.querySelectorAll<HTMLButtonElement>(".ec-format-action-btn")) {
+  for (const button of container.querySelectorAll<HTMLButtonElement>(".ec-format-action-btn")) {
     const selected = formatId !== null && button.dataset.formatId === formatId;
     button.classList.toggle("ec-format-action-btn--selected", selected);
     button.setAttribute("aria-pressed", selected ? "true" : "false");
@@ -294,25 +294,43 @@ export type CopiedOtherOptionsOptions = {
   onOpenSettings?: () => void;
 };
 
-export function createCopiedOtherOptionsRow(
+function copiedGroupHasEnabledFormats(
+  group: SettingsChipGroup,
+  options: CopiedOtherOptionsOptions,
+): boolean {
+  return COPY_FORMATS.some((format) => {
+    if (format.settingsGroup !== group) return false;
+    if (!options.enabledFormats[format.id]) return false;
+    const onActivate =
+      format.actionIcon === "file-down"
+        ? options.onSaveFormat
+        : options.onCopyFormat;
+    return Boolean(onActivate);
+  });
+}
+
+function createCopiedFormatInlineList(
+  group: SettingsChipGroup,
+  labelText: string,
   strings: Strings,
   options: CopiedOtherOptionsOptions,
+  onSelectFormat: (formatId: CopyFormatId) => void,
 ): HTMLElement {
   const row = document.createElement("div");
-  row.className = "ec-copied-other-options";
+  row.className = "ec-settings-format-inline-list";
   row.setAttribute("role", "group");
-  row.setAttribute("aria-label", strings.copiedFormatsGroupLabel);
+
+  const labelId = `ec-copied-formats-${group}`;
+  row.setAttribute("aria-labelledby", labelId);
 
   const label = document.createElement("span");
-  label.className = "ec-copied-other-options-label";
-  label.textContent = strings.copiedFormatsGroupLabel;
+  label.id = labelId;
+  label.className = "ec-settings-format-inline-list-label";
+  label.textContent = labelText;
   row.append(label);
 
-  const selectFormat = (formatId: CopyFormatId): void => {
-    syncSelectedFormatActionButton(row, formatId);
-  };
-
   for (const format of COPY_FORMATS) {
+    if (format.settingsGroup !== group) continue;
     if (!options.enabledFormats[format.id]) continue;
     const onActivate =
       format.actionIcon === "file-down"
@@ -321,13 +339,47 @@ export function createCopiedOtherOptionsRow(
     if (!onActivate) continue;
     row.append(
       createFormatActionButton(format, strings, (formatId) => {
-        selectFormat(formatId);
+        onSelectFormat(formatId);
         onActivate(formatId);
       }),
     );
   }
 
-  syncSelectedFormatActionButton(row, options.selectedFormatId ?? null);
+  return row;
+}
+
+export function createCopiedOtherOptionsRow(
+  strings: Strings,
+  options: CopiedOtherOptionsOptions,
+): HTMLElement {
+  const section = document.createElement("div");
+  section.className = "ec-copied-other-options";
+  section.setAttribute("role", "group");
+  section.setAttribute("aria-label", strings.copiedFormatsGroupLabel);
+
+  const label = document.createElement("span");
+  label.className = "ec-copied-other-options-label";
+  label.textContent = strings.copiedFormatsGroupLabel;
+  section.append(label);
+
+  const selectFormat = (formatId: CopyFormatId): void => {
+    syncSelectedFormatActionButton(section, formatId);
+  };
+
+  for (const { group, label: groupLabel } of SETTINGS_CHIP_GROUPS) {
+    if (!copiedGroupHasEnabledFormats(group, options)) continue;
+    section.append(
+      createCopiedFormatInlineList(
+        group,
+        groupLabel(strings),
+        strings,
+        options,
+        selectFormat,
+      ),
+    );
+  }
+
+  syncSelectedFormatActionButton(section, options.selectedFormatId ?? null);
 
   if (options.onOpenSettings) {
     const settingsLink = document.createElement("button");
@@ -337,8 +389,8 @@ export function createCopiedOtherOptionsRow(
     settingsLink.addEventListener("click", () => {
       options.onOpenSettings!();
     });
-    row.append(settingsLink);
+    section.append(settingsLink);
   }
 
-  return row;
+  return section;
 }
