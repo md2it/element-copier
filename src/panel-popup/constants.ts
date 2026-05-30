@@ -18,7 +18,6 @@ export const PANEL_POPUP_PROBE_WIDTH = `${PANEL_POPUP_WIDTH_PX}px`;
 export type PanelMenuTab =
   | "start"
   | "settings"
-  | "history"
   | "shortcuts"
   | "language"
   | "about";
@@ -26,7 +25,6 @@ export type PanelMenuTab =
 export const PANEL_MENU_TABS: readonly PanelMenuTab[] = [
   "start",
   "settings",
-  "history",
   "shortcuts",
   "language",
   "about",

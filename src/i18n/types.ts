@@ -24,7 +24,6 @@ export type Strings = {
   copiedSettingsLink: string;
   copiedFormatsGroupLabel: string;
   pageSettingsTitle: string;
-  pageHistoryTitle: string;
   tabShortcuts: string;
   tabLanguage: string;
   shortcutsRunStopHeading: string;
@@ -35,7 +34,6 @@ export type Strings = {
   shortcutsStopHeading: string;
   shortcutsSafetyLine1: string;
   shortcutsSafetyLine2: string;
-  pagePlaceholderTodo: string;
   tabAbout: string;
   welcomePin: string;
   welcomePinStep1: string;

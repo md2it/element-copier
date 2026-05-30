@@ -8,7 +8,6 @@ import {
   buildAboutPanelBody,
   buildCopiedPanelBody,
   buildLanguagePanelBody,
-  buildPlaceholderPanelBody,
   buildSettingsPanelBody,
   buildStartPanelBody,
   buildShortcutsPanelBody,
@@ -113,9 +112,6 @@ export class CopierPanelWindow {
         break;
       case "settings":
         await buildSettingsPanelBody(this.body, strings);
-        break;
-      case "history":
-        buildPlaceholderPanelBody(this.body, tab, strings);
         break;
       case "shortcuts":
         buildShortcutsPanelBody(this.body, strings);

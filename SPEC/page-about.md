@@ -1,12 +1,11 @@
 # PAGE ABOUT
 Содержит:
--  On/Off with one click
--  On/Off with shortcuts
--  Copy to clipboard
--  Doesn't use the network
--  Doesn't collect data
-- Минифутер внизу:
-  - [разделительная черта]
-  - "Element-Copier"
-  - "© Alex T" // "Alex T" = ссылка на [https://www.linkedin.com/in/alex-terekhov/](https://www.linkedin.com/in/alex-terekhov/) , underline
-  - Текст, включая ссылку серый, центрирован
+- (circle-power) On/Off with one click
+- (keyboard) On/Off with shortcuts
+- (files) Copy to clipboard
+- (file-down) Download a document
+- (image-down) Download an image
+- (shield-check) Doesn't use the network
+- (shield-check) Doesn't collect data
+- (heart) I hope you find the app useful
+- Стандартный минифутер внизу под чертой

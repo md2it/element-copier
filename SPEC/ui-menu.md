@@ -8,7 +8,6 @@
 - files // START
 - globe // LANGUAGE
 - settings // SETTINGS
-- history // HISTORY
 - keyboard // SHORTCUTS
 - info // ABOUT
 

@@ -22,8 +22,6 @@ import { createToggleRow } from "./toggle-row";
 
 export const PANEL_BODY_CENTERED_CLASS = "ec-panel-body--centered";
 
-export type PlaceholderPanelTab = "history";
-
 export type StartPanelActions = {
   onStart: () => void;
 };
@@ -213,28 +211,6 @@ export async function buildSettingsPanelBody(
     createPageDivider(),
     copiedPageOptions,
   );
-  body.append(page);
-}
-
-export function buildPlaceholderPanelBody(
-  body: HTMLDivElement,
-  tab: PlaceholderPanelTab,
-  strings: Strings,
-): void {
-  body.replaceChildren();
-
-  const page = document.createElement("div");
-  page.className = "ec-panel-page";
-
-  const title = document.createElement("h2");
-  title.className = "ec-panel-page-title";
-  title.textContent = strings.pageHistoryTitle;
-
-  const text = document.createElement("p");
-  text.className = "ec-panel-page-text";
-  text.textContent = strings.pagePlaceholderTodo;
-
-  page.append(title, createPageDivider(), text);
   body.append(page);
 }
 

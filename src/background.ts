@@ -487,14 +487,12 @@ function getActiveCommandTab(): Promise<chrome.tabs.Tab | undefined> {
 
 const CONTEXT_MENU_LANGUAGE = "element-copier-language";
 const CONTEXT_MENU_SETTINGS = "element-copier-settings";
-const CONTEXT_MENU_HISTORY = "element-copier-history";
 const CONTEXT_MENU_SHORTCUTS = "element-copier-shortcuts";
 const CONTEXT_MENU_ABOUT = "element-copier-about";
 
 const ACTION_MENU_EMOJI = {
   language: "🌐",
   settings: "⚙️",
-  history: "🕘",
   shortcuts: "⌨️",
   about: "ℹ️",
 } as const;
@@ -516,12 +514,6 @@ const CONTEXT_MENU_ITEMS: readonly {
     tab: "settings",
     emoji: ACTION_MENU_EMOJI.settings,
     title: (strings) => strings.pageSettingsTitle,
-  },
-  {
-    id: CONTEXT_MENU_HISTORY,
-    tab: "history",
-    emoji: ACTION_MENU_EMOJI.history,
-    title: (strings) => strings.pageHistoryTitle,
   },
   {
     id: CONTEXT_MENU_SHORTCUTS,

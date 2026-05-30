@@ -6,7 +6,6 @@ export {
   CIRCLE_POWER,
   FILES,
   HEART,
-  HISTORY,
   INFO,
   KEYBOARD,
   PIN,
@@ -15,7 +14,15 @@ export {
   SHIELD_CHECK,
 } from "../../lib/src/icons";
 
-import { CIRCLE_POWER, FILES, KEYBOARD, SHIELD_CHECK } from "../../lib/src/icons";
+import {
+  CIRCLE_POWER,
+  FILE_DOWN,
+  FILES,
+  HEART,
+  IMAGE_DOWN,
+  KEYBOARD,
+  SHIELD_CHECK,
+} from "../../lib/src/icons";
 
 const INACTIVE_BG = "#012292";
 const ACTIVE_BG = INACTIVE_BG;
@@ -83,8 +90,11 @@ export const ABOUT_BULLET_ICONS: readonly string[] = [
   CIRCLE_POWER,
   KEYBOARD,
   FILES,
+  FILE_DOWN,
+  IMAGE_DOWN,
   SHIELD_CHECK,
   SHIELD_CHECK,
+  HEART,
 ];
 
 export type ToolbarIconVariant = "inactive" | "active";

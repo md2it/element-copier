@@ -7,7 +7,6 @@ import {
   buildAboutPanelBody,
   buildCopiedPanelBody,
   buildLanguagePanelBody,
-  buildPlaceholderPanelBody,
   buildSettingsPanelBody,
   buildStartPanelBody,
   buildShortcutsPanelBody,
@@ -54,9 +53,6 @@ async function fillPanelTabBody(
       break;
     case "settings":
       await buildSettingsPanelBody(body, strings);
-      break;
-    case "history":
-      buildPlaceholderPanelBody(body, tab, strings);
       break;
     case "shortcuts":
       buildShortcutsPanelBody(body, strings);

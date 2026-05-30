@@ -1,5 +1,5 @@
 import type { Strings } from "../i18n";
-import { FILES, HISTORY, INFO, KEYBOARD, SETTINGS } from "../icons";
+import { FILES, INFO, KEYBOARD, SETTINGS } from "../icons";
 import type { PanelMenuTab } from "./constants";
 
 type MenuItemDef = {
@@ -15,7 +15,6 @@ const MENU_ITEMS: readonly MenuItemDef[] = [
   { tab: "start", iconSvg: FILES, label: (s) => s.titleSettings },
   { tab: "language", iconSvg: GLOBE, label: (s) => s.tabLanguage },
   { tab: "settings", iconSvg: SETTINGS, label: (s) => s.pageSettingsTitle },
-  { tab: "history", iconSvg: HISTORY, label: (s) => s.pageHistoryTitle },
   { tab: "shortcuts", iconSvg: KEYBOARD, label: (s) => s.tabShortcuts },
   { tab: "about", iconSvg: INFO, label: (s) => s.tabAbout },
 ];
