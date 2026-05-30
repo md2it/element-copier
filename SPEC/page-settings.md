@@ -28,8 +28,8 @@
 
 ## ЧИПСЫ ДЛЯ START
 - Inline списки:
-   - "Files to download:"
-   - "Text to clipboard:"
+   - "Files:"
+   - "Copy text:"
    - "Developer tools:"
 - Чипсы с названиями форматов:
    - Включённые имеют зелёный цвет и жирный чёрный текст

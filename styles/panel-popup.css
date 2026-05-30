@@ -384,6 +384,7 @@
   font: inherit;
   font-size: 0.82rem;
   line-height: 1.25;
+  text-align: right;
   cursor: pointer;
   box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.04);
   overflow: hidden;

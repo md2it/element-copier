@@ -154,6 +154,15 @@ const SETTINGS_CHIP_GROUPS: ReadonlyArray<{
   { group: "devtools", label: (strings) => strings.settingsDeveloperToolsLabel },
 ];
 
+const COPIED_CHIP_GROUPS: ReadonlyArray<{
+  group: SettingsChipGroup;
+  label: (strings: Strings) => string;
+}> = [
+  { group: "files", label: (strings) => strings.copiedFilesLabel },
+  { group: "clipboard-text", label: (strings) => strings.copiedCopyTextLabel },
+  { group: "devtools", label: (strings) => strings.copiedDeveloperToolsLabel },
+];
+
 function createSettingsFormatInlineList(
   group: SettingsChipGroup,
   labelText: string,
@@ -366,7 +375,7 @@ export function createCopiedOtherOptionsRow(
     syncSelectedFormatActionButton(section, formatId);
   };
 
-  for (const { group, label: groupLabel } of SETTINGS_CHIP_GROUPS) {
+  for (const { group, label: groupLabel } of COPIED_CHIP_GROUPS) {
     if (!copiedGroupHasEnabledFormats(group, options)) continue;
     section.append(
       createCopiedFormatInlineList(

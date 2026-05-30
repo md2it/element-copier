@@ -34,6 +34,9 @@ export type Strings = {
   copiedSubtitlePrefix: string;
   copiedSettingsLink: string;
   copiedFormatsGroupLabel: string;
+  copiedFilesLabel: string;
+  copiedCopyTextLabel: string;
+  copiedDeveloperToolsLabel: string;
   copiedStartOverButtonLabel: string;
   copiedEmptyLine1: string;
   copiedEmptyLine2: string;
