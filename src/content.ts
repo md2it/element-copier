@@ -8,7 +8,6 @@ import { registerDocumentOperabilityProbeListener } from "../../lib/src/page-ope
 import { bootstrapPanelPopupPageIfNeeded } from "./panel-popup/page";
 import { bootstrapPanelTabPageIfNeeded } from "./panel-tab";
 import { copyToClipboardForFormat } from "./element-copy";
-import { resolveCopyElement } from "./copy";
 import {
   bindPickCopyCacheLifecycle,
   clearPickCopyCache,
@@ -149,12 +148,7 @@ function attachMessageHandler(state: ContentState): void {
 
       await refreshFormatSettingsCache();
       const enabledFormats = getCachedEnabledFormats();
-      const copyElement = resolveCopyElement(
-        element,
-        enabledFormats,
-        getCachedClipboardDefaultFormat(),
-      );
-      snapshotPickCopyCache(copyElement, enabledFormats);
+      snapshotPickCopyCache(element, enabledFormats);
 
       const defaultFormatId = getCachedClipboardDefaultFormat();
       let copiedFormatId: CopyFormatId | null = null;

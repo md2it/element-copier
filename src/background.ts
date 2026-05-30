@@ -41,7 +41,10 @@ import {
   type PanelPopupTab,
 } from "./panel-popup";
 import { consumePanelSessionClose } from "./panel-popup/panel-session";
-import { readPanelTargetTabId } from "./panel-popup/panel-target-tab";
+import {
+  readPanelTargetTabId,
+  rememberPanelTargetTab,
+} from "./panel-popup/panel-target-tab";
 import { isRtlLocale, t, type Locale } from "./i18n";
 import type { Strings } from "./i18n/types";
 import { setLastCopiedFormat } from "./settings/copied-session";
@@ -301,7 +304,11 @@ async function sendWithInject(
 
 async function clearPickCopyCacheOnTab(tabId: number): Promise<void> {
   try {
-    await ext.tabs.sendMessage(tabId, { type: "CLEAR_PICK_COPY_CACHE" });
+    await ext.tabs.sendMessage(
+      tabId,
+      { type: "CLEAR_PICK_COPY_CACHE" },
+      { frameId: MAIN_FRAME_ID },
+    );
   } catch {
     /* tab closed, navigated, or content script unavailable */
   }
@@ -628,6 +635,7 @@ ext.runtime.onMessage.addListener(
         void (async () => {
           await setLastCopiedFormat(contentMessage.formatId);
           if (sender.tab?.id !== undefined) {
+            await rememberPanelTargetTab(sender.tab.id);
             tabCopiedBadge.set(sender.tab.id, true);
             await syncToolbarBadge(sender.tab.id);
           }
@@ -689,6 +697,7 @@ ext.runtime.onMessage.addListener(
           const response = await ext.tabs.sendMessage<BgToContent, GetPickCopyTextResponse>(
             tabId,
             msg,
+            { frameId: MAIN_FRAME_ID },
           );
           if (!response?.ok || !response.text) {
             sendResponse({ ok: false });
