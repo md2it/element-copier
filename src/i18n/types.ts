@@ -18,6 +18,7 @@ export type Strings = {
   formatStyles: string;
   formatXPath: string;
   formatFullXPath: string;
+  formatText: string;
   copiedTitle: string;
   copiedSubtitlePrefix: string;
   copiedSettingsLink: string;

@@ -7,7 +7,7 @@ import {
 import { registerDocumentOperabilityProbeListener } from "../../lib/src/page-operability";
 import { bootstrapPanelPopupPageIfNeeded } from "./panel-popup/page";
 import { bootstrapPanelTabPageIfNeeded } from "./panel-tab";
-import { copyTextToClipboard } from "./element-copy";
+import { copyToClipboardForFormat } from "./element-copy";
 import {
   bindPickCopyCacheLifecycle,
   clearPickCopyCache,
@@ -155,7 +155,7 @@ function attachMessageHandler(state: ContentState): void {
       if (defaultFormatId !== null) {
         const defaultText = getCachedCopyText(defaultFormatId);
         if (defaultText !== undefined) {
-          const copied = await copyTextToClipboard(defaultText);
+          const copied = await copyToClipboardForFormat(defaultFormatId, defaultText);
           if (copied) {
             copiedFormatId = defaultFormatId;
           } else {
@@ -263,7 +263,7 @@ function attachMessageHandler(state: ContentState): void {
         sendResponse({ ok: false });
         return;
       }
-      void copyTextToClipboard(text).then((ok) => {
+      void copyToClipboardForFormat(message.formatId, text).then((ok) => {
         sendResponse({ ok });
       });
       return true;

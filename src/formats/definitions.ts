@@ -10,7 +10,8 @@ export type CopyFormatId =
   | "computedStyles"
   | "styles"
   | "xpath"
-  | "fullXPath";
+  | "fullXPath"
+  | "text";
 
 export type FormatDefinition = {
   id: CopyFormatId;
@@ -53,6 +54,11 @@ export const COPY_FORMATS: readonly FormatDefinition[] = [
   {
     id: "fullXPath",
     label: (s) => s.formatFullXPath,
+    actionIcon: "copy",
+  },
+  {
+    id: "text",
+    label: (s) => s.formatText,
     actionIcon: "copy",
   },
 ] as const;

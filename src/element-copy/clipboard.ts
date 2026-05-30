@@ -1,3 +1,8 @@
+import {
+  copyFormattedTextToClipboard,
+  parseFormattedTextCache,
+} from "../../../lib/src/copy/formatted-text";
+
 function copyTextToClipboardFallback(text: string): boolean {
   try {
     const textarea = document.createElement("textarea");
@@ -28,4 +33,16 @@ export async function copyTextToClipboard(text: string): Promise<boolean> {
     /* fall through */
   }
   return copyTextToClipboardFallback(text);
+}
+
+export async function copyToClipboardForFormat(
+  formatId: string,
+  cached: string,
+): Promise<boolean> {
+  if (formatId === "text") {
+    const payload = parseFormattedTextCache(cached);
+    if (!payload) return false;
+    return copyFormattedTextToClipboard(payload);
+  }
+  return copyTextToClipboard(cached);
 }

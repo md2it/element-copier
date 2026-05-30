@@ -18,6 +18,7 @@ const MESSAGES: Record<Locale, Strings> = {
     formatStyles: "styles",
     formatXPath: "XPath",
     formatFullXPath: "full XPath",
+    formatText: "Text",
     copiedTitle: "Copied!",
     copiedSubtitlePrefix: "Copied to clipboard:",
     copiedSettingsLink: "… change the options",

@@ -1,3 +1,7 @@
+import {
+  getFormattedText,
+  serializeFormattedTextCache,
+} from "../../../lib/src/copy/formatted-text";
 import { getCssSelector } from "../../../lib/src/copy/selector";
 import { getJsPath } from "../../../lib/src/copy/js-path";
 import { getElementComputedStyles } from "../../../lib/src/copy/styles-computed";
@@ -24,6 +28,8 @@ export function extractElementCopyText(element: Element, format: string): string
       return getXPath(element);
     case "fullXPath":
       return getFullXPath(element);
+    case "text":
+      return serializeFormattedTextCache(getFormattedText(element));
     default:
       return "";
   }
