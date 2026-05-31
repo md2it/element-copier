@@ -3,6 +3,7 @@ import {
   isPanelPage,
   resolvePanelPageInitialTab as resolveLibPanelPageInitialTab,
 } from "../../../lib/src/panel-popup";
+import { hasPickCopyCacheInStorage } from "../pick-mode/pick-copy-cache-storage";
 import { isPanelTabMode } from "../panel-tab";
 import {
   PANEL_PAGE_CONFIG,
@@ -21,11 +22,15 @@ export function isPanelPopupPage(href: string): boolean {
 }
 
 export async function resolvePanelPageInitialTab(): Promise<PanelPopupTab> {
-  return resolveLibPanelPageInitialTab({
+  const tabParam = new URLSearchParams(location.search).get("tab");
+  const tab = await resolveLibPanelPageInitialTab({
     sessionTabKey: PANEL_PAGE_CONFIG.sessionTabKey,
     defaultTab: "start",
     validTabs: PANEL_POPUP_TABS,
   });
+  if (tabParam !== null) return tab;
+  if (tab !== "start") return tab;
+  return (await hasPickCopyCacheInStorage()) ? "copied" : "start";
 }
 
 /** Mount START UI when `panel-popup-page.html` is the action popup document. */

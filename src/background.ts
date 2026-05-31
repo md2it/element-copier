@@ -30,6 +30,7 @@ import {
   hasPickCopyCacheInStorage,
   PICK_COPY_CACHE_INDEX_KEY,
   PICK_COPY_CACHE_STORAGE_KEY,
+  refreshPickCopyCachePresenceSync,
 } from "./pick-mode/pick-copy-cache-storage";
 import {
   canOperateOnTab,
@@ -761,12 +762,14 @@ ext.storage.onChanged.addListener((changes, area) => {
     void ensureContextMenu();
   }
   if (changes[PICK_COPY_CACHE_STORAGE_KEY] || changes[PICK_COPY_CACHE_INDEX_KEY]) {
+    void refreshPickCopyCachePresenceSync();
     void ensureContextMenu();
   }
 });
 
 const onBootstrap = async (): Promise<void> => {
   await ensureLocaleInStorage();
+  await refreshPickCopyCachePresenceSync();
   await ensureContextMenu();
   await refreshRestrictedNoticeCache();
   await bootstrapToolbarIcons();

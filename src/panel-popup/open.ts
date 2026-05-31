@@ -3,6 +3,7 @@ import {
   panelPagePath,
   type PanelPageOpenTarget,
 } from "../../../lib/src/panel-popup";
+import { hasPickCopyCachePresentSync } from "../pick-mode/pick-copy-cache-storage";
 import { openPanelInTab } from "../panel-tab";
 import { PANEL_PAGE_CONFIG, type PanelPopupTab } from "./constants";
 import { rememberPanelTargetTab } from "./panel-target-tab";
@@ -43,7 +44,8 @@ export function openPanelFromSender(
 
 /** Toolbar click while inactive — opens popup in the same user-gesture turn. */
 export function openStartPanelFromToolbar(senderTab: chrome.tabs.Tab | undefined): void {
-  openPanelFromSender("start", senderTab);
+  const tab: PanelPopupTab = hasPickCopyCachePresentSync() ? "copied" : "start";
+  openPanelFromSender(tab, senderTab);
 }
 
 /** After a successful page pick + copy — opened from background on content message. */

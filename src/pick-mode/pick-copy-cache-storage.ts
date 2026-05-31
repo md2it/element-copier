@@ -5,6 +5,22 @@ import type { CopyFormatId } from "../formats/definitions";
 export const PICK_COPY_CACHE_STORAGE_KEY = "pickCopyCache";
 export const PICK_COPY_CACHE_INDEX_KEY = "pickCopyCacheFormats";
 
+/** Background-only mirror for sync toolbar popup open (user gesture). */
+let pickCopyCachePresentSync = false;
+
+export function hasPickCopyCachePresentSync(): boolean {
+  return pickCopyCachePresentSync;
+}
+
+function applyPickCopyCachePresence(
+  record: PickCopyCacheRecord | undefined,
+  index: unknown,
+): void {
+  pickCopyCachePresentSync =
+    (record !== undefined && Object.keys(record).length > 0) ||
+    (Array.isArray(index) && index.length > 0);
+}
+
 export type PickCopyCacheRecord = Partial<Record<CopyFormatId, string>>;
 
 export function resolvePickCopyCacheStorageKey(formatId: CopyFormatId): CopyFormatId {
@@ -49,12 +65,14 @@ export async function readPickCopyCacheFromStorage(): Promise<PickCopyCacheRecor
 
 export async function hasPickCopyCacheInStorage(): Promise<boolean> {
   const record = await readPickCopyCacheFromStorage();
-  if (record !== undefined && Object.keys(record).length > 0) return true;
-
-  // Content scripts cannot access session storage; keep index in local.
   const data = await ext.storage.local.get(PICK_COPY_CACHE_INDEX_KEY);
-  const index = data[PICK_COPY_CACHE_INDEX_KEY];
-  return Array.isArray(index) && index.length > 0;
+  applyPickCopyCachePresence(record, data[PICK_COPY_CACHE_INDEX_KEY]);
+  return pickCopyCachePresentSync;
+}
+
+/** Refresh sync mirror from storage (background bootstrap / onChanged). */
+export async function refreshPickCopyCachePresenceSync(): Promise<boolean> {
+  return hasPickCopyCacheInStorage();
 }
 
 export async function writePickCopyCacheIndex(
@@ -62,9 +80,13 @@ export async function writePickCopyCacheIndex(
 ): Promise<void> {
   if (formatIds.length === 0) {
     await ext.storage.local.remove(PICK_COPY_CACHE_INDEX_KEY);
+    const record = await readPickCopyCacheFromStorage();
+    applyPickCopyCachePresence(record, undefined);
     return;
   }
   await ext.storage.local.set({ [PICK_COPY_CACHE_INDEX_KEY]: formatIds });
+  const record = await readPickCopyCacheFromStorage();
+  applyPickCopyCachePresence(record, formatIds);
 }
 
 export async function writePickCopyCacheToStorage(
@@ -78,13 +100,18 @@ export async function writePickCopyCacheToStorage(
   }
   if (Object.keys(record).length === 0) {
     await ext.storage.local.remove(PICK_COPY_CACHE_STORAGE_KEY);
+    const data = await ext.storage.local.get(PICK_COPY_CACHE_INDEX_KEY);
+    applyPickCopyCachePresence(undefined, data[PICK_COPY_CACHE_INDEX_KEY]);
     return;
   }
   await ext.storage.local.set({ [PICK_COPY_CACHE_STORAGE_KEY]: record });
+  const data = await ext.storage.local.get(PICK_COPY_CACHE_INDEX_KEY);
+  applyPickCopyCachePresence(record, data[PICK_COPY_CACHE_INDEX_KEY]);
 }
 
 export async function clearPickCopyCacheStorage(): Promise<void> {
   await ext.storage.local.remove([PICK_COPY_CACHE_STORAGE_KEY, PICK_COPY_CACHE_INDEX_KEY]);
+  applyPickCopyCachePresence(undefined, undefined);
 }
 
 export async function getPickCopyTextFromStorage(
