@@ -33,7 +33,9 @@
 
 ### Файлы для копирования
 - PNG
+   - lucide images
 - JPEG
+   - lucide images
 
 ---
 
@@ -42,7 +44,9 @@
    - Иконка markdown-file.svg (у нас есть кастомизированная)
    - Формируется из текста markdown
 - PNG
+   - lucide image-down
 - JPEG
+   - lucide image-down
 
 ---
 

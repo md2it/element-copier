@@ -2,6 +2,9 @@ import {
   copyFormattedTextToClipboard,
   parseFormattedTextCache,
 } from "../../../lib/src/copy/formatted-text/index";
+import { isImageCopyFormat } from "../copy/screenshot";
+import type { CopyFormatId } from "../formats/definitions";
+import { dataUrlToBlob, mimeTypeForFormat } from "./download";
 
 function copyTextToClipboardFallback(text: string): boolean {
   try {
@@ -35,6 +38,28 @@ export async function copyTextToClipboard(text: string): Promise<boolean> {
   return copyTextToClipboardFallback(text);
 }
 
+async function copyImageToClipboard(
+  formatId: CopyFormatId,
+  dataUrl: string,
+): Promise<boolean> {
+  if (!isImageCopyFormat(formatId)) return false;
+  const blob = dataUrlToBlob(dataUrl);
+  if (!blob) return false;
+
+  const mimeType = mimeTypeForFormat(formatId);
+  try {
+    if (navigator.clipboard?.write && typeof ClipboardItem !== "undefined") {
+      await navigator.clipboard.write([
+        new ClipboardItem({ [mimeType]: blob }),
+      ]);
+      return true;
+    }
+  } catch {
+    /* fall through */
+  }
+  return false;
+}
+
 export async function copyToClipboardForFormat(
   formatId: string,
   cached: string,
@@ -43,6 +68,9 @@ export async function copyToClipboardForFormat(
     const payload = parseFormattedTextCache(cached);
     if (!payload) return false;
     return copyFormattedTextToClipboard(payload);
+  }
+  if (isImageCopyFormat(formatId as CopyFormatId)) {
+    return copyImageToClipboard(formatId as CopyFormatId, cached);
   }
   return copyTextToClipboard(cached);
 }

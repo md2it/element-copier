@@ -1,5 +1,6 @@
 import {
   CODE_XML,
+  IMAGE_DOWN,
   IMAGES,
   LIST_MINUS,
   LIST_PLUS,
@@ -19,6 +20,7 @@ const FORMAT_ICONS: Record<FormatIconId, string> = {
   markdown: MARKDOWN,
   "markdown-file": MARKDOWN_FILE,
   images: IMAGES,
+  "image-down": IMAGE_DOWN,
 };
 
 export function createFormatIcon(iconId: FormatIconId): HTMLSpanElement {

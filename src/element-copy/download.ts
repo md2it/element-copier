@@ -13,7 +13,7 @@ function downloadFilenameForFormat(formatId: CopyFormatId): string {
   }
 }
 
-function mimeTypeForFormat(formatId: CopyFormatId): string {
+export function mimeTypeForFormat(formatId: CopyFormatId): string {
   switch (formatId) {
     case "markdownFile":
       return "text/markdown;charset=utf-8";
@@ -30,7 +30,7 @@ function isDataUrl(value: string): boolean {
   return /^data:[^,]+,/i.test(value);
 }
 
-function dataUrlToBlob(dataUrl: string): Blob | undefined {
+export function dataUrlToBlob(dataUrl: string): Blob | undefined {
   const match = /^data:([^;,]+)?(;base64)?,(.*)$/i.exec(dataUrl);
   if (!match) return undefined;
 

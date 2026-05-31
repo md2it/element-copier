@@ -35,6 +35,7 @@ const MESSAGES: Record<Locale, Strings> = {
     copiedSubtitlePrefix: "Copied to clipboard:",
     copiedFormatsGroupLabel: "Options:",
     copiedFilesLabel: "Files:",
+    copiedCopyImagesLabel: "Copy images:",
     copiedCopyTextLabel: "Copy text:",
     copiedDeveloperToolsLabel: "Developer tools:",
     copiedStartOverButtonLabel: "START OVER",

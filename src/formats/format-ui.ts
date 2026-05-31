@@ -29,8 +29,10 @@ import {
   isClipboardCopyFormat,
   type CopyFormatId,
   type FormatDefinition,
+  type FormatIconId,
   type SettingsChipGroup,
 } from "./definitions";
+import { isImageCopyFormat } from "../copy/screenshot";
 import { createFormatIcon } from "./format-icons";
 
 const INFO_WINDOW_CLASSES = createInfoWindowClasses("ec");
@@ -122,8 +124,9 @@ const COPIED_CHIP_GROUPS: ReadonlyArray<{
   group: SettingsChipGroup;
   label: (strings: Strings) => string;
 }> = [
-  { group: "files", label: (strings) => strings.copiedFilesLabel },
   { group: "clipboard-text", label: (strings) => strings.copiedCopyTextLabel },
+  { group: "copy-images", label: (strings) => strings.copiedCopyImagesLabel },
+  { group: "files", label: (strings) => strings.copiedFilesLabel },
   { group: "devtools", label: (strings) => strings.copiedDeveloperToolsLabel },
 ];
 
@@ -198,6 +201,7 @@ function createFormatActionButton(
   strings: Strings,
   available: boolean,
   onActivate: (formatId: CopyFormatId) => void,
+  iconId: FormatIconId = format.icon,
 ): HTMLButtonElement {
   const button = document.createElement("button");
   button.type = "button";
@@ -206,7 +210,7 @@ function createFormatActionButton(
   button.setAttribute("aria-pressed", "false");
   button.setAttribute("aria-label", format.label(strings));
 
-  button.append(createFormatIcon(format.icon));
+  button.append(createFormatIcon(iconId));
 
   const label = document.createElement("span");
   label.className = "ec-format-action-btn-label";
@@ -226,8 +230,17 @@ function createFormatActionButton(
   return button;
 }
 
-function isFileActionIcon(actionIcon: FormatDefinition["actionIcon"]): boolean {
-  return actionIcon === "file-down" || actionIcon === "image-down";
+function isDownloadFormatAction(actionIcon: FormatDefinition["actionIcon"]): boolean {
+  return actionIcon === "file-down";
+}
+
+function copiedGroupHasImageDownloads(options: CopiedOtherOptionsOptions): boolean {
+  if (!options.onSaveFormat) return false;
+  return COPY_FORMATS.some(
+    (format) =>
+      isImageCopyFormat(format.id) &&
+      options.enabledFormats[format.id],
+  );
 }
 
 export type CopiedOtherOptionsOptions = {
@@ -253,10 +266,14 @@ function copiedGroupHasFormats(
     return false;
   }
 
+  if (group === "files" && copiedGroupHasImageDownloads(options)) {
+    return true;
+  }
+
   return COPY_FORMATS.some((format) => {
     if (format.settingsGroup !== group) return false;
     if (!options.enabledFormats[format.id]) return false;
-    const onActivate = isFileActionIcon(format.actionIcon)
+    const onActivate = isDownloadFormatAction(format.actionIcon)
       ? options.onSaveFormat
       : options.onCopyFormat;
     return Boolean(onActivate);
@@ -286,7 +303,7 @@ function createCopiedFormatInlineList(
   for (const format of COPY_FORMATS) {
     if (format.settingsGroup !== group) continue;
     if (!options.enabledFormats[format.id]) continue;
-    const onActivate = isFileActionIcon(format.actionIcon)
+    const onActivate = isDownloadFormatAction(format.actionIcon)
       ? options.onSaveFormat
       : options.onCopyFormat;
     if (!onActivate) continue;
@@ -301,6 +318,30 @@ function createCopiedFormatInlineList(
         onActivate(formatId);
       }),
     );
+  }
+
+  if (group === "files" && options.onSaveFormat) {
+    for (const format of COPY_FORMATS) {
+      if (!isImageCopyFormat(format.id)) continue;
+      if (!options.enabledFormats[format.id]) continue;
+      const available = isPickCopyFormatAvailable(
+        format.id,
+        options.pickCopyCacheRecord,
+        document,
+      );
+      row.append(
+        createFormatActionButton(
+          format,
+          strings,
+          available,
+          (formatId) => {
+            onSelectFormat(formatId);
+            options.onSaveFormat?.(formatId);
+          },
+          "image-down",
+        ),
+      );
+    }
   }
 
   return row;
