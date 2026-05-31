@@ -7,14 +7,11 @@ export async function fitActionPopupToHost(host: HTMLElement, locale: Locale): P
   if (maxVariant <= 0) return;
 
   const apply = (): void => {
-    const measured = Math.ceil(host.getBoundingClientRect().height);
-    const height = Math.max(measured, maxVariant);
-    if (height <= 0) return;
-    const px = `${height}px`;
+    const px = `${maxVariant}px`;
     document.documentElement.style.height = px;
     document.body.style.height = px;
     host.style.height = px;
-    host.style.minHeight = "0";
+    host.style.minHeight = px;
   };
 
   await new Promise<void>((resolve) => {

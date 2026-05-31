@@ -16,10 +16,12 @@ import {
   ABOUT_PREFIX_CHORD_WIN_DISPLAY,
 } from "../hotkeys/keys";
 import { getSkipStartPage, setSkipStartPage } from "../settings/skip-start-page";
-import { getEnabledFormats } from "../settings/format-settings";
+import { defaultEnabledFormats, getEnabledFormats } from "../settings/format-settings";
 import {
   hasPickCopyCacheInStorage,
   readPickCopyCacheFromStorage,
+  resolvePickCopyCacheStorageKey,
+  type PickCopyCacheRecord,
 } from "../pick-mode/pick-copy-cache-storage";
 import {
   getLastCopiedFormat,
@@ -430,6 +432,50 @@ function createCopiedPageHeader(state: CopiedSubtitleState, strings: Strings): H
   header.append(title, slot);
   updateCopiedPageSubtitle(header, state, strings);
   return header;
+}
+
+const COPIED_HEIGHT_PROBE_PREVIEW =
+  '<div class="ec-probe-preview"><span>preview</span></div>';
+
+function buildCopiedHeightProbeCacheRecord(): PickCopyCacheRecord {
+  const record: PickCopyCacheRecord = {};
+  for (const format of COPY_FORMATS) {
+    record[resolvePickCopyCacheStorageKey(format.id)] = COPIED_HEIGHT_PROBE_PREVIEW;
+  }
+  return record;
+}
+
+/** Tallest COPIED layout for toolbar popup height probing (ignores storage). */
+export async function buildCopiedPanelBodyForHeightProbe(
+  body: HTMLDivElement,
+  strings: Strings,
+): Promise<void> {
+  body.replaceChildren();
+
+  const page = document.createElement("div");
+  page.className = "ec-panel-page ec-panel-page--copied";
+
+  const subtitleState: CopiedSubtitleState = {
+    action: "copied",
+    copiedFormatId: "text",
+    downloadedFormatId: null,
+  };
+  const header = createCopiedPageHeader(subtitleState, strings);
+
+  const { root: otherOptions } = createCopiedOtherOptionsRow(strings, {
+    enabledFormats: defaultEnabledFormats(),
+    pickCopyCacheRecord: buildCopiedHeightProbeCacheRecord(),
+    selectedSelection: { formatId: "text", action: "copy" },
+    onCopyFormat: () => {},
+    onSaveFormat: () => {},
+  });
+
+  page.append(
+    header,
+    otherOptions,
+    createCopiedAgainBlock(strings, () => {}),
+  );
+  body.append(page);
 }
 
 export async function buildCopiedPanelBody(

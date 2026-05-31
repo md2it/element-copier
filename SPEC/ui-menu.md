@@ -5,8 +5,9 @@
 ## ПУНКТЫ МЕНЮ
 
 ### Содержит
-- play // START
-- files // COPIED
+- Одно из двух:
+   - play // START -- если кэш пустой
+   - files // COPIED -- если кэш не пустой
 - globe // LANGUAGE
 - settings // SETTINGS
 - keyboard // SHORTCUTS

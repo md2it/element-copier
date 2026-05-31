@@ -5,7 +5,7 @@ import type { PanelPopupTab } from "./constants";
 import { PANEL_POPUP_TABS } from "./constants";
 import {
   buildAboutPanelBody,
-  buildCopiedPanelBody,
+  buildCopiedPanelBodyForHeightProbe,
   buildLanguagePanelBody,
   buildSettingsPanelBody,
   buildStartPanelBody,
@@ -49,7 +49,7 @@ async function fillPanelTabBody(
       buildStartPanelBody(body, strings, { onStart: () => {} });
       break;
     case "copied":
-      await buildCopiedPanelBody(body, strings);
+      await buildCopiedPanelBodyForHeightProbe(body, strings);
       break;
     case "settings":
       await buildSettingsPanelBody(body, strings);

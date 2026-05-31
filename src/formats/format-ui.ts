@@ -133,7 +133,6 @@ const COPIED_CHIP_GROUPS: ReadonlyArray<{
   { group: "clipboard-text", label: (strings) => strings.copiedCopyTextLabel },
   { group: "copy-images", label: (strings) => strings.copiedCopyImagesLabel },
   { group: "files", label: (strings) => strings.copiedFilesLabel },
-  { group: "devtools", label: (strings) => strings.copiedDeveloperToolsLabel },
 ];
 
 export async function createClipboardDefaultFormatSelect(strings: Strings): Promise<HTMLElement> {
@@ -398,11 +397,6 @@ function createCopiedDeveloperToolsRows(
   const block = createCopiedBlock();
   block.classList.add("ec-copied-block--devtools");
 
-  const heading = document.createElement("div");
-  heading.className = "ec-copied-block-heading";
-  heading.textContent = strings.copiedDeveloperToolsLabel;
-  block.append(heading);
-
   const rows = document.createElement("div");
   rows.className = "ec-copied-devtools-rows";
 
@@ -480,7 +474,6 @@ export function createCopiedOtherOptionsRow(
   };
 
   for (const { group, label: groupLabel } of COPIED_CHIP_GROUPS) {
-    if (group === "devtools") continue;
     if (!copiedGroupHasFormats(group, options)) continue;
     const block = createCopiedBlock();
     block.append(
