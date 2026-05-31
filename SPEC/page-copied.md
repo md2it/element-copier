@@ -27,13 +27,13 @@
 ### Блок Copy
 - Всё inline
 - Содержит:
-   - "Copy:"
+   - "Copy"
    - Кнопки "Text", "Markdown", "Image"
 - На кнопках есть иконки и название
 
 ### Блок Download
 - Содержит:
-   - "Download:"
+   - "Download"
    - Markdown
    - HTML
    - PNG
@@ -42,9 +42,9 @@
 
 ### Блок URL
 - Inline:
-   - "URL:"
+   - "URL"
+   - Перед полем с URL иконка lucide external-link, синяя кликабельная
    - Сам URL в поле наподобие того, что в блоке "Developer tools" с той же логикой цветов, обрезания, копирования
-   - После поля с URL иконка lucide external-link, синяя кликабельная
 - Клик на external-link: открывает ссылку в новой вкладке
 
 ### Developer tools

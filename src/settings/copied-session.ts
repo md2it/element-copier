@@ -58,13 +58,13 @@ export function resolveCopiedPanelSelection(
   lastAction: CopiedPanelLastAction | null,
   lastCopiedFormatId: CopyFormatId | null,
   lastDownloadedFormatId: CopyFormatId | null,
+  clipboardDefaultFormatId: CopyFormatId | null = null,
 ): CopiedPanelButtonSelection | null {
   if (lastAction === "saved") {
     return lastDownloadedFormatId
       ? { formatId: lastDownloadedFormatId, action: "download" }
       : null;
   }
-  return lastCopiedFormatId
-    ? { formatId: lastCopiedFormatId, action: "copy" }
-    : null;
+  const copiedFormatId = lastCopiedFormatId ?? clipboardDefaultFormatId;
+  return copiedFormatId ? { formatId: copiedFormatId, action: "copy" } : null;
 }

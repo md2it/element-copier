@@ -497,7 +497,7 @@ function createCopiedUrlInlineRow(
     void options.onOpenUrl(urlValue);
   });
 
-  row.append(label, copyButton, openUrlButton);
+  row.append(label, openUrlButton, copyButton);
   return row;
 }
 

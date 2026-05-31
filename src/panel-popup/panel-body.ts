@@ -16,7 +16,12 @@ import {
   ABOUT_PREFIX_CHORD_MAC_DISPLAY,
   ABOUT_PREFIX_CHORD_WIN_DISPLAY,
 } from "../hotkeys/keys";
-import { defaultEnabledFormats, getEnabledFormats } from "../settings/format-settings";
+import {
+  defaultEnabledFormats,
+  getClipboardDefaultFormat,
+  getEnabledFormats,
+  isActiveCopyDefault,
+} from "../settings/format-settings";
 import {
   hasPickCopyCacheInStorage,
   readPickCopyCacheFromStorage,
@@ -517,6 +522,7 @@ export async function buildCopiedPanelBody(
     lastDownloadedFormatId,
     hasCache,
     pickCopyCacheRecord,
+    clipboardDefaultFormat,
   ] = await Promise.all([
     getEnabledFormats(),
     getLastCopiedFormat(),
@@ -524,6 +530,7 @@ export async function buildCopiedPanelBody(
     getLastDownloadedFormat(),
     hasPickCopyCacheInStorage(),
     readPickCopyCacheFromStorage(),
+    getClipboardDefaultFormat(),
   ]);
 
   if (!hasCache) {
@@ -541,13 +548,17 @@ export async function buildCopiedPanelBody(
   };
   const header = createCopiedPageHeader(subtitleState, strings);
 
+  const clipboardDefaultFormatId = isActiveCopyDefault(clipboardDefaultFormat)
+    ? clipboardDefaultFormat
+    : null;
   const selectedSelection = resolveCopiedPanelSelection(
     lastCopiedPanelAction,
     lastCopiedFormatId,
     lastDownloadedFormatId,
+    clipboardDefaultFormatId,
   );
 
-  const { root: otherOptions } = createCopiedOtherOptionsRow(strings, {
+  const { root: otherOptions, selectFormat } = createCopiedOtherOptionsRow(strings, {
     enabledFormats,
     pickCopyCacheRecord,
     selectedSelection,
@@ -561,6 +572,7 @@ export async function buildCopiedPanelBody(
       };
       updateCopiedPageSubtitle(header, nextState, strings);
       await setLastCopiedFormat(formatId);
+      selectFormat(formatId, "copy");
       return true;
     },
     onSaveFormat: async (formatId) => {
@@ -573,6 +585,7 @@ export async function buildCopiedPanelBody(
       };
       updateCopiedPageSubtitle(header, nextState, strings);
       await setLastDownloadedFormat(formatId);
+      selectFormat(formatId, "download");
       return true;
     },
     onOpenUrl: async (url) => {

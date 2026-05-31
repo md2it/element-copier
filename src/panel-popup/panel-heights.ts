@@ -70,7 +70,7 @@ function measureCopiedDownloadRowPopupWidth(panelRoot: HTMLElement): number {
   return Math.ceil(menuChrome + bodyPaddingX + rowWidth);
 }
 
-/** Toolbar popup width from the COPIED "Download:" row (menu + padding included). */
+/** Toolbar popup width from the COPIED "Download" row (menu + padding included). */
 export async function getActionPopupWidthPx(locale: Locale): Promise<number> {
   if (cachedActionPopupWidthPx !== null) {
     return cachedActionPopupWidthPx;

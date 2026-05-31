@@ -38,9 +38,9 @@ const MESSAGES: Record<Locale, Strings> = {
     copiedSubtitlePrefix: "Copied to clipboard:",
     copiedSubtitleDownloadPrefix: "Downloaded:",
     copiedFormatsGroupLabel: "Options:",
-    copiedFilesLabel: "Download:",
-    copiedCopyLabel: "Copy:",
-    copiedUrlLabel: "URL:",
+    copiedFilesLabel: "Download",
+    copiedCopyLabel: "Copy",
+    copiedUrlLabel: "URL",
     copiedOpenUrlLabel: "Open URL",
     copiedOpenUrlIconLabel: "Open URL in a new tab",
     copiedImageClipboardUnsupportedTooltip:
