@@ -11,6 +11,7 @@ import {
   clearPickCopyCacheStorage,
   isPickCopyCacheValueStorable,
   writePickCopyCacheIndex,
+  writePickCopyMetaToStorage,
   writePickCopyCacheToStorage,
 } from "./pick-copy-cache-storage";
 
@@ -94,6 +95,11 @@ export async function snapshotPickCopyCache(
     if (entries.length === 0) {
       return;
     }
+    const hostname = doc.location?.hostname?.trim() || "unknown";
+    await writePickCopyMetaToStorage({
+      tagName: element.tagName.toLowerCase(),
+      hostname,
+    });
     await writePickCopyCacheToStorage(entries, doc);
   } catch (error) {
     console.warn("[Element Copier] pick copy cache storage write failed:", error);

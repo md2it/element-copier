@@ -4,6 +4,12 @@ import type { CopyFormatId } from "../formats/definitions";
 
 export const PICK_COPY_CACHE_STORAGE_KEY = "pickCopyCache";
 export const PICK_COPY_CACHE_INDEX_KEY = "pickCopyCacheFormats";
+export const PICK_COPY_META_STORAGE_KEY = "pickCopyMeta";
+
+export type PickCopyMeta = {
+  tagName: string;
+  hostname: string;
+};
 
 /** Background-only mirror for sync toolbar popup open (user gesture). */
 let pickCopyCachePresentSync = false;
@@ -110,8 +116,25 @@ export async function writePickCopyCacheToStorage(
 }
 
 export async function clearPickCopyCacheStorage(): Promise<void> {
-  await ext.storage.local.remove([PICK_COPY_CACHE_STORAGE_KEY, PICK_COPY_CACHE_INDEX_KEY]);
+  await ext.storage.local.remove([
+    PICK_COPY_CACHE_STORAGE_KEY,
+    PICK_COPY_CACHE_INDEX_KEY,
+    PICK_COPY_META_STORAGE_KEY,
+  ]);
   applyPickCopyCachePresence(undefined, undefined);
+}
+
+export async function writePickCopyMetaToStorage(meta: PickCopyMeta): Promise<void> {
+  await ext.storage.local.set({ [PICK_COPY_META_STORAGE_KEY]: meta });
+}
+
+export async function readPickCopyMetaFromStorage(): Promise<PickCopyMeta | undefined> {
+  const data = await ext.storage.local.get(PICK_COPY_META_STORAGE_KEY);
+  const meta = data[PICK_COPY_META_STORAGE_KEY];
+  if (!meta || typeof meta !== "object") return undefined;
+  const { tagName, hostname } = meta as PickCopyMeta;
+  if (typeof tagName !== "string" || typeof hostname !== "string") return undefined;
+  return { tagName, hostname };
 }
 
 export async function getPickCopyTextFromStorage(

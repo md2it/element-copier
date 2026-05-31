@@ -1,18 +1,49 @@
 import type { CopyFormatId } from "../formats/definitions";
 
-function downloadFilenameForFormat(formatId: CopyFormatId): string {
+export type DownloadFileContext = {
+  tagName?: string;
+  hostname?: string;
+};
+
+const DOWNLOAD_FORMAT_IDS = new Set<CopyFormatId>([
+  "markdownFile",
+  "htmlFile",
+  "png",
+  "jpeg",
+]);
+
+export function isDownloadFileFormat(formatId: CopyFormatId): boolean {
+  return DOWNLOAD_FORMAT_IDS.has(formatId);
+}
+
+function domainWithDashes(hostname: string): string {
+  const normalized = hostname.trim() || "unknown";
+  return normalized.replace(/\./g, "-");
+}
+
+function extensionForDownloadFormat(formatId: CopyFormatId): string {
   switch (formatId) {
     case "markdownFile":
-      return "element-copier.md";
+      return "md";
     case "htmlFile":
-      return "element-copier.html";
+      return "html";
     case "png":
-      return "element-copier.png";
+      return "png";
     case "jpeg":
-      return "element-copier.jpeg";
+      return "jpeg";
     default:
-      return "element-copier.txt";
+      return "txt";
   }
+}
+
+export function buildDownloadFilename(
+  formatId: CopyFormatId,
+  context?: DownloadFileContext,
+): string {
+  const ext = extensionForDownloadFormat(formatId);
+  const tagName = context?.tagName?.trim().toLowerCase() || "element";
+  const domain = domainWithDashes(context?.hostname ?? "unknown");
+  return `copied-${domain}-${tagName}.${ext}`;
 }
 
 export function mimeTypeForFormat(formatId: CopyFormatId): string {
@@ -53,6 +84,7 @@ export function dataUrlToBlob(dataUrl: string): Blob | undefined {
 export function downloadTextAsFile(
   formatId: CopyFormatId,
   text: string,
+  context?: DownloadFileContext,
 ): boolean {
   if (!text) return false;
   try {
@@ -64,7 +96,7 @@ export function downloadTextAsFile(
     const url = URL.createObjectURL(blob);
     const anchor = document.createElement("a");
     anchor.href = url;
-    anchor.download = downloadFilenameForFormat(formatId);
+    anchor.download = buildDownloadFilename(formatId, context);
     anchor.style.display = "none";
     document.body.append(anchor);
     anchor.click();
