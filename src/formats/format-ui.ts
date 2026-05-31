@@ -213,6 +213,10 @@ function createFormatActionButton(
   return button;
 }
 
+function isFileActionIcon(actionIcon: FormatDefinition["actionIcon"]): boolean {
+  return actionIcon === "file-down" || actionIcon === "image-down";
+}
+
 export type CopiedOtherOptionsOptions = {
   enabledFormats: EnabledFormatsMap;
   selectedFormatId?: CopyFormatId | null;
@@ -238,10 +242,9 @@ function copiedGroupHasFormats(
   return COPY_FORMATS.some((format) => {
     if (format.settingsGroup !== group) return false;
     if (!options.enabledFormats[format.id]) return false;
-    const onActivate =
-      format.actionIcon === "file-down"
-        ? options.onSaveFormat
-        : options.onCopyFormat;
+    const onActivate = isFileActionIcon(format.actionIcon)
+      ? options.onSaveFormat
+      : options.onCopyFormat;
     return Boolean(onActivate);
   });
 }
@@ -269,10 +272,9 @@ function createCopiedFormatInlineList(
   for (const format of COPY_FORMATS) {
     if (format.settingsGroup !== group) continue;
     if (!options.enabledFormats[format.id]) continue;
-    const onActivate =
-      format.actionIcon === "file-down"
-        ? options.onSaveFormat
-        : options.onCopyFormat;
+    const onActivate = isFileActionIcon(format.actionIcon)
+      ? options.onSaveFormat
+      : options.onCopyFormat;
     if (!onActivate) continue;
     row.append(
       createFormatActionButton(format, strings, (formatId) => {

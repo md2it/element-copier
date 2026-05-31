@@ -1,4 +1,5 @@
 import { extractElementCopyText } from "../copy";
+import { captureElementImage, isImageCopyFormat } from "../copy/screenshot";
 import { createStringCache } from "../element-copy";
 import { COPY_FORMATS, type CopyFormatId } from "../formats/definitions";
 import { DEFAULT_INLINE_IMAGES_MODE, type InlineImageMode } from "../settings/inline-images";
@@ -15,6 +16,13 @@ export async function snapshotPickCopyCache(
   element: Element,
   inlineImages: InlineImageMode = DEFAULT_INLINE_IMAGES_MODE,
 ): Promise<void> {
+  cache.clear();
+  try {
+    await clearPickCopyCacheStorage();
+  } catch (error) {
+    console.warn("[Element Copier] pick copy cache storage clear failed:", error);
+  }
+
   const formatIds = COPY_FORMATS.map((format) => format.id);
   const entries: { key: CopyFormatId; value: string }[] = [];
   let markdownText: string | undefined;
@@ -27,6 +35,17 @@ export async function snapshotPickCopyCache(
       }
       continue;
     }
+    if (isImageCopyFormat(formatId)) {
+      try {
+        entries.push({
+          key: formatId,
+          value: await captureElementImage(element, formatId),
+        });
+      } catch (error) {
+        console.warn("[Element Copier] image snapshot failed:", formatId, error);
+      }
+      continue;
+    }
     entries.push({
       key: formatId,
       value: extractElementCopyText(element, formatId, inlineImages),
@@ -36,7 +55,6 @@ export async function snapshotPickCopyCache(
   cache.snapshot(entries);
 
   try {
-    await clearPickCopyCacheStorage();
     await writePickCopyCacheIndex(entries.map((entry) => entry.key));
     if (entries.length === 0) {
       return;

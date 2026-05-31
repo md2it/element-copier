@@ -11,7 +11,8 @@ export type FormatIconId =
   | "list-minus"
   | "text-initial"
   | "markdown"
-  | "markdown-file";
+  | "markdown-file"
+  | "images";
 
 export type CopyFormatId =
   | "outerHTML"
@@ -23,7 +24,9 @@ export type CopyFormatId =
   | "fullXPath"
   | "text"
   | "markdown"
-  | "markdownFile";
+  | "markdownFile"
+  | "png"
+  | "jpeg";
 
 export type SettingsChipGroup = "files" | "clipboard-text" | "devtools";
 
@@ -105,6 +108,20 @@ export const COPY_FORMATS: readonly FormatDefinition[] = [
     label: (s) => s.formatMarkdown,
     icon: "markdown-file",
     actionIcon: "file-down",
+    settingsGroup: "files",
+  },
+  {
+    id: "png",
+    label: (s) => s.formatPng,
+    icon: "images",
+    actionIcon: "image-down",
+    settingsGroup: "files",
+  },
+  {
+    id: "jpeg",
+    label: (s) => s.formatJpeg,
+    icon: "images",
+    actionIcon: "image-down",
     settingsGroup: "files",
   },
 ] as const;

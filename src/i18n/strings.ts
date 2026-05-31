@@ -28,6 +28,8 @@ const MESSAGES: Record<Locale, Strings> = {
     formatFullXPath: "full XPath",
     formatText: "Text",
     formatMarkdown: "Markdown",
+    formatPng: "PNG",
+    formatJpeg: "JPEG",
     tabCopied: "COPIED",
     copiedTitle: "Copied!",
     copiedSubtitlePrefix: "Copied to clipboard:",

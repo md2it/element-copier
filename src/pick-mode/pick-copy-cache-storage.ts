@@ -44,7 +44,7 @@ export async function writePickCopyCacheToStorage(
 }
 
 export async function clearPickCopyCacheStorage(): Promise<void> {
-  await ext.storage.local.remove(PICK_COPY_CACHE_STORAGE_KEY);
+  await ext.storage.local.remove([PICK_COPY_CACHE_STORAGE_KEY, PICK_COPY_CACHE_INDEX_KEY]);
 }
 
 export async function getPickCopyTextFromStorage(

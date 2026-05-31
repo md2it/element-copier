@@ -37,6 +37,7 @@ const common = {
   },
   alias: {
     "@lib": libSrc,
+    "modern-screenshot": join(root, "../lib/node_modules/modern-screenshot/dist/index.mjs"),
   },
 };
 
