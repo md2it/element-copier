@@ -728,6 +728,10 @@
   text-align: start;
 }
 
+.ec-copied-other-options .ec-settings-format-inline-list-label {
+  flex: 0 0 5.5rem;
+}
+
 .ec-copied-block {
   flex: 0 0 auto;
   width: 100%;
