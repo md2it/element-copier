@@ -41,7 +41,10 @@ function getFormattedTextHtml(element: Element, inlineImages: InlineImageMode): 
 }
 
 function getElementMarkdown(element: Element, inlineImages: InlineImageMode): string {
-  const prepared = prepareElementForCopy(element, getPrepareOptions(element, inlineImages, true));
+  const prepared = prepareElementForCopy(
+    element,
+    getPrepareOptions(element, inlineImages, true),
+  );
   return elementToMarkdown(prepared);
 }
 
@@ -82,7 +85,9 @@ export function extractElementCopyText(
     case "fullXPath":
       return getFullXPath(element);
     case "text":
-      return serializeFormattedTextCache({ html: getFormattedTextHtml(element, inlineImages) });
+      return serializeFormattedTextCache({
+        html: getFormattedTextHtml(element, inlineImages),
+      });
     case "markdown":
     case "markdownFile":
       return getElementMarkdown(element, inlineImages);
