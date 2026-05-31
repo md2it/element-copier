@@ -7,6 +7,12 @@ dist/
 /welcome.js
 /blocked-notice.js
 *.zip
+PUBLICATION/*.png
+PUBLICATION/**/*.png
+PUBLICATION/*.jpeg
+PUBLICATION/**/*.jpeg
+PUBLICATION/*.jpg
+PUBLICATION/**/*.jpg
 build/
 out/
 *.tsbuildinfo
