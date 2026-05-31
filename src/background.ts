@@ -23,6 +23,7 @@ import type {
   ContentToBg,
   CopyPickedFormatPanelResponse,
   GetPickCopyTextResponse,
+  OpenCachedUrlPanelResponse,
   SetPopupTabResponse,
 } from "./messages";
 import type { CopyFormatId } from "./formats/definitions";
@@ -441,6 +442,29 @@ async function getPickCopyTextForPanel(
   }
 }
 
+function normalizeUrl(url: string | undefined): string | undefined {
+  if (!url) return undefined;
+  try {
+    return new URL(url).href;
+  } catch {
+    return undefined;
+  }
+}
+
+async function openCachedUrl(targetUrl: string): Promise<OpenCachedUrlPanelResponse> {
+  const normalizedUrl = normalizeUrl(targetUrl);
+  if (!normalizedUrl) {
+    return { ok: false };
+  }
+
+  try {
+    await ext.tabs.create({ url: normalizedUrl });
+    return { ok: true };
+  } catch {
+    return { ok: false };
+  }
+}
+
 /** Pick mode is off while any extension popup panel is open. */
 async function syncPickModeForPanelTab(
   _tab: PanelPopupTab,
@@ -690,7 +714,9 @@ ext.runtime.onMessage.addListener(
   (
     message: ContentToBg | unknown,
     sender,
-    sendResponse: (response: CopyPickedFormatPanelResponse) => void,
+    sendResponse: (
+      response: CopyPickedFormatPanelResponse | OpenCachedUrlPanelResponse,
+    ) => void,
   ): boolean | void => {
     if (isBlockedNoticeDismissedMessage(message)) {
       onBlockedNoticeDismissed(message.tabId);
@@ -766,6 +792,13 @@ ext.runtime.onMessage.addListener(
           return;
         }
         sendResponse({ ok: true, text });
+      })();
+      return true;
+    }
+    if (contentMessage.type === "OPEN_CACHED_URL") {
+      void (async () => {
+        const response = await openCachedUrl(contentMessage.url);
+        sendResponse(response);
       })();
       return true;
     }

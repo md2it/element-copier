@@ -25,6 +25,7 @@ export type ContentToBg =
       className: string;
     }
   | { type: "COPY_PICKED_FORMAT"; formatId: CopyFormatId }
+  | { type: "OPEN_CACHED_URL"; url: string }
   | { type: "PICK_COPY_FLOW_STARTED"; requestId: string; startedAtMs: number }
   | { type: "PICK_COPY_FLOW_FINISHED"; requestId: string }
   | PrefixHintContentToBg;
@@ -38,6 +39,7 @@ export type SetPopupTabResponse = { ok: boolean };
 
 /** Background → panel after fetching cached pick text from extension storage. */
 export type CopyPickedFormatPanelResponse = { ok: boolean; text?: string };
+export type OpenCachedUrlPanelResponse = { ok: boolean };
 
 export function sendToBackground(msg: ContentToBg): void {
   void ext.runtime.sendMessage(msg).catch(() => {

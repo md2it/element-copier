@@ -16,7 +16,8 @@ export type CopyFormatId =
   | "markdownFile"
   | "htmlFile"
   | "png"
-  | "jpeg";
+  | "jpeg"
+  | "url";
 
 export type SettingsChipGroup = "copy-images" | "files" | "clipboard-copy" | "devtools";
 
@@ -118,8 +119,13 @@ export const CLIPBOARD_COPY_FORMATS = COPY_FORMATS.filter(isClipboardCopyFormat)
 
 export const DEFAULT_CLIPBOARD_FORMAT_ID: CopyFormatId = "text";
 
+const COPY_FORMAT_ID_VALUES: readonly CopyFormatId[] = [
+  ...COPY_FORMATS.map((format) => format.id),
+  "url",
+] as const;
+
 export function isCopyFormatId(value: unknown): value is CopyFormatId {
-  return COPY_FORMATS.some((format) => format.id === value);
+  return COPY_FORMAT_ID_VALUES.some((formatId) => formatId === value);
 }
 
 const LEGACY_COPY_FORMAT_ID_ALIASES: Readonly<Record<string, CopyFormatId>> = {

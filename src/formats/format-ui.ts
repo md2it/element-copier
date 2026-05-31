@@ -24,7 +24,13 @@ import type {
   CopiedPanelButtonSelection,
 } from "../settings/copied-session";
 import { createToggleRow } from "../panel-popup/toggle-row";
-import { COPY, FILE_DOWN, IMAGE_DOWN, IMAGES } from "../../../lib/src/icons";
+import {
+  COPY,
+  EXTERNAL_LINK,
+  FILE_DOWN,
+  IMAGE_DOWN,
+  IMAGES,
+} from "../../../lib/src/icons";
 import {
   isPickCopyFormatAvailable,
   resolvePickCopyCacheStorageKey,
@@ -215,6 +221,14 @@ function syncCopiedFormatSelection(
     row.classList.toggle("ec-copied-devtools-row--selected", selected);
     row.setAttribute("aria-pressed", selected ? "true" : "false");
   }
+
+  for (const button of Array.from(
+    container.querySelectorAll<HTMLButtonElement>(".ec-copied-url-copy"),
+  )) {
+    const selected = isCopiedButtonSelected(button, selection);
+    button.classList.toggle("ec-copied-url-copy--selected", selected);
+    button.setAttribute("aria-pressed", selected ? "true" : "false");
+  }
 }
 
 function formatActionIconMarkup(
@@ -300,6 +314,7 @@ export type CopiedOtherOptionsOptions = {
   selectedSelection?: CopiedPanelButtonSelection | null;
   onCopyFormat: (formatId: CopyFormatId) => void | boolean | Promise<boolean>;
   onSaveFormat?: (formatId: CopyFormatId) => void | boolean | Promise<boolean>;
+  onOpenUrl?: (url: string) => void | Promise<void>;
 };
 
 function createCopiedBlock(): HTMLDivElement {
@@ -420,6 +435,72 @@ function createCopiedFormatInlineList(
   return row;
 }
 
+function createCopiedUrlInlineRow(
+  strings: Strings,
+  options: CopiedOtherOptionsOptions,
+  onSelectFormat: (formatId: CopyFormatId, actionKind: CopiedPanelActionKind) => void,
+): HTMLElement {
+  const row = document.createElement("div");
+  row.className = "ec-settings-format-inline-list ec-copied-url-inline";
+  row.setAttribute("role", "group");
+
+  const label = document.createElement("span");
+  label.className = "ec-settings-format-inline-list-label";
+  label.textContent = strings.copiedUrlLabel;
+
+  const available = isPickCopyFormatAvailable("url", options.pickCopyCacheRecord, document);
+  const urlValue = options.pickCopyCacheRecord?.url ?? "";
+
+  const copyButton = document.createElement("button");
+  copyButton.type = "button";
+  copyButton.className = "ec-copied-url-copy";
+  copyButton.dataset.formatId = "url";
+  copyButton.dataset.actionKind = "copy";
+  copyButton.setAttribute("aria-pressed", "false");
+  copyButton.setAttribute("aria-label", strings.formatUrl);
+  copyButton.disabled = !available;
+  if (!available) {
+    copyButton.classList.add("ec-copied-url-copy--unavailable");
+  }
+
+  const field = document.createElement("span");
+  field.className = "ec-copied-devtools-row-field";
+
+  const value = document.createElement("span");
+  value.className = "ec-copied-devtools-row-value";
+  value.textContent = urlValue;
+  field.append(value);
+
+  const copyIcon = document.createElement("span");
+  copyIcon.className = "ec-copied-devtools-row-copy-icon";
+  copyIcon.setAttribute("aria-hidden", "true");
+  copyIcon.innerHTML = COPY;
+  field.append(copyIcon);
+
+  copyButton.append(field);
+  copyButton.addEventListener("click", () => {
+    if (!available) return;
+    void Promise.resolve(options.onCopyFormat("url")).then((copied) => {
+      if (copied) onSelectFormat("url", "copy");
+    });
+  });
+
+  const openUrlButton = document.createElement("button");
+  openUrlButton.type = "button";
+  openUrlButton.className = "ec-copied-url-open";
+  openUrlButton.innerHTML = EXTERNAL_LINK;
+  openUrlButton.setAttribute("aria-label", strings.copiedOpenUrlIconLabel);
+  openUrlButton.title = strings.copiedOpenUrlLabel;
+  openUrlButton.disabled = !available || !options.onOpenUrl;
+  openUrlButton.addEventListener("click", () => {
+    if (!available || !options.onOpenUrl) return;
+    void options.onOpenUrl(urlValue);
+  });
+
+  row.append(label, copyButton, openUrlButton);
+  return row;
+}
+
 function createCopiedDeveloperToolsRows(
   strings: Strings,
   options: CopiedOtherOptionsOptions,
@@ -521,6 +602,11 @@ export function createCopiedOtherOptionsRow(
     );
     section.append(block);
   }
+
+  const urlBlock = createCopiedBlock();
+  urlBlock.classList.add("ec-copied-block--url");
+  urlBlock.append(createCopiedUrlInlineRow(strings, options, selectFormat));
+  section.append(urlBlock);
 
   const devtoolsBlock = createCopiedDeveloperToolsRows(strings, options, selectFormat);
   if (devtoolsBlock) {

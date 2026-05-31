@@ -92,6 +92,8 @@ export function extractElementCopyText(
     case "markdown":
     case "markdownFile":
       return getElementMarkdown(element, inlineImages);
+    case "url":
+      return element.ownerDocument.location?.href || "";
     default:
       return "";
   }

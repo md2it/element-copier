@@ -40,7 +40,10 @@ export async function snapshotPickCopyCache(
     console.warn("[Element Copier] pick copy cache storage clear failed:", error);
   }
 
-  const formatIds = COPY_FORMATS.map((format) => format.id);
+  const formatIds: CopyFormatId[] = [
+    ...COPY_FORMATS.map((format) => format.id),
+    "url",
+  ];
   const entries: { key: CopyFormatId; value: string }[] = [];
   const doc = element.ownerDocument;
   let markdownText: string | undefined;

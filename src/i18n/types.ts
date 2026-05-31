@@ -30,6 +30,7 @@ export type Strings = {
   formatPng: string;
   formatJpeg: string;
   formatImage: string;
+  formatUrl: string;
   tabCopied: string;
   copiedTitle: string;
   loadingDataProcessing: string;
@@ -38,6 +39,9 @@ export type Strings = {
   copiedFormatsGroupLabel: string;
   copiedFilesLabel: string;
   copiedCopyLabel: string;
+  copiedUrlLabel: string;
+  copiedOpenUrlLabel: string;
+  copiedOpenUrlIconLabel: string;
   copiedImageClipboardUnsupportedTooltip: string;
   copiedDeveloperToolsLabel: string;
   copiedStartOverButtonLabel: string;

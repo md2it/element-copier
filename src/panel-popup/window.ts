@@ -3,7 +3,6 @@ import { t } from "../i18n";
 import { createPanelSurface } from "./build-panel-surface";
 import type { PanelMenuTab, PanelPopupTab } from "./constants";
 import { PANEL_MENU_TABS } from "./constants";
-import { bindDismissOnLeave, type DismissOnLeaveHandle } from "./dismiss-on-leave";
 import {
   buildAboutPanelBody,
   buildCopiedPanelBody,
@@ -35,7 +34,6 @@ function isMenuTab(tab: PanelPopupTab): tab is PanelMenuTab {
 }
 
 export class CopierPanelWindow {
-  private dismissHandle: DismissOnLeaveHandle | null = null;
   private panelRoot: HTMLDivElement | null = null;
   private body: HTMLDivElement | null = null;
   private menu: PanelMenuHandle | null = null;
@@ -64,7 +62,6 @@ export class CopierPanelWindow {
 
     this.host.shadow.appendChild(panelRoot);
     await this.renderTab(tab);
-    this.dismissHandle = bindDismissOnLeave(panelRoot, () => this.close());
   }
 
   async showTab(tab: PanelPopupTab): Promise<void> {
@@ -73,8 +70,6 @@ export class CopierPanelWindow {
   }
 
   close(): void {
-    this.dismissHandle?.unbind();
-    this.dismissHandle = null;
     this.panelRoot = null;
     this.body = null;
     this.menu = null;

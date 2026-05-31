@@ -31,6 +31,7 @@ const MESSAGES: Record<Locale, Strings> = {
     formatPng: "PNG",
     formatJpeg: "JPEG",
     formatImage: "Image",
+    formatUrl: "URL",
     tabCopied: "COPIED",
     copiedTitle: "Copied!",
     loadingDataProcessing: "Data processing",
@@ -39,6 +40,9 @@ const MESSAGES: Record<Locale, Strings> = {
     copiedFormatsGroupLabel: "Options:",
     copiedFilesLabel: "Download:",
     copiedCopyLabel: "Copy:",
+    copiedUrlLabel: "URL:",
+    copiedOpenUrlLabel: "Open URL",
+    copiedOpenUrlIconLabel: "Open URL in a new tab",
     copiedImageClipboardUnsupportedTooltip:
       "Your browser can't copy this image format to the clipboard. Use Download instead.",
     copiedDeveloperToolsLabel: "Developer tools:",

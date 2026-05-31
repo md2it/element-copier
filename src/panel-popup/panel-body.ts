@@ -1,4 +1,5 @@
 import { buildAboutListItems } from "../about";
+import { ext } from "../api";
 import {
   COPY_FORMATS,
   type CopyFormatId,
@@ -32,6 +33,7 @@ import {
   type CopiedPanelLastAction,
 } from "../settings/copied-session";
 import { copyPickedFormatFromPanel, savePickedFormatFromPanel } from "./lifecycle";
+import type { ContentToBg, OpenCachedUrlPanelResponse } from "../messages";
 
 export const PANEL_BODY_CENTERED_CLASS = "ec-panel-body--centered";
 
@@ -375,6 +377,7 @@ function copiedFormatLabel(
   action: CopiedPanelLastAction | null = null,
 ): string {
   if (formatId === null) return strings.settingsCopyDefaultNothing;
+  if (formatId === "url") return strings.formatUrl;
   if (formatId === "png" && action !== "saved") return strings.formatImage;
   const format = COPY_FORMATS.find((entry) => entry.id === formatId);
   return format ? format.label(strings) : strings.settingsCopyDefaultNothing;
@@ -449,7 +452,21 @@ function buildCopiedHeightProbeCacheRecord(): PickCopyCacheRecord {
   for (const format of COPY_FORMATS) {
     record[resolvePickCopyCacheStorageKey(format.id)] = COPIED_HEIGHT_PROBE_PREVIEW;
   }
+  record.url = COPIED_HEIGHT_PROBE_PREVIEW;
   return record;
+}
+
+async function openCachedUrlFromPanel(url: string): Promise<boolean> {
+  if (!url.trim()) return false;
+  try {
+    const response = await ext.runtime.sendMessage<ContentToBg, OpenCachedUrlPanelResponse>({
+      type: "OPEN_CACHED_URL",
+      url,
+    });
+    return response?.ok === true;
+  } catch {
+    return false;
+  }
 }
 
 /** Tallest COPIED layout for toolbar popup height probing (ignores storage). */
@@ -475,6 +492,7 @@ export async function buildCopiedPanelBodyForHeightProbe(
     selectedSelection: { formatId: "text", action: "copy" },
     onCopyFormat: () => {},
     onSaveFormat: () => {},
+    onOpenUrl: () => {},
   });
 
   page.append(
@@ -556,6 +574,9 @@ export async function buildCopiedPanelBody(
       updateCopiedPageSubtitle(header, nextState, strings);
       await setLastDownloadedFormat(formatId);
       return true;
+    },
+    onOpenUrl: async (url) => {
+      await openCachedUrlFromPanel(url);
     },
   });
 

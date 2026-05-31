@@ -732,6 +732,86 @@
   flex: 0 0 5.5rem;
 }
 
+.ec-copied-url-inline {
+  flex-wrap: nowrap;
+}
+
+.ec-copied-url-copy {
+  flex: 1 1 auto;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: transparent;
+  text-align: start;
+  cursor: pointer;
+}
+
+.ec-copied-url-copy:focus-visible {
+  outline: 2px solid #012292;
+  outline-offset: 1px;
+}
+
+.ec-copied-url-copy--unavailable,
+.ec-copied-url-copy--unavailable:disabled {
+  cursor: default;
+  pointer-events: none;
+}
+
+.ec-copied-url-copy--unavailable .ec-copied-devtools-row-field {
+  color: #9ca3af;
+  background: rgba(107, 114, 128, 0.08);
+}
+
+.ec-copied-url-copy--selected .ec-copied-devtools-row-field {
+  background: #dcfce7;
+  border-color: #86efac;
+  color: #15803d;
+}
+
+.ec-copied-url-copy--selected .ec-copied-devtools-row-copy-icon {
+  color: #15803d;
+}
+
+.ec-copied-url-copy--selected:hover .ec-copied-devtools-row-field,
+.ec-copied-url-copy--selected:focus-visible .ec-copied-devtools-row-field {
+  background: #bbf7d0;
+}
+
+.ec-copied-url-open {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.2rem;
+  height: 1.2rem;
+  margin: 0;
+  padding: 0;
+  border: none;
+  border-radius: 0.25rem;
+  background: transparent;
+  color: #2563eb;
+  cursor: pointer;
+}
+
+.ec-copied-url-open:hover,
+.ec-copied-url-open:focus-visible {
+  background: rgba(37, 99, 235, 0.12);
+  color: #1d4ed8;
+}
+
+.ec-copied-url-open:disabled {
+  color: #9ca3af;
+  cursor: default;
+  pointer-events: none;
+}
+
+.ec-copied-url-open svg {
+  display: block;
+  width: 0.95rem;
+  height: 0.95rem;
+}
+
 .ec-copied-block {
   flex: 0 0 auto;
   width: 100%;
