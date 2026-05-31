@@ -211,10 +211,9 @@ export async function buildSettingsPanelBody(
     title,
     createPageDivider(),
     createSkipStartToggleRow(strings, skipStartEnabled),
+    developerToolsToggle,
     clipboardDefaultFormat,
     inlineImagesSelect,
-    createPageDivider(),
-    developerToolsToggle,
   );
   body.append(page);
 }

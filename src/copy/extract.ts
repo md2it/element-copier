@@ -4,10 +4,8 @@ import {
 } from "../../../lib/src/copy/cleanup/index";
 import {
   extractHtmlFromPreparedContainer,
-  extractPlainFromPreparedContainer,
-  finalizeFormattedText,
+  finalizeFormattedHtml,
   serializeFormattedTextCache,
-  tryExtractPlainFromTable,
 } from "../../../lib/src/copy/formatted-text/index";
 import { getCssSelector } from "../../../lib/src/copy/selector";
 import { getJsPath } from "../../../lib/src/copy/js-path";
@@ -16,7 +14,6 @@ import { getElementStyles } from "../../../lib/src/copy/styles";
 import { elementToMarkdown } from "../../../lib/src/copy/markdown/index";
 import { getFullXPath, getXPath } from "../../../lib/src/copy/xpath";
 import type { InlineImageMode } from "../../../lib/src/copy/cleanup/index";
-import type { FormattedText } from "../../../lib/src/copy/formatted-text/types";
 
 function getDocumentBaseHref(element: Element): string {
   return element.ownerDocument.baseURI || element.ownerDocument.location?.href || "";
@@ -34,17 +31,13 @@ function getPrepareOptions(
   };
 }
 
-function getFormattedText(element: Element, inlineImages: InlineImageMode): FormattedText {
-  const htmlContainer = prepareElementForCopy(element, getPrepareOptions(element, inlineImages, true));
-  const html = extractHtmlFromPreparedContainer(element, htmlContainer);
-
-  const tablePlain = tryExtractPlainFromTable(element);
-  const plain = tablePlain ?? extractPlainFromPreparedContainer(
+function getFormattedTextHtml(element: Element, inlineImages: InlineImageMode): string {
+  const container = prepareElementForCopy(
     element,
-    prepareElementForCopy(element, getPrepareOptions(element, inlineImages)),
+    getPrepareOptions(element, inlineImages, true),
   );
-
-  return finalizeFormattedText(element, html, plain);
+  const html = extractHtmlFromPreparedContainer(element, container);
+  return finalizeFormattedHtml(element, html);
 }
 
 function getElementMarkdown(element: Element, inlineImages: InlineImageMode): string {
@@ -89,7 +82,7 @@ export function extractElementCopyText(
     case "fullXPath":
       return getFullXPath(element);
     case "text":
-      return serializeFormattedTextCache(getFormattedText(element, inlineImages));
+      return serializeFormattedTextCache({ html: getFormattedTextHtml(element, inlineImages) });
     case "markdown":
     case "markdownFile":
       return getElementMarkdown(element, inlineImages);

@@ -527,8 +527,10 @@
   outline-offset: 1px;
 }
 
-.ec-developer-tools-toggle {
+.ec-panel-page--settings .ec-developer-tools-toggle {
+  margin-top: 0.85rem;
   width: 100%;
+  justify-content: space-between;
 }
 
 .ec-copied-format-group-divider {

@@ -7,7 +7,7 @@ function isFormatExtractEmpty(element: Element, formatId: CopyFormatId): boolean
   const text = extractElementCopyText(element, formatId);
   if (formatId === "text") {
     const payload = parseFormattedTextCache(text);
-    return !payload?.plain?.trim() && !payload?.html?.trim();
+    return !payload?.html?.trim();
   }
   return text.trim() === "";
 }
