@@ -31,6 +31,7 @@ export type Strings = {
   formatJpeg: string;
   tabCopied: string;
   copiedTitle: string;
+  loadingDataProcessing: string;
   copiedSubtitlePrefix: string;
   copiedSubtitleDownloadPrefix: string;
   copiedFormatsGroupLabel: string;

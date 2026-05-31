@@ -23,6 +23,7 @@ import type {
   ContentToBg,
   CopyPickedFormatPanelResponse,
   GetPickCopyTextResponse,
+  SetPopupTabResponse,
 } from "./messages";
 import type { CopyFormatId } from "./formats/definitions";
 import {
@@ -64,6 +65,7 @@ type ToggleSource = "toolbar" | "hotkey";
 const TOGGLE_DEBOUNCE_MS = 80;
 /** Pick UI runs in the top document only (content_scripts use all_frames). */
 const MAIN_FRAME_ID = 0;
+const PICK_LOADING_PANEL_DELAY_MS = 500;
 
 /** Sync pre-check: skip START popup so blocked-notice keeps the toolbar user gesture. */
 function isLikelyNonOperableTabUrl(url: string | undefined): boolean {
@@ -107,6 +109,13 @@ const selectionBadgeTextAnimation = createBadgeTextColorAnimation({
   stepIntervalMs: BADGE_SELECTION_ANIMATION_STEP_MS,
   mode: "ping-pong",
 });
+
+type PickCopyLoadingTimerState = {
+  requestId: string;
+  timer: ReturnType<typeof setTimeout>;
+};
+
+const pickCopyLoadingTimers = new Map<number, PickCopyLoadingTimerState>();
 
 /**
  * Badge state priority (lib/SPEC/ui-badge.md):
@@ -442,6 +451,45 @@ async function syncPickModeForPanelTab(
   await deactivateTab(tabId, sender.tab?.windowId);
 }
 
+function clearPickCopyLoadingTimer(tabId: number, requestId?: string): void {
+  const current = pickCopyLoadingTimers.get(tabId);
+  if (!current) return;
+  if (requestId !== undefined && current.requestId !== requestId) return;
+  clearTimeout(current.timer);
+  pickCopyLoadingTimers.delete(tabId);
+}
+
+function schedulePickCopyLoadingPanel(
+  sender: chrome.runtime.MessageSender,
+  requestId: string,
+  startedAtMs: number,
+): void {
+  const tabId = sender.tab?.id;
+  if (tabId === undefined) return;
+  clearPickCopyLoadingTimer(tabId);
+  const elapsedMs = Math.max(0, Date.now() - startedAtMs);
+  const delayMs = Math.max(0, PICK_LOADING_PANEL_DELAY_MS - elapsedMs);
+  const timer = setTimeout(() => {
+    const current = pickCopyLoadingTimers.get(tabId);
+    if (!current || current.requestId !== requestId) return;
+    pickCopyLoadingTimers.delete(tabId);
+    openPanelFromSender("loading", sender.tab);
+  }, delayMs);
+  pickCopyLoadingTimers.set(tabId, { requestId, timer });
+}
+
+async function switchOpenPopupTab(tab: PanelPopupTab): Promise<boolean> {
+  try {
+    const response = await ext.runtime.sendMessage<BgToContent, SetPopupTabResponse>({
+      type: "SET_POPUP_TAB",
+      tab,
+    });
+    return response?.ok === true;
+  } catch {
+    return false;
+  }
+}
+
 async function toggleTab(
   tabId: number,
   windowId?: number,
@@ -662,11 +710,15 @@ ext.runtime.onMessage.addListener(
         void (async () => {
           await setLastCopiedFormat(contentMessage.formatId);
           if (sender.tab?.id !== undefined) {
+            clearPickCopyLoadingTimer(sender.tab.id);
             await rememberPanelTargetTab(sender.tab.id);
             tabCopiedBadge.set(sender.tab.id, true);
             await syncToolbarBadge(sender.tab.id);
           }
-          openCopiedPanelFromCopy(sender.tab);
+          const switched = await switchOpenPopupTab("copied");
+          if (!switched) {
+            openCopiedPanelFromCopy(sender.tab);
+          }
         })();
         return;
       }
@@ -717,6 +769,17 @@ ext.runtime.onMessage.addListener(
       })();
       return true;
     }
+    if (contentMessage.type === "PICK_COPY_FLOW_STARTED") {
+      schedulePickCopyLoadingPanel(
+        sender,
+        contentMessage.requestId,
+        contentMessage.startedAtMs,
+      );
+      return;
+    }
+    if (contentMessage.type === "PICK_COPY_FLOW_FINISHED" && sender.tab?.id !== undefined) {
+      clearPickCopyLoadingTimer(sender.tab.id, contentMessage.requestId);
+    }
   },
 );
 
@@ -728,6 +791,7 @@ ext.runtime.onConnect.addListener((port) => {
 });
 
 ext.tabs.onRemoved.addListener((tabId) => {
+  clearPickCopyLoadingTimer(tabId);
   clearBlockedBadgeTimer(tabId);
   clearSelectionBadgeAnimation(tabId);
   tabBlockedBadge.delete(tabId);

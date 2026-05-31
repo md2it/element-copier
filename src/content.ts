@@ -5,7 +5,9 @@ import {
   unmountCopierContentHotkeys,
 } from "./hotkeys";
 import { registerDocumentOperabilityProbeListener } from "../../lib/src/page-operability";
-import { bootstrapPanelPopupPageIfNeeded } from "./panel-popup/page";
+import { bootstrapPanelPopupPageIfNeeded, isPanelPopupPage } from "./panel-popup/page";
+import { isPanelTabMode } from "./panel-tab";
+import { showMountedPopupTab } from "./panel-popup/mount-panel-surface";
 import { bootstrapPanelTabPageIfNeeded } from "./panel-tab";
 import { copyToClipboardForFormat } from "./element-copy";
 import {
@@ -27,6 +29,7 @@ import {
   type BgToContent,
   type ContentActivationResponse,
   type GetPickCopyTextResponse,
+  type SetPopupTabResponse,
 } from "./messages";
 
 type ContentState = {
@@ -41,7 +44,9 @@ declare global {
     __ecMessageHandler?: (
       message: BgToContent,
       sender: chrome.runtime.MessageSender,
-      sendResponse: (response: ContentActivationResponse) => void,
+      sendResponse: (
+        response: ContentActivationResponse | GetPickCopyTextResponse | SetPopupTabResponse,
+      ) => void,
     ) => boolean | void;
     __ecState?: ContentState;
   }
@@ -70,6 +75,14 @@ function requestToggle(): void {
 
 function requestCopiedPanel(formatId: CopyFormatId | null): void {
   sendToBackground({ type: "OPEN_PANEL", tab: "copied", formatId });
+}
+
+function notifyPickCopyFlowStarted(requestId: string, startedAtMs: number): void {
+  sendToBackground({ type: "PICK_COPY_FLOW_STARTED", requestId, startedAtMs });
+}
+
+function notifyPickCopyFlowFinished(requestId: string): void {
+  sendToBackground({ type: "PICK_COPY_FLOW_FINISHED", requestId });
 }
 
 function waitForDomRoot(timeoutMs = 5000): Promise<void> {
@@ -137,11 +150,14 @@ function attachMessageHandler(state: ContentState): void {
   };
 
   let pickCopyInFlight = false;
+  let pickCopyFlowSeq = 0;
 
   const handleElementPicked = async (element: Element): Promise<void> => {
     if (pickCopyInFlight || !state.active) return;
     pickCopyInFlight = true;
+    const requestId = `pick-copy-${Date.now()}-${++pickCopyFlowSeq}`;
     try {
+      notifyPickCopyFlowStarted(requestId, Date.now());
       deactivate();
 
       await refreshFormatSettingsCache();
@@ -167,6 +183,7 @@ function attachMessageHandler(state: ContentState): void {
       notifyElementPicked(element);
       requestCopiedPanel(copiedFormatId);
     } finally {
+      notifyPickCopyFlowFinished(requestId);
       pickCopyInFlight = false;
     }
   };
@@ -202,6 +219,10 @@ function attachMessageHandler(state: ContentState): void {
 
   const activate = async (): Promise<boolean> => {
     if (typeof window !== "undefined" && window.top !== window) return false;
+    if (pickCopyInFlight) {
+      notifyBackgroundActive(false);
+      return true;
+    }
 
     if (state.active) {
       if (state.pick?.isHostConnected() && isPickRootConnected()) {
@@ -237,7 +258,9 @@ function attachMessageHandler(state: ContentState): void {
   const handler = (
     message: BgToContent,
     _sender: chrome.runtime.MessageSender,
-    sendResponse: (response: ContentActivationResponse | GetPickCopyTextResponse) => void,
+    sendResponse: (
+      response: ContentActivationResponse | GetPickCopyTextResponse | SetPopupTabResponse
+    ) => void,
   ): boolean | void => {
     if (message.type === "SET_ACTIVE") {
       if (typeof window !== "undefined" && window.top !== window) {
@@ -263,6 +286,19 @@ function attachMessageHandler(state: ContentState): void {
       }
       sendResponse({ ok: true, text });
       return;
+    }
+
+    if (message.type === "SET_POPUP_TAB") {
+      if (typeof window !== "undefined" && window.top !== window) {
+        sendResponse({ ok: false });
+        return;
+      }
+      if (!isPanelPopupPage(location.href) || isPanelTabMode()) {
+        sendResponse({ ok: false });
+        return;
+      }
+      void showMountedPopupTab(message.tab).then((ok) => sendResponse({ ok }));
+      return true;
     }
 
   };

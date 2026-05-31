@@ -32,6 +32,7 @@ const MESSAGES: Record<Locale, Strings> = {
     formatJpeg: "JPEG",
     tabCopied: "COPIED",
     copiedTitle: "Copied!",
+    loadingDataProcessing: "Data processing",
     copiedSubtitlePrefix: "Copied to clipboard:",
     copiedSubtitleDownloadPrefix: "Downloaded:",
     copiedFormatsGroupLabel: "Options:",

@@ -5,11 +5,13 @@ import type { PanelPopupTab } from "./panel-popup/constants";
 
 export type BgToContent =
   | { type: "SET_ACTIVE"; active: boolean }
-  | { type: "GET_PICK_COPY_TEXT"; formatId: CopyFormatId };
+  | { type: "GET_PICK_COPY_TEXT"; formatId: CopyFormatId }
+  | { type: "SET_POPUP_TAB"; tab: PanelPopupTab };
 
 export type ContentToBg =
   | { type: "ACTIVE_CHANGED"; active: boolean }
   | { type: "OPEN_PANEL"; tab: "start" }
+  | { type: "OPEN_PANEL"; tab: "loading" }
   | { type: "OPEN_PANEL"; tab: "copied"; formatId: CopyFormatId | null }
   | { type: "PANEL_TAB_CHANGED"; tab: PanelPopupTab }
   | { type: "PANEL_CLOSED" }
@@ -23,6 +25,8 @@ export type ContentToBg =
       className: string;
     }
   | { type: "COPY_PICKED_FORMAT"; formatId: CopyFormatId }
+  | { type: "PICK_COPY_FLOW_STARTED"; requestId: string; startedAtMs: number }
+  | { type: "PICK_COPY_FLOW_FINISHED"; requestId: string }
   | PrefixHintContentToBg;
 
 export type BgToWelcome = { type: "PIN_STATUS_CHANGED"; pinned: boolean };
@@ -30,6 +34,7 @@ export type BgToWelcome = { type: "PIN_STATUS_CHANGED"; pinned: boolean };
 export type ContentActivationResponse = { ok: boolean };
 
 export type GetPickCopyTextResponse = { ok: boolean; text?: string };
+export type SetPopupTabResponse = { ok: boolean };
 
 /** Background → panel after fetching cached pick text from extension storage. */
 export type CopyPickedFormatPanelResponse = { ok: boolean; text?: string };

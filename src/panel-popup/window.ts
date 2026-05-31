@@ -8,6 +8,7 @@ import {
   buildAboutPanelBody,
   buildCopiedPanelBody,
   buildLanguagePanelBody,
+  buildLoadingPanelBody,
   buildSettingsPanelBody,
   buildStartPanelBody,
   buildShortcutsPanelBody,
@@ -40,6 +41,10 @@ export class CopierPanelWindow {
   private menu: PanelMenuHandle | null = null;
 
   constructor(private readonly host: CopierPanelHost) {}
+
+  isOpen(): boolean {
+    return this.panelRoot !== null && this.body !== null;
+  }
 
   async openPanel(tab: PanelPopupTab): Promise<void> {
     this.close();
@@ -98,7 +103,7 @@ export class CopierPanelWindow {
 
     const strings = t(this.host.getLocale());
 
-    const centered = tab === "start";
+    const centered = tab === "start" || tab === "loading";
     this.body.classList.toggle(PANEL_BODY_CENTERED_CLASS, centered);
 
     switch (tab) {
@@ -127,6 +132,9 @@ export class CopierPanelWindow {
         break;
       case "about":
         buildAboutPanelBody(this.body, strings);
+        break;
+      case "loading":
+        buildLoadingPanelBody(this.body, strings);
         break;
     }
 

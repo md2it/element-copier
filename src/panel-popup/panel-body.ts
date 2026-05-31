@@ -181,6 +181,29 @@ export function buildStartPanelBody(
   body.append(page);
 }
 
+export function buildLoadingPanelBody(body: HTMLDivElement, strings: Strings): void {
+  body.replaceChildren();
+
+  const page = document.createElement("div");
+  page.className = "ec-panel-page ec-panel-page--loading";
+
+  const center = document.createElement("div");
+  center.className = "ec-loading-center";
+
+  const loader = document.createElement("div");
+  loader.className = "ec-loading-spinner";
+  loader.setAttribute("role", "status");
+  loader.setAttribute("aria-label", strings.loadingDataProcessing);
+
+  const label = document.createElement("p");
+  label.className = "ec-loading-label";
+  label.textContent = strings.loadingDataProcessing;
+
+  center.append(loader, label);
+  page.append(center);
+  body.append(page);
+}
+
 export async function buildSettingsPanelBody(
   body: HTMLDivElement,
   strings: Strings,

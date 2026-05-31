@@ -15,6 +15,8 @@ export type PanelMountSurface = {
   surface?: "popup";
 };
 
+let activePopupWindow: CopierPanelWindow | null = null;
+
 export async function mountPanelSurface(
   initialTab: PanelPopupTab,
   { hostStyle, surface }: PanelMountSurface,
@@ -31,6 +33,7 @@ export async function mountPanelSurface(
   });
 
   locale = await getLocale();
+  let panelWindow: CopierPanelWindow | null = null;
 
   const notifyClosedOnce = (): void => {
     if (closeNotified) return;
@@ -38,10 +41,17 @@ export async function mountPanelSurface(
     notifyPanelClosed();
   };
 
-  const panelWindow = new CopierPanelWindow({
+  const clearActivePopupWindow = (): void => {
+    if (panelWindow && activePopupWindow === panelWindow) {
+      activePopupWindow = null;
+    }
+  };
+
+  panelWindow = new CopierPanelWindow({
     shadow,
     surface,
     onClose: () => {
+      clearActivePopupWindow();
       notifyClosedOnce();
       window.close();
     },
@@ -52,13 +62,26 @@ export async function mountPanelSurface(
         : undefined,
   });
 
+  if (surface === "popup") {
+    activePopupWindow = panelWindow;
+  }
+
   await panelWindow.openPanel(initialTab);
   bindPanelSessionPort();
   window.addEventListener(
     "pagehide",
     () => {
+      clearActivePopupWindow();
       notifyClosedOnce();
     },
     { once: true },
   );
+}
+
+export async function showMountedPopupTab(tab: PanelPopupTab): Promise<boolean> {
+  if (!activePopupWindow || !activePopupWindow.isOpen()) {
+    return false;
+  }
+  await activePopupWindow.showTab(tab);
+  return true;
 }

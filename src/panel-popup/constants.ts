@@ -27,6 +27,8 @@ export type PanelMenuTab =
   | "language"
   | "about";
 
+export type PanelTransientTab = "loading";
+
 export const PANEL_MENU_TABS: readonly PanelMenuTab[] = [
   "start",
   "copied",
@@ -36,9 +38,9 @@ export const PANEL_MENU_TABS: readonly PanelMenuTab[] = [
   "about",
 ];
 
-export type PanelPopupTab = PanelMenuTab;
+export type PanelPopupTab = PanelMenuTab | PanelTransientTab;
 
-export const PANEL_POPUP_TABS: readonly PanelPopupTab[] = PANEL_MENU_TABS;
+export const PANEL_POPUP_TABS: readonly PanelPopupTab[] = [...PANEL_MENU_TABS, "loading"];
 
 export const PANEL_PAGE_CONFIG: PanelPageConfig = {
   pageHtml: PANEL_POPUP_PAGE,
