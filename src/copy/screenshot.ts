@@ -1,5 +1,5 @@
 import { isDerivativeFormatNoiseNode } from "../../../lib/src/copy/cleanup/sanitize";
-import { domToJpeg, domToPng, type Options } from "modern-screenshot";
+import { domToCanvas, type Options } from "modern-screenshot";
 import type { CopyFormatId } from "../formats/definitions";
 
 export type ImageCopyFormatId = Extract<CopyFormatId, "png" | "jpeg">;
@@ -165,9 +165,22 @@ function getEffectiveBackground(
   return { color: null, background: null, backgroundImage: null };
 }
 
-function screenshotOptions(
+function resolveJpegCompositeFillColor(
+  backgroundSnapshot?: ScreenshotBackgroundSnapshot,
+): string | null {
+  for (const background of backgroundSnapshot ?? []) {
+    if (background.color) return background.color;
+    if (background.background || background.backgroundImage) {
+      // Background is already materialized into the rendered canvas; avoid
+      // forcing white and keep NOTE semantics for non-color backgrounds.
+      return null;
+    }
+  }
+  return "#ffffff";
+}
+
+function getRenderOptions(
   element: Element,
-  formatId: ImageCopyFormatId,
   backgroundSnapshot?: ScreenshotBackgroundSnapshot,
 ): Options {
   const background = getEffectiveBackground(element, backgroundSnapshot);
@@ -183,8 +196,7 @@ function screenshotOptions(
   }
 
   return {
-    backgroundColor:
-      background.color ?? (formatId === "jpeg" ? "#ffffff" : null),
+    backgroundColor: background.color,
     fetch: {
       requestInit: { cache: "force-cache" },
       placeholderImage: FETCH_PLACEHOLDER_IMAGE,
@@ -198,14 +210,68 @@ export function isImageCopyFormat(formatId: CopyFormatId): formatId is ImageCopy
   return IMAGE_FORMATS.has(formatId);
 }
 
-export function captureElementImage(
+function createCanvasFromSource(source: HTMLCanvasElement): HTMLCanvasElement {
+  const doc = source.ownerDocument;
+  const canvas = doc.createElement("canvas");
+  canvas.width = source.width;
+  canvas.height = source.height;
+  return canvas;
+}
+
+function encodePng(canvas: HTMLCanvasElement): string {
+  return canvas.toDataURL("image/png");
+}
+
+function encodeJpeg(
+  renderedCanvas: HTMLCanvasElement,
+  backgroundSnapshot?: ScreenshotBackgroundSnapshot,
+): string {
+  const jpegCanvas = createCanvasFromSource(renderedCanvas);
+  const context = jpegCanvas.getContext("2d");
+  if (!context) {
+    throw new Error("Failed to get 2d context for JPEG composition");
+  }
+  const fillColor = resolveJpegCompositeFillColor(backgroundSnapshot);
+  if (fillColor) {
+    context.fillStyle = fillColor;
+    context.fillRect(0, 0, jpegCanvas.width, jpegCanvas.height);
+  }
+  context.drawImage(renderedCanvas, 0, 0);
+  return jpegCanvas.toDataURL("image/jpeg", 0.92);
+}
+
+export async function captureElementImages(
+  element: Element,
+  formats: readonly ImageCopyFormatId[],
+  backgroundSnapshot?: ScreenshotBackgroundSnapshot,
+): Promise<Partial<Record<ImageCopyFormatId, string>>> {
+  const requested = new Set(formats);
+  if (requested.size === 0) return {};
+
+  const renderedCanvas = await domToCanvas(
+    element,
+    getRenderOptions(element, backgroundSnapshot),
+  );
+  const result: Partial<Record<ImageCopyFormatId, string>> = {};
+
+  if (requested.has("png")) {
+    result.png = encodePng(renderedCanvas);
+  }
+  if (requested.has("jpeg")) {
+    result.jpeg = encodeJpeg(renderedCanvas, backgroundSnapshot);
+  }
+  return result;
+}
+
+export async function captureElementImage(
   element: Element,
   formatId: ImageCopyFormatId,
   backgroundSnapshot?: ScreenshotBackgroundSnapshot,
 ): Promise<string> {
-  const options = screenshotOptions(element, formatId, backgroundSnapshot);
-  if (formatId === "jpeg") {
-    return domToJpeg(element, options);
+  const images = await captureElementImages(element, [formatId], backgroundSnapshot);
+  const image = images[formatId];
+  if (!image) {
+    throw new Error(`Failed to capture image format: ${formatId}`);
   }
-  return domToPng(element, options);
+  return image;
 }

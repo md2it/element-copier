@@ -1,7 +1,8 @@
 import { extractElementCopyText } from "../copy";
 import {
-  captureElementImage,
+  captureElementImages,
   createScreenshotBackgroundSnapshot,
+  type ImageCopyFormatId,
   isImageCopyFormat,
 } from "../copy/screenshot";
 import { createStringCache } from "../element-copy";
@@ -64,6 +65,7 @@ export async function snapshotPickCopyCache(
   let outerHtmlText: string | undefined;
   const needsImageSnapshot = enabledFormats.png || enabledFormats.jpeg;
   let screenshotBackground: ReturnType<typeof createScreenshotBackgroundSnapshot> | undefined;
+  let cachedImages: Partial<Record<ImageCopyFormatId, string>> | undefined;
 
   async function ensureScreenshotBackground(): Promise<void> {
     if (!needsImageSnapshot || screenshotBackground) return;
@@ -109,12 +111,16 @@ export async function snapshotPickCopyCache(
       }
       if (!screenshotBackground) continue;
       try {
-        tryPushCacheEntry(
-          entries,
-          formatId,
-          await captureElementImage(element, formatId, screenshotBackground),
-          doc,
-        );
+        if (!cachedImages) {
+          const imageFormats: ImageCopyFormatId[] = [];
+          if (enabledFormats.png) imageFormats.push("png");
+          if (enabledFormats.jpeg) imageFormats.push("jpeg");
+          cachedImages = await captureElementImages(element, imageFormats, screenshotBackground);
+        }
+        const capturedImage = cachedImages[formatId];
+        if (capturedImage) {
+          tryPushCacheEntry(entries, formatId, capturedImage, doc);
+        }
       } catch (error) {
         console.warn("[Element Copier] image snapshot failed:", formatId, error);
       }
