@@ -78,6 +78,8 @@ export const AR_MESSAGES: Strings = {
   shortcutsStopHeading: "للإيقاف:",
   shortcutsSafetyLine1: "اختصار الخطوات الثلاث غير بديهي.",
   shortcutsSafetyLine2: "لكنه أكثر أمانًا وأقل تعارضًا مع التطبيقات الأخرى.",
+  shortcutsWholePageBefore: "نفس الخطوات، لكن اضغط ",
+  shortcutsWholePageAfter: " مرتين لالتقاط الصفحة كاملة فورًا.",
   tabAbout: "حول",
   welcomePin: "لإبقاء الإضافة في متناول اليد:",
   welcomePinStep1: "في الشريط العلوي افتح قائمة الإضافات",

@@ -78,6 +78,8 @@ export const DE_MESSAGES: Strings = {
   shortcutsStopHeading: "Beenden:",
   shortcutsSafetyLine1: "Die 3-stufige Tastenkombination ist nicht offensichtlich.",
   shortcutsSafetyLine2: "Sie ist aber sicherer und vermeidet Konflikte mit anderen Apps.",
+  shortcutsWholePageBefore: "Gleiche Schritte, aber ",
+  shortcutsWholePageAfter: " zweimal drücken, um sofort die ganze Seite zu erfassen.",
   tabAbout: "ÜBER",
   welcomePin: "Erweiterung griffbereit halten:",
   welcomePinStep1: "In der oberen Leiste findest du die Erweiterungsliste",

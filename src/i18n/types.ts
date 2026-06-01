@@ -96,6 +96,8 @@ export type Strings = {
   shortcutsStopHeading: string;
   shortcutsSafetyLine1: string;
   shortcutsSafetyLine2: string;
+  shortcutsWholePageBefore: string;
+  shortcutsWholePageAfter: string;
   tabAbout: string;
   welcomePin: string;
   welcomePinStep1: string;

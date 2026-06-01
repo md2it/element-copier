@@ -78,6 +78,8 @@ export const ES_MESSAGES: Strings = {
   shortcutsStopHeading: "Para detener:",
   shortcutsSafetyLine1: "El atajo de 3 pasos no es obvio.",
   shortcutsSafetyLine2: "Pero es más seguro y evita conflictos con otras apps.",
+  shortcutsWholePageBefore: "Los mismos pasos, pero pulsa ",
+  shortcutsWholePageAfter: " dos veces para capturar toda la página al instante.",
   tabAbout: "ACERCA DE",
   welcomePin: "Para tener la extensión siempre a mano:",
   welcomePinStep1: "En la barra superior hay una lista de extensiones",

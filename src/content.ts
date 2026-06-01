@@ -76,6 +76,10 @@ function requestToggle(): void {
   sendToBackground({ type: "TOGGLE_REQUEST" });
 }
 
+function requestCopyPage(): void {
+  sendToBackground({ type: "REQUEST_COPY_PAGE" });
+}
+
 function requestCopiedPanel(
   formatId: CopyFormatId | null,
   panelAction?: CopiedPanelActionKind,
@@ -357,7 +361,7 @@ window.__ecRuntimeId = runtimeId;
 registerDocumentOperabilityProbeListener();
 bindFormatSettingsCache();
 attachMessageHandler(state);
-registerCopierStartHotkey(requestToggle);
+registerCopierStartHotkey(requestToggle, requestCopyPage);
 
 void bootstrapPanelTabPageIfNeeded();
 void bootstrapPanelPopupPageIfNeeded();

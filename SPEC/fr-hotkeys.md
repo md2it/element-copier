@@ -1,11 +1,6 @@
 # Хоткеи
 
-## Префикс-режим
-- Default `Ctrl+Shift+X` → `C`
-- Mac `Cmd+Shift+X` → `C`
 - Правила обработки хоткея и badge стандартные
-
-## Закрытие по Esc
-- `Esc` — выкл режима копирования
-- Только когда расширение активно на странице
 - Без `suggested_key` в манифесте (content-слушатель)
+- По принципу DRY, конкретные shortcuts описаны в element-copier/SPEC/page-shortcuts.md
+

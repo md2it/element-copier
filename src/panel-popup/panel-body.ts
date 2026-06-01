@@ -20,6 +20,7 @@ import { PANEL_FOOTER_LINKEDIN_URL } from "../../../lib/src/panel-footer/constan
 import {
   ABOUT_PREFIX_CHORD_MAC_DISPLAY,
   ABOUT_PREFIX_CHORD_WIN_DISPLAY,
+  getStartHotkeyActionLabel,
 } from "../hotkeys/keys";
 import {
   defaultEnabledFormats,
@@ -137,11 +138,22 @@ function buildShortcutsSteps(strings: Strings): HTMLOListElement {
   const step3 = document.createElement("li");
   step3.append(
     document.createTextNode(`${strings.shortcutsStepThenPress} `),
-    createKbd("D"),
+    createKbd(getStartHotkeyActionLabel()),
   );
 
   steps.append(step1, step2, step3);
   return steps;
+}
+
+function createShortcutsWholePageLine(strings: Strings): HTMLParagraphElement {
+  const line = document.createElement("p");
+  line.className = "ec-shortcuts-note";
+  line.append(
+    strings.shortcutsWholePageBefore,
+    createKbd(getStartHotkeyActionLabel()),
+    strings.shortcutsWholePageAfter,
+  );
+  return line;
 }
 
 function createAboutCredit(strings: Strings): HTMLDivElement {
@@ -357,6 +369,8 @@ export function buildShortcutsPanelBody(body: HTMLDivElement, strings: Strings):
     buildShortcutsSteps(strings),
     safetyLine1,
     safetyLine2,
+    createShortcutsSectionDivider(),
+    createShortcutsWholePageLine(strings),
     createShortcutsSectionDivider(),
     stopLine,
     createShortcutsSectionDivider(),

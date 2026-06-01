@@ -78,6 +78,8 @@ export const ZH_CN_MESSAGES: Strings = {
   shortcutsStopHeading: "停止：",
   shortcutsSafetyLine1: "三步快捷键不够直观。",
   shortcutsSafetyLine2: "但更安全，也更少与其他应用冲突。",
+  shortcutsWholePageBefore: "步骤相同，但连按两次 ",
+  shortcutsWholePageAfter: " 可立即截取整页。",
   tabAbout: "关于",
   welcomePin: "让扩展始终触手可及：",
   welcomePinStep1: "在顶部工具栏打开扩展列表",

@@ -78,6 +78,8 @@ export const FR_MESSAGES: Strings = {
   shortcutsStopHeading: "Pour arrêter :",
   shortcutsSafetyLine1: "Le raccourci en 3 étapes n'est pas évident.",
   shortcutsSafetyLine2: "Mais il est plus sûr et évite les conflits avec d'autres apps.",
+  shortcutsWholePageBefore: "Mêmes étapes, mais appuyez sur ",
+  shortcutsWholePageAfter: " deux fois pour capturer toute la page immédiatement.",
   tabAbout: "À PROPOS",
   welcomePin: "Pour garder l'extension à portée de main :",
   welcomePinStep1: "La barre supérieure affiche la liste des extensions",

@@ -78,6 +78,8 @@ export const RU_MESSAGES: Strings = {
   shortcutsStopHeading: "Остановка:",
   shortcutsSafetyLine1: "Трёхшаговые горячие клавиши неочевидны.",
   shortcutsSafetyLine2: "Но оно безопаснее и реже конфликтует с другими приложениями.",
+  shortcutsWholePageBefore: "Те же шаги, но нажмите ",
+  shortcutsWholePageAfter: " дважды, чтобы сразу снять всю страницу.",
   tabAbout: "О ПРОГРАММЕ",
   welcomePin: "Чтобы расширение было под рукой:",
   welcomePinStep1: "На верхней панели откройте список расширений",

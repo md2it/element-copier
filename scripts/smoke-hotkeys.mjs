@@ -23,6 +23,7 @@ assert.match(copierRegistrySrc, /elementCopier/);
 
 const copierContentSrc = readFileSync(join(root, "src/hotkeys/copier-content.ts"), "utf8");
 assert.match(copierContentSrc, /registerPrefixStartHotkey/);
+assert.match(copierContentSrc, /onDoubleAction: requestCopyPage/);
 assert.match(copierContentSrc, /if \(!host\.isActive\(\)\) return/);
 assert.match(copierContentSrc, /mountCopierContentHotkeys/);
 assert.match(copierContentSrc, /unmountCopierContentHotkeys/);
@@ -31,6 +32,7 @@ assert.doesNotMatch(copierContentSrc, /undo/);
 
 const contentSrc = readFileSync(join(root, "src/content.ts"), "utf8");
 assert.match(contentSrc, /mountCopierContentHotkeys/);
+assert.match(contentSrc, /REQUEST_COPY_PAGE/);
 assert.match(contentSrc, /unmountCopierContentHotkeys/);
 
 const commandsSrc = readFileSync(join(root, "src/hotkeys/commands.ts"), "utf8");

@@ -22,7 +22,10 @@ export type CopierContentHotkeysHost = {
 };
 
 /** Ctrl/Cmd+Shift+X → C (top frame; no manifest suggested_key). */
-export function registerCopierStartHotkey(requestToggle: () => void): void {
+export function registerCopierStartHotkey(
+  requestToggle: () => void,
+  requestCopyPage: () => void,
+): void {
   registerPrefixStartHotkey({
     namespace: HOTKEY_NAMESPACE,
     hintLetter: PREFIX_ACTION_KEY,
@@ -30,6 +33,7 @@ export function registerCopierStartHotkey(requestToggle: () => void): void {
     canShowPrefixHint: queryPrefixHintCanShowFromBackground,
     onPrefixHintBlocked: notifyPrefixHintBlockedOnBackground,
     onAction: requestToggle,
+    onDoubleAction: requestCopyPage,
   });
 }
 

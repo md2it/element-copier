@@ -84,6 +84,8 @@ const EN_MESSAGES: Strings = {
     shortcutsStopHeading: "To stop:",
     shortcutsSafetyLine1: "The 3-step shortcut is not obvious.",
     shortcutsSafetyLine2: "But it is safer and avoids conflicts with other apps.",
+    shortcutsWholePageBefore: "Do the steps above, but tap ",
+    shortcutsWholePageAfter: " twice to capture the whole page immediately.",
     tabAbout: "ABOUT",
     welcomePin: "To keep the extension handy:",
     welcomePinStep1: "The top bar has an extensions list",

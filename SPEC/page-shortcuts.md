@@ -9,6 +9,8 @@
   - "The 3-step shortcut is not obvious." // серый
   - "But it is safer and avoids conflicts with other apps." // серый
 - [разделительная черта]
+- "Do the steps above, but tap `C` twice to shot the whole page immediately"
+- [разделительная черта]
 - To stop: `Esc` // "To stop:" bold, `Esc` monospace
 - [разделительная черта]
 
