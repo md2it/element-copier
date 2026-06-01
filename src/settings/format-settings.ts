@@ -145,13 +145,6 @@ export function isImageDefaultAction(action: DefaultAction): boolean {
   return isImageDefaultActionStorageValue(encodeDefaultAction(action));
 }
 
-export function defaultActionStorageOptionsForComputeImages(
-  computeImagesEnabled: boolean,
-): readonly DefaultActionStorageValue[] {
-  if (computeImagesEnabled) return DEFAULT_ACTION_STORAGE_OPTIONS;
-  return DEFAULT_ACTION_STORAGE_OPTIONS.filter((value) => !isImageDefaultActionStorageValue(value));
-}
-
 export function isActiveDefaultAction(
   action: DefaultAction,
 ): action is ActiveDefaultAction {

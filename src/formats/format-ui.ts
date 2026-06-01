@@ -10,12 +10,13 @@ import {
 } from "../settings/compute-formats";
 import {
   CLIPBOARD_DEFAULT_NOTHING,
-  defaultActionStorageOptionsForComputeImages,
+  DEFAULT_ACTION_STORAGE_OPTIONS,
   ensureDefaultActionAllowsComputeImages,
   encodeDefaultAction,
   getDeveloperToolsEnabled,
   isComputeControlledFormat,
   isDeveloperToolsGroup,
+  isImageDefaultActionStorageValue,
   parseStoredDefaultAction,
   setDefaultAction,
   setDeveloperToolsEnabled,
@@ -315,17 +316,29 @@ function findDefaultActionSelect(): HTMLSelectElement | null {
   return select instanceof HTMLSelectElement ? select : null;
 }
 
+function findComputeImagesToggle(): HTMLButtonElement | null {
+  const toggle = document
+    .getElementById(PANEL_POPUP_ROOT_ID)
+    ?.shadowRoot?.querySelector(".ec-compute-formats-toggle .ec-toggle");
+  return toggle instanceof HTMLButtonElement ? toggle : null;
+}
+
+function syncComputeImagesToggleUi(enabled: boolean): void {
+  const toggle = findComputeImagesToggle();
+  if (!toggle) return;
+  toggle.classList.toggle("is-on", enabled);
+  toggle.setAttribute("aria-checked", enabled ? "true" : "false");
+}
+
 async function populateDefaultActionSelect(
   select: HTMLSelectElement,
   strings: Strings,
 ): Promise<void> {
-  const computeImages = (await getComputeFormatsSettings()).computeImages;
   const selectedAction = await ensureDefaultActionAllowsComputeImages();
   const selectedValue = encodeDefaultAction(selectedAction);
-  const options = defaultActionStorageOptionsForComputeImages(computeImages);
 
   select.replaceChildren();
-  for (const storageValue of options) {
+  for (const storageValue of DEFAULT_ACTION_STORAGE_OPTIONS) {
     const option = document.createElement("option");
     option.value = storageValue;
     option.textContent = defaultActionOptionLabel(storageValue, strings);
@@ -363,7 +376,16 @@ export async function createClipboardDefaultFormatSelect(strings: Strings): Prom
 
   select.addEventListener("change", () => {
     applyDefaultActionNothingStyle(select);
-    void setDefaultAction(parseStoredDefaultAction(select.value));
+    void (async () => {
+      await setDefaultAction(parseStoredDefaultAction(select.value));
+      if (isImageDefaultActionStorageValue(select.value)) {
+        const settings = await getComputeFormatsSettings();
+        if (!settings.computeImages) {
+          await setComputeImagesEnabled(true);
+          syncComputeImagesToggleUi(true);
+        }
+      }
+    })();
   });
 
   row.append(label, select);

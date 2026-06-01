@@ -56,11 +56,11 @@
 - Default on
 - Рядом с лейблом есть иконка lucide info. По нажатию выходит информационное окно:
    - On large pages, images take a lot of time to generate. If you don't need them, turn them off to run way faster.
-- Если эта настройка выключена, то из "Default action" пропадают:
+- Если в "Default action" было выбрано одно из этих действий, то при выключении генерации изображений происходит сброс "Default action" к дефолту
+- Если пользователь в "Default action" выбирает пункты из подсписка, то текущий toggler включается принудительно:
    - Copy Image
    - Download PNG
    - Download JPEG
-   - Если в "Default action" было выбрано одно из этих действий, то происходит сброс "Default action" к дефолту
 
 ### Display developer tools
 - Default on
