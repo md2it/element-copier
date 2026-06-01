@@ -49,6 +49,7 @@ export type PanelMenuHandle = {
   root: HTMLElement;
   setActive: (tab: PanelMenuTab | null) => void;
   setCacheState: (hasCache: boolean) => void;
+  syncStrings: (strings: Strings) => void;
   onSelect: (tab: PanelMenuTab) => void;
 };
 
@@ -73,6 +74,16 @@ export function createPanelMenu(strings: Strings, hasCache: boolean): PanelMenuH
 
   mountItems(hasCache);
 
+  function syncStrings(nextStrings: Strings): void {
+    for (const item of resolveMenuItems(primaryHasCache)) {
+      const button = buttons.get(item.tab);
+      if (!button) continue;
+      const label = item.label(nextStrings);
+      button.setAttribute("aria-label", label);
+      button.dataset.tooltip = label;
+    }
+  }
+
   const handle: PanelMenuHandle = {
     root: nav,
     setActive(tab) {
@@ -82,6 +93,7 @@ export function createPanelMenu(strings: Strings, hasCache: boolean): PanelMenuH
         button.setAttribute("aria-current", active ? "page" : "false");
       }
     },
+    syncStrings,
     setCacheState(nextHasCache) {
       if (nextHasCache === primaryHasCache) return;
       const activeTab =

@@ -1,0 +1,11 @@
+{
+  "extDescription": {
+    "message": "Copiez le contenu de la page au format souhaité. Sans réseau. Aucune collecte de données."
+  },
+  "commandToggleCopy": {
+    "message": "Activer\u00A0/\u00A0désactiver: 1.\u00A0Ctrl+Shift+X\u00A0/\u00A0⇧⌘X 2.\u00A0relâchez\u00A0les\u00A0touches 3.\u00A0puis\u00A0appuyez\u00A0sur\u00A0C"
+  },
+  "commandDeactivateCopy": {
+    "message": "Désactiver: Esc"
+  }
+}

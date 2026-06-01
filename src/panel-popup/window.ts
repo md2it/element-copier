@@ -13,7 +13,6 @@ import {
   buildShortcutsPanelBody,
   PANEL_BODY_CENTERED_CLASS,
 } from "./panel-body";
-import { syncLanguageSelectorRow } from "./language-selector";
 import { hasPickCopyCacheInStorage } from "../pick-mode/pick-copy-cache-storage";
 import type { PanelMenuHandle } from "./panel-menu";
 import {
@@ -103,9 +102,33 @@ export class CopierPanelWindow {
     this.close();
   }
 
+  private applyLocaleToPanelChrome(): void {
+    if (!this.panelRoot) return;
+
+    const locale = this.host.getLocale();
+    const strings = t(locale);
+    this.panelRoot.lang = localeToHtmlLang(locale);
+    this.panelRoot.dir = isRtlLocale(locale) ? "rtl" : "ltr";
+
+    const subtitle = this.panelRoot.querySelector(".dd-panel-subtitle");
+    if (subtitle) subtitle.textContent = strings.panelSubtitle;
+
+    this.menu?.syncStrings(strings);
+  }
+
+  private async changeSettingsLocale(code: Locale): Promise<void> {
+    if (code === this.host.getLocale()) return;
+
+    await setLocale(code);
+    this.host.setLocale?.(code);
+    this.applyLocaleToPanelChrome();
+    await this.showTab("settings");
+  }
+
   private async renderTab(tab: PanelPopupTab): Promise<void> {
     if (!this.body) return;
 
+    this.applyLocaleToPanelChrome();
     const strings = t(this.host.getLocale());
 
     const centered = tab === "start" || tab === "loading";
@@ -135,18 +158,7 @@ export class CopierPanelWindow {
       case "settings":
         await buildSettingsPanelBody(this.body, strings, {
           getLocale: () => this.host.getLocale(),
-          onLocaleSelect: async (code) => {
-            if (code === this.host.getLocale()) return;
-            await setLocale(code);
-            this.host.setLocale?.(code);
-            if (this.panelRoot) {
-              this.panelRoot.lang = localeToHtmlLang(code);
-              this.panelRoot.dir = isRtlLocale(code) ? "rtl" : "ltr";
-            }
-            const langRow = this.body?.querySelector<HTMLElement>(".ec-lang-row");
-            if (langRow) syncLanguageSelectorRow(langRow, code);
-            await this.host.onAfterTabRender?.();
-          },
+          onLocaleSelect: (code) => this.changeSettingsLocale(code),
         });
         break;
       case "shortcuts":

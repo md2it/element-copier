@@ -1,12 +1,18 @@
 import type { Locale, Strings } from "./types";
+import { AR_MESSAGES } from "./locales/ar";
+import { DE_MESSAGES } from "./locales/de";
+import { ES_MESSAGES } from "./locales/es";
+import { FR_MESSAGES } from "./locales/fr";
+import { RU_MESSAGES } from "./locales/ru";
+import { ZH_CN_MESSAGES } from "./locales/zh_CN";
 
 const EN_MESSAGES: Strings = {
     restrictedPageNotice:
       "Browser extensions don't work on system pages and protected sites. Try another site.",
     panelSubtitle: "browser extension",
-    titleSettings: "Start",
+    titleSettings: "START",
     pickElementButtonLabel: "PICK ELEMENT",
-    capturePageButtonLabel: "CAPTURE PAGE",
+    capturePageButtonLabel: "SCREENSHOT PAGE",
     settingsDefaultActionLabel: "Default action",
     settingsDefaultActionNothing: "NOTHING",
     settingsDefaultActionCopyText: "Copy Text",
@@ -35,19 +41,19 @@ const EN_MESSAGES: Strings = {
     infoWindowCloseLabel: "Close",
     settingsDeveloperToolsToggleLabel: "Developer tools",
     settingsDarkThemeToggleLabel: "Dark theme",
-    formatCode: "code",
-    formatSelector: "selector",
-    formatJsPath: "JS path",
+    formatCode: "CODE",
+    formatSelector: "SELECTOR",
+    formatJsPath: "JS PATH",
     formatComputedStyles: "computed styles",
     formatStyles: "styles",
     formatXPath: "XPath",
-    formatFullXPath: "full XPath",
-    formatText: "Text",
+    formatFullXPath: "FULL XPath",
+    formatText: "TEXT",
     formatMarkdown: "Markdown",
     formatHtml: "HTML",
     formatPng: "PNG",
     formatJpeg: "JPEG",
-    formatImage: "Image",
+    formatImage: "IMAGE",
     formatUrl: "URL",
     tabCopied: "COPIED",
     copiedTitle: "Copied!",
@@ -57,7 +63,7 @@ const EN_MESSAGES: Strings = {
     copiedFormatsGroupLabel: "Options:",
     copiedFilesLabel: "Download",
     copiedCopyLabel: "Copy",
-    copiedOpenUrlLabel: "Open URL",
+    copiedOpenUrlLabel: "OPEN URL",
     copiedOpenUrlIconLabel: "Open URL in a new tab",
     copiedImageClipboardUnsupportedTooltip:
       "Your browser can't copy this image format to the clipboard. Use Download instead.",
@@ -83,7 +89,7 @@ const EN_MESSAGES: Strings = {
       "Download",
       "Remembers recent snapshots",
       "Texts: formatted, plain, markdown, HTML",
-      "Images: PNG, JPEG, clipboard-copy",
+      "Images: PNG, JPEG",
       "Code selectors: selector, JS path, XPath, full XPath",
       "Code styles: declared, computed",
       "Doesn't use the network",
@@ -94,7 +100,16 @@ const EN_MESSAGES: Strings = {
     aboutCreditAuthor: "Alex T",
 };
 
+const LOCALE_MESSAGES: Partial<Record<Locale, Strings>> = {
+  ar: AR_MESSAGES,
+  de: DE_MESSAGES,
+  es: ES_MESSAGES,
+  fr: FR_MESSAGES,
+  ru: RU_MESSAGES,
+  zh_CN: ZH_CN_MESSAGES,
+};
+
 /** UI locales are selectable; translated catalogs are added per locale later. */
-export function t(_locale: Locale): Strings {
-  return EN_MESSAGES;
+export function t(locale: Locale): Strings {
+  return LOCALE_MESSAGES[locale] ?? EN_MESSAGES;
 }
