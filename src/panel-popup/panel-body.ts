@@ -33,9 +33,11 @@ import {
   getLastCopiedFormat,
   getLastCopiedPanelAction,
   getLastDownloadedFormat,
+  markCopiedPanelShowStatus,
   resolveCopiedPanelSelection,
   setLastCopiedFormat,
   setLastDownloadedFormat,
+  shouldShowCopiedPanelStatus,
   type CopiedPanelLastAction,
 } from "../settings/copied-session";
 import { copyPickedFormatFromPanel, savePickedFormatFromPanel } from "./lifecycle";
@@ -546,6 +548,7 @@ export async function buildCopiedPanelBody(
     hasCache,
     pickCopyCacheRecord,
     clipboardDefaultFormat,
+    showCopiedStatus,
   ] = await Promise.all([
     getEnabledFormats(),
     getLastCopiedFormat(),
@@ -554,6 +557,7 @@ export async function buildCopiedPanelBody(
     hasPickCopyCacheInStorage(),
     readPickCopyCacheFromStorage(),
     getClipboardDefaultFormat(),
+    shouldShowCopiedPanelStatus(),
   ]);
 
   if (!hasCache) {
@@ -564,22 +568,30 @@ export async function buildCopiedPanelBody(
   const page = document.createElement("div");
   page.className = "ec-panel-page ec-panel-page--copied";
 
-  const subtitleState: CopiedSubtitleState = {
-    action: lastCopiedPanelAction,
-    copiedFormatId: lastCopiedFormatId,
-    downloadedFormatId: lastDownloadedFormatId,
-  };
+  const subtitleState: CopiedSubtitleState = showCopiedStatus
+    ? {
+        action: lastCopiedPanelAction,
+        copiedFormatId: lastCopiedFormatId,
+        downloadedFormatId: lastDownloadedFormatId,
+      }
+    : {
+        action: null,
+        copiedFormatId: null,
+        downloadedFormatId: null,
+      };
   const header = createCopiedPageHeader(subtitleState, strings);
 
   const clipboardDefaultFormatId = isActiveCopyDefault(clipboardDefaultFormat)
     ? clipboardDefaultFormat
     : null;
-  const selectedSelection = resolveCopiedPanelSelection(
-    lastCopiedPanelAction,
-    lastCopiedFormatId,
-    lastDownloadedFormatId,
-    clipboardDefaultFormatId,
-  );
+  const selectedSelection = showCopiedStatus
+    ? resolveCopiedPanelSelection(
+        lastCopiedPanelAction,
+        lastCopiedFormatId,
+        lastDownloadedFormatId,
+        clipboardDefaultFormatId,
+      )
+    : null;
 
   const { root: otherOptions, urlBlock, selectFormat } = createCopiedOtherOptionsRow(strings, {
     enabledFormats,
@@ -595,6 +607,7 @@ export async function buildCopiedPanelBody(
       };
       updateCopiedPageSubtitle(header, nextState, strings);
       await setLastCopiedFormat(formatId);
+      await markCopiedPanelShowStatus();
       selectFormat(formatId, "copy");
       return true;
     },
@@ -608,6 +621,7 @@ export async function buildCopiedPanelBody(
       };
       updateCopiedPageSubtitle(header, nextState, strings);
       await setLastDownloadedFormat(formatId);
+      await markCopiedPanelShowStatus();
       selectFormat(formatId, "download");
       return true;
     },

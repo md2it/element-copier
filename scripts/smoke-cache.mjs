@@ -313,6 +313,10 @@ assert.match(panelBodySrc, /hasPickCopyCacheInStorage/,
   "COPIED page must check cache presence, not only lastCopiedFormat");
 assert.match(panelBodySrc, /readPickCopyCacheFromStorage/);
 assert.match(panelBodySrc, /pickCopyCacheRecord/);
+assert.match(panelBodySrc, /shouldShowCopiedPanelStatus/,
+  "COPIED page must hide subtitle/selection on revisit until a new action");
+assert.match(backgroundSrc, /markCopiedPanelShowStatus/);
+assert.match(backgroundSrc, /clearCopiedPanelShowStatus/);
 
 const formatUiSrc = readFileSync(join(src, "formats/format-ui.ts"), "utf8");
 assert.match(formatUiSrc, /isPickCopyFormatAvailable/);

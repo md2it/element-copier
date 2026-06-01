@@ -57,7 +57,11 @@ import {
 } from "./panel-popup/panel-target-tab";
 import { isRtlLocale, t, type Locale } from "./i18n";
 import type { Strings } from "./i18n/types";
-import { setLastCopiedFormat } from "./settings/copied-session";
+import {
+  clearCopiedPanelShowStatus,
+  markCopiedPanelShowStatus,
+  setLastCopiedFormat,
+} from "./settings/copied-session";
 import { ensureLocaleInStorage, getLocale } from "./storage";
 import { showWelcome, stopWelcomePinWatcher, watchWelcomePinStatus } from "./welcome";
 
@@ -320,6 +324,7 @@ async function sendWithInject(
 }
 
 async function handlePanelSessionEnded(): Promise<void> {
+  await clearCopiedPanelShowStatus();
   if (!consumePanelSessionClose()) return;
   const tabId = await readPanelTargetTabId();
   if (tabId === undefined) return;
@@ -735,6 +740,7 @@ ext.runtime.onMessage.addListener(
       if (contentMessage.tab === "copied") {
         void (async () => {
           await setLastCopiedFormat(contentMessage.formatId);
+          await markCopiedPanelShowStatus();
           if (sender.tab?.id !== undefined) {
             clearPickCopyLoadingTimer(sender.tab.id);
             await rememberPanelTargetTab(sender.tab.id);

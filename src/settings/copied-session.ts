@@ -4,6 +4,8 @@ import { normalizeCopyFormatId, type CopyFormatId } from "../formats/definitions
 export const LAST_COPIED_FORMAT_KEY = "lastCopiedFormat";
 export const LAST_DOWNLOADED_FORMAT_KEY = "lastDownloadedFormat";
 export const LAST_COPIED_PANEL_ACTION_KEY = "lastCopiedPanelAction";
+/** True after copy or a COPIED-page action; cleared when the panel closes. */
+export const COPIED_PANEL_SHOW_STATUS_KEY = "copiedPanelShowStatus";
 
 export type CopiedPanelLastAction = "copied" | "saved";
 
@@ -51,6 +53,19 @@ export async function setLastDownloadedFormat(formatId: CopyFormatId): Promise<v
     [LAST_DOWNLOADED_FORMAT_KEY]: formatId,
     [LAST_COPIED_PANEL_ACTION_KEY]: "saved",
   });
+}
+
+export async function markCopiedPanelShowStatus(): Promise<void> {
+  await ext.storage.session.set({ [COPIED_PANEL_SHOW_STATUS_KEY]: true });
+}
+
+export async function clearCopiedPanelShowStatus(): Promise<void> {
+  await ext.storage.session.remove(COPIED_PANEL_SHOW_STATUS_KEY);
+}
+
+export async function shouldShowCopiedPanelStatus(): Promise<boolean> {
+  const data = await ext.storage.session.get(COPIED_PANEL_SHOW_STATUS_KEY);
+  return data[COPIED_PANEL_SHOW_STATUS_KEY] === true;
 }
 
 /** COPIED highlight: last copy or download action (one button at a time). */
