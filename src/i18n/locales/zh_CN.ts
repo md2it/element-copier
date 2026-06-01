@@ -57,7 +57,6 @@ export const ZH_CN_MESSAGES: Strings = {
   copiedFormatsGroupLabel: "选项：",
   copiedFilesLabel: "下载",
   copiedCopyLabel: "复制",
-  copiedOpenUrlLabel: "打开 URL",
   copiedOpenUrlIconLabel: "在新标签页打开 URL",
   copiedImageClipboardUnsupportedTooltip:
     "浏览器无法将此图片格式复制到剪贴板。请改用「下载」。",

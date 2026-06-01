@@ -1,4 +1,4 @@
-import { INFO } from "../icons";
+import { COPY, EXTERNAL_LINK, INFO } from "../icons";
 import {
   createInfoWindow,
   createInfoWindowClasses,
@@ -458,6 +458,14 @@ function createCopiedFormatInlineList(
   return row;
 }
 
+function appendCopiedFieldCopyIcon(field: HTMLElement): void {
+  const icon = document.createElement("span");
+  icon.className = "ec-copied-devtools-row-copy-icon";
+  icon.setAttribute("aria-hidden", "true");
+  icon.innerHTML = COPY;
+  field.append(icon);
+}
+
 function createCopiedUrlInlineRow(
   strings: Strings,
   options: CopiedOtherOptionsOptions,
@@ -490,6 +498,7 @@ function createCopiedUrlInlineRow(
   value.className = "ec-copied-devtools-row-value";
   value.textContent = urlValue;
   field.append(value);
+  appendCopiedFieldCopyIcon(field);
 
   copyButton.append(field);
   copyButton.addEventListener("click", () => {
@@ -502,7 +511,7 @@ function createCopiedUrlInlineRow(
   const openUrlButton = document.createElement("button");
   openUrlButton.type = "button";
   openUrlButton.className = "ec-copied-url-open";
-  openUrlButton.textContent = strings.copiedOpenUrlLabel;
+  openUrlButton.innerHTML = EXTERNAL_LINK;
   openUrlButton.setAttribute("aria-label", strings.copiedOpenUrlIconLabel);
   openUrlButton.disabled = !available || !options.onOpenUrl;
   openUrlButton.addEventListener("click", () => {
@@ -562,6 +571,7 @@ function createCopiedDeveloperToolsRows(
     value.className = "ec-copied-devtools-row-value";
     value.textContent = preview;
     field.append(value);
+    appendCopiedFieldCopyIcon(field);
 
     row.append(label, field);
     row.dataset.actionKind = "copy";

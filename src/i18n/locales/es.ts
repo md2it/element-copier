@@ -57,7 +57,6 @@ export const ES_MESSAGES: Strings = {
   copiedFormatsGroupLabel: "Opciones:",
   copiedFilesLabel: "Descargar",
   copiedCopyLabel: "Copiar",
-  copiedOpenUrlLabel: "ABRIR URL",
   copiedOpenUrlIconLabel: "Abrir URL en una pestaña nueva",
   copiedImageClipboardUnsupportedTooltip:
     "Tu navegador no puede copiar este formato de imagen al portapapeles. Usa Descargar.",

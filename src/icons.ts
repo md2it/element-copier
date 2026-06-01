@@ -4,6 +4,8 @@ export {
   ARROW_UP,
   COG,
   CIRCLE_POWER,
+  COPY,
+  EXTERNAL_LINK,
   FILES,
   HEART,
   INFO,

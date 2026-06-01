@@ -57,7 +57,6 @@ export const AR_MESSAGES: Strings = {
   copiedFormatsGroupLabel: "خيارات:",
   copiedFilesLabel: "تنزيل",
   copiedCopyLabel: "نسخ",
-  copiedOpenUrlLabel: "فتح URL",
   copiedOpenUrlIconLabel: "فتح URL في تبويب جديد",
   copiedImageClipboardUnsupportedTooltip:
     "لا يستطيع متصفحك نسخ هذا التنسيق إلى الحافظة. استخدم «تنزيل» بدلًا من ذلك.",

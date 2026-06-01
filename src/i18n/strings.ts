@@ -63,7 +63,6 @@ const EN_MESSAGES: Strings = {
     copiedFormatsGroupLabel: "Options:",
     copiedFilesLabel: "Download",
     copiedCopyLabel: "Copy",
-    copiedOpenUrlLabel: "OPEN URL",
     copiedOpenUrlIconLabel: "Open URL in a new tab",
     copiedImageClipboardUnsupportedTooltip:
       "Your browser can't copy this image format to the clipboard. Use Download instead.",

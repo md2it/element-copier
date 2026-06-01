@@ -76,7 +76,6 @@ export type Strings = {
   copiedFormatsGroupLabel: string;
   copiedFilesLabel: string;
   copiedCopyLabel: string;
-  copiedOpenUrlLabel: string;
   copiedOpenUrlIconLabel: string;
   copiedImageClipboardUnsupportedTooltip: string;
   copiedEmptyLine1: string;

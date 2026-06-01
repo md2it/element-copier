@@ -57,7 +57,6 @@ export const DE_MESSAGES: Strings = {
   copiedFormatsGroupLabel: "Optionen:",
   copiedFilesLabel: "Herunterladen",
   copiedCopyLabel: "Kopieren",
-  copiedOpenUrlLabel: "URL ÖFFNEN",
   copiedOpenUrlIconLabel: "URL in neuem Tab öffnen",
   copiedImageClipboardUnsupportedTooltip:
     "Dein Browser kann dieses Bildformat nicht in die Zwischenablage kopieren. Nutze stattdessen Herunterladen.",

@@ -57,7 +57,6 @@ export const RU_MESSAGES: Strings = {
   copiedFormatsGroupLabel: "Варианты:",
   copiedFilesLabel: "Скачать",
   copiedCopyLabel: "Копировать",
-  copiedOpenUrlLabel: "ОТКРЫТЬ URL",
   copiedOpenUrlIconLabel: "Открыть URL в новой вкладке",
   copiedImageClipboardUnsupportedTooltip:
     "Браузер не может скопировать этот формат изображения в буфер обмена. Используйте «Скачать».",

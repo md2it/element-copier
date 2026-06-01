@@ -57,7 +57,6 @@ export const FR_MESSAGES: Strings = {
   copiedFormatsGroupLabel: "Options :",
   copiedFilesLabel: "Télécharger",
   copiedCopyLabel: "Copier",
-  copiedOpenUrlLabel: "OUVRIR L'URL",
   copiedOpenUrlIconLabel: "Ouvrir l'URL dans un nouvel onglet",
   copiedImageClipboardUnsupportedTooltip:
     "Votre navigateur ne peut pas copier ce format d'image dans le presse-papiers. Utilisez Télécharger.",
