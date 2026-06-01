@@ -6,6 +6,7 @@ import {
 } from "../formats/definitions";
 import {
   createClipboardDefaultFormatSelect,
+  createComputeFormatsSection,
   createCopiedOtherOptionsRow,
   createDarkThemeToggleRow,
   createDeveloperToolsToggleRow,
@@ -262,6 +263,7 @@ export async function buildSettingsPanelBody(
     clipboardDefaultFormat,
     inlineImagesSelect,
     frameLabelStyleSelect,
+    computeFormatsSection,
     developerToolsToggle,
     darkThemeToggle,
     storedLocale,
@@ -269,6 +271,7 @@ export async function buildSettingsPanelBody(
     createClipboardDefaultFormatSelect(strings),
     createInlineImagesSelect(strings),
     createFrameLabelStyleSelect(strings),
+    createComputeFormatsSection(strings),
     createDeveloperToolsToggleRow(strings),
     createDarkThemeToggleRow(strings),
     localeOptions ? Promise.resolve(null) : getLocale(),
@@ -297,6 +300,8 @@ export async function buildSettingsPanelBody(
     clipboardDefaultFormat,
     inlineImagesSelect,
     frameLabelStyleSelect,
+    createSettingsSectionDivider(),
+    computeFormatsSection,
     createSettingsSectionDivider(),
     developerToolsToggle,
     darkThemeToggle,

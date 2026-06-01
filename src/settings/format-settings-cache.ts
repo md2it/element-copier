@@ -3,6 +3,9 @@ import { t } from "../i18n";
 import { getLocale } from "../storage";
 import {
   CLIPBOARD_DEFAULT_FORMAT_KEY,
+  COMPUTE_IMAGES_ENABLED_KEY,
+  COMPUTE_MARKDOWN_ENABLED_KEY,
+  COMPUTE_TEXT_ENABLED_KEY,
   DEVELOPER_TOOLS_ENABLED_KEY,
   ENABLED_FORMATS_KEY,
   FRAME_LABEL_STYLE_KEY,
@@ -99,6 +102,9 @@ export function bindFormatSettingsCache(): void {
     if (
       changes[DEVELOPER_TOOLS_ENABLED_KEY] ||
       changes[ENABLED_FORMATS_KEY] ||
+      changes[COMPUTE_IMAGES_ENABLED_KEY] ||
+      changes[COMPUTE_MARKDOWN_ENABLED_KEY] ||
+      changes[COMPUTE_TEXT_ENABLED_KEY] ||
       changes[CLIPBOARD_DEFAULT_FORMAT_KEY] ||
       changes[INLINE_IMAGES_KEY] ||
       changes[FRAME_LABEL_STYLE_KEY] ||

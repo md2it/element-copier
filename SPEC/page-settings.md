@@ -56,9 +56,9 @@
 - По умолчанию все On
 - Есть строка "Turn off to reduce processing time:"
 - Список:
-   - Compute images
+   - Generate images
       - Выключает три формата: IMG to clipboard, скачивание JPEG, PMG
-   - Compute markdown
+   - Generate markdown
       - Выключает оба markdown: и текст, и файл
    - Compute text
 

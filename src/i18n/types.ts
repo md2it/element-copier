@@ -58,8 +58,14 @@ export type Strings = {
   settingsFrameLabelSelector: string;
   settingsFrameLabelFullXPath: string;
   infoWindowCloseLabel: string;
+  settingsComputeFormatsHint: string;
+  settingsComputeImagesLabel: string;
+  settingsComputeMarkdownLabel: string;
+  settingsComputeTextLabel: string;
   settingsDeveloperToolsToggleLabel: string;
   settingsDarkThemeToggleLabel: string;
+  copiedFormatTurnedOffInSettings: string;
+  copiedFormatNothingInCache: string;
   formatCode: string;
   formatSelector: string;
   formatJsPath: string;

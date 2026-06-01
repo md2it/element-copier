@@ -11,6 +11,11 @@ import {
   DEVELOPER_TOOLS_ENABLED_KEY,
   ENABLED_FORMATS_KEY,
 } from "../messages";
+import {
+  getComputeFormatsSettings,
+  isFormatEnabledByComputeSettings,
+  type ComputeFormatsSettings,
+} from "./compute-formats";
 
 export type EnabledFormatsMap = Record<CopyFormatId, boolean>;
 
@@ -18,17 +23,26 @@ const DEVTOOLS_FORMAT_IDS = COPY_FORMATS.filter(
   (format) => format.settingsGroup === "devtools",
 ).map((format) => format.id);
 
-function buildEnabledFormatsMap(developerToolsEnabled: boolean): EnabledFormatsMap {
+function buildEnabledFormatsMap(
+  developerToolsEnabled: boolean,
+  compute: ComputeFormatsSettings,
+): EnabledFormatsMap {
   return Object.fromEntries(
-    COPY_FORMATS.map((format) => [
-      format.id,
-      format.settingsGroup === "devtools" ? developerToolsEnabled : true,
-    ]),
+    COPY_FORMATS.map((format) => {
+      if (format.settingsGroup === "devtools") {
+        return [format.id, developerToolsEnabled];
+      }
+      return [format.id, isFormatEnabledByComputeSettings(format.id, compute)];
+    }),
   ) as EnabledFormatsMap;
 }
 
 export function defaultEnabledFormats(): EnabledFormatsMap {
-  return buildEnabledFormatsMap(true);
+  return buildEnabledFormatsMap(true, {
+    computeImages: true,
+    computeMarkdown: true,
+    computeText: true,
+  });
 }
 
 function migrateDeveloperToolsFromLegacyEnabledFormats(
@@ -74,9 +88,14 @@ export async function setDeveloperToolsEnabled(enabled: boolean): Promise<void> 
 }
 
 export async function getEnabledFormats(): Promise<EnabledFormatsMap> {
-  const developerToolsEnabled = await getDeveloperToolsEnabled();
-  return buildEnabledFormatsMap(developerToolsEnabled);
+  const [developerToolsEnabled, compute] = await Promise.all([
+    getDeveloperToolsEnabled(),
+    getComputeFormatsSettings(),
+  ]);
+  return buildEnabledFormatsMap(developerToolsEnabled, compute);
 }
+
+export { isComputeControlledFormat } from "./compute-formats";
 
 export function isDeveloperToolsGroup(group: SettingsChipGroup): boolean {
   return group === "devtools";

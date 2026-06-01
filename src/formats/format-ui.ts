@@ -5,11 +5,18 @@ import {
 } from "../../../lib/src/info-window";
 import type { Strings } from "../i18n";
 import {
+  getComputeFormatsSettings,
+  setComputeImagesEnabled,
+  setComputeMarkdownEnabled,
+  setComputeTextEnabled,
+} from "../settings/compute-formats";
+import {
   CLIPBOARD_DEFAULT_NOTHING,
   DEFAULT_ACTION_STORAGE_OPTIONS,
   encodeDefaultAction,
   getDefaultAction,
   getDeveloperToolsEnabled,
+  isComputeControlledFormat,
   isDeveloperToolsGroup,
   parseStoredDefaultAction,
   setDefaultAction,
@@ -178,6 +185,39 @@ export async function createFrameLabelStyleSelect(strings: Strings): Promise<HTM
   return row;
 }
 
+export async function createComputeFormatsSection(strings: Strings): Promise<HTMLElement> {
+  const [settings] = await Promise.all([getComputeFormatsSettings()]);
+
+  const section = document.createElement("div");
+  section.className = "ec-compute-formats-section";
+
+  const hint = document.createElement("p");
+  hint.className = "ec-compute-formats-hint";
+  hint.textContent = strings.settingsComputeFormatsHint;
+
+  const imagesRow = createToggleRow(strings.settingsComputeImagesLabel, settings.computeImages, (next) => {
+    void setComputeImagesEnabled(next);
+  });
+  imagesRow.classList.add("ec-compute-formats-toggle");
+
+  const markdownRow = createToggleRow(
+    strings.settingsComputeMarkdownLabel,
+    settings.computeMarkdown,
+    (next) => {
+      void setComputeMarkdownEnabled(next);
+    },
+  );
+  markdownRow.classList.add("ec-compute-formats-toggle");
+
+  const textRow = createToggleRow(strings.settingsComputeTextLabel, settings.computeText, (next) => {
+    void setComputeTextEnabled(next);
+  });
+  textRow.classList.add("ec-compute-formats-toggle");
+
+  section.append(hint, imagesRow, markdownRow, textRow);
+  return section;
+}
+
 export async function createDeveloperToolsToggleRow(strings: Strings): Promise<HTMLElement> {
   const enabled = await getDeveloperToolsEnabled();
   const row = createToggleRow(strings.settingsDeveloperToolsToggleLabel, enabled, (next) => {
@@ -285,11 +325,27 @@ export async function createClipboardDefaultFormatSelect(strings: Strings): Prom
   return row;
 }
 
+function isInactiveFormatActionButton(element: HTMLButtonElement): boolean {
+  return (
+    element.classList.contains("ec-format-action-btn--unavailable") ||
+    element.classList.contains("ec-format-action-btn--settings-off")
+  );
+}
+
+function bindInactiveFormatButtonTooltip(button: HTMLButtonElement, tooltip: string): void {
+  button.title = tooltip;
+  button.addEventListener("click", (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    button.title = tooltip;
+  });
+}
+
 function isCopiedButtonSelected(
   element: HTMLButtonElement,
   selection: CopiedPanelButtonSelection | null,
 ): boolean {
-  if (element.disabled || selection === null) return false;
+  if (element.disabled || isInactiveFormatActionButton(element) || selection === null) return false;
   const action: CopiedPanelActionKind =
     element.dataset.actionKind === "download" ? "download" : "copy";
   return (
@@ -343,7 +399,11 @@ function createFormatActionButton(
   available: boolean,
   actionKind: CopiedPanelActionKind,
   onActivate: (formatId: CopyFormatId, actionKind: CopiedPanelActionKind) => void,
-  unavailableTooltip?: string,
+  options?: {
+    unavailableTooltip?: string;
+    settingsOff?: boolean;
+    settingsOffTooltip?: string;
+  },
 ): HTMLButtonElement {
   const buttonLabel = formatActionButtonLabel(format, strings, actionKind);
   const button = document.createElement("button");
@@ -355,10 +415,21 @@ function createFormatActionButton(
   button.setAttribute("aria-label", buttonLabel);
   button.textContent = buttonLabel;
 
+  if (options?.settingsOff) {
+    button.classList.add("ec-format-action-btn--unavailable", "ec-format-action-btn--settings-off");
+    bindInactiveFormatButtonTooltip(
+      button,
+      options.settingsOffTooltip ?? strings.copiedFormatTurnedOffInSettings,
+    );
+    return button;
+  }
+
   if (!available) {
-    button.disabled = true;
     button.classList.add("ec-format-action-btn--unavailable");
-    if (unavailableTooltip) button.title = unavailableTooltip;
+    bindInactiveFormatButtonTooltip(
+      button,
+      options?.unavailableTooltip ?? strings.copiedFormatNothingInCache,
+    );
     return button;
   }
 
@@ -376,10 +447,23 @@ function isDownloadFormatAction(actionIcon: FormatDefinition["actionIcon"]): boo
 function copiedGroupHasImageDownloads(options: CopiedOtherOptionsOptions): boolean {
   if (!options.onSaveFormat) return false;
   return COPY_FORMATS.some(
-    (format) =>
-      isImageCopyFormat(format.id) &&
-      options.enabledFormats[format.id],
+    (format) => isImageCopyFormat(format.id) && shouldShowCopiedFormat(format.id, options),
   );
+}
+
+function shouldShowCopiedFormat(
+  formatId: CopyFormatId,
+  options: CopiedOtherOptionsOptions,
+): boolean {
+  if (options.enabledFormats[formatId]) return true;
+  return isComputeControlledFormat(formatId);
+}
+
+function isCopiedFormatSettingsOff(
+  formatId: CopyFormatId,
+  options: CopiedOtherOptionsOptions,
+): boolean {
+  return !options.enabledFormats[formatId] && isComputeControlledFormat(formatId);
 }
 
 export type CopiedOtherOptionsOptions = {
@@ -412,7 +496,7 @@ function copiedGroupHasFormats(
 
   return COPY_FORMATS.some((format) => {
     if (format.settingsGroup !== group) return false;
-    if (!options.enabledFormats[format.id]) return false;
+    if (!shouldShowCopiedFormat(format.id, options)) return false;
     const onActivate = isDownloadFormatAction(format.actionIcon)
       ? options.onSaveFormat
       : options.onCopyFormat;
@@ -450,21 +534,24 @@ function createCopiedFormatInlineList(
 
   for (const format of COPY_FORMATS) {
     if (format.settingsGroup !== group) continue;
-    if (!options.enabledFormats[format.id]) continue;
+    if (!shouldShowCopiedFormat(format.id, options)) continue;
     const isDownload = isDownloadFormatAction(format.actionIcon);
     const onActivate = isDownload ? options.onSaveFormat : options.onCopyFormat;
     if (!onActivate) continue;
+    const settingsOff = isCopiedFormatSettingsOff(format.id, options);
     const inCache = isPickCopyFormatAvailable(
       format.id,
       options.pickCopyCacheRecord,
       document,
     );
     const clipboardWritable = isDownload || canCopyFormatToClipboard(format.id);
-    const available = inCache && clipboardWritable;
+    const available = !settingsOff && inCache && clipboardWritable;
     const unavailableTooltip =
-      inCache && !clipboardWritable
+      !settingsOff && inCache && !clipboardWritable
         ? strings.copiedImageClipboardUnsupportedTooltip
-        : undefined;
+        : !settingsOff && !inCache
+          ? strings.copiedFormatNothingInCache
+          : undefined;
     const actionKind = copiedFormatActionKind(format, false);
     row.append(
       createFormatActionButton(
@@ -477,7 +564,11 @@ function createCopiedFormatInlineList(
             if (copied) onSelectFormat(formatId, kind);
           });
         },
-        unavailableTooltip,
+        {
+          unavailableTooltip,
+          settingsOff,
+          settingsOffTooltip: strings.copiedFormatTurnedOffInSettings,
+        },
       ),
     );
   }
@@ -485,12 +576,14 @@ function createCopiedFormatInlineList(
   if (group === "files" && options.onSaveFormat) {
     for (const format of COPY_FORMATS) {
       if (!isImageCopyFormat(format.id)) continue;
-      if (!options.enabledFormats[format.id]) continue;
-      const available = isPickCopyFormatAvailable(
+      if (!shouldShowCopiedFormat(format.id, options)) continue;
+      const settingsOff = isCopiedFormatSettingsOff(format.id, options);
+      const inCache = isPickCopyFormatAvailable(
         format.id,
         options.pickCopyCacheRecord,
         document,
       );
+      const available = !settingsOff && inCache;
       row.append(
         createFormatActionButton(
           format,
@@ -501,6 +594,13 @@ function createCopiedFormatInlineList(
             void Promise.resolve(options.onSaveFormat?.(formatId)).then((saved) => {
               if (saved) onSelectFormat(formatId, kind);
             });
+          },
+          {
+            unavailableTooltip: !settingsOff && !inCache
+              ? strings.copiedFormatNothingInCache
+              : undefined,
+            settingsOff,
+            settingsOffTooltip: strings.copiedFormatTurnedOffInSettings,
           },
         ),
       );

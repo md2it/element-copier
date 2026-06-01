@@ -358,8 +358,10 @@ assert.match(cacheSrc, /COPY_FORMATS\.map\(\(format\) => format\.id\)/,
 assert.match(cacheSrc, /isPickCopyCacheValueStorable/);
 assert.match(cacheSrc, /ownerDocument/);
 assert.match(cacheSrc, /tryPushCacheEntry/);
-assert.doesNotMatch(cacheSrc, /enabledFormats/,
-  "snapshotPickCopyCache must not filter by enabledFormats");
+assert.match(cacheSrc, /getCachedEnabledFormats/,
+  "snapshotPickCopyCache must skip formats disabled in settings");
+assert.match(cacheSrc, /enabledFormats\[formatId\]/,
+  "snapshotPickCopyCache must filter by enabledFormats");
 assert.match(cacheSrc, /async function snapshotPickCopyCache/,
   "snapshotPickCopyCache must be async");
 assert.match(cacheSrc, /await clearPickCopyCacheStorage/);

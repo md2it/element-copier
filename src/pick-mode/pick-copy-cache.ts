@@ -7,6 +7,7 @@ import {
 import { createStringCache } from "../element-copy";
 import { COPY_FORMATS, type CopyFormatId } from "../formats/definitions";
 import { DEFAULT_INLINE_IMAGES_MODE, type InlineImageMode } from "../settings/inline-images";
+import { getCachedEnabledFormats } from "../settings/format-settings-cache";
 import {
   clearPickCopyCacheStorage,
   isPickCopyCacheValueStorable,
@@ -40,6 +41,7 @@ export async function snapshotPickCopyCache(
     console.warn("[Element Copier] pick copy cache storage clear failed:", error);
   }
 
+  const enabledFormats = getCachedEnabledFormats();
   const formatIds: CopyFormatId[] = [
     ...COPY_FORMATS.map((format) => format.id),
     "url",
@@ -48,10 +50,19 @@ export async function snapshotPickCopyCache(
   const doc = element.ownerDocument;
   let markdownText: string | undefined;
   let outerHtmlText: string | undefined;
-  const computedStylesText = await extractElementCopyText(element, "computedStyles", inlineImages);
-  const screenshotBackground = createScreenshotBackgroundSnapshot(element, computedStylesText);
+  const needsImageSnapshot = enabledFormats.png || enabledFormats.jpeg;
+  let screenshotBackground: ReturnType<typeof createScreenshotBackgroundSnapshot> | undefined;
+  if (needsImageSnapshot) {
+    const computedStylesText = await extractElementCopyText(
+      element,
+      "computedStyles",
+      inlineImages,
+    );
+    screenshotBackground = createScreenshotBackgroundSnapshot(element, computedStylesText);
+  }
 
   for (const formatId of formatIds) {
+    if (formatId !== "url" && !enabledFormats[formatId]) continue;
     if (formatId === "markdown" || formatId === "markdownFile") {
       if (markdownText === undefined) {
         markdownText = await extractElementCopyText(element, "markdown", inlineImages);
@@ -67,6 +78,7 @@ export async function snapshotPickCopyCache(
       continue;
     }
     if (isImageCopyFormat(formatId)) {
+      if (!screenshotBackground) continue;
       try {
         tryPushCacheEntry(
           entries,
@@ -80,7 +92,12 @@ export async function snapshotPickCopyCache(
       continue;
     }
     if (formatId === "computedStyles") {
-      tryPushCacheEntry(entries, formatId, computedStylesText, doc);
+      tryPushCacheEntry(
+        entries,
+        formatId,
+        await extractElementCopyText(element, "computedStyles", inlineImages),
+        doc,
+      );
       continue;
     }
     tryPushCacheEntry(
