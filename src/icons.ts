@@ -17,10 +17,13 @@ export {
 
 import {
   CIRCLE_POWER,
+  COPY,
   FILE_DOWN,
   FILES,
   HEART,
+  HISTORY,
   IMAGE_DOWN,
+  IMAGES,
   KEYBOARD,
   SHIELD_CHECK,
 } from "../../lib/src/icons";
@@ -88,11 +91,13 @@ function drawInnerSvg(
 const filesInner = innerSvgMarkup(stripComment(filesSvg));
 
 export const ABOUT_BULLET_ICONS: readonly string[] = [
-  CIRCLE_POWER,
-  KEYBOARD,
-  FILES,
+  COPY,
   FILE_DOWN,
-  IMAGE_DOWN,
+  HISTORY,
+  FILES,
+  IMAGES,
+  FILES,
+  FILES,
   SHIELD_CHECK,
   SHIELD_CHECK,
   HEART,

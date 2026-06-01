@@ -98,7 +98,7 @@
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
   margin-inline-start: 0.5rem;
-  margin-inline-end: 0.3rem;
+  margin-inline-end: 0;
   padding-block-start: var(--ec-menu-gap);
   padding-inline-end: var(--ec-menu-gap);
   padding-block-end: var(--ec-menu-gap);
@@ -314,11 +314,16 @@
 }
 
 .ec-shortcuts-divider {
-  margin: 0.55rem 0 0.35rem;
+  width: 100%;
+  height: 0;
+  margin: 0.7rem 0 0.5rem;
+  border: 0;
+  border-top: 1px solid rgba(1, 34, 146, 0.14);
+  background: transparent;
 }
 
 .ec-shortcuts-stop + .ec-shortcuts-divider {
-  margin-top: 0.35rem;
+  margin-top: 0.5rem;
 }
 
 /* Как в welcome: --welcome-gap (12px) между header и разделителем */
@@ -386,39 +391,81 @@
   display: flex;
   flex-direction: column;
   width: 100%;
+  --ec-settings-label-width: 8.8rem;
+  --ec-settings-row-gap: 0.5rem;
+  --ec-settings-row-margin-top: 0.85rem;
+}
+
+.ec-panel-page--settings .ec-copy-default-row,
+.ec-panel-page--settings .ec-toggle-row {
+  display: grid;
+  grid-template-columns: var(--ec-settings-label-width) minmax(0, 1fr);
+  align-items: center;
+  column-gap: var(--ec-settings-row-gap);
+  width: 100%;
+  min-width: 0;
+  margin-top: var(--ec-settings-row-margin-top);
 }
 
 .ec-copy-default-row {
-  display: flex;
+  display: grid;
+  grid-template-columns: var(--ec-settings-label-width) minmax(0, 1fr);
   align-items: center;
-  gap: 0.5rem;
+  column-gap: 0.28rem;
   width: 100%;
   min-width: 0;
   margin-top: 0.85rem;
 }
 
 .ec-copy-default-label {
-  flex: 0 0 auto;
+  grid-column: 1;
+  min-width: 0;
+  white-space: nowrap;
   font-size: 0.8rem;
   font-weight: 600;
   line-height: 1.2;
   color: #1f2937;
-  white-space: nowrap;
+}
+
+.ec-copy-default-label-wrap {
+  grid-column: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  min-width: 0;
+  gap: 0.14rem;
+}
+
+.ec-copy-default-label-wrap .ec-copy-default-label {
+  grid-column: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .ec-copy-default-select {
-  flex: 1 1 auto;
+  grid-column: 2;
+  justify-self: stretch;
+  width: 100%;
   min-width: 0;
-  max-width: 100%;
+  max-width: none;
   padding: 0.45rem 0.55rem;
+  padding-inline-end: 1.45rem;
   border: 1px solid rgba(0, 0, 0, 0.12);
   border-radius: 0.45rem;
   background: #fff;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%236b7280' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.45rem center;
+  background-size: 0.62rem 0.42rem;
   color: #1f2937;
   font: inherit;
   font-size: 0.82rem;
   line-height: 1.25;
-  text-align: right;
+  text-align: start;
   cursor: pointer;
   box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.04);
   overflow: hidden;
@@ -440,6 +487,10 @@
 }
 
 .ec-inline-images-info {
+  grid-column: 2;
+  justify-self: end;
+  margin-inline-start: 0;
+  margin-inline-end: 0;
   flex: 0 0 auto;
   display: inline-flex;
   align-items: center;
@@ -562,9 +613,18 @@
 }
 
 .ec-panel-page--settings .ec-developer-tools-toggle {
-  margin-top: 0.85rem;
+  margin-top: var(--ec-settings-row-margin-top);
   width: 100%;
-  justify-content: space-between;
+}
+
+.ec-panel-page--settings .ec-toggle-label {
+  grid-column: 1;
+  white-space: nowrap;
+}
+
+.ec-panel-page--settings .ec-toggle {
+  grid-column: 2;
+  justify-self: end;
 }
 
 .ec-settings-format-inline-list {

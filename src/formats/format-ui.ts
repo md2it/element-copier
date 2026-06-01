@@ -97,6 +97,9 @@ export async function createInlineImagesSelect(strings: Strings): Promise<HTMLEl
   const row = document.createElement("div");
   row.className = "ec-copy-default-row ec-inline-images-row";
 
+  const labelWrap = document.createElement("div");
+  labelWrap.className = "ec-copy-default-label-wrap";
+
   const label = document.createElement("label");
   label.className = "ec-copy-default-label";
   label.htmlFor = "ec-inline-images-mode";
@@ -118,7 +121,8 @@ export async function createInlineImagesSelect(strings: Strings): Promise<HTMLEl
     void setInlineImagesMode(select.value as InlineImageMode);
   });
 
-  row.append(label, createInlineImagesInfoButton(strings), select);
+  labelWrap.append(label, createInlineImagesInfoButton(strings));
+  row.append(labelWrap, select);
   return row;
 }
 
