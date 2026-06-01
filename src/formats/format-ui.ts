@@ -54,6 +54,8 @@ function inlineImagesOptionLabel(mode: InlineImageMode, strings: Strings): strin
       return strings.settingsInlineImagesUseAll;
     case "remove-large":
       return strings.settingsInlineImagesRemoveLarge;
+    case "remove-small":
+      return strings.settingsInlineImagesRemoveSmall;
     case "remove-all":
       return strings.settingsInlineImagesRemoveAll;
   }

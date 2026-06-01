@@ -9,6 +9,7 @@ export const DEFAULT_INLINE_IMAGES_MODE: InlineImageMode = "all";
 export const INLINE_IMAGES_MODES: readonly InlineImageMode[] = [
   "all",
   "remove-large",
+  "remove-small",
   "remove-all",
 ];
 

@@ -12,6 +12,7 @@ const EN_MESSAGES: Strings = {
     settingsInlineImagesLabel: "Inline images in text",
     settingsInlineImagesUseAll: "Use all",
     settingsInlineImagesRemoveLarge: "Remove large",
+    settingsInlineImagesRemoveSmall: "Remove small",
     settingsInlineImagesRemoveAll: "Remove all",
     settingsInlineImagesInfoLabel: "About inline images",
     settingsInlineImagesInfo:

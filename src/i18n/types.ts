@@ -32,6 +32,7 @@ export type Strings = {
   settingsInlineImagesLabel: string;
   settingsInlineImagesUseAll: string;
   settingsInlineImagesRemoveLarge: string;
+  settingsInlineImagesRemoveSmall: string;
   settingsInlineImagesRemoveAll: string;
   settingsInlineImagesInfoLabel: string;
   settingsInlineImagesInfo: string;
