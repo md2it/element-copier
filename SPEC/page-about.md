@@ -1,10 +1,10 @@
 # PAGE ABOUT
-Содержит:
+- Header "ABOUT ELEMENT COPIER"
 - (copy) Copy to clipboard
 - (file-down) Download
 - (history) Remembers recent snapshots
 - (text-initial) Texts: formatted, plain, markdown, HTML
-- (image) Images: PNG, JPEG, clipboard-copy
+- (image) Images: PNG, JPEG
 - (code) Code selectors: selector, JS path, XPath, full XPath
 - (code) Code styles: declared, computed
 - (shield-check) Doesn't use the network
