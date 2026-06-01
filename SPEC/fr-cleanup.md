@@ -33,7 +33,6 @@
 
 ### Размер растра SVG (materialize)
 Контекст: на странице иконка 24×24 при `viewBox="0 -960 960 960"`, в Markdown — PNG на сотни/тысячи px и раздутая картинка
-
 Требования:
 - Размер canvas и атрибутов `<img width/height>` после materialize — **только layout-размер live `<svg>`** на исходной странице: `getBoundingClientRect()`; измерять `<svg>`, не вложенный `<path>`
 - **Не** использовать viewBox и атрибуты `width`/`height` SVG как размер растра, если `getBoundingClientRect()` даёт обе стороны > 0
