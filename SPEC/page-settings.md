@@ -50,7 +50,21 @@
 
 ---
 
-## Togglers
+## Turn formats on off
+
+- Togglers
+- По умолчанию все On
+- Есть строка "Turn off to reduce processing time:"
+- Список:
+   - Compute images
+      - Выключает три формата: IMG to clipboard, скачивание JPEG, PMG
+   - Compute markdown
+      - Выключает оба markdown: и текст, и файл
+   - Compute text
+
+---
+
+## Togglers for developers
 
 ### Developer tools
 - Default on
