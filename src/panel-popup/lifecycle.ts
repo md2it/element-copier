@@ -7,12 +7,12 @@ export function notifyPanelTabChanged(tab: PanelPopupTab): void {
   sendToBackground({ type: "PANEL_TAB_CHANGED", tab });
 }
 
-/** START button — enable pick mode on the target page (popup closes separately). */
+/** PICK ELEMENT — enable pick mode on the target page (popup closes separately). */
 export function notifyStartPickMode(): void {
   sendToBackground({ type: "REQUEST_START_PICK_MODE" });
 }
 
-/** COPY PAGE / NEW PAGE — copy `<html>` without pick mode (popup closes separately). */
+/** CAPTURE PAGE — copy `<html>` without pick mode (popup closes separately). */
 export function notifyCopyPage(): void {
   sendToBackground({ type: "REQUEST_COPY_PAGE" });
 }

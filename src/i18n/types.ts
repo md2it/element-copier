@@ -6,9 +6,8 @@ export type Strings = {
   restrictedPageNotice: string;
   panelSubtitle: string;
   titleSettings: string;
-  startButtonLabel: string;
-  copyPageButtonLabel: string;
-  newPageButtonLabel: string;
+  pickElementButtonLabel: string;
+  capturePageButtonLabel: string;
   settingsCopyDefaultLabel: string;
   settingsCopyDefaultNothing: string;
   settingsInlineImagesLabel: string;
@@ -44,7 +43,6 @@ export type Strings = {
   copiedOpenUrlLabel: string;
   copiedOpenUrlIconLabel: string;
   copiedImageClipboardUnsupportedTooltip: string;
-  copiedStartOverButtonLabel: string;
   copiedEmptyLine1: string;
   copiedEmptyLine2: string;
   pageSettingsTitle: string;

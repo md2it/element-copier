@@ -182,7 +182,7 @@ export function buildStartPanelBody(
   const copyPageBtn = document.createElement("button");
   copyPageBtn.type = "button";
   copyPageBtn.className = "ec-start-btn";
-  copyPageBtn.textContent = strings.copyPageButtonLabel;
+  copyPageBtn.textContent = strings.capturePageButtonLabel;
   copyPageBtn.addEventListener("click", () => {
     actions.onCopyPage();
   });
@@ -190,7 +190,7 @@ export function buildStartPanelBody(
   const startBtn = document.createElement("button");
   startBtn.type = "button";
   startBtn.className = "ec-start-btn";
-  startBtn.textContent = strings.startButtonLabel;
+  startBtn.textContent = strings.pickElementButtonLabel;
   startBtn.addEventListener("click", () => {
     actions.onStart();
   });
@@ -362,7 +362,7 @@ function buildCopiedEmptyPanelBody(
   const startBtn = document.createElement("button");
   startBtn.type = "button";
   startBtn.className = "ec-start-btn";
-  startBtn.textContent = strings.startButtonLabel;
+  startBtn.textContent = strings.pickElementButtonLabel;
   startBtn.addEventListener("click", onStart);
 
   page.append(message, startBtn);
@@ -380,13 +380,13 @@ function createCopiedAgainBlock(
   const newElementBtn = document.createElement("button");
   newElementBtn.type = "button";
   newElementBtn.className = "ec-start-btn";
-  newElementBtn.textContent = strings.copiedStartOverButtonLabel;
+  newElementBtn.textContent = strings.pickElementButtonLabel;
   newElementBtn.addEventListener("click", onStartOver);
 
   const newPageBtn = document.createElement("button");
   newPageBtn.type = "button";
   newPageBtn.className = "ec-start-btn";
-  newPageBtn.textContent = strings.newPageButtonLabel;
+  newPageBtn.textContent = strings.capturePageButtonLabel;
   newPageBtn.addEventListener("click", onNewPage);
 
   again.append(newElementBtn, newPageBtn);

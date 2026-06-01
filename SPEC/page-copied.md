@@ -63,7 +63,7 @@
    - При нажатии на строку (включая label), значение копируется в буфер обмена
 
 ### Блок again
-- Две кнопки inline "NEW ELEMENT" и "NEW PAGE"
+- Две кнопки inline "PICK ELEMENT" и "CAPTURE PAGE"
 - Логика кнопок полностью совпадает кнопками страницы START
 
 ### Выделенная кнопка
@@ -87,5 +87,5 @@
    - Серая надпись:
       - I don't have anything saved in my memory. 
       - Should we copy something?
-   - Кнопка "START"
-   - Логика кнопки полностью совпадает с кнопкой "START" на странице START
+   - Кнопка "PICK ELEMENT"
+   - Логика кнопки полностью совпадает с кнопкой "PICK ELEMENT" на странице START
