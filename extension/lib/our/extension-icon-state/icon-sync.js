@@ -2,36 +2,26 @@ import { ext } from "../api.js";
 import { getTabActiveState } from "./tab-active-state.js";
 
 function createIconSync(config) {
-  const { paths, syncedTabIdsStorageKey, logLabel, getImageSets } = config;
-  let imageSetsFailed = false;
-  function loadImageSets() {
-    if (!getImageSets || imageSetsFailed) return null;
-    try {
-      return getImageSets();
-    } catch (err) {
-      imageSetsFailed = true;
-      console.error(`[${logLabel}] dynamic toolbar icons unavailable:`, err);
+  const { paths, syncedTabIdsStorageKey, logLabel } = config;
+  function areIconPathsEqual(a, b) {
+    if (a === b) return true;
+    if (!a || !b) return false;
+    const entries = Object.entries(a);
+    if (entries.length !== Object.keys(b).length) return false;
+    return entries.every(([size, path]) => b[size] === path);
+  }
+  function resolveIconPaths(mode) {
+    if (!paths || areIconPathsEqual(paths.active, paths.inactive)) {
       return null;
     }
+    return paths[mode] || paths.inactive || null;
   }
   function resolveToolbarIconMode(tabId) {
     return getTabActiveState(tabId) ? "active" : "inactive";
   }
   async function applyToolbarIcon(details, mode) {
-    const sets = loadImageSets();
-    const iconPaths = paths[mode];
-    if (sets) {
-      const imageData = sets[mode];
-      try {
-        await ext.action.setIcon({ ...details, imageData });
-        return;
-      } catch (err) {
-        console.warn(
-          `[${logLabel}] setIcon(imageData) failed, using SVG paths:`,
-          err
-        );
-      }
-    }
+    const iconPaths = resolveIconPaths(mode);
+    if (!iconPaths) return;
     try {
       await ext.action.setIcon({ ...details, path: iconPaths });
     } catch (err) {
