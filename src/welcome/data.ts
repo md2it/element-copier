@@ -1,4 +1,4 @@
-import { welcomeStepIcon, type WelcomeData } from "../lib/src/welcome";
+import { welcomeStepIcon, type WelcomeData } from "../lib/our/welcome";
 import { buildAboutListItems } from "../about";
 import { PANEL_TITLE } from "../brand";
 import {

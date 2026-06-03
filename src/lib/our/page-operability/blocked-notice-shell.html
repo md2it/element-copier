@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Extension</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+      }
+      html:not(.notice-page--tab),
+      html:not(.notice-page--tab) body {
+        min-width: 260px;
+        max-width: 360px;
+      }
+      body {
+        padding: 12px 14px;
+        font: 13px/1.45 system-ui, -apple-system, "Segoe UI", sans-serif;
+        color: #111827;
+        background: #f9fafb;
+      }
+      html.notice-page--tab body {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 24px;
+        background: #f3f4f6;
+      }
+      html.notice-page--tab p {
+        width: 100%;
+        max-width: 360px;
+        padding: 12px 14px;
+        background: #f9fafb;
+        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+        border-radius: 8px;
+      }
+      p {
+        margin: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <p id="msg"></p>
+    <script src="blocked-notice-page.js"></script>
+  </body>
+</html>

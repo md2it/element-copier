@@ -1,7 +1,7 @@
 import {
   openPanelPageInTab,
   panelTabPath as libPanelTabPath,
-} from "../lib/src/panel-tab";
+} from "../lib/our/panel-tab";
 import { PANEL_PAGE_CONFIG, type PanelPopupTab } from "../panel-popup/constants";
 
 export function panelTabPath(panelTab: PanelPopupTab): string {

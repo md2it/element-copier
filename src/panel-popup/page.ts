@@ -2,7 +2,7 @@ import {
   getPanelPageUrl,
   isPanelPage,
   resolvePanelPageInitialTab as resolveLibPanelPageInitialTab,
-} from "../lib/src/panel-popup";
+} from "../lib/our/panel-popup";
 import { hasPickCopyCacheInStorage } from "../pick-mode/pick-copy-cache-storage";
 import { isPanelTabMode } from "../panel-tab";
 import {

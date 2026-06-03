@@ -1,4 +1,4 @@
-import { isDerivativeFormatNoiseNode } from "../lib/src/copy/cleanup/sanitize";
+import { isDerivativeFormatNoiseNode } from "../lib/our/copy/cleanup/sanitize";
 import { domToCanvas, type Options } from "modern-screenshot";
 import type { CopyFormatId } from "../formats/definitions";
 

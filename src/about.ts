@@ -1,4 +1,4 @@
-import type { WelcomeAboutItem } from "./lib/src/welcome";
+import type { WelcomeAboutItem } from "./lib/our/welcome";
 import { ABOUT_BULLET_ICONS } from "./icons";
 import type { Strings } from "./i18n/types";
 

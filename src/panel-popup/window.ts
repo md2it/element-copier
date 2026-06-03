@@ -1,5 +1,5 @@
 import { isRtlLocale, t, type Locale } from "../i18n";
-import { localeToHtmlLang } from "../lib/src/i18n/locale-code";
+import { localeToHtmlLang } from "../lib/our/i18n/locale-code";
 import { setLocale } from "../storage";
 import { createPanelSurface } from "./build-panel-surface";
 import type { PanelMenuTab, PanelPopupTab } from "./constants";

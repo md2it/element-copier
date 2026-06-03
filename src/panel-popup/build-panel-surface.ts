@@ -1,8 +1,8 @@
 import { PANEL_TITLE } from "../brand";
 import { toolbarWelcomeIconSvg } from "../icons";
-import { localeToHtmlLang } from "../lib/src/i18n/locale-code";
-import { createPanelFooter } from "../lib/src/panel-footer";
-import { createPanelDivider, createPanelHeader } from "../lib/src/panel-header";
+import { localeToHtmlLang } from "../lib/our/i18n/locale-code";
+import { createPanelFooter } from "../lib/our/panel-footer";
+import { createPanelDivider, createPanelHeader } from "../lib/our/panel-header";
 import { isRtlLocale, t, type Locale } from "../i18n";
 import { PANEL_FOOTER_CONFIG } from "../ui-config";
 import { PANEL_POPUP_HOST_ATTR } from "./constants";

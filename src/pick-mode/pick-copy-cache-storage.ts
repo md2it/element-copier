@@ -1,4 +1,4 @@
-import { isFormattedTextCacheStorable } from "../lib/src/copy/formatted-text/index";
+import { isFormattedTextCacheStorable } from "../lib/our/copy/formatted-text/index";
 import { ext } from "../api";
 import type { CopyFormatId } from "../formats/definitions";
 

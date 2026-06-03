@@ -2,7 +2,7 @@ import { COPY, EXTERNAL_LINK, INFO } from "../icons";
 import {
   createInfoWindow,
   createInfoWindowClasses,
-} from "../lib/src/info-window";
+} from "../lib/our/info-window";
 import type { Strings } from "../i18n";
 import {
   getComputeFormatsSettings,

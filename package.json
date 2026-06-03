@@ -3,10 +3,16 @@
   "private": true,
   "version": "1.0.0",
   "scripts": {
-    "icons:manifest": "node src/lib/scripts/generate-manifest-icons.mjs",
+    "icons:manifest": "node scripts/generate-manifest-icons.mjs",
     "build": "node scripts/build.mjs",
     "watch": "node scripts/build.mjs --watch",
     "dist": "npm run build && node scripts/package-extension.mjs",
-    "typecheck": "node ../lib/node_modules/typescript/bin/tsc --noEmit -p tsconfig.json"
+    "typecheck": "node scripts/typecheck.mjs"
+  },
+  "devDependencies": {
+    "@napi-rs/canvas": "1.0.0",
+    "esbuild": "0.25.0",
+    "pngjs": "7.0.0",
+    "typescript": "5.7.3"
   }
 }

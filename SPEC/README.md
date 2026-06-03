@@ -1,6 +1,6 @@
 # SPECIFICATION RU: ELEMENT COPIER
 
-> [!IMPORTANT] Учитываем общие правила тоже [lib/SPEC/README.md](../../lib/SPEC/README.md)
+> [!IMPORTANT] Учитываем общие правила из `ALL-PRJ-REQ/`.
 
 Спецификация расширения Element Copier.
 
@@ -12,12 +12,9 @@
 - [ui-badge.md](./ui-badge.md) — варианты и анимация badge
 - [ui-pages.md](./ui-pages.md) — вёрстка popup-окна, меню и страницы
 - [draft.md](./draft.md) — черновик (форматы данных, экспорт, инструменты)
-- [README.md](../README.md) — агент: сборка и правила
+- [AGENTS.md](../AGENTS.md) — агент: сборка и правила
 
 Общие ресурсы каталога:
 
-- [lib/SPEC](../../lib/SPEC) — общие дефолтные требования для всех расширений
-- [lib/BUILD.md](../../lib/BUILD.md) — сборка и упаковка
-- [lib/scripts](../../lib/scripts) — скрипты сборки (pack-extension и др.)
-- [lib/our](../../lib/our) — переиспользуемые модули
-- [lib/vendor/icons](../../lib/vendor/icons) и [lib/our/icons](../../lib/our/icons) — общие SVG-иконки
+- [src/lib](../src/lib) — локальная копия переиспользуемых модулей и vendor-кода
+- [scripts](../scripts) — проектные скрипты сборки и упаковки

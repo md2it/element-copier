@@ -1,4 +1,4 @@
-import { normalizeLocaleCode } from "./lib/src/i18n/locale-code";
+import { normalizeLocaleCode } from "./lib/our/i18n/locale-code";
 import { ext } from "./api";
 import { detectLocale, isLocale, type Locale } from "./i18n";
 import {

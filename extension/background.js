@@ -1,6 +1,6 @@
 "use strict";
 (() => {
-  // src/lib/src/api.ts
+  // src/lib/our/api.ts
   var ext = typeof browser !== "undefined" ? browser : chrome;
 
   // src/icon-paths.ts
@@ -76,10 +76,7 @@
   // src/lib/icons/brands/linkedin.svg
   var linkedin_default = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="#000000">\n  <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>\n</svg>\n';
 
-  // src/lib/icons/brands/md2it.svg
-  var md2it_default = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 946.295 947.014" width="24" height="24" fill="#000000">\n  <path fill-rule="evenodd" clip-rule="evenodd" d="M0.294998 230.507V461.014H57.295H114.295L114.321 317.264L114.347 173.514L119.729 182.014C131.242 200.194 138.673 212.076 147.245 226.014C152.15 233.989 159.72 246.139 164.067 253.014C168.414 259.889 177.529 274.514 184.323 285.514C197.987 307.639 211.847 329.833 216.794 337.514C218.566 340.264 223.961 348.814 228.784 356.514C241.803 377.3 252.729 393.981 253.295 393.936C253.57 393.914 256.783 389.31 260.436 383.705C264.088 378.1 274.925 361.589 284.519 347.014C294.112 332.439 306.24 313.989 311.47 306.014C316.7 298.039 328.999 279.364 338.8 264.514C348.602 249.664 364.02 226.264 373.064 212.514C382.107 198.764 391.371 184.711 393.651 181.285L397.795 175.056L398.048 318.035L398.302 461.014H455.298H512.295V230.514V0.0139999H443.011H373.726L371.839 3.264C370.8 5.052 365.368 13.939 359.766 23.014C348.231 41.703 333.55 65.582 322.265 84.014C307.818 107.609 298.029 123.527 291.826 133.514C277.383 156.769 269.295 170.081 269.295 170.6C269.295 170.904 268.002 173.035 266.422 175.334C264.842 177.633 261.224 183.452 258.383 188.264C255.542 193.077 252.898 197.008 252.506 197C252.115 196.992 250.503 194.629 248.925 191.75C245.975 186.369 222.868 148.272 218.758 142.014C217.494 140.089 209.141 126.589 200.195 112.014C166.909 57.782 163.441 52.143 153.136 35.514C147.343 26.164 140.152 14.464 137.158 9.514L131.713 0.514L66.004 0.257L0.294998 0V230.507ZM540.295 230.566V461.117L643.545 460.759C743.253 460.413 747.246 460.328 759.951 458.267C786.579 453.949 808.086 447.481 828.992 437.506C870.648 417.63 901.83 386.413 922.717 343.678C933.069 322.495 939.448 300.945 943.929 272.014C946.675 254.283 946.442 212.457 943.49 193.259C940.647 174.774 938.091 163.449 933.656 149.681C915.674 93.867 880.193 51.134 831.073 26.127C809.507 15.147 790.444 8.876 765.795 4.652C739.813 0.2 734.575 0.0139999 635.189 0.0139999H540.295V230.566ZM739.295 115.392C773.348 120.821 799.25 138.981 813.666 167.534C821.407 182.866 826.068 203.012 826.965 225.014C828.571 264.421 818.637 296.12 797.875 317.843C783.839 332.529 767.977 341.016 744.795 346.244C736.861 348.033 731.265 348.329 697.545 348.742L659.295 349.211V231.779C659.295 167.192 659.632 114.008 660.045 113.593C661.417 112.213 728.97 113.747 739.295 115.392ZM162.295 479.597C123.366 484.23 94.04 494.332 66.795 512.496C52.467 522.048 42.425 531.456 32.459 544.664C14.097 568.999 2.966 601.142 0.685997 636.416L0 647.014H57.602H115.204L115.848 643.264C119.075 624.476 127.082 609.374 139.033 599.535C151.737 589.075 168.073 583.811 187.87 583.798C205.641 583.786 220.085 588.054 232.359 596.946C241.176 603.332 248.391 615.313 250.446 626.979C253.356 643.5 244.67 663.689 228.705 677.514C225.529 680.264 210.3 692.06 194.863 703.727C179.425 715.394 164.095 727.003 160.795 729.525C157.495 732.046 143.041 742.976 128.676 753.812C99.224 776.028 70.868 797.623 45.795 816.933C36.445 824.134 22.399 834.861 14.581 840.77L0.365997 851.514L0.330997 899.264L0.294998 947.014H186.295H372.295V895.019V843.024L278.045 842.769L183.795 842.514L192.295 836.212C196.97 832.746 208.22 824.451 217.295 817.779C226.37 811.106 239.645 801.31 246.795 796.009C253.945 790.709 262.27 784.647 265.295 782.539C271.406 778.282 293.855 761.209 307.165 750.698C317.777 742.317 334.967 725.563 341.175 717.55C356.435 697.853 365.255 678.635 369.948 654.861C372.035 644.285 372.321 615.682 370.446 605.014C367.07 585.803 363.897 575.411 356.997 560.97C346.286 538.552 331.67 522.278 309.037 507.569C286.568 492.967 257.662 483.528 223.295 479.571C206.92 477.685 178.255 477.698 162.295 479.597ZM398.295 717.014V947.014H455.295H512.295V717.014V487.014H455.295H398.295V717.014ZM540.295 543.514V600.014H612.295H684.295V773.514V947.014H745.795H807.295V773.514V600.014H876.795H946.295V543.514V487.014H743.295H540.295V543.514Z"/>\n</svg>\n';
-
-  // src/lib/src/icons.ts
+  // src/lib/icons/index.ts
   function stripComment(svg) {
     return svg.replace(/<!--[\s\S]*?-->\s*/g, "").trim();
   }
@@ -109,7 +106,18 @@
   var PUZZLE = lucideUiIcon(puzzle_default);
   var ROTATE_CW = lucideUiIcon(rotate_cw_default);
   var LINKEDIN = brandIcon(linkedin_default);
-  var MD2IT = brandIcon(md2it_default);
+
+  // src/lib/icons/md2it.svg
+  var md2it_default = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 946.295 947.014" width="24" height="24" fill="#000000">\n  <path fill-rule="evenodd" clip-rule="evenodd" d="M0.294998 230.507V461.014H57.295H114.295L114.321 317.264L114.347 173.514L119.729 182.014C131.242 200.194 138.673 212.076 147.245 226.014C152.15 233.989 159.72 246.139 164.067 253.014C168.414 259.889 177.529 274.514 184.323 285.514C197.987 307.639 211.847 329.833 216.794 337.514C218.566 340.264 223.961 348.814 228.784 356.514C241.803 377.3 252.729 393.981 253.295 393.936C253.57 393.914 256.783 389.31 260.436 383.705C264.088 378.1 274.925 361.589 284.519 347.014C294.112 332.439 306.24 313.989 311.47 306.014C316.7 298.039 328.999 279.364 338.8 264.514C348.602 249.664 364.02 226.264 373.064 212.514C382.107 198.764 391.371 184.711 393.651 181.285L397.795 175.056L398.048 318.035L398.302 461.014H455.298H512.295V230.514V0.0139999H443.011H373.726L371.839 3.264C370.8 5.052 365.368 13.939 359.766 23.014C348.231 41.703 333.55 65.582 322.265 84.014C307.818 107.609 298.029 123.527 291.826 133.514C277.383 156.769 269.295 170.081 269.295 170.6C269.295 170.904 268.002 173.035 266.422 175.334C264.842 177.633 261.224 183.452 258.383 188.264C255.542 193.077 252.898 197.008 252.506 197C252.115 196.992 250.503 194.629 248.925 191.75C245.975 186.369 222.868 148.272 218.758 142.014C217.494 140.089 209.141 126.589 200.195 112.014C166.909 57.782 163.441 52.143 153.136 35.514C147.343 26.164 140.152 14.464 137.158 9.514L131.713 0.514L66.004 0.257L0.294998 0V230.507ZM540.295 230.566V461.117L643.545 460.759C743.253 460.413 747.246 460.328 759.951 458.267C786.579 453.949 808.086 447.481 828.992 437.506C870.648 417.63 901.83 386.413 922.717 343.678C933.069 322.495 939.448 300.945 943.929 272.014C946.675 254.283 946.442 212.457 943.49 193.259C940.647 174.774 938.091 163.449 933.656 149.681C915.674 93.867 880.193 51.134 831.073 26.127C809.507 15.147 790.444 8.876 765.795 4.652C739.813 0.2 734.575 0.0139999 635.189 0.0139999H540.295V230.566ZM739.295 115.392C773.348 120.821 799.25 138.981 813.666 167.534C821.407 182.866 826.068 203.012 826.965 225.014C828.571 264.421 818.637 296.12 797.875 317.843C783.839 332.529 767.977 341.016 744.795 346.244C736.861 348.033 731.265 348.329 697.545 348.742L659.295 349.211V231.779C659.295 167.192 659.632 114.008 660.045 113.593C661.417 112.213 728.97 113.747 739.295 115.392ZM162.295 479.597C123.366 484.23 94.04 494.332 66.795 512.496C52.467 522.048 42.425 531.456 32.459 544.664C14.097 568.999 2.966 601.142 0.685997 636.416L0 647.014H57.602H115.204L115.848 643.264C119.075 624.476 127.082 609.374 139.033 599.535C151.737 589.075 168.073 583.811 187.87 583.798C205.641 583.786 220.085 588.054 232.359 596.946C241.176 603.332 248.391 615.313 250.446 626.979C253.356 643.5 244.67 663.689 228.705 677.514C225.529 680.264 210.3 692.06 194.863 703.727C179.425 715.394 164.095 727.003 160.795 729.525C157.495 732.046 143.041 742.976 128.676 753.812C99.224 776.028 70.868 797.623 45.795 816.933C36.445 824.134 22.399 834.861 14.581 840.77L0.365997 851.514L0.330997 899.264L0.294998 947.014H186.295H372.295V895.019V843.024L278.045 842.769L183.795 842.514L192.295 836.212C196.97 832.746 208.22 824.451 217.295 817.779C226.37 811.106 239.645 801.31 246.795 796.009C253.945 790.709 262.27 784.647 265.295 782.539C271.406 778.282 293.855 761.209 307.165 750.698C317.777 742.317 334.967 725.563 341.175 717.55C356.435 697.853 365.255 678.635 369.948 654.861C372.035 644.285 372.321 615.682 370.446 605.014C367.07 585.803 363.897 575.411 356.997 560.97C346.286 538.552 331.67 522.278 309.037 507.569C286.568 492.967 257.662 483.528 223.295 479.571C206.92 477.685 178.255 477.698 162.295 479.597ZM398.295 717.014V947.014H455.295H512.295V717.014V487.014H455.295H398.295V717.014ZM540.295 543.514V600.014H612.295H684.295V773.514V947.014H745.795H807.295V773.514V600.014H876.795H946.295V543.514V487.014H743.295H540.295V543.514Z"/>\n</svg>\n';
+
+  // src/lib/our/icons.ts
+  function stripComment2(svg) {
+    return svg.replace(/<!--[\s\S]*?-->\s*/g, "").trim();
+  }
+  function inlineSvg(raw) {
+    return stripComment2(raw).replace(/fill="#000000"/g, 'fill="currentColor"');
+  }
+  var MD2IT = inlineSvg(md2it_default);
 
   // src/icons.ts
   var INACTIVE_BG = "#012292";
@@ -117,7 +125,7 @@
   var TOOLBAR_VIEWBOX = 24;
   var TOOLBAR_RADIUS_RATIO = 0.18;
   var TOOLBAR_PAD_RATIO = 0.1;
-  function stripComment2(svg) {
+  function stripComment3(svg) {
     return svg.replace(/<!--[\s\S]*?-->\s*/g, "").trim();
   }
   function innerSvgMarkup(svg) {
@@ -161,7 +169,7 @@
       if (d) ctx.stroke(new Path2D(d));
     }
   }
-  var filesInner = innerSvgMarkup(stripComment2(files_default));
+  var filesInner = innerSvgMarkup(stripComment3(files_default));
   var ABOUT_BULLET_ICONS = [
     COPY,
     FILE_DOWN,
@@ -213,7 +221,7 @@
     return `<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" viewBox="0 0 ${TOOLBAR_VIEWBOX} ${TOOLBAR_VIEWBOX}" aria-hidden="true"><rect width="${TOOLBAR_VIEWBOX}" height="${TOOLBAR_VIEWBOX}" rx="${r}" fill="${bg}"/><g fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" transform="translate(${pad} ${pad}) scale(${scale})">${filesInner}</g></svg>`;
   }
 
-  // src/lib/src/extension-icon-state/tab-active-state.ts
+  // src/lib/our/extension-icon-state/tab-active-state.ts
   var tabActive = /* @__PURE__ */ new Map();
   function getTabActiveState(tabId) {
     return tabActive.get(tabId) ?? false;
@@ -228,7 +236,7 @@
     tabActive.set(tabId, false);
   }
 
-  // src/lib/src/extension-icon-state/icon-sync.ts
+  // src/lib/our/extension-icon-state/icon-sync.ts
   function createIconSync(config) {
     const { paths, syncedTabIdsStorageKey, logLabel, getImageSets } = config;
     let imageSetsFailed = false;
@@ -327,7 +335,7 @@
     };
   }
 
-  // src/lib/src/extension-icon-state/listeners.ts
+  // src/lib/our/extension-icon-state/listeners.ts
   function registerExtensionIconStateListeners(sync) {
     ext.tabs.onRemoved.addListener((tabId) => {
       deleteTabActiveState(tabId);
@@ -351,7 +359,7 @@
     void sync.syncIconForTab(tabId);
   }
 
-  // src/lib/src/extension-icon-state/create.ts
+  // src/lib/our/extension-icon-state/create.ts
   function createExtensionIconState(config) {
     const sync = createIconSync(config);
     return {
@@ -386,7 +394,7 @@
     syncIconForTab
   } = iconState;
 
-  // src/lib/src/hotkeys/prefix-hint-messages.ts
+  // src/lib/our/hotkeys/prefix-hint-messages.ts
   var PREFIX_HINT_SHOW = "PREFIX_HINT_SHOW";
   var PREFIX_HINT_HIDE = "PREFIX_HINT_HIDE";
   var PREFIX_HINT_CAN_SHOW = "PREFIX_HINT_CAN_SHOW";
@@ -398,7 +406,7 @@
     return msg.type === PREFIX_HINT_HIDE;
   }
 
-  // src/lib/src/hotkeys/prefix-hint-badge.ts
+  // src/lib/our/hotkeys/prefix-hint-badge.ts
   var PREFIX_BADGE_BACKGROUND_COLOR = "#012292";
   var PREFIX_BADGE_TEXT_COLOR = "#ffffff";
   async function showPrefixBadge(letter, tabId, backgroundColor = PREFIX_BADGE_BACKGROUND_COLOR, textColor = PREFIX_BADGE_TEXT_COLOR) {
@@ -465,7 +473,7 @@
     });
   }
 
-  // src/lib/src/hotkeys/prefix-background.ts
+  // src/lib/our/hotkeys/prefix-background.ts
   var EXECUTE_ACTION_COMMAND = "_execute_action";
   function registerPrefixBackgroundHotkeys(config) {
     registerPrefixHintBadgeListeners({
@@ -507,7 +515,7 @@
     });
   }
 
-  // src/lib/src/page-operability/probe.ts
+  // src/lib/our/page-operability/probe.ts
   function probeDocumentOperability() {
     try {
       const root = document.documentElement ?? document.body;
@@ -523,7 +531,7 @@
     }
   }
 
-  // src/lib/src/hotkeys/prefix-operability.ts
+  // src/lib/our/hotkeys/prefix-operability.ts
   var operabilityListenersRegistered = false;
   function registerPrefixHintOperabilityListeners(handlers) {
     if (operabilityListenersRegistered) return;
@@ -544,7 +552,7 @@
     });
   }
 
-  // src/lib/src/hotkeys/suppress.ts
+  // src/lib/our/hotkeys/suppress.ts
   var DEFAULT_TOGGLE_COMMAND_SUPPRESS_MS = 300;
   function shouldSuppressContentToggleAfterToggleCommand(lastAt, now, windowMs = DEFAULT_TOGGLE_COMMAND_SUPPRESS_MS) {
     return lastAt > 0 && now - lastAt < windowMs;
@@ -568,7 +576,7 @@
     };
   }
 
-  // src/lib/src/hotkeys/settings.ts
+  // src/lib/our/hotkeys/settings.ts
   function readBooleanSetting(data, key) {
     const raw = data[key];
     return raw !== false;
@@ -619,10 +627,10 @@
     logLabel: "Element Copier"
   };
 
-  // src/lib/src/page-operability/content-probe.ts
+  // src/lib/our/page-operability/content-probe.ts
   var PROBE_DOCUMENT_OPERABILITY = "PROBE_DOCUMENT_OPERABILITY";
 
-  // src/lib/src/page-operability/can-operate.ts
+  // src/lib/our/page-operability/can-operate.ts
   function scriptingTarget(tabId, frameId) {
     return frameId !== void 0 && frameId !== 0 ? { tabId, frameIds: [frameId] } : { tabId };
   }
@@ -652,7 +660,7 @@
     }
   }
 
-  // src/lib/src/page-operability/show-notice.ts
+  // src/lib/our/page-operability/show-notice.ts
   async function showBlockedNotice(tabId, config, payload, windowId) {
     const { popupHtml, sessionKey, logLabel } = config;
     void ext.storage.session.set({
@@ -690,7 +698,7 @@
     }
   }
 
-  // src/lib/src/page-operability/messages.ts
+  // src/lib/our/page-operability/messages.ts
   var BLOCKED_NOTICE_DISMISSED = "BLOCKED_NOTICE_DISMISSED";
   function isBlockedNoticeDismissedMessage(message) {
     if (typeof message !== "object" || message === null) return false;
@@ -698,7 +706,7 @@
     return m.type === BLOCKED_NOTICE_DISMISSED && typeof m.tabId === "number";
   }
 
-  // src/lib/src/i18n/detect.ts
+  // src/lib/our/i18n/detect.ts
   function getAcceptLanguageTags() {
     return new Promise((resolve) => {
       const getAccept = ext.i18n?.getAcceptLanguages;
@@ -756,7 +764,7 @@
     return detectLocale(mapLanguageTag, "en");
   }
 
-  // src/lib/src/i18n/rtl.ts
+  // src/lib/our/i18n/rtl.ts
   var RTL_LOCALES = /* @__PURE__ */ new Set(["ar"]);
   function isRtlLocale(locale) {
     return RTL_LOCALES.has(locale);
@@ -1524,7 +1532,7 @@
     return typeof value === "string" && LOCALES.includes(value);
   }
 
-  // src/lib/src/i18n/locale-code.ts
+  // src/lib/our/i18n/locale-code.ts
   var CHINESE_UI_LOCALE = "zh_CN";
   function normalizeLocaleCode(code) {
     if (code === "zh") return CHINESE_UI_LOCALE;
@@ -1603,7 +1611,7 @@
     );
   }
 
-  // src/lib/src/badge/text-color-animation.ts
+  // src/lib/our/badge/text-color-animation.ts
   function toHex(value) {
     return value.toString(16).padStart(2, "0");
   }
@@ -1869,13 +1877,13 @@
     logLabel: "Element Copier"
   };
 
-  // src/lib/src/panel-popup/page-path.ts
+  // src/lib/our/panel-popup/page-path.ts
   function panelPagePath(pageHtml, panelTab, extraParams, tabQueryParam = "tab") {
     const params = new URLSearchParams({ [tabQueryParam]: panelTab, ...extraParams });
     return `${pageHtml}?${params.toString()}`;
   }
 
-  // src/lib/src/panel-popup/open-action-popup.ts
+  // src/lib/our/panel-popup/open-action-popup.ts
   function openPanelInActionPopup(config, panelTab, target, fallbackOpenInTab, extraParams) {
     const { tabId, windowId } = target;
     const popup = panelPagePath(
@@ -2050,7 +2058,7 @@
     "url"
   ];
 
-  // src/lib/src/info-window/info-window.ts
+  // src/lib/our/info-window/info-window.ts
   function createInfoWindowClasses(prefix) {
     return {
       overlay: `${prefix}-info-window-overlay`,
@@ -2181,7 +2189,7 @@
     return CONTEXT_MENU_SECONDARY_ITEMS.find((item) => item.id === menuItemId)?.tab;
   }
 
-  // src/lib/src/pin.ts
+  // src/lib/our/pin.ts
   async function isActionOnToolbar(action) {
     if (typeof action.getUserSettings !== "function") return null;
     try {
@@ -2220,7 +2228,7 @@
     };
   }
 
-  // src/lib/src/welcome/background.ts
+  // src/lib/our/welcome/background.ts
   var welcomePinWatchers = /* @__PURE__ */ new Map();
   function stopWelcomePinWatcher(tabId) {
     welcomePinWatchers.get(tabId)?.();
@@ -2256,7 +2264,7 @@
     }
   }
 
-  // src/lib/src/welcome/step-icon.ts
+  // src/lib/our/welcome/step-icon.ts
   function welcomeStepIcon(raw, size = 14) {
     return raw.replace("<svg ", `<svg width="${size}" height="${size}" `);
   }

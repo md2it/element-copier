@@ -1,4 +1,4 @@
-import type { WelcomeTabConfig } from "../lib/src/welcome";
+import type { WelcomeTabConfig } from "../lib/our/welcome";
 
 /** Extension page URL path (project root). */
 export const WELCOME_PAGE = "welcome.html";

@@ -4,7 +4,7 @@ import {
   registerCopierStartHotkey,
   unmountCopierContentHotkeys,
 } from "./hotkeys";
-import { registerDocumentOperabilityProbeListener } from "./lib/src/page-operability";
+import { registerDocumentOperabilityProbeListener } from "./lib/our/page-operability";
 import { bootstrapPanelPopupPageIfNeeded, isPanelPopupPage } from "./panel-popup/page";
 import { isPanelTabMode } from "./panel-tab";
 import { showMountedPopupTab } from "./panel-popup/mount-panel-surface";

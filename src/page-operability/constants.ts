@@ -1,4 +1,4 @@
-import type { BlockedNoticeConfig } from "../lib/src/page-operability";
+import type { BlockedNoticeConfig } from "../lib/our/page-operability";
 
 export const RESTRICTED_NOTICE_POPUP = "blocked-notice.html";
 

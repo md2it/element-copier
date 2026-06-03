@@ -7,7 +7,7 @@ import {
   forEachActiveTabId,
   getTabActiveState,
   setTabActiveState,
-} from "../lib/src/extension-icon-state";
+} from "../lib/our/extension-icon-state";
 import { ICON_STATE_LOG_LABEL, ICON_SYNCED_TAB_IDS_KEY } from "./constants";
 
 const iconState = createExtensionIconState({

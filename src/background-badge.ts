@@ -5,8 +5,8 @@ import {
   getRestrictedNoticeDismissMs,
   showRestrictedNotice,
 } from "./page-operability";
-import { registerPrefixHintBadgeListeners } from "./lib/src/hotkeys";
-import { createBadgeTextColorAnimation } from "./lib/src/badge/text-color-animation";
+import { registerPrefixHintBadgeListeners } from "./lib/our/hotkeys";
+import { createBadgeTextColorAnimation } from "./lib/our/badge/text-color-animation";
 
 const BADGE_TEXT_COLOR = "#ffffff";
 const BADGE_PREFIX_BACKGROUND_COLOR = "#ffffff";

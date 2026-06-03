@@ -11,7 +11,7 @@ import {
   registerBackgroundHotkeys,
   shouldSuppressToolbarClickAfterHotkeyCommand,
 } from "./hotkeys";
-import { registerPrefixHintOperabilityListeners } from "./lib/src/hotkeys";
+import { registerPrefixHintOperabilityListeners } from "./lib/our/hotkeys";
 import {
   clearBlockedBadgeState,
   clearTabBadgeState,

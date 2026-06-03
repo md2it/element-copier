@@ -4,13 +4,23 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const require = createRequire(import.meta.url);
-const esbuild = require(
-  join(dirname(fileURLToPath(import.meta.url)), "../../lib/node_modules/esbuild"),
-);
-
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
+const catalogNodeModules = join(root, "../lib/node_modules");
+
+function requireBuildDependency(name) {
+  try {
+    return require(require.resolve(name, { paths: [root] }));
+  } catch (error) {
+    if (error?.code !== "MODULE_NOT_FOUND") {
+      throw error;
+    }
+    return require(join(catalogNodeModules, name));
+  }
+}
+
+const esbuild = requireBuildDependency("esbuild");
 const extensionDir = join(root, "extension");
-const libSrc = join(root, "src/lib/src");
+const libSrc = join(root, "src/lib/our");
 const watch = process.argv.includes("--watch");
 
 const stylesDir = join(root, "src/styles");

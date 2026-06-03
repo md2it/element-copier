@@ -1,14 +1,14 @@
 "use strict";
 (() => {
-  // src/lib/src/api.ts
+  // src/lib/our/api.ts
   var ext = typeof browser !== "undefined" ? browser : chrome;
 
-  // src/lib/src/i18n/locale-code.ts
+  // src/lib/our/i18n/locale-code.ts
   function localeToHtmlLang(locale) {
     return locale.replace(/_/g, "-");
   }
 
-  // src/lib/src/panel-header/header.ts
+  // src/lib/our/panel-header/header.ts
   function createPanelDivider() {
     const divider = document.createElement("div");
     divider.className = "dd-panel-divider";
@@ -40,7 +40,7 @@
     return header;
   }
 
-  // src/lib/src/welcome/page.ts
+  // src/lib/our/welcome/page.ts
   var WELCOME_BODY_MIN_VAR = "--welcome-body-min";
   var WELCOME_PROBE_WIDTH = "360px";
   var PANEL_HEADER_STYLE_ID = "dd-panel-header-styles";
@@ -308,7 +308,7 @@
     setupPinHint(data, config);
   }
 
-  // src/lib/src/i18n/rtl.ts
+  // src/lib/our/i18n/rtl.ts
   var RTL_LOCALES = /* @__PURE__ */ new Set(["ar"]);
   function isRtlLocale(locale) {
     return RTL_LOCALES.has(locale);

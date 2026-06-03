@@ -15,7 +15,8 @@ export {
   PUZZLE,
   SETTINGS,
   SHIELD_CHECK,
-} from "./lib/src/icons";
+} from "./lib/icons";
+export { MD2IT } from "./lib/our/icons";
 
 import {
   CIRCLE_POWER,
@@ -27,7 +28,7 @@ import {
   IMAGES,
   KEYBOARD,
   SHIELD_CHECK,
-} from "./lib/src/icons";
+} from "./lib/icons";
 
 const INACTIVE_BG = "#012292";
 const ACTIVE_BG = INACTIVE_BG;
