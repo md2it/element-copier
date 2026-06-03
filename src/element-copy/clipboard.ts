@@ -1,7 +1,7 @@
 import {
   copyFormattedTextToClipboard,
   parseFormattedTextCache,
-} from "../../../lib/src/copy/formatted-text/index";
+} from "../lib/src/copy/formatted-text/index";
 import { isImageCopyFormat } from "../copy/screenshot";
 import type { CopyFormatId } from "../formats/definitions";
 import { dataUrlToBlob } from "./download";

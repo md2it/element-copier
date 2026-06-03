@@ -9,10 +9,11 @@ const esbuild = require(
 );
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
-const libSrc = join(root, "../lib/src");
+const extensionDir = join(root, "extension");
+const libSrc = join(root, "src/lib/src");
 const watch = process.argv.includes("--watch");
 
-const stylesDir = join(root, "styles");
+const stylesDir = join(root, "src/styles");
 const panelHeaderCss = readFileSync(join(stylesDir, "panel-header.css"), "utf8");
 const panelFooterCss = readFileSync(join(stylesDir, "panel-footer.css"), "utf8");
 const panelCss = readFileSync(join(stylesDir, "panel-popup.css"), "utf8");
@@ -37,7 +38,8 @@ const common = {
   },
   alias: {
     "@lib": libSrc,
-    "modern-screenshot": join(root, "../lib/node_modules/modern-screenshot/dist/index.mjs"),
+    "modern-screenshot": join(root, "src/lib/vendor/modern-screenshot/dist/index.mjs"),
+    turndown: join(root, "src/lib/vendor/turndown/lib/turndown.browser.es.js"),
   },
 };
 
@@ -48,7 +50,7 @@ const ctx = await esbuild.context({
     content: join(root, "src/content.ts"),
     welcome: join(root, "src/welcome/welcome.ts"),
   },
-  outdir: root,
+  outdir: extensionDir,
 });
 
 if (watch) {
@@ -57,5 +59,5 @@ if (watch) {
 } else {
   await ctx.rebuild();
   await ctx.dispose();
-  console.log("build ok → dist/ updated (load unpacked from element-copier/dist)");
+  console.log("build ok → extension/ updated (load unpacked from element-copier/extension)");
 }

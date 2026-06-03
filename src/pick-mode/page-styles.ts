@@ -1,7 +1,7 @@
 import {
   buildGenericHighlightPageCss,
   createHighlightUiClasses,
-} from "../../../lib/src/highlight";
+} from "../lib/src/highlight";
 
 export const HIGHLIGHT_STYLE_ID = "element-copier-highlight-style";
 

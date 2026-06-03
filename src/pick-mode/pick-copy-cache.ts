@@ -20,8 +20,11 @@ import {
 const SNAPSHOT_PERF_LOCAL_STORAGE_KEY = "ec:perf:snapshot";
 
 function nowMs(doc: Document): number {
-  const perfNow = doc.defaultView?.performance?.now;
-  return typeof perfNow === "function" ? perfNow.call(doc.defaultView.performance) : Date.now();
+  const view = doc.defaultView;
+  const perfNow = view?.performance?.now;
+  return typeof perfNow === "function" && view
+    ? perfNow.call(view.performance)
+    : Date.now();
 }
 
 function isSnapshotPerfEnabled(doc: Document): boolean {
@@ -224,4 +227,3 @@ export function getCachedCopyText(formatId: CopyFormatId): string | undefined {
   }
   return cache.get(formatId);
 }
-

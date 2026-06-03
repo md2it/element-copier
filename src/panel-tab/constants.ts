@@ -1,7 +1,7 @@
 export {
   PANEL_TAB_MODE_PARAM,
   PANEL_TAB_MODE_VALUE,
-} from "../../../lib/src/panel-tab";
+} from "../lib/src/panel-tab";
 
 /** Applied to `document.documentElement` — pairs with inline rules in `panel-popup-page.html`. */
 export const PANEL_TAB_PAGE_CLASS = "ec-panel-page--tab";

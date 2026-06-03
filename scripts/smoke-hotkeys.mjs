@@ -6,7 +6,7 @@ import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { runSmokeHotkeysCore } from "../../lib/scripts/smoke-hotkeys-core.mjs";
+import { runSmokeHotkeysCore } from "../src/lib/scripts/smoke-hotkeys-core.mjs";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 
@@ -39,7 +39,7 @@ const commandsSrc = readFileSync(join(root, "src/hotkeys/commands.ts"), "utf8");
 assert.match(commandsSrc, /activate-deactivate/);
 assert.match(commandsSrc, /_execute_action/);
 
-const manifestSrc = readFileSync(join(root, "manifest.json"), "utf8");
+const manifestSrc = readFileSync(join(root, "extension/manifest.json"), "utf8");
 assert.match(manifestSrc, /"_execute_action"/);
 assert.match(manifestSrc, /"activate-deactivate"/);
 assert.match(manifestSrc, /__MSG_commandToggleCopy__/);

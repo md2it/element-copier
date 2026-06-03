@@ -1,19 +1,19 @@
 import {
   cloneElementForClipboard,
   prepareElementForCopy,
-} from "../../../lib/src/copy/cleanup/index";
+} from "../lib/src/copy/cleanup/index";
 import {
   extractHtmlFromPreparedContainer,
   finalizeFormattedHtml,
   serializeFormattedTextCache,
-} from "../../../lib/src/copy/formatted-text/index";
-import { getCssSelector } from "../../../lib/src/copy/selector";
-import { getJsPath } from "../../../lib/src/copy/js-path";
-import { getElementComputedStyles } from "../../../lib/src/copy/styles-computed";
-import { getElementStyles } from "../../../lib/src/copy/styles";
-import { elementToMarkdown } from "../../../lib/src/copy/markdown/index";
-import { getFullXPath, getXPath } from "../../../lib/src/copy/xpath";
-import type { InlineImageMode } from "../../../lib/src/copy/cleanup/index";
+} from "../lib/src/copy/formatted-text/index";
+import { getCssSelector } from "../lib/src/copy/selector";
+import { getJsPath } from "../lib/src/copy/js-path";
+import { getElementComputedStyles } from "../lib/src/copy/styles-computed";
+import { getElementStyles } from "../lib/src/copy/styles";
+import { elementToMarkdown } from "../lib/src/copy/markdown/index";
+import { getFullXPath, getXPath } from "../lib/src/copy/xpath";
+import type { InlineImageMode } from "../lib/src/copy/cleanup/index";
 
 function getDocumentBaseHref(element: Element): string {
   return element.ownerDocument.baseURI || element.ownerDocument.location?.href || "";

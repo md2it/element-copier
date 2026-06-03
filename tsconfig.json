@@ -1,9 +1,10 @@
 {
-  "extends": "../lib/tsconfig.base.json",
+  "extends": "./src/lib/tsconfig.base.json",
   "compilerOptions": {
     "paths": {
-      "modern-screenshot": ["../lib/node_modules/modern-screenshot/dist/index.d.ts"]
+      "modern-screenshot": ["./src/lib/vendor/modern-screenshot/dist/index.d.ts"],
+      "turndown": ["./src/lib/vendor/@types/turndown/index.d.ts"]
     }
   },
-  "include": ["src/**/*.ts", "src/env.d.ts", "../lib/src/**/*.ts"]
+  "include": ["src/**/*.ts", "src/env.d.ts"]
 }

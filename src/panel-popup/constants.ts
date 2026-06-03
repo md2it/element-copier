@@ -1,4 +1,4 @@
-import type { PanelPageConfig } from "../../../lib/src/panel-popup";
+import type { PanelPageConfig } from "../lib/src/panel-popup";
 
 /** Extension page loaded under the toolbar action popup (not a content-script overlay). */
 export const PANEL_POPUP_PAGE = "panel-popup-page.html";

@@ -1,5 +1,5 @@
 import { ext } from "../api";
-import { readBooleanSetting } from "../../../lib/src/hotkeys";
+import { readBooleanSetting } from "../lib/src/hotkeys";
 import { ESC_HOTKEY_ENABLED_KEY, START_HOTKEY_ENABLED_KEY } from "../messages";
 
 export async function getStartHotkeyEnabled(): Promise<boolean> {

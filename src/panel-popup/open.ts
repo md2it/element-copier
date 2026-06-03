@@ -2,7 +2,7 @@ import {
   openPanelInActionPopup as openLibPanelInActionPopup,
   panelPagePath,
   type PanelPageOpenTarget,
-} from "../../../lib/src/panel-popup";
+} from "../lib/src/panel-popup";
 import { hasPickCopyCachePresentSync } from "../pick-mode/pick-copy-cache-storage";
 import { PANEL_PAGE_CONFIG, type PanelPopupTab } from "./constants";
 import { rememberPanelTargetTab } from "./panel-target-tab";

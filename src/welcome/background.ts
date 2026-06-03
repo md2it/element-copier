@@ -1,9 +1,9 @@
-import { isActionOnToolbar } from "../../../lib/src/pin";
+import { isActionOnToolbar } from "../lib/src/pin";
 import {
   openWelcomeTab,
   stopWelcomePinWatcher as stopLibWelcomePinWatcher,
   watchWelcomePinStatus as watchLibWelcomePinStatus,
-} from "../../../lib/src/welcome";
+} from "../lib/src/welcome";
 import { ext } from "../api";
 import { getLocale } from "../storage";
 import {

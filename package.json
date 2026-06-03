@@ -3,10 +3,10 @@
   "private": true,
   "version": "1.0.0",
   "scripts": {
-    "icons:manifest": "node ../lib/scripts/generate-manifest-icons.mjs",
-    "build": "node scripts/build.mjs && node ../lib/scripts/pack-extension.mjs element-copier --no-build",
+    "icons:manifest": "node src/lib/scripts/generate-manifest-icons.mjs",
+    "build": "node scripts/build.mjs",
     "watch": "node scripts/build.mjs --watch",
-    "dist": "npm run build && node ../lib/scripts/pack-extension.mjs element-copier --no-build",
+    "dist": "npm run build && node scripts/package-extension.mjs",
     "typecheck": "node ../lib/node_modules/typescript/bin/tsc --noEmit -p tsconfig.json"
   }
 }

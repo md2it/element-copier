@@ -1,4 +1,4 @@
-import { mountPanelShadowHost } from "../../../lib/src/panel-shell";
+import { mountPanelShadowHost } from "../lib/src/panel-shell";
 import type { Locale } from "../i18n";
 import { getLocale } from "../storage";
 import {

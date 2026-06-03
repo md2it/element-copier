@@ -1,4 +1,4 @@
-import filesSvg from "../../lib/icons/lucide/files.svg";
+import filesSvg from "./lib/icons/lucide/files.svg";
 
 export {
   ARROW_UP,
@@ -15,7 +15,7 @@ export {
   PUZZLE,
   SETTINGS,
   SHIELD_CHECK,
-} from "../../lib/src/icons";
+} from "./lib/src/icons";
 
 import {
   CIRCLE_POWER,
@@ -27,7 +27,7 @@ import {
   IMAGES,
   KEYBOARD,
   SHIELD_CHECK,
-} from "../../lib/src/icons";
+} from "./lib/src/icons";
 
 const INACTIVE_BG = "#012292";
 const ACTIVE_BG = INACTIVE_BG;

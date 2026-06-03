@@ -1,4 +1,4 @@
-import { isFormattedTextCacheStorable } from "../../../lib/src/copy/formatted-text/index";
+import { isFormattedTextCacheStorable } from "../lib/src/copy/formatted-text/index";
 import { CLIPBOARD_COPY_FORMATS, type CopyFormatId } from "../formats/definitions";
 import type { EnabledFormatsMap } from "../settings/format-settings";
 import { extractElementCopyText } from "./extract";

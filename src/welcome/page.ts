@@ -1,4 +1,4 @@
-import { bootstrapWelcomePage } from "../../../lib/src/welcome";
+import { bootstrapWelcomePage } from "../lib/src/welcome";
 import { isRtlLocale } from "../i18n";
 import { WELCOME_SESSION_DATA_KEY } from "./constants";
 

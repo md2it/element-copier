@@ -1,5 +1,4 @@
 import { ext } from "./api";
-import { COPIER_ACTIVE_COLOR } from "./brand";
 import {
   bootstrapToolbarIcons,
   getTabActiveState,
@@ -12,11 +11,16 @@ import {
   registerBackgroundHotkeys,
   shouldSuppressToolbarClickAfterHotkeyCommand,
 } from "./hotkeys";
+import { registerPrefixHintOperabilityListeners } from "./lib/src/hotkeys";
 import {
-  registerPrefixHintBadgeListeners,
-  registerPrefixHintOperabilityListeners,
-} from "../../lib/src/hotkeys";
-import { createBadgeTextColorAnimation } from "../../lib/src/badge/text-color-animation";
+  clearBlockedBadgeState,
+  clearTabBadgeState,
+  onBlockedNoticeDismissed,
+  registerToolbarPrefixBadgeListeners,
+  setCopiedBadge,
+  showBlockedPageFeedback,
+  syncToolbarBadge,
+} from "./background-badge";
 import type {
   BgToContent,
   ContentActivationResponse,
@@ -29,17 +33,14 @@ import type {
 import type { CopyFormatId } from "./formats/definitions";
 import {
   getPickCopyTextFromStorage,
-  hasPickCopyCacheInStorage,
   PICK_COPY_CACHE_INDEX_KEY,
   PICK_COPY_CACHE_STORAGE_KEY,
   refreshPickCopyCachePresenceSync,
 } from "./pick-mode/pick-copy-cache-storage";
 import {
   canOperateOnTab,
-  getRestrictedNoticeDismissMs,
   isBlockedNoticeDismissedMessage,
   refreshRestrictedNoticeCache,
-  showRestrictedNotice,
 } from "./page-operability";
 import {
   openCopiedPanelFromCopy,
@@ -47,7 +48,6 @@ import {
   openStartPanelFromToolbar,
   PANEL_POPUP_PAGE,
   PANEL_SESSION_PORT_NAME,
-  type PanelMenuTab,
   type PanelPopupTab,
 } from "./panel-popup";
 import { consumePanelSessionClose } from "./panel-popup/panel-session";
@@ -55,15 +55,17 @@ import {
   readPanelTargetTabId,
   rememberPanelTargetTab,
 } from "./panel-popup/panel-target-tab";
-import { isRtlLocale, t, type Locale } from "./i18n";
-import type { Strings } from "./i18n/types";
+import {
+  ensureContextMenu,
+  findContextMenuTab,
+} from "./background-context-menu";
 import {
   clearCopiedPanelShowStatus,
   markCopiedPanelShowStatus,
   setLastCopiedFormat,
   setLastDownloadedFormat,
 } from "./settings/copied-session";
-import { ensureLocaleInStorage, getLocale } from "./storage";
+import { ensureLocaleInStorage } from "./storage";
 import { showWelcome, stopWelcomePinWatcher, watchWelcomePinStatus } from "./welcome";
 
 type ToggleSource = "toolbar" | "hotkey";
@@ -72,6 +74,13 @@ const TOGGLE_DEBOUNCE_MS = 80;
 /** Pick UI runs in the top document only (content_scripts use all_frames). */
 const MAIN_FRAME_ID = 0;
 const PICK_LOADING_PANEL_DELAY_MS = 500;
+
+type PickCopyLoadingTimerState = {
+  requestId: string;
+  timer: ReturnType<typeof setTimeout>;
+};
+
+const pickCopyLoadingTimers = new Map<number, PickCopyLoadingTimerState>();
 
 /** Sync pre-check: skip START popup so blocked-notice keeps the toolbar user gesture. */
 function isLikelyNonOperableTabUrl(url: string | undefined): boolean {
@@ -92,185 +101,6 @@ function isLikelyNonOperableTabUrl(url: string | undefined): boolean {
 }
 let lastToggleTabId: number | undefined;
 let lastToggleAt = 0;
-
-const BADGE_TEXT_COLOR = "#ffffff";
-const BADGE_PREFIX_BACKGROUND_COLOR = "#ffffff";
-const BADGE_PREFIX_TEXT_COLOR = COPIER_ACTIVE_COLOR;
-const BADGE_SELECTION_BACKGROUND_COLOR = COPIER_ACTIVE_COLOR;
-const BADGE_COPIED_BACKGROUND_COLOR = "#008000";
-const BADGE_BLOCKED_BACKGROUND_COLOR = "#d3d3d3";
-const BADGE_BLOCKED_TEXT_COLOR = "#4a4a4a";
-const BADGE_SELECTION_TEXT = "◉";
-const BADGE_SELECTION_TEXT_COLOR_WHITE: readonly [number, number, number] = [255, 255, 255];
-const BADGE_SELECTION_TEXT_COLOR_BLUE: readonly [number, number, number] = [1, 34, 146];
-const BADGE_COPIED_TEXT = "✓";
-const BADGE_BLOCKED_TEXT = "✕";
-const BADGE_SELECTION_ANIMATION_STEPS = 40;
-const BADGE_SELECTION_ANIMATION_STEP_MS = 25;
-
-const selectionBadgeTextAnimation = createBadgeTextColorAnimation({
-  startColor: BADGE_SELECTION_TEXT_COLOR_WHITE,
-  endColor: BADGE_SELECTION_TEXT_COLOR_BLUE,
-  steps: BADGE_SELECTION_ANIMATION_STEPS,
-  stepIntervalMs: BADGE_SELECTION_ANIMATION_STEP_MS,
-  mode: "ping-pong",
-});
-
-type PickCopyLoadingTimerState = {
-  requestId: string;
-  timer: ReturnType<typeof setTimeout>;
-};
-
-const pickCopyLoadingTimers = new Map<number, PickCopyLoadingTimerState>();
-
-/**
- * Badge state priority (lib/SPEC/ui-badge.md):
- * 1) prefix letter (lib prefix badge; we only suppress/restore)
- * 2) cannot operate on page => ✕ (while blocked notice is shown)
- * 3) running => ◉
- * 4) off => no badge
- */
-
-const tabBlockedBadge = new Map<number, boolean>();
-const tabPrefixBadgeShown = new Map<number, boolean>();
-const tabCopiedBadge = new Map<number, boolean>();
-const blockedBadgeClearTimers = new Map<number, ReturnType<typeof setTimeout>>();
-const selectionBadgeAnimationIntervals = new Map<number, ReturnType<typeof setInterval>>();
-const selectionBadgeAnimationFrame = new Map<number, number>();
-
-function clearBlockedBadgeTimer(tabId: number): void {
-  const timer = blockedBadgeClearTimers.get(tabId);
-  if (timer === undefined) return;
-  clearTimeout(timer);
-  blockedBadgeClearTimers.delete(tabId);
-}
-
-function clearBlockedBadgeState(tabId: number): void {
-  clearBlockedBadgeTimer(tabId);
-  tabBlockedBadge.set(tabId, false);
-}
-
-function clearSelectionBadgeAnimation(tabId: number): void {
-  const interval = selectionBadgeAnimationIntervals.get(tabId);
-  if (interval !== undefined) {
-    clearInterval(interval);
-    selectionBadgeAnimationIntervals.delete(tabId);
-  }
-  selectionBadgeAnimationFrame.delete(tabId);
-}
-
-function ensureSelectionBadgeAnimation(tabId: number): void {
-  if (selectionBadgeAnimationIntervals.has(tabId)) return;
-  selectionBadgeAnimationFrame.set(tabId, 0);
-  selectionBadgeAnimationIntervals.set(
-    tabId,
-    setInterval(() => {
-      if (!getTabActiveState(tabId)) {
-        clearSelectionBadgeAnimation(tabId);
-        return;
-      }
-      const currentFrame = selectionBadgeAnimationFrame.get(tabId) ?? 0;
-      selectionBadgeAnimationFrame.set(
-        tabId,
-        selectionBadgeTextAnimation.nextFrame(currentFrame),
-      );
-      void syncToolbarBadge(tabId);
-    }, selectionBadgeTextAnimation.stepIntervalMs),
-  );
-}
-
-function onBlockedNoticeDismissed(tabId: number): void {
-  if (!tabBlockedBadge.get(tabId)) return;
-  clearBlockedBadgeState(tabId);
-  void syncToolbarBadge(tabId);
-}
-
-function scheduleClearBlockedBadge(tabId: number, dismissMs: number): void {
-  clearBlockedBadgeTimer(tabId);
-  blockedBadgeClearTimers.set(
-    tabId,
-    setTimeout(() => {
-      blockedBadgeClearTimers.delete(tabId);
-      if (!tabBlockedBadge.get(tabId)) return;
-      clearBlockedBadgeState(tabId);
-      void syncToolbarBadge(tabId);
-    }, dismissMs),
-  );
-}
-
-async function showBlockedPageFeedback(
-  tabId: number,
-  windowId?: number,
-  reason?: string,
-): Promise<void> {
-  console.warn("[Element Copier] page blocked:", reason ?? "unknown", tabId);
-  tabBlockedBadge.set(tabId, true);
-  await syncToolbarBadge(tabId);
-  const dismissMs = await getRestrictedNoticeDismissMs();
-  await showRestrictedNotice(tabId, windowId);
-  scheduleClearBlockedBadge(tabId, dismissMs);
-}
-
-async function setToolbarBadge(
-  tabId: number,
-  text: string,
-  backgroundColor = BADGE_SELECTION_BACKGROUND_COLOR,
-  textColor = BADGE_TEXT_COLOR,
-): Promise<void> {
-  try {
-    if (text) {
-      await ext.action.setBadgeBackgroundColor({ tabId, color: backgroundColor });
-      const setBadgeTextColor = (
-        ext.action as typeof ext.action & {
-          setBadgeTextColor?: (details: { tabId: number; color: string }) => Promise<void>;
-        }
-      ).setBadgeTextColor;
-      await setBadgeTextColor?.({ tabId, color: textColor });
-    }
-    await ext.action.setBadgeText({ tabId, text });
-  } catch (err) {
-    console.warn("[Element Copier] setBadgeText failed:", err);
-  }
-}
-
-async function syncToolbarBadge(tabId: number): Promise<void> {
-  if (tabPrefixBadgeShown.get(tabId)) {
-    clearSelectionBadgeAnimation(tabId);
-    return;
-  }
-
-  if (tabBlockedBadge.get(tabId)) {
-    clearSelectionBadgeAnimation(tabId);
-    await setToolbarBadge(
-      tabId,
-      BADGE_BLOCKED_TEXT,
-      BADGE_BLOCKED_BACKGROUND_COLOR,
-      BADGE_BLOCKED_TEXT_COLOR,
-    );
-    return;
-  }
-
-  if (getTabActiveState(tabId)) {
-    ensureSelectionBadgeAnimation(tabId);
-    const frame = selectionBadgeAnimationFrame.get(tabId) ?? 0;
-    await setToolbarBadge(
-      tabId,
-      BADGE_SELECTION_TEXT,
-      BADGE_SELECTION_BACKGROUND_COLOR,
-      selectionBadgeTextAnimation.getColor(frame),
-    );
-    return;
-  }
-
-  if (tabCopiedBadge.get(tabId)) {
-    clearSelectionBadgeAnimation(tabId);
-    await setToolbarBadge(tabId, BADGE_COPIED_TEXT, BADGE_COPIED_BACKGROUND_COLOR);
-    return;
-  }
-
-  clearSelectionBadgeAnimation(tabId);
-  await setToolbarBadge(tabId, "");
-}
 
 async function injectContent(tabId: number, frameId?: number): Promise<boolean> {
   try {
@@ -329,7 +159,7 @@ async function handlePanelSessionEnded(): Promise<void> {
   if (!consumePanelSessionClose()) return;
   const tabId = await readPanelTargetTabId();
   if (tabId === undefined) return;
-  tabCopiedBadge.set(tabId, false);
+  setCopiedBadge(tabId, false);
   await syncToolbarBadge(tabId);
 }
 
@@ -378,7 +208,7 @@ async function deactivateTab(tabId: number, windowId?: number): Promise<void> {
 
   setTabActiveState(tabId, false);
   clearBlockedBadgeState(tabId);
-  tabCopiedBadge.set(tabId, false);
+  setCopiedBadge(tabId, false);
   await syncIconForTab(tabId);
   await syncToolbarBadge(tabId);
   await setTabActive(tabId, false, windowId);
@@ -399,7 +229,7 @@ async function activateTab(tabId: number, windowId?: number): Promise<void> {
 
   setTabActiveState(tabId, true);
   clearBlockedBadgeState(tabId);
-  tabCopiedBadge.set(tabId, false);
+  setCopiedBadge(tabId, false);
   await syncIconForTab(tabId);
   await syncToolbarBadge(tabId);
   await setTabActive(tabId, true, windowId);
@@ -542,7 +372,7 @@ async function toggleTab(
   if (!next) {
     setTabActiveState(tabId, false);
     clearBlockedBadgeState(tabId);
-    tabCopiedBadge.set(tabId, false);
+    setCopiedBadge(tabId, false);
     await syncIconForTab(tabId);
     await syncToolbarBadge(tabId);
     await setTabActive(tabId, false, windowId);
@@ -577,110 +407,6 @@ function getActiveCommandTab(): Promise<chrome.tabs.Tab | undefined> {
       });
     });
   });
-}
-
-const CONTEXT_MENU_START = "element-copier-start";
-const CONTEXT_MENU_COPIED = "element-copier-copied";
-const CONTEXT_MENU_SETTINGS = "element-copier-settings";
-const CONTEXT_MENU_SHORTCUTS = "element-copier-shortcuts";
-const CONTEXT_MENU_ABOUT = "element-copier-about";
-
-const ACTION_MENU_EMOJI = {
-  start: "▶️",
-  copied: "🗂️",
-  settings: "⚙️",
-  shortcuts: "⌨️",
-  about: "ℹ️",
-} as const;
-
-const CONTEXT_MENU_START_ITEM = {
-  id: CONTEXT_MENU_START,
-  tab: "start" as const,
-  emoji: ACTION_MENU_EMOJI.start,
-  title: (strings: Strings) => strings.titleSettings,
-};
-
-const CONTEXT_MENU_COPIED_ITEM = {
-  id: CONTEXT_MENU_COPIED,
-  tab: "copied" as const,
-  emoji: ACTION_MENU_EMOJI.copied,
-  title: (strings: Strings) => strings.tabCopied,
-};
-
-const CONTEXT_MENU_SECONDARY_ITEMS: readonly {
-  id: string;
-  tab: PanelMenuTab;
-  emoji: string;
-  title: (strings: Strings) => string;
-}[] = [
-  {
-    id: CONTEXT_MENU_SETTINGS,
-    tab: "settings",
-    emoji: ACTION_MENU_EMOJI.settings,
-    title: (strings) => strings.pageSettingsTitle,
-  },
-  {
-    id: CONTEXT_MENU_SHORTCUTS,
-    tab: "shortcuts",
-    emoji: ACTION_MENU_EMOJI.shortcuts,
-    title: (strings) => strings.tabShortcuts,
-  },
-  {
-    id: CONTEXT_MENU_ABOUT,
-    tab: "about",
-    emoji: ACTION_MENU_EMOJI.about,
-    title: (strings) => strings.tabAbout,
-  },
-];
-
-type ContextMenuCreateProps = chrome.contextMenus.CreateProperties;
-
-let ensureContextMenuChain: Promise<void> = Promise.resolve();
-
-async function createContextMenuItem(props: ContextMenuCreateProps): Promise<void> {
-  try {
-    await ext.contextMenus.create(props);
-  } catch (err) {
-    console.error("[Element Copier] contextMenus.create failed:", err, props);
-  }
-}
-
-function actionMenuTitle(title: string, emoji: string, locale: Locale): string {
-  // RTL labels + leading LTR emoji reorder inconsistently in native menus (bidi).
-  return isRtlLocale(locale) ? `${title} ${emoji}` : `${emoji} ${title}`;
-}
-
-async function ensureContextMenu(): Promise<void> {
-  ensureContextMenuChain = ensureContextMenuChain.then(async () => {
-    const locale = await getLocale();
-    const strings = t(locale);
-
-    try {
-      await ext.contextMenus.removeAll();
-    } catch (err) {
-      console.error("[Element Copier] contextMenus.removeAll failed:", err);
-    }
-
-    const hasCache = await hasPickCopyCacheInStorage();
-    const primaryItem = hasCache ? CONTEXT_MENU_COPIED_ITEM : CONTEXT_MENU_START_ITEM;
-    const contextMenuItems = [primaryItem, ...CONTEXT_MENU_SECONDARY_ITEMS];
-
-    for (const item of contextMenuItems) {
-      await createContextMenuItem({
-        id: item.id,
-        title: actionMenuTitle(item.title(strings), item.emoji, locale),
-        contexts: ["action"],
-      });
-    }
-  });
-
-  await ensureContextMenuChain;
-}
-
-function findContextMenuTab(menuItemId: string | number): PanelMenuTab | undefined {
-  if (menuItemId === CONTEXT_MENU_START) return "start";
-  if (menuItemId === CONTEXT_MENU_COPIED) return "copied";
-  return CONTEXT_MENU_SECONDARY_ITEMS.find((item) => item.id === menuItemId)?.tab;
 }
 
 ext.action.onClicked.addListener((tab) => {
@@ -750,7 +476,7 @@ ext.runtime.onMessage.addListener(
           if (sender.tab?.id !== undefined) {
             clearPickCopyLoadingTimer(sender.tab.id);
             await rememberPanelTargetTab(sender.tab.id);
-            tabCopiedBadge.set(sender.tab.id, true);
+            setCopiedBadge(sender.tab.id, true);
             await syncToolbarBadge(sender.tab.id);
           }
           const switched = await switchOpenPopupTab("copied");
@@ -769,7 +495,7 @@ ext.runtime.onMessage.addListener(
       void (async () => {
         const tabId = await resolvePickModeTabId(sender);
         if (tabId !== undefined) {
-          tabCopiedBadge.set(tabId, contentMessage.tab === "copied");
+          setCopiedBadge(tabId, contentMessage.tab === "copied");
           await syncToolbarBadge(tabId);
         }
         await syncPickModeForPanelTab(contentMessage.tab, sender);
@@ -848,28 +574,11 @@ ext.runtime.onConnect.addListener((port) => {
 
 ext.tabs.onRemoved.addListener((tabId) => {
   clearPickCopyLoadingTimer(tabId);
-  clearBlockedBadgeTimer(tabId);
-  clearSelectionBadgeAnimation(tabId);
-  tabBlockedBadge.delete(tabId);
-  tabPrefixBadgeShown.delete(tabId);
-  tabCopiedBadge.delete(tabId);
+  clearTabBadgeState(tabId);
   stopWelcomePinWatcher(tabId);
 });
 
-registerPrefixHintBadgeListeners({
-  badgeBackgroundColor: BADGE_PREFIX_BACKGROUND_COLOR,
-  badgeTextColor: BADGE_PREFIX_TEXT_COLOR,
-  canShowPrefixBadgeOnTab: canOperateOnTab,
-  onShow: (tabId) => {
-    if (tabId === undefined) return;
-    tabPrefixBadgeShown.set(tabId, true);
-  },
-  onHide: (tabId) => {
-    if (tabId === undefined) return;
-    tabPrefixBadgeShown.set(tabId, false);
-    void syncToolbarBadge(tabId);
-  },
-});
+registerToolbarPrefixBadgeListeners(canOperateOnTab);
 
 registerExtensionIconStateListeners();
 

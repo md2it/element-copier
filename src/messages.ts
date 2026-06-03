@@ -1,4 +1,4 @@
-import type { PrefixHintContentToBg } from "../../lib/src/hotkeys/prefix-hint-messages";
+import type { PrefixHintContentToBg } from "./lib/src/hotkeys/prefix-hint-messages";
 import { ext } from "./api";
 import type { CopyFormatId } from "./formats/definitions";
 import type { CopiedPanelActionKind } from "./settings/copied-session";

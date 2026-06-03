@@ -1,9 +1,0 @@
-{
-  "name": "element-copier",
-  "private": true,
-  "version": "1.0.0",
-  "scripts": {
-    "build": "node scripts/build.mjs && node ../lib/scripts/pack-extension.mjs element-copier --no-build",
-    "watch": "node scripts/build.mjs --watch"
-  }
-}

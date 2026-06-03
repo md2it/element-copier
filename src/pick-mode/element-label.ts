@@ -1,5 +1,5 @@
-import { getCssSelector } from "../../../lib/src/copy/selector";
-import { getFullXPath } from "../../../lib/src/copy/xpath";
+import { getCssSelector } from "../lib/src/copy/selector";
+import { getFullXPath } from "../lib/src/copy/xpath";
 import type { FrameLabelStyle } from "../settings/frame-label-style";
 
 /** Short label: tag + id or up to three classes. */

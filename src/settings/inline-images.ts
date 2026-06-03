@@ -1,8 +1,8 @@
 import { ext } from "../api";
-import type { InlineImageMode } from "../../../lib/src/copy/cleanup/index";
+import type { InlineImageMode } from "../lib/src/copy/cleanup/index";
 import { INLINE_IMAGES_KEY } from "../messages";
 
-export type { InlineImageMode } from "../../../lib/src/copy/cleanup/index";
+export type { InlineImageMode } from "../lib/src/copy/cleanup/index";
 
 export const DEFAULT_INLINE_IMAGES_MODE: InlineImageMode = "all";
 

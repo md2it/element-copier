@@ -1,8 +1,8 @@
 import {
   findIframeAtPoint,
   isPointInElement,
-} from "../../../lib/src/element-under-cursor";
-import { HighlightSystem } from "../../../lib/src/highlight";
+} from "../lib/src/element-under-cursor";
+import { HighlightSystem } from "../lib/src/highlight";
 import { sendToBackground } from "../messages";
 import { formatFrameElementLabel } from "./element-label";
 import {

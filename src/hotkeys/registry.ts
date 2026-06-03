@@ -1,7 +1,7 @@
 import {
   registerContentHotkey as registerLibContentHotkey,
   unregisterContentHotkey as unregisterLibContentHotkey,
-} from "../../../lib/src/hotkeys";
+} from "../lib/src/hotkeys";
 
 const HOTKEY_NAMESPACE = "elementCopier";
 
