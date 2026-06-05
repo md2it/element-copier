@@ -1,5 +1,7 @@
 # SPECIFICATION RU: ELEMENT COPIER
 
+> [!INFO] Project specification in Russian. Used during development.
+
 > [!IMPORTANT] Учитываем общие правила из `ALL-PRJ-REQ/`.
 
 Спецификация расширения Element Copier.
