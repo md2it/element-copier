@@ -1,50 +1,61 @@
-# ПОЛЬЗОВАТЕЛЬСКИЙ ПУТЬ
+# USER PATHS
 
-U = user, E = extension
+U = User
+E = Extension
 
-## Основной пользовательский путь
-1. U запускает E по клику на кнопку в панели браузера
-2. E открывает окно:
-   - Если кэш пустой, то окно START
-   - Если кэш не пустой, то окно COPIED
-3. U нажимает кнопку START или START OVER
-4. U наводит на элемент
-5. E подсвечивает элемент
-6. U нажимает на элемент
-7. E все:
-   - Сохраняет данные согласно настройкам
-   - Открывает окно с пояснением
-   - Выключает режим выделения элемента
+### Main flow
 
-## Запуск через хоткей
-1. U выполняет верный хоткей запускает
-2. Далее шаги аналогичны основному пути, но начиная сразу с шага "наводит на элемент". Более ранние шаги не выполняются
+1. U starts E by clicking its button in the browser toolbar
+2. E opens a window:
+   - If the cache is empty, E opens the START window
+   - If the cache is not empty, E opens the COPIED window
+3. U clicks START or START OVER
+4. U hovers over an element
+5. E highlights the element
+6. U clicks the element
+7. E performs all of the following:
+   - Saves data according to the settings
+   - Opens a window with information about the result
+   - Stops element selection mode
 
-## Кэш
-1. U скопировал
-2. E заполнил кэш значениями-1
-3. U имеет доступ к значениям-1:
-   - Сразу со страницы COPIED
-   - При повторном открытии COPIED с новой страницы, после обновления расширения, после перезагрузки браузера
-4. U произвёл новое копирование
-5. E делает:
-   1. Удалил значения-1
-   2. Наполнил кэш значениями-2
+### Start with a keyboard shortcut
+
+1. U presses the start keyboard shortcut
+2. The flow continues from step 4 of the main flow, when U hovers over an element
+
+The earlier steps of the main flow are skipped.
+
+### Cache
+
+1. U copies content
+2. E fills the cache with the first set of values
+3. U can access the first set of values:
+   - Immediately from the COPIED page
+   - After reopening COPIED from another page
+   - After updating the extension
+   - After restarting the browser
+4. U copies new content
+5. E performs all of the following:
+   - Removes the first set of values
+   - Fills the cache with the second set of values
 6. U:
-   - Не имеет доступа к значениям-1
-   - Имеет доступа к значениям-2
+   - Can no longer access the first set of values
+   - Can access the second set of values
 
-## Формат text
-1. Включил расширение
-2. Навёл на элемент
-3. Кликнул
-4. (Сохранилось в clipboard или сохранил по кнопке)
-5. Вставил текст в GoogleDocs / Word
-Ожидаемый результат: Текст вставился с форматированием, как если бы человек выделял контент страницы через окно браузера (и даже немного лучше)
+### Rich text
 
-## Копирование со страницы COPIED
-- Copy Text: копирует text/html + text/plain в clipboard
-- Copy markdown: копирует markdown как текст
-- Copy (any image): копирует в clipboard изображение как файл
-- Download: скачивает соответствующий файл
-- Copy (any devtools): копирует соответствующую информацию в clipboard
+1. U starts E
+2. U hovers over an element
+3. U clicks the element
+4. The content is copied to the clipboard automatically or U copies it with a button
+5. U pastes the content into Google Docs or Word
+
+Expected result: the text is pasted with formatting similar to content selected directly on the page, with additional formatting improvements.
+
+### Actions on the copied page
+
+- Copy Text copies `text/html` and `text/plain` to the clipboard
+- Copy Markdown copies Markdown as plain text
+- Copy for an image copies the image as a file to the clipboard
+- Download saves the corresponding file
+- Copy for a developer format copies the corresponding information to the clipboard
