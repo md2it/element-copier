@@ -1,6 +1,6 @@
-# Страница LOADING
+# LOADING page
 
-- Запускается если нужно уведомить пользователя о долгой подготовке данных
-- Содержит крупный центрованный loader (очень простой)
-- Подпись "Data processing"
-- Эта страница не открывается в новой вкладке ни при каких условиях
+- Opens when the user needs to be notified about lengthy data preparation
+- Contains a large centered loader (very simple)
+- Caption: "Data processing"
+- This page never opens in a new tab

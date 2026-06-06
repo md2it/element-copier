@@ -1,6 +1,5 @@
-# Хоткеи
+# Keyboard shortcuts
 
-- Правила обработки хоткея и badge стандартные
-- Без `suggested_key` в манифесте (content-слушатель)
-- По принципу DRY, конкретные shortcuts описаны в ../pages/shortcuts.md
-
+- Keyboard shortcut and badge handling follow the standard rules
+- No `suggested_key` in the manifest (content listener)
+- Following DRY, the specific shortcuts are described in ../pages/shortcuts.md

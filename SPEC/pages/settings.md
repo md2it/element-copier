@@ -2,19 +2,19 @@
 
 ---
 
-## Настройка языка
-- Простые кнопки: EN | ES | FR | DE | RU | 中文 | عربي
-- Блок контента: именно этот список не меняет ориентацию при смене LTR / RTL
+## Language settings
+- Simple buttons: EN | ES | FR | DE | RU | 中文 | عربي
+- Content block: this specific list does not change direction when switching between LTR / RTL
 
 ---
 
-## Выпадающие списки
+## Dropdown lists
 
-### Дефолтное действие
-- Заголовок "Default action"
-- Поле позволяет выбрать из имеющихся форматов:
-   - NOTHING // Этот вариант первый в списке, серый
-   - Copy Text // дефолтный
+### Default action
+- Heading: "Default action"
+- The field allows selection from the available formats:
+   - NOTHING // This option is first in the list and gray
+   - Copy Text // default
    - Copy Markdown
    - Copy Image
    - Download Markdown
@@ -29,21 +29,21 @@
    - Copy styles
    - Copy computed styles
 
-### Inline изображения
-- Заголовок "Inline images in text"
-- Варианты:
+### Inline images
+- Heading: "Inline images in text"
+- Options:
    - Use all
    - Remove large // remove imgs over 2kb
    - Remove small // remove imgs less 2kb // default
    - Remove all
-- Рядом с лейблом есть иконка lucide info. По нажатию выходит информационное окно:
+- A lucide info icon appears next to the label. Clicking it opens an information window:
    - Some pages embed images in the HTML as Base64 (common on Google and similar sites). This can slow copying and bloat Text or Markdown output. Small images are often icons or buttons that add clutter. Use this setting to control what is included.
 
-### Стиль подписи выделения
-- Заголовок "On the frame"
-- Варианты:
+### Selection label style
+- Heading: "On the frame"
+- Options:
    - "No title"
-   - "click to copy" // просто строка, локализованная, значение поля по дефолту
+   - "click to copy" // plain localized string, default field value
    - "tag id class"
    - "selector"
    - "full XPath"
@@ -54,17 +54,17 @@
 
 ### Generate images
 - Default on
-- Рядом с лейблом есть иконка lucide info. По нажатию выходит информационное окно:
+- A lucide info icon appears next to the label. Clicking it opens an information window:
    - On large pages, images take a lot of time to generate. If you don't need them, turn them off to run way faster.
-- Если в "Default action" было выбрано одно из этих действий, то при выключении генерации изображений происходит сброс "Default action" к дефолту
-- Если пользователь в "Default action" выбирает пункты из подсписка, то текущий toggler включается принудительно:
+- If one of these actions was selected in "Default action", disabling image generation resets "Default action" to its default
+- If the user selects an item from the sublist in "Default action", force this toggler on:
    - Copy Image
    - Download PNG
    - Download JPEG
 
 ### Display developer tools
 - Default on
-- Если off, то скрывает из страницы COPIED соответствующий блок кнопок
+- If off, hides the corresponding button block from the COPIED page
 
 ### Dark theme
 - Default off

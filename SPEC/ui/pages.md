@@ -1,15 +1,15 @@
-# Popup окна
+# Popup windows
 
-- Открываются в системном popup под иконкой расширения
-   - Если уже открыт popup, то происходит смена окна в том же popup
-   - Если нужно открыть окно, то происходит попытка открыть окно в popup
-   - Не открывает новых вкладок (кроме сценария welcome)
-- Содержат меню
-- Заголовки:
-  - Находятся сверху
-  - Отцентрованы по горизонтали
-  - Под заголовком разделительная черта
-- Размер окна:
-   - Все окна одного размера
-   - Высота определяется по высоте самого высокого, чтобы избежать вертикальных скроллов
-   - Ширина опредеояется по ширине строки "Download:" на странице COPIED с учётом кнопок, отступов и меню
+- Open in the system popup below the extension icon
+   - If a popup is already open, switch the window within the same popup
+   - If a window needs to be opened, attempt to open it in the popup
+   - Do not open new tabs (except for the welcome scenario)
+- Contain a menu
+- Headings:
+  - Located at the top
+  - Centered horizontally
+  - A divider appears below the heading
+- Window size:
+   - All windows have the same size
+   - Height is determined by the tallest window to avoid vertical scrollbars
+   - Width is determined by the width of the "Download:" row on the COPIED page, including buttons, spacing, and menu

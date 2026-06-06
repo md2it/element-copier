@@ -1,5 +1,5 @@
-# UX UI ТРЕБОВАНИЯ
+# UX UI REQUIREMENTS
 
-## Иконка расширения
+## Extension icon
 - lucide files, #fff
-- Фон #012292
+- Background #012292

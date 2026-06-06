@@ -1,19 +1,19 @@
-# Режим выделения элемента на странице
+# Element selection mode on the page
 
-## Выделение
-- Работает когда расширение запущено в pick mode
-- Не работает, когда расширение не запущено
-- Не работает при открытых окнах расширения
-- Использует стандартное выделение элемента под кусором с инъекцией в DOM
+## Selection
+- Works when the extension is running in pick mode
+- Does not work when the extension is not running
+- Does not work while extension windows are open
+- Uses standard highlighting of the element under the cursor with DOM injection
 
-## Запуск
-- По хоткею
-- По нажатию кнопки "PICK ELEMENT"
+## Starting
+- By keyboard shortcut
+- By clicking the "PICK ELEMENT" button
 
-## Завершение
-- По повторному нажатию на иконку расширения в панели браузера
-- По хоткею (два варианта хоткеев)
-- По клику на элемент (при этом происходит копирование)
+## Stopping
+- By clicking the extension icon in the browser toolbar again
+- By keyboard shortcut (two shortcut variants)
+- By clicking an element (which also copies it)
 
-## Учитывать
-- На системных страницах и на некоторых сайтах расширения не работают. У нас есть стандартный обработчик таких ситуаций
+## Considerations
+- Extensions do not work on system pages and some websites. A standard handler covers these situations

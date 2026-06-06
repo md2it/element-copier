@@ -1,4 +1,4 @@
-# ДОСТУПНЫЕ ФОРМАТЫ
+# AVAILABLE FORMATS
 
 ---
 
@@ -13,11 +13,11 @@
 
 ---
 
-## Форматы Copy
+## Copy formats
 - Text
-   - text/html основной
-   - text/plain вычисляется из text/html
-   - Человекочитаемый текст с форматированием для GoogleDocs / Word
+   - text/html is the primary format
+   - text/plain is derived from text/html
+   - Human-readable formatted text for Google Docs / Word
 - Markdown
    - headingStyle atx
    - hr `---`
@@ -29,18 +29,18 @@
 
 ---
 
-## Форматы Download
-- Это файлы для скачивания
-- Название файла в формате `C-D-T.E`, где:
+## Download formats
+- These are downloadable files
+- The file name uses the `C-D-T.E` format, where:
    - C = `copied`
-   - D = домен сайта, точки меняем на дефис -> `-www-` меняем на `-` 
-   - T = название тега
-   - E = расширение файла
-- Список:
-   - Markdown // Формируется из текста markdown
+   - D = website domain, replace dots with hyphens -> replace `-www-` with `-`
+   - T = tag name
+   - E = file extension
+- List:
+   - Markdown // Generated from markdown text
    - PNG
    - JPEG
-   - HTML // Формируется из текста code
+   - HTML // Generated from code text
 
 ---
 
@@ -49,7 +49,6 @@
 
 ---
 
-## СВЯЗАННЫЕ СТРАНИЦЫ UI
-- COPIED -- информация о сохранении / копировании, кнопки действия
-- SETTINGS -- пользовательские настройки
-
+## RELATED UI PAGES
+- COPIED -- save / copy information and action buttons
+- SETTINGS -- user settings

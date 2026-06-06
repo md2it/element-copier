@@ -1,15 +1,15 @@
-## КЭШ
+## CACHE
 
-- В кэш сохраняем все форматы:
-   - Даже если Developer tools выключены, то сохраняем и эти данные на случай будущего включения
-- Если один формат легко формируется из другого:
-   - Храним только один вариант, а второй конвертируем по запросу
-   - Для markdown и .html храним только текст, а файл формируется каждый раз непосредственно перед скачиванием
-   - Для text храним text/html, а text/plain вычисляем
-- Кэш хранит состояние последнего копирования без ограничений по времени
-- При новом копировании:
-   - Все старые значения удаляются полностью
-   - Новое копирование происходит на пустой кэш
-- Очистка полностью не предусмотрена в UI
-- В кэш не пишутся пустые значения
-   - Строковые форматы, у которых все символы только пробельные считаем пустыми
+- Save all formats to the cache:
+   - Even if Developer tools are disabled, save this data in case they are enabled later
+- If one format can be easily derived from another:
+   - Store only one version and convert the other on demand
+   - For markdown and .html, store only the text; generate the file each time immediately before download
+   - For text, store text/html and derive text/plain
+- The cache retains the state of the latest copy indefinitely
+- When new content is copied:
+   - Delete all previous values completely
+   - Perform the new copy with an empty cache
+- The UI does not provide complete cache clearing
+- Do not write empty values to the cache
+   - String formats containing only whitespace characters are considered empty

@@ -1,20 +1,20 @@
 # Badge
-- Badge логика стандартная
-- Варианты текста badge:
+- Badge logic is standard
+- Badge text variants:
    - C
-      - Ожидает завершения "префикс режим"
-      - Фон белый, цвет синий
+      - Waits for "prefix mode" to complete
+      - White background, blue color
    - ◉
-      - В режиме выделения и копирования
-      - Цвет фона синий
-      - Цвет текст анимирован через состояния:
-         - Опорные цвета: белый, синий
-         - Количество шагов: 40
-         - Время шага: 25ms
+      - In selection and copying mode
+      - Blue background
+      - Text color is animated through states:
+         - Reference colors: white, blue
+         - Number of steps: 40
+         - Step duration: 25ms
    - ✓
-      - Только пока открыта страница SAVED
-      - Фон зелёный, цвет белый
+      - Only while the SAVED page is open
+      - Green background, white color
    - ✕
-      - Только пока показывается уведомление о невозможности работы на странице
-      - Фон светло серый, цвет тёмно серый
-- В иных случаях badge нет
+      - Only while a notification indicates that the extension cannot work on the page
+      - Light gray background, dark gray color
+- No badge in other cases

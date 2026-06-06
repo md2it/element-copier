@@ -1,39 +1,39 @@
-# МЕНЮ
+# MENU
 
 ---
 
-## ПУНКТЫ МЕНЮ
+## MENU ITEMS
 
-### Содержит
-- Одно из двух:
-   - play // START -- если кэш пустой
-   - files // COPIED -- если кэш не пустой
+### Contains
+- One of the following:
+   - play // START -- if the cache is empty
+   - files // COPIED -- if the cache is not empty
 - settings // SETTINGS
 - keyboard // SHORTCUTS
 - info // ABOUT
 
-### Не содержит
+### Does not contain
 - Welcome
 - Saved
 
 ---
 
-## ВЕРТИКАЛЬНОЕ МЕНЮ
-- Используется во всех popup окнах (включая SAVED)
-- Не используется в приветственном окне
-- Вёрстка:
-  - Вертикальный прямоугольник чуть темнее фона
-  - Слева (даже RTL)
-  - Заполянет материнский элементе по высоте
-  - Слева, сверху и снизу отступ 2 мм
-- Пункты меню:
-  - Без подписей, только lucide иконки
-  - Tooltip на каждом пункте меню без задержек. Текст tooltip совпадает с названием страницы
-  - Отступы между элементами равны
-  - Отступы от гарниц самого элемента меню равны
+## VERTICAL MENU
+- Used in all popup windows (including SAVED)
+- Not used in the welcome window
+- Layout:
+  - Vertical rectangle slightly darker than the background
+  - On the left (including RTL)
+  - Fills the parent element's height
+  - 2 mm spacing on the left, top, and bottom
+- Menu items:
+  - No labels, lucide icons only
+  - Each menu item has an immediate tooltip. Tooltip text matches the page name
+  - Spacing between items is equal
+  - Spacing from the menu element's edges is equal
 
 ---
 
-## КОНТЕКСТНОЕ МЕНЮ
-- Использует тот же список пунктов
-- Вместо lucide релевантные emoji
+## CONTEXT MENU
+- Uses the same list of items
+- Uses relevant emoji instead of lucide icons

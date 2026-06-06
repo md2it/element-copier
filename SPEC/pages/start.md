@@ -1,6 +1,5 @@
 # PAGE START
 
-- Большая синяя кнопка "CAPTURE PAGE"
-- Под ней "PICK ELEMENT"
-- Кнопки равной ширины
-
+- Large blue "CAPTURE PAGE" button
+- "PICK ELEMENT" below it
+- Buttons have equal width

@@ -1,39 +1,39 @@
-# ЛОГИКА КОПИРОВАНИЯ ЭЛЕМЕНТА
+# ELEMENT COPY LOGIC
 
 ---
 
-## Запуск копирования в буфер расширения
+## Starting a copy to the extension buffer
 
-- Из режима выделения: по клику на целевой элемент копируется этот элемент
-- По нажатию на кнопку "CAPTURE PAGE" копируется вся страница
+- From selection mode: clicking the target element copies that element
+- Clicking "CAPTURE PAGE" copies the entire page
 
 ---
 
-## Обработка элемента DOM
+## Processing the DOM element
 
-### При копировании по клику на элемент
-1. Выключить режим выделения
-2. Обработка информации:
-   1. Происходит процессинг согласно processing.md
-   2. Выполняется действие по умолчанию (из кэша и только если задано в "Default action")
-   - Если обработка занимает более 0.5 секунд с момента клика пользователя, то открыть окно LOADING
-   - До окончания обработки данных, новый запуск режима выделения-копирования невозможен
-3. Открыть окно COPIED
+### When copying by clicking an element
+1. Disable selection mode
+2. Process the information:
+   1. Perform processing according to processing.md
+   2. Perform the default action (from the cache and only if specified in "Default action")
+   - If processing takes more than 0.5 seconds from the user's click, open the LOADING window
+   - Selection-copy mode cannot be started again until data processing is complete
+3. Open the COPIED window
 
-### При копировании всей страницы
-- Обработка аналогична копированию конкретного элемента
-- Но за элемент принимаем всю страницу
-- А шаг с выделением не нужен
+### When copying the entire page
+- Processing is the same as when copying a specific element
+- Treat the entire page as the element
+- The selection step is not required
 
 ---
 
 ## COPY WHOLE PAGE
-1. Не запускать никаких режимов выделения и не закрывать popup
-2. Обработать весь `<html>...</html>` данной страницы полностью как если бы этот элемент был выбран пользователем
+1. Do not start any selection modes or close the popup
+2. Process the page's entire `<html>...</html>` as if the user had selected that element
 
 ---
 
-## Копирование на странице COPIED в clipboard
+## Copying to the clipboard on the COPIED page
 
-1. Взять соответствующий снимок из кэша расширения
-2. Сохранить результат в clipboard
+1. Retrieve the corresponding snapshot from the extension cache
+2. Save the result to the clipboard

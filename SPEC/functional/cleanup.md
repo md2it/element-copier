@@ -1,58 +1,58 @@
-# CLEANUP ДЛЯ ПРОИЗВОДНЫХ ФОРМАТОВ
+# CLEANUP FOR DERIVED FORMATS
 
-- Данные правила не применяется для форматов Devtools
-- Данные правила не являются исчерпывающими. Мы применяем намного больше правил, но эти описываю отдельно, т.к. были связанные баги
+- These rules do not apply to Devtools formats
+- These rules are not exhaustive. Many more rules are applied, but these are documented separately because related bugs occurred
 
 ---
 
 ## Text, Markdown, Image, PNG, JPEG
-- Вырезить noscript и теги комментариев `<!--...-->`
+- Remove noscript and comment tags `<!--...-->`
 
 ---
 
 ## Text, Markdown
 
-### Декоративные значки пользовательского интерфейса (удалить, не материализовывать)
-Удалите встроенный `<svg>` перед материализацией, если ВСЕ условия верны:
-1. Декоративный: aria-hidden=true ИЛИ role=presentation/none, И нет доступного имени в SVG.
-2. Элемент интерфейса: внутри кнопки, role=button или ссылка/краткое описание только со значком.
-3. Маленький: размер отображаемого элемента или viewBox ≤ 48×48 пикселей.
-4. Не содержимое: нет родительского элемента figure/picture/article, где SVG является основным медиафайлом.
-Если удаление очищает элемент управления, удалите и сам элемент управления.
-НЕ применяйте это правило к элементам `<img>`.
+### Decorative user interface icons (remove, do not materialize)
+Remove an inline `<svg>` before materialization if ALL conditions are true:
+1. Decorative: aria-hidden=true OR role=presentation/none, AND the SVG has no accessible name.
+2. UI element: inside a button, role=button, or a link/short description containing only an icon.
+3. Small: rendered element size or viewBox ≤ 48×48 pixels.
+4. Not content: there is no parent figure/picture/article in which the SVG is the primary media.
+If removal empties the control, remove the control itself.
+DO NOT apply this rule to `<img>` elements.
 
-### Контентные SVG (сохранить и материализовать в растровый inline)
-- Производные форматы (Markdown, Text/HTML) не должны содержать `data:image/svg+xml` в `<img src>`: типичные viewer'ы (md-reader, Google Docs) не рендерят такие URL и показывают сырую строку
-- SVG, которые не удалены правилом «декоративные значки UI», материализуются в `<img src="data:image/png;base64,...">` (или JPEG, если так принято в пайплайне), пока элемент ещё в DOM страницы
-- При rasterize учитывать вычисленные стили SVG (например `stroke="currentColor"`, `fill` из CSS)
+### Content SVGs (preserve and materialize as inline raster images)
+- Derived formats (Markdown, Text/HTML) must not contain `data:image/svg+xml` in `<img src>`: typical viewers (md-reader, Google Docs) do not render such URLs and display the raw string
+- SVGs not removed by the "decorative UI icons" rule are materialized as `<img src="data:image/png;base64,...">` (or JPEG, if that is the pipeline convention) while the element is still in the page DOM
+- When rasterizing, account for the SVG's computed styles (for example, `stroke="currentColor"` and CSS-derived `fill`)
 
-### Отличить контент от UI по размеру
-- Для правила удаления UI и для safelist контента размер SVG — **max(отображаемый размер, viewBox)** по каждой оси, а не только атрибуты `width`/`height`
-- Пример: логотип с `viewBox="0 0 946 947"` и `width="24"` — контент (rasterize, не удалять); иконка меню с viewBox 24×24 — UI (удалить)
-- Это правило **не** задаёт размер растра (см. ниже)
+### Distinguishing content from UI by size
+- For the UI removal rule and the content safelist, SVG size is **max(rendered size, viewBox)** on each axis, not only the `width`/`height` attributes
+- Example: a logo with `viewBox="0 0 946 947"` and `width="24"` is content (rasterize, do not remove); a menu icon with a 24×24 viewBox is UI (remove)
+- This rule does **not** define raster size (see below)
 
-### Размер растра SVG (materialize)
-Контекст: на странице иконка 24×24 при `viewBox="0 -960 960 960"`, в Markdown — PNG на сотни/тысячи px и раздутая картинка
-Требования:
-- Размер canvas и атрибутов `<img width/height>` после materialize — **только layout-размер live `<svg>`** на исходной странице: `getBoundingClientRect()`; измерять `<svg>`, не вложенный `<path>`
-- **Не** использовать viewBox и атрибуты `width`/`height` SVG как размер растра, если `getBoundingClientRect()` даёт обе стороны > 0
-- Если rect = 0: **не** fallback на viewBox; допустимы computed size, видимый предок или верхний cap по стороне (конкретное значение — на усмотрение реализации, но результат не должен совпадать с viewBox «иконки Material» при display 24×24)
-- При rasterize резолвить в clone не только `currentColor`, но и `fill`/`stroke` вида `var(--…)` в computed-значение с live DOM
-- Ожидаемый результат: `viewBox` 960×960 + display 24×24 → PNG **24×24** px в `data:image/png`, не 960×960
-- Регрессия: smoke md2it-logo (логотип 24×24, viewBox ~946) — без изменений; добавить кейс Material-style `viewBox="0 -960 960 960"`, display 24×24
+### SVG raster size (materialize)
+Context: a page contains a 24×24 icon with `viewBox="0 -960 960 960"`; in Markdown it becomes a PNG hundreds or thousands of pixels wide and appears oversized
+Requirements:
+- The canvas size and `<img width/height>` attributes after materialization must use **only the layout size of the live `<svg>`** on the original page: `getBoundingClientRect()`; measure the `<svg>`, not a nested `<path>`
+- **Do not** use the SVG viewBox or `width`/`height` attributes as the raster size if `getBoundingClientRect()` returns both dimensions > 0
+- If rect = 0: **do not** fall back to the viewBox; acceptable options include computed size, a visible ancestor, or an upper cap per side (the exact value is implementation-defined, but the result must not match the "Material icon" viewBox when displayed at 24×24)
+- When rasterizing, resolve in the clone not only `currentColor`, but also `fill`/`stroke` values such as `var(--…)` to computed values from the live DOM
+- Expected result: `viewBox` 960×960 + display 24×24 → **24×24** px PNG in `data:image/png`, not 960×960
+- Regression: keep the md2it-logo smoke case (24×24 logo, viewBox ~946) unchanged; add a Material-style case with `viewBox="0 -960 960 960"` and display 24×24
 
-### Дополнения к UI-контексту (удалять)
-- `<summary>` / `<details>` с иконкой рядом с текстом триггера
-- `aria-hidden="true"` на предке SVG (не только на самом `<svg>`), если остальные условия UI-иконки выполнены
+### Additional UI contexts (remove)
+- `<summary>` / `<details>` with an icon next to the trigger text
+- `aria-hidden="true"` on an SVG ancestor (not only on the `<svg>` itself), if the other UI icon conditions are met
 
 ---
 
 ## Markdown
 
-### Псевдоссылки
-- Contact/action href (`mailto:`, `tel:`, `sms:`, `facetime:`, `tg:`, `whatsapp:`, `skype:`, `slack:`): не «домен/...»; без текста/alt — подпись = адрес назначения из href, не `/...`
+### Pseudo-links
+- Contact/action href (`mailto:`, `tel:`, `sms:`, `facetime:`, `tg:`, `whatsapp:`, `skype:`, `slack:`): do not format as "domain/..."; without text/alt, use the destination address from href as the label, not `/...`
 
-### Изображение внутри ссылки
-- Если внутри `<a>` после cleanup остаётся `<img>`, результат — linked image `[![alt](src)](href)` целиком на одной строке
-- Недопустимо: перевод строки между `![alt](src)` и закрывающей `](href)` внешней ссылки
-- Проверка: `element-copier/copied-www-google-com-div.md` — аватар аккаунта Google одна кликабельная ссылка, не «картинка + отдельный хвост ссылки»
+### Image inside a link
+- If an `<img>` remains inside `<a>` after cleanup, the result is a linked image `[![alt](src)](href)` entirely on one line
+- Not allowed: a line break between `![alt](src)` and the outer link's closing `](href)`
+- Verification: `element-copier/copied-www-google-com-div.md` — the Google account avatar is one clickable link, not "image + separate link tail"

@@ -11,4 +11,4 @@
 - (shield-check) Doesn't collect data
 - (git-fork) Code on GitHub // https://github.com/md2it/browser-extension-element-copier
 - (heart) Credits (MIT): [Lucide](https://github.com/lucide-icons/lucide), [Modern-Screenshot](https://github.com/qq15725/modern-screenshot), [Turndown](https://github.com/mixmark-io/turndown)
-- Стандартный минифутер внизу под чертой
+- Standard mini-footer at the bottom below a divider
