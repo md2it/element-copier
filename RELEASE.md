@@ -11,6 +11,14 @@ Version logic:
 
 ## RELEASES
 
+### 1.0.2
+- Removed dead code
+
+### 1.0.1
+- Improved icons
+- The grand refactoring: bandles split to chunks, removed dependencies
+- Fixed bugs and errors
+
 ### 1.0.0
 - Copy an entire page or a specific element,
 - Convert information into multiple formats at once,
@@ -29,12 +37,3 @@ Version logic:
    - XPath,
    - full XPath,
    - declared and computed styles.
-
-
-### 1.0.1
-- Improved icons
-- The grand refactoring: bandles split to chunks, removed dependencies
-- Fixed bugs and errors
-
-### 1.0.2
-- Removed dead code
