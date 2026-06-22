@@ -11,6 +11,9 @@ Version logic:
 
 ## RELEASES
 
+### 1.0.3
+- Fixed copying on pages that were already open when the extension was installed
+
 ### 1.0.2
 - Removed dead code
 

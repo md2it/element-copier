@@ -73,7 +73,13 @@ async function sendToTab(tabId, message, frameId) {
 async function sendWithInject(tabId, message, frameId) {
   if (await sendToTab(tabId, message, frameId)) return true;
   if (!await injectContent(tabId, frameId)) return false;
-  return sendToTab(tabId, message, frameId);
+  // loader.js starts the real content module with dynamic import(). Script
+  // injection completes before that import necessarily registers its listener.
+  for (let attempt = 0; attempt < 10; attempt += 1) {
+    if (await sendToTab(tabId, message, frameId)) return true;
+    await new Promise((resolve) => setTimeout(resolve, 25));
+  }
+  return false;
 }
 
 async function handlePanelSessionEnded() {
