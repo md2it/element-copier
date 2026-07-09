@@ -1,6 +1,14 @@
 # ELEMENT COPIER
 
-=-=-=-=-=-=-=-=-= | [DE](./docs/readmes/DE.md) | EN | [ES](./docs/readmes/ES.md) | [FR](./docs/readmes/FR.md) | [RU](./docs/readmes/RU.md) | [中文](./docs/readmes/ZH.md) | [عربي](./docs/readmes/AR.md) | =-=-=-=-=-=-=-=-=
+<p align="center">
+=-=-=-=-=-=-=-=-= | <a href="./docs/readmes/DE.md">DE</a> | EN | <a href="./docs/readmes/ES.md">ES</a> | <a href="./docs/readmes/FR.md">FR</a> | <a href="./docs/readmes/RU.md">RU</a> | <a href="./docs/readmes/ZH.md">中文</a> | <a href="./docs/readmes/AR.md">عربي</a> | =-=-=-=-=-=-=-=-=
+</p>
+
+<p align="center">
+  <a href="./docs/publication/screenshots/EN-0.png"><img src="./docs/publication/screenshots/EN-0.png" width="180" alt="Element Copier screenshot 1"></a>
+  <a href="./docs/publication/screenshots/EN-1.png"><img src="./docs/publication/screenshots/EN-1.png" width="180" alt="Element Copier screenshot 2"></a>
+  <a href="./docs/publication/screenshots/EN-2.png"><img src="./docs/publication/screenshots/EN-2.png" width="180" alt="Element Copier screenshot 3"></a>
+</p>
 
 ## INSTALLATION
 

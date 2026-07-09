@@ -1,6 +1,12 @@
 # ELEMENT COPIER
 
-=-=-=-=-=-=-=-=-= | [DE](./DE.md) | [EN](../../README.md) | ES | [FR](./FR.md) | [RU](./RU.md) | [中文](./ZH.md) | [عربي](./AR.md) | =-=-=-=-=-=-=-=-=
+<p align="center">
+=-=-=-=-=-=-=-=-= | <a href="./DE.md">DE</a> | <a href="../../README.md">EN</a> | ES | <a href="./FR.md">FR</a> | <a href="./RU.md">RU</a> | <a href="./ZH.md">中文</a> | <a href="./AR.md">عربي</a> | =-=-=-=-=-=-=-=-=
+</p>
+
+<p align="center">
+  <a href="../publication/screenshots/ES-0.png"><img src="../publication/screenshots/ES-0.png" width="180" alt="Element Copier screenshot 1"></a>
+</p>
 
 ## INSTALACIÓN
 

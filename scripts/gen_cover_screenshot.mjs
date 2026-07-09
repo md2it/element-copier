@@ -46,7 +46,7 @@ const LANGS = {
     headline: 'С чего начать',
     byline:   'Опубликовано · 5 мин чтения',
   },
-  ZN: {
+  ZH: {
     label:    '点击复制',
     rtl:      false,
     headline: '如何开始使用',
