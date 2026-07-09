@@ -1,6 +1,6 @@
 # ELEMENT COPIER
 
-=-=-=-=-=-=-=-=-= | [DE](./READMIES/DE.md) | EN | [ES](./READMIES/ES.md) | [FR](./READMIES/FR.md) | [RU](./READMIES/RU.md) | [中文](./READMIES/ZH.md) | [عربي](./READMIES/AR.md) | =-=-=-=-=-=-=-=-=
+=-=-=-=-=-=-=-=-= | [DE](./docs/readmes/DE.md) | EN | [ES](./docs/readmes/ES.md) | [FR](./docs/readmes/FR.md) | [RU](./docs/readmes/RU.md) | [中文](./docs/readmes/ZH.md) | [عربي](./docs/readmes/AR.md) | =-=-=-=-=-=-=-=-=
 
 ## INSTALLATION
 
@@ -81,7 +81,7 @@ E = Extension
    - Opens a window with information about the result
    - Stops element selection mode
 
-See [all user paths](./SPEC/user-path.md) for keyboard shortcuts, cache behavior, rich-text copying, and actions on copied content.
+See [all user paths](./docs/spec/user-path.md) for keyboard shortcuts, cache behavior, rich-text copying, and actions on copied content.
 
 ## PRODUCT NOTES
 

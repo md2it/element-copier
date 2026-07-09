@@ -1,6 +1,6 @@
 # ELEMENT COPIER
 
-=-=-=-=-=-=-=-=-= | [DE](./DE.md) | [EN](../README.md) | ES | [FR](./FR.md) | [RU](./RU.md) | [中文](./ZH.md) | [عربي](./AR.md) | =-=-=-=-=-=-=-=-=
+=-=-=-=-=-=-=-=-= | [DE](./DE.md) | [EN](../../README.md) | ES | [FR](./FR.md) | [RU](./RU.md) | [中文](./ZH.md) | [عربي](./AR.md) | =-=-=-=-=-=-=-=-=
 
 ## INSTALACIÓN
 
@@ -11,7 +11,7 @@
 
 ### Modo de desarrollo
 
-Carga el directorio completo [`extension`](../extension) como una extensión descomprimida.
+Carga el directorio completo [`extension`](../../extension) como una extensión descomprimida.
 
 ## DESCRIPCIÓN
 
@@ -81,7 +81,7 @@ E = Extensión
    - Abre una ventana con información sobre el resultado
    - Detiene el modo de selección de elementos
 
-Consulta [todas las rutas de usuario](../SPEC/user-path.md) para conocer los atajos de teclado, el comportamiento de la caché, la copia de texto enriquecido y las acciones sobre el contenido copiado.
+Consulta [todas las rutas de usuario](../spec/user-path.md) para conocer los atajos de teclado, el comportamiento de la caché, la copia de texto enriquecido y las acciones sobre el contenido copiado.
 
 ## NOTAS DEL PRODUCTO
 
@@ -109,4 +109,4 @@ Consulta [todas las rutas de usuario](../SPEC/user-path.md) para conocer los ata
 
 ## LICENCIA
 
-[Licencia MIT](../LICENSE)
+[Licencia MIT](../../LICENSE)

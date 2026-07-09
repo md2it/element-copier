@@ -1,6 +1,6 @@
 # ELEMENT COPIER
 
-=-=-=-=-=-=-=-=-= | DE | [EN](../README.md) | [ES](./ES.md) | [FR](./FR.md) | [RU](./RU.md) | [中文](./ZH.md) | [عربي](./AR.md) | =-=-=-=-=-=-=-=-=
+=-=-=-=-=-=-=-=-= | DE | [EN](../../README.md) | [ES](./ES.md) | [FR](./FR.md) | [RU](./RU.md) | [中文](./ZH.md) | [عربي](./AR.md) | =-=-=-=-=-=-=-=-=
 
 ## INSTALLATION
 
@@ -11,7 +11,7 @@
 
 ### Entwicklungsmodus
 
-Laden Sie das gesamte Verzeichnis [`extension`](../extension) als entpackte Erweiterung.
+Laden Sie das gesamte Verzeichnis [`extension`](../../extension) als entpackte Erweiterung.
 
 ## BESCHREIBUNG
 
@@ -81,7 +81,7 @@ E = Erweiterung
    - Öffnet ein Fenster mit Informationen zum Ergebnis
    - Beendet den Elementauswahlmodus
 
-Weitere Informationen zu Tastaturkürzeln, Cache-Verhalten, Rich-Text-Kopieren und Aktionen mit kopierten Inhalten finden Sie unter [alle Benutzerpfade](../SPEC/user-path.md).
+Weitere Informationen zu Tastaturkürzeln, Cache-Verhalten, Rich-Text-Kopieren und Aktionen mit kopierten Inhalten finden Sie unter [alle Benutzerpfade](../spec/user-path.md).
 
 ## PRODUKTHINWEISE
 
@@ -109,4 +109,4 @@ Weitere Informationen zu Tastaturkürzeln, Cache-Verhalten, Rich-Text-Kopieren u
 
 ## LIZENZ
 
-[MIT-Lizenz](../LICENSE)
+[MIT-Lizenz](../../LICENSE)

@@ -1,6 +1,6 @@
 /**
  * Generate Chrome Web Store cover screenshots for Element Copier:
- *   PUBLICATION/screenshots/{LANG}-0.png  — 1280×800
+ *   docs/publication/screenshots/{LANG}-0.png  — 1280×800
  *
  * Composition: brand left + single article page right (pick-mode highlight).
  * Mirrors promo-small proportions, scaled up to 1280×800. No popup panel.
@@ -13,7 +13,7 @@ import fs from 'fs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ICON_PATH = path.resolve(__dirname, '../extension/icons/icon-128.png');
-const OUT_DIR   = path.resolve(__dirname, '../PUBLICATION/screenshots');
+const OUT_DIR   = path.resolve(__dirname, '../docs/publication/screenshots');
 
 const LANGS = {
   EN: {

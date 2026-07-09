@@ -1,6 +1,6 @@
 # ELEMENT COPIER
 
-=-=-=-=-=-=-=-=-= | [DE](./DE.md) | [EN](../README.md) | [ES](./ES.md) | FR | [RU](./RU.md) | [中文](./ZH.md) | [عربي](./AR.md) | =-=-=-=-=-=-=-=-=
+=-=-=-=-=-=-=-=-= | [DE](./DE.md) | [EN](../../README.md) | [ES](./ES.md) | FR | [RU](./RU.md) | [中文](./ZH.md) | [عربي](./AR.md) | =-=-=-=-=-=-=-=-=
 
 ## INSTALLATION
 
@@ -11,7 +11,7 @@
 
 ### Mode développement
 
-Chargez l'intégralité du répertoire [`extension`](../extension) comme extension non empaquetée.
+Chargez l'intégralité du répertoire [`extension`](../../extension) comme extension non empaquetée.
 
 ## DESCRIPTION
 
@@ -81,7 +81,7 @@ E = Extension
    - Ouvre une fenêtre contenant des informations sur le résultat
    - Arrête le mode de sélection d'élément
 
-Consultez [tous les parcours utilisateur](../SPEC/user-path.md) pour les raccourcis clavier, le fonctionnement du cache, la copie de texte enrichi et les actions sur le contenu copié.
+Consultez [tous les parcours utilisateur](../spec/user-path.md) pour les raccourcis clavier, le fonctionnement du cache, la copie de texte enrichi et les actions sur le contenu copié.
 
 ## NOTES SUR LE PRODUIT
 
@@ -109,4 +109,4 @@ Consultez [tous les parcours utilisateur](../SPEC/user-path.md) pour les raccour
 
 ## LICENCE
 
-[Licence MIT](../LICENSE)
+[Licence MIT](../../LICENSE)

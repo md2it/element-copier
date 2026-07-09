@@ -2,18 +2,10 @@
 
 # --- PROJECT-SPECIFIC RULES ---------------------------------------------------
 
-# Publication Assets
-PUBLICATION/*.png
-PUBLICATION/**/*.png
-PUBLICATION/*.jpeg
-PUBLICATION/**/*.jpeg
-PUBLICATION/*.jpg
-PUBLICATION/**/*.jpg
-
 # --- USER-SPECIFIC RULES ------------------------------------------------------
 
 # Personal Working Files
-PUBLICATION/checklist.md
+docs/publication/checklist.md
 
 # AI and LLM Tools
 .cursor/
