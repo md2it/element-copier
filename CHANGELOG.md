@@ -11,6 +11,9 @@ Version logic:
 
 ## RELEASES
 
+### 1.1.0
+- Added optional feedback survey and activity statistics in About
+
 ### 1.0.3
 - Fixed copying on pages that were already open when the extension was installed
 

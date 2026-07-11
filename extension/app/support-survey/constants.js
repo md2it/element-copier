@@ -1,6 +1,6 @@
 var SUPPORT_SURVEY_STORAGE_KEY = "ec:support-survey";
 
-var SUPPORT_SURVEY_THRESHOLD = 3;
+var SUPPORT_SURVEY_THRESHOLD = 25;
 
 var SUPPORT_SURVEY_COOLDOWN_MS = 60 * 24 * 60 * 60 * 1e3;
 
@@ -19,6 +19,12 @@ function getSupportSurveyStoreListingUrl() {
   return SUPPORT_SURVEY_CHROME_STORE_URL;
 }
 
+function getSupportSurveyStoreRateLabel() {
+  return typeof browser !== "undefined"
+    ? "Rate in Firefox store"
+    : "Rate in Chrome web store";
+}
+
 export {
   SUPPORT_SURVEY_CHROME_STORE_URL,
   SUPPORT_SURVEY_COOLDOWN_MS,
@@ -27,5 +33,6 @@ export {
   SUPPORT_SURVEY_GITHUB_URL,
   SUPPORT_SURVEY_STORAGE_KEY,
   SUPPORT_SURVEY_THRESHOLD,
+  getSupportSurveyStoreRateLabel,
   getSupportSurveyStoreListingUrl
 };

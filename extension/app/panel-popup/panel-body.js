@@ -1,4 +1,5 @@
 import { ABOUT_PREFIX_CHORD_MAC_DISPLAY, ABOUT_PREFIX_CHORD_WIN_DISPLAY, getStartHotkeyActionLabel } from "../hotkeys/keys.js";
+import { ABOUT_BULLET_ICONS } from "../icons.js";
 import { COPY_FORMATS } from "../formats/definitions.js";
 import { buildAboutListItems } from "../about.js";
 import { copyPickedFormatFromPanel } from "./copy-picked-format.js";
@@ -11,6 +12,7 @@ import { getLocale } from "../storage.js";
 import { hasPickCopyCacheInStorage, readPickCopyCacheFromStorage, resolvePickCopyCacheStorageKey } from "../pick-mode/pick-copy-cache-storage.js";
 import { savePickedFormatFromPanel } from "./save-picked-format.js";
 import { maybeShowSupportSurveyAfterDownload } from "../support-survey/trigger.js";
+import { readSupportSurveyState } from "../support-survey/state.js";
 
 var PANEL_BODY_CENTERED_CLASS = "ec-panel-body--centered";
 var ABOUT_AUTHOR_URL = "https://www.md2it.com/";
@@ -34,6 +36,19 @@ function createAboutIcon(iconHtml) {
   mark.setAttribute("aria-hidden", "true");
   mark.innerHTML = iconHtml;
   return mark;
+}
+
+function createCopiedElementsStatistic(strings) {
+  const item = document.createElement("p");
+  item.className = "ec-about-item";
+  const label = document.createElement("span");
+  label.className = "ec-about-text";
+  label.textContent = `${strings.aboutYourActivity}: ${strings.aboutCopiedElements.replace("{count}", "0")}`;
+  item.append(createAboutIcon(ABOUT_BULLET_ICONS[0]), label);
+  void readSupportSurveyState().then((state) => {
+    label.textContent = `${strings.aboutYourActivity}: ${strings.aboutCopiedElements.replace("{count}", String(state.actionCount))}`;
+  });
+  return item;
 }
 
 function createKbd(text) {
@@ -249,7 +264,8 @@ function buildAboutPanelBody(body, strings) {
     li.append(createAboutIcon(item.iconHtml), label);
     list.appendChild(li);
   }
-  page.append(title, createPageDivider(), list, createAboutCredit(strings));
+  list.append(createCopiedElementsStatistic(strings));
+  page.append(title, createPageDivider(), createCopiedElementsStatistic(strings), createPageDivider(), list, createAboutCredit(strings));
   body.append(page);
 }
 

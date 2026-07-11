@@ -1,51 +1,30 @@
+import "../../lib/our/support-survey/logic.js";
 import { SUPPORT_SURVEY_COOLDOWN_MS, SUPPORT_SURVEY_THRESHOLD } from "./constants.js";
 
-function createDefaultSupportSurveyState() {
-  return {
-    successCount: 0,
-    neverAsk: false,
-    completed: false,
-    lastShownAt: null
-  };
-}
+const supportSurveyLogic = globalThis.createSupportSurveyLogic({
+  threshold: SUPPORT_SURVEY_THRESHOLD,
+  cooldownMs: SUPPORT_SURVEY_COOLDOWN_MS,
+});
 
-function normalizeSupportSurveyState(raw) {
-  const defaults = createDefaultSupportSurveyState();
-  if (!raw || typeof raw !== "object") {
-    return defaults;
-  }
-  const successCount = raw.successCount;
-  const neverAsk = raw.neverAsk;
-  const completed = raw.completed;
-  const lastShownAt = raw.lastShownAt;
-  return {
-    successCount: typeof successCount === "number" && Number.isFinite(successCount) && successCount >= 0
-      ? Math.floor(successCount)
-      : defaults.successCount,
-    neverAsk: neverAsk === true,
-    completed: completed === true,
-    lastShownAt: typeof lastShownAt === "number" && Number.isFinite(lastShownAt) && lastShownAt > 0
-      ? lastShownAt
-      : null
-  };
-}
-
-function canShowSupportSurvey(state, nowMs = Date.now()) {
-  if (state.neverAsk || state.completed) {
-    return false;
-  }
-  if (state.successCount < SUPPORT_SURVEY_THRESHOLD) {
-    return false;
-  }
-  if (state.lastShownAt !== null && nowMs - state.lastShownAt < SUPPORT_SURVEY_COOLDOWN_MS) {
-    return false;
-  }
-  return true;
-}
+const {
+  addSuccessfulActions,
+  canShow: canShowSupportSurvey,
+  createDefaultState: createDefaultSupportSurveyState,
+  defer: deferSupportSurvey,
+  disableForever: disableSupportSurveyForever,
+  markCompleted: markSupportSurveyCompleted,
+  markShown: markSupportSurveyShown,
+  normalizeState: normalizeSupportSurveyState,
+} = supportSurveyLogic;
 
 export {
   SUPPORT_SURVEY_THRESHOLD,
+  addSuccessfulActions,
   canShowSupportSurvey,
   createDefaultSupportSurveyState,
-  normalizeSupportSurveyState
+  deferSupportSurvey,
+  disableSupportSurveyForever,
+  markSupportSurveyCompleted,
+  markSupportSurveyShown,
+  normalizeSupportSurveyState,
 };

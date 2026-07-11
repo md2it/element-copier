@@ -1,8 +1,13 @@
 import { ext } from "../../lib/our/api.js";
 import { SUPPORT_SURVEY_STORAGE_KEY } from "./constants.js";
 import {
+  addSuccessfulActions,
   canShowSupportSurvey,
   createDefaultSupportSurveyState,
+  deferSupportSurvey,
+  disableSupportSurveyForever as disableForever,
+  markSupportSurveyCompleted as markCompleted,
+  markSupportSurveyShown,
   normalizeSupportSurveyState
 } from "./logic.js";
 
@@ -35,10 +40,7 @@ async function updateSupportSurveyState(mutator) {
 
 async function incrementSupportSurveySuccessCount() {
   try {
-    await updateSupportSurveyState((state) => ({
-      ...state,
-      successCount: state.successCount + 1
-    }));
+    await updateSupportSurveyState((state) => addSuccessfulActions(state));
   } catch {
   }
 }
@@ -54,51 +56,39 @@ async function shouldShowSupportSurveyAfterDownload() {
 
 async function recordSupportSurveyShown() {
   try {
-    await updateSupportSurveyState((state) => ({
-      ...state,
-      lastShownAt: Date.now()
-    }));
+    await updateSupportSurveyState((state) => markSupportSurveyShown(state));
   } catch {
   }
 }
 
-async function resetSupportSurveyCounter() {
+async function deferSupportSurveyUntilNextThreshold() {
   try {
-    await updateSupportSurveyState((state) => ({
-      ...state,
-      successCount: 0
-    }));
+    await updateSupportSurveyState((state) => deferSupportSurvey(state));
   } catch {
   }
 }
 
 async function disableSupportSurveyForever() {
   try {
-    await updateSupportSurveyState((state) => ({
-      ...state,
-      neverAsk: true
-    }));
+    await updateSupportSurveyState((state) => disableForever(state));
   } catch {
   }
 }
 
 async function markSupportSurveyCompleted() {
   try {
-    await updateSupportSurveyState((state) => ({
-      ...state,
-      completed: true
-    }));
+    await updateSupportSurveyState((state) => markCompleted(state));
   } catch {
   }
 }
 
 export {
   disableSupportSurveyForever,
+  deferSupportSurveyUntilNextThreshold,
   incrementSupportSurveySuccessCount,
   markSupportSurveyCompleted,
   readSupportSurveyState,
   recordSupportSurveyShown,
-  resetSupportSurveyCounter,
   shouldShowSupportSurveyAfterDownload,
   writeSupportSurveyState
 };

@@ -1,5 +1,7 @@
 # PAGE ABOUT
 - Header "ABOUT ELEMENT COPIER"
+- First line: "Your activity: Copied elements: {count}"
+- Divider below the activity line
 - (copy) Copy to clipboard
 - (file-down) Download
 - (history) Remembers recent snapshots

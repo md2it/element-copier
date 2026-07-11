@@ -1,13 +1,14 @@
 import {
   SUPPORT_SURVEY_FEEDBACK_EMAIL,
   SUPPORT_SURVEY_GITHUB_URL,
-  getSupportSurveyStoreListingUrl
+  getSupportSurveyStoreListingUrl,
+  getSupportSurveyStoreRateLabel
 } from "./constants.js";
 import {
   disableSupportSurveyForever,
+  deferSupportSurveyUntilNextThreshold,
   markSupportSurveyCompleted,
   recordSupportSurveyShown,
-  resetSupportSurveyCounter
 } from "./state.js";
 
 function createSurveyButton(label, className = "ec-support-survey-btn") {
@@ -45,6 +46,7 @@ function createSupportSurveyModal(mountRoot, strings) {
   closeBtn.innerHTML = "&times;";
   const title = document.createElement("h3");
   title.className = "ec-support-survey-title";
+  title.style.whiteSpace = "pre-line";
   const actions = document.createElement("div");
   actions.className = "ec-support-survey-actions";
   windowEl.append(closeBtn, title, actions);
@@ -58,7 +60,7 @@ function createSupportSurveyModal(mountRoot, strings) {
   };
 
   const dismissLater = async () => {
-    await resetSupportSurveyCounter();
+    await deferSupportSurveyUntilNextThreshold();
     remove();
   };
 
@@ -114,7 +116,7 @@ function createSupportSurveyModal(mountRoot, strings) {
     star.addEventListener("click", () => {
       void completeWithUrl(SUPPORT_SURVEY_GITHUB_URL);
     });
-    const rate = createSurveyButton(strings.supportSurveyRateInStore);
+    const rate = createSurveyButton(getSupportSurveyStoreRateLabel());
     rate.addEventListener("click", () => {
       void completeWithUrl(getSupportSurveyStoreListingUrl());
     });
