@@ -99,7 +99,18 @@ var DE_MESSAGES = {
     "Danksagung (MIT): Lucide, Modern-Screenshot, Turndown"
   ],
   aboutProductName: "Element-Copier",
-  aboutCreditAuthor: "md2it"
+  aboutCreditAuthor: "md2it",
+  supportSurveyUsefulQuestion: "War diese Erweiterung nützlich?",
+  supportSurveyAskMeLater: "Später fragen",
+  supportSurveyNeverAsk: "Nicht mehr fragen",
+  supportSurveyYes: "Ja",
+  supportSurveyNo: "Nein",
+  supportSurveyThankYouTitle: "Danke. Sie können das Projekt unterstützen",
+  supportSurveyLater: "Später",
+  supportSurveyStarOnGitHub: "Auf GitHub markieren",
+  supportSurveyRateInStore: "Im Store bewerten",
+  supportSurveySorryTitle: "Schade. Sie können Feedback senden",
+  supportSurveySendEmail: "E-Mail senden"
 };
 
 export { DE_MESSAGES };

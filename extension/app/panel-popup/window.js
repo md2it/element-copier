@@ -103,6 +103,7 @@ var CopierPanelWindow = class {
         break;
       case "copied":
         await buildCopiedPanelBody(this.body, strings, {
+          enableSupportSurvey: this.host.surface === "popup",
           onStartOver: () => {
             this.startPickModeAndClose();
           },

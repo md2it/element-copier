@@ -99,7 +99,18 @@ var ES_MESSAGES = {
     "Créditos (MIT): Lucide, Modern-Screenshot, Turndown"
   ],
   aboutProductName: "Element-Copier",
-  aboutCreditAuthor: "md2it"
+  aboutCreditAuthor: "md2it",
+  supportSurveyUsefulQuestion: "¿Te resultó útil esta extensión?",
+  supportSurveyAskMeLater: "Preguntar más tarde",
+  supportSurveyNeverAsk: "No volver a preguntar",
+  supportSurveyYes: "Sí",
+  supportSurveyNo: "No",
+  supportSurveyThankYouTitle: "Gracias. Puedes apoyar el proyecto",
+  supportSurveyLater: "Más tarde",
+  supportSurveyStarOnGitHub: "Marcar en GitHub",
+  supportSurveyRateInStore: "Valorar en la tienda",
+  supportSurveySorryTitle: "Lamentamos oírlo. Puedes enviar comentarios",
+  supportSurveySendEmail: "Enviar un correo"
 };
 
 export { ES_MESSAGES };

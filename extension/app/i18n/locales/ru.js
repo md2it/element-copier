@@ -99,7 +99,18 @@ var RU_MESSAGES = {
     "Благодарности (MIT): Lucide, Modern-Screenshot, Turndown"
   ],
   aboutProductName: "Element-Copier",
-  aboutCreditAuthor: "md2it"
+  aboutCreditAuthor: "md2it",
+  supportSurveyUsefulQuestion: "Расширение было полезным?",
+  supportSurveyAskMeLater: "Спросить позже",
+  supportSurveyNeverAsk: "Больше не спрашивать",
+  supportSurveyYes: "Да",
+  supportSurveyNo: "Нет",
+  supportSurveyThankYouTitle: "Спасибо. Вы можете поддержать проект",
+  supportSurveyLater: "Позже",
+  supportSurveyStarOnGitHub: "Звезда на GitHub",
+  supportSurveyRateInStore: "Оценить в магазине",
+  supportSurveySorryTitle: "Жаль это слышать. Вы можете отправить отзыв",
+  supportSurveySendEmail: "Написать на email"
 };
 
 export { RU_MESSAGES };

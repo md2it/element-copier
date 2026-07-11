@@ -99,7 +99,18 @@ var ZH_CN_MESSAGES = {
     "致谢 (MIT): Lucide, Modern-Screenshot, Turndown"
   ],
   aboutProductName: "Element-Copier",
-  aboutCreditAuthor: "md2it"
+  aboutCreditAuthor: "md2it",
+  supportSurveyUsefulQuestion: "这个扩展有用吗？",
+  supportSurveyAskMeLater: "稍后再问",
+  supportSurveyNeverAsk: "不再询问",
+  supportSurveyYes: "是",
+  supportSurveyNo: "否",
+  supportSurveyThankYouTitle: "谢谢。你可以支持这个项目",
+  supportSurveyLater: "稍后",
+  supportSurveyStarOnGitHub: "在 GitHub 加星",
+  supportSurveyRateInStore: "在商店评分",
+  supportSurveySorryTitle: "很遗憾。你可以发送反馈",
+  supportSurveySendEmail: "发送邮件"
 };
 
 export { ZH_CN_MESSAGES };

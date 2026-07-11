@@ -13,6 +13,7 @@ import { resolvePickCopyCacheStorageKey } from "../pick-mode/pick-copy-cache-sto
 import { registerDocumentOperabilityProbeListener } from "../../lib/our/page-operability/content-probe.js";
 import { sendToBackground } from "../messages.js";
 import { showMountedPopupTab } from "../panel-popup/mount-panel-surface.js";
+import { incrementSupportSurveySuccessCount } from "../support-survey/state.js";
 
 function getState() {
   if (!window.__ecState) {
@@ -158,6 +159,7 @@ function attachMessageHandler(state2) {
         onCacheEntry: performDefaultAction,
         priorityFormatId: defaultAction?.formatId
       });
+      void incrementSupportSurveySuccessCount();
       if (defaultAction !== null && !defaultActionAttempted) {
         const { formatId } = defaultAction;
         const defaultText = getCachedCopyText(formatId);

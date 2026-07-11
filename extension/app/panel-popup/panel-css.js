@@ -730,6 +730,103 @@ export const PANEL_CSS = `.ec-panel-header,
   padding-inline-end: 0.6rem;
 }
 
+.ec-support-survey-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 60;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  background: rgba(15, 23, 42, 0.32);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+}
+
+.ec-support-survey-window {
+  position: relative;
+  width: 100%;
+  max-width: 18rem;
+  max-height: calc(100% - 2rem);
+  overflow: auto;
+  padding: 1.1rem 1.1rem 1rem;
+  border-radius: 0.75rem;
+  background: #fff;
+  color: #1f2937;
+  box-shadow: 0 12px 40px rgba(1, 34, 146, 0.22);
+}
+
+.ec-support-survey-close {
+  position: absolute;
+  top: 0.4rem;
+  inset-inline-end: 0.4rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.6rem;
+  height: 1.6rem;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  color: #6b7280;
+  font-size: 1.2rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.ec-support-survey-close:hover,
+.ec-support-survey-close:focus-visible {
+  color: #111827;
+  background: rgba(0, 0, 0, 0.06);
+}
+
+.ec-support-survey-title {
+  margin: 0 0 0.85rem;
+  padding-inline-end: 1.2rem;
+  font-size: 0.9rem;
+  font-weight: 700;
+  line-height: 1.35;
+  text-align: center;
+  color: #012292;
+}
+
+.ec-support-survey-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.ec-support-survey-btn {
+  width: 100%;
+  padding: 0.65rem 0.85rem;
+  border: none;
+  border-radius: 0.55rem;
+  background: #012292;
+  color: #fff;
+  font-size: 0.82rem;
+  font-weight: 600;
+  line-height: 1.25;
+  cursor: pointer;
+}
+
+.ec-support-survey-btn:hover,
+.ec-support-survey-btn:focus-visible {
+  background: #011a6e;
+}
+
+.ec-support-survey-btn--secondary {
+  border: 1px solid rgba(1, 34, 146, 0.18);
+  background: rgba(1, 34, 146, 0.06);
+  color: #012292;
+}
+
+.ec-support-survey-btn--secondary:hover,
+.ec-support-survey-btn--secondary:focus-visible {
+  background: rgba(1, 34, 146, 0.12);
+  color: #012292;
+}
+
 .ec-format-field {
   display: flex;
   flex-direction: column;
@@ -1873,5 +1970,46 @@ export const PANEL_CSS = `.ec-panel-header,
 :host(.ec-panel-popup--dark) .ec-info-window-close:hover,
 :host(.ec-panel-popup--dark) .ec-info-window-close:focus-visible {
   color: #e5e7eb;
+}
+
+:host(.ec-panel-popup--dark) .ec-support-survey-window {
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(17, 24, 39, 0.98);
+  color: #e5e7eb;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45);
+}
+
+:host(.ec-panel-popup--dark) .ec-support-survey-close {
+  color: #9ca3af;
+}
+
+:host(.ec-panel-popup--dark) .ec-support-survey-close:hover,
+:host(.ec-panel-popup--dark) .ec-support-survey-close:focus-visible {
+  color: #e5e7eb;
+}
+
+:host(.ec-panel-popup--dark) .ec-support-survey-title {
+  color: #bfdbfe;
+}
+
+:host(.ec-panel-popup--dark) .ec-support-survey-btn {
+  background: #2563eb;
+}
+
+:host(.ec-panel-popup--dark) .ec-support-survey-btn:hover,
+:host(.ec-panel-popup--dark) .ec-support-survey-btn:focus-visible {
+  background: #1d4ed8;
+}
+
+:host(.ec-panel-popup--dark) .ec-support-survey-btn--secondary {
+  border-color: rgba(96, 165, 250, 0.35);
+  background: rgba(37, 99, 235, 0.2);
+  color: #bfdbfe;
+}
+
+:host(.ec-panel-popup--dark) .ec-support-survey-btn--secondary:hover,
+:host(.ec-panel-popup--dark) .ec-support-survey-btn--secondary:focus-visible {
+  background: rgba(37, 99, 235, 0.28);
+  color: #dbeafe;
 }
 `;

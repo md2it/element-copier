@@ -106,7 +106,18 @@ var EN_MESSAGES = {
     "Credits (MIT): Lucide, Modern-Screenshot, Turndown"
   ],
   aboutProductName: "Element-Copier",
-  aboutCreditAuthor: "md2it"
+  aboutCreditAuthor: "md2it",
+  supportSurveyUsefulQuestion: "Was this extension useful?",
+  supportSurveyAskMeLater: "Ask me later",
+  supportSurveyNeverAsk: "Never ask",
+  supportSurveyYes: "Yes",
+  supportSurveyNo: "No",
+  supportSurveyThankYouTitle: "Thank you. You can support the project",
+  supportSurveyLater: "Later",
+  supportSurveyStarOnGitHub: "Star on GitHub",
+  supportSurveyRateInStore: "Rate in store",
+  supportSurveySorryTitle: "Sorry to hear that. You can send feedback",
+  supportSurveySendEmail: "Send an email"
 };
 
 var LOCALE_MESSAGES = {

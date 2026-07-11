@@ -99,7 +99,18 @@ var AR_MESSAGES = {
     "شكر وتقدير (MIT): Lucide, Modern-Screenshot, Turndown"
   ],
   aboutProductName: "Element-Copier",
-  aboutCreditAuthor: "md2it"
+  aboutCreditAuthor: "md2it",
+  supportSurveyUsefulQuestion: "هل كان هذا الامتداد مفيدًا؟",
+  supportSurveyAskMeLater: "اسألني لاحقًا",
+  supportSurveyNeverAsk: "لا تسأل مجددًا",
+  supportSurveyYes: "نعم",
+  supportSurveyNo: "لا",
+  supportSurveyThankYouTitle: "شكرًا. يمكنك دعم المشروع",
+  supportSurveyLater: "لاحقًا",
+  supportSurveyStarOnGitHub: "نجمة على GitHub",
+  supportSurveyRateInStore: "قيّم في المتجر",
+  supportSurveySorryTitle: "نأسف لسماع ذلك. يمكنك إرسال ملاحظات",
+  supportSurveySendEmail: "إرسال بريد"
 };
 
 export { AR_MESSAGES };

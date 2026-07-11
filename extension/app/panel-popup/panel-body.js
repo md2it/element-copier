@@ -10,6 +10,7 @@ import { getLastCopiedFormat, getLastCopiedPanelAction, getLastDownloadedFormat,
 import { getLocale } from "../storage.js";
 import { hasPickCopyCacheInStorage, readPickCopyCacheFromStorage, resolvePickCopyCacheStorageKey } from "../pick-mode/pick-copy-cache-storage.js";
 import { savePickedFormatFromPanel } from "./save-picked-format.js";
+import { maybeShowSupportSurveyAfterDownload } from "../support-survey/trigger.js";
 
 var PANEL_BODY_CENTERED_CLASS = "ec-panel-body--centered";
 var ABOUT_AUTHOR_URL = "https://www.md2it.com/";
@@ -513,6 +514,10 @@ async function buildCopiedPanelBody(body, strings, actions = {}) {
       await setLastDownloadedFormat(formatId);
       await markCopiedPanelShowStatus();
       selectFormat(formatId, "download");
+      const panelRoot = body.closest(".ec-panel");
+      if (panelRoot && actions.enableSupportSurvey) {
+        await maybeShowSupportSurveyAfterDownload(panelRoot, strings);
+      }
       return true;
     },
     onOpenUrl: async (url) => {
