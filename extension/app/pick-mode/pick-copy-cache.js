@@ -4,6 +4,7 @@ import { clearPickCopyCacheStorage, isPickCopyCacheValueStorable, resolvePickCop
 import { createStringCache } from "../element-copy/cache.js";
 import { extractElementCopyText } from "../copy/extract.js";
 import { getCachedEnabledFormats } from "../settings/format-settings-cache.js";
+import { DEVTOOLS_FORMAT_IDS } from "../settings/format-settings.js";
 
 var SNAPSHOT_PERF_LOCAL_STORAGE_KEY = "ec:perf:snapshot";
 
@@ -100,7 +101,8 @@ async function snapshotPickCopyCache(element, inlineImages = DEFAULT_INLINE_IMAG
     screenshotBackground = createScreenshotBackgroundSnapshot(element, computedStylesText);
   }
   for (const formatId of prioritizeSnapshotFormats(options.priorityFormatId)) {
-    if (formatId !== "url" && !enabledFormats[formatId]) continue;
+    // Developer tools visibility must not affect values used by a default action.
+    if (formatId !== "url" && !enabledFormats[formatId] && !DEVTOOLS_FORMAT_IDS.includes(formatId)) continue;
     if (formatId === "markdown" || formatId === "markdownFile") {
       if (markdownText === void 0) {
         markdownText = await extractElementCopyText(element, "markdown", inlineImages);

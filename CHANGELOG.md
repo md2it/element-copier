@@ -11,6 +11,12 @@ Version logic:
 
 ## RELEASES
 
+### 1.1.2
+- Kept developer tool formats available for default actions when hidden in the interface
+
+### 1.1.1
+- Refined activity statistics in About
+
 ### 1.1.0
 - Added optional feedback survey and activity statistics in About
 
