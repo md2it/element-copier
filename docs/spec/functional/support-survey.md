@@ -48,6 +48,16 @@
 
 ---
 
+## Backward compatibility
+
+- Do not run migrations for existing user data
+- Do not modify or reinterpret existing storage keys
+- Support survey may create its own new storage key or fields
+- Missing survey state is valid and must be handled safely
+- If survey state cannot be read or written, skip survey logic and continue the main user scenario
+
+---
+
 ## Element Copier rules
 
 - Counter tick:
