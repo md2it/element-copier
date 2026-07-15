@@ -12,15 +12,28 @@ var SUPPORT_SURVEY_FIREFOX_STORE_URL = "https://addons.mozilla.org/firefox/addon
 
 var SUPPORT_SURVEY_FEEDBACK_EMAIL = "contact@md2it.com";
 
-function getSupportSurveyStoreListingUrl() {
-  if (typeof browser !== "undefined") {
-    return SUPPORT_SURVEY_FIREFOX_STORE_URL;
+/** True for Firefox/Gecko extension runtime; not fooled by a `browser` polyfill on Chromium. */
+function isFirefoxExtensionRuntime() {
+  try {
+    const chromeApi = globalThis.chrome;
+    const browserApi = globalThis.browser;
+    const runtime = chromeApi?.runtime || browserApi?.runtime || null;
+    if (runtime && typeof runtime.getURL === "function") {
+      return String(runtime.getURL("/")).startsWith("moz-extension:");
+    }
+  } catch {
   }
-  return SUPPORT_SURVEY_CHROME_STORE_URL;
+  return /Firefox\//.test(String(globalThis.navigator?.userAgent || ""));
+}
+
+function getSupportSurveyStoreListingUrl() {
+  return isFirefoxExtensionRuntime()
+    ? SUPPORT_SURVEY_FIREFOX_STORE_URL
+    : SUPPORT_SURVEY_CHROME_STORE_URL;
 }
 
 function getSupportSurveyStoreRateLabel() {
-  return typeof browser !== "undefined"
+  return isFirefoxExtensionRuntime()
     ? "Rate in Firefox store"
     : "Rate in Chrome web store";
 }
@@ -34,5 +47,6 @@ export {
   SUPPORT_SURVEY_STORAGE_KEY,
   SUPPORT_SURVEY_THRESHOLD,
   getSupportSurveyStoreRateLabel,
-  getSupportSurveyStoreListingUrl
+  getSupportSurveyStoreListingUrl,
+  isFirefoxExtensionRuntime
 };
