@@ -37,11 +37,16 @@ async function copyFormattedTextToClipboard(payload) {
   if (!html) return false;
   const plain = derivePlainFromClipboardHtml(html, document).trim();
   if (!plain) return false;
+  // Clipboard API is unavailable in content scripts on insecure (http:) pages.
+  if (globalThis.isSecureContext === false) {
+    return copyFormattedTextLegacy(html, plain);
+  }
   try {
     if (navigator.clipboard?.write && typeof ClipboardItem !== "undefined") {
       const items = {
-        "text/plain": new Blob([plain], { type: "text/plain" }),
-        "text/html": new Blob([html], { type: "text/html" })
+        // Promise-wrapped blobs: required by older Firefox ClipboardItem implementations.
+        "text/plain": Promise.resolve(new Blob([plain], { type: "text/plain" })),
+        "text/html": Promise.resolve(new Blob([html], { type: "text/html" }))
       };
       await navigator.clipboard.write([new ClipboardItem(items)]);
       return true;

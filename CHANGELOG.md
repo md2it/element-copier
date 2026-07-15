@@ -13,6 +13,8 @@ Version logic:
 
 ### 1.1.2
 - Kept developer tool formats available for default actions when hidden in the interface
+- Fixed survey store link browser detection (Chrome vs Firefox)
+- Fixed copying to clipboard on Firefox after pick/async work (`clipboardWrite`)
 
 ### 1.1.1
 - Refined activity statistics in About

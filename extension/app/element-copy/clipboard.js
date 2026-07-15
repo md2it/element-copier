@@ -14,6 +14,11 @@ function clipboardCanWriteType(mimeType) {
   }
 }
 
+function toClipboardItemValue(value) {
+  // Firefox historically required Promise-wrapped blobs for ClipboardItem.
+  return value instanceof Promise ? value : Promise.resolve(value);
+}
+
 function copyTextToClipboardFallback(text) {
   try {
     const textarea = document.createElement("textarea");
@@ -35,6 +40,11 @@ function copyTextToClipboardFallback(text) {
 
 async function copyTextToClipboard(text) {
   if (!text) return false;
+  // Clipboard API is unavailable in content scripts on insecure (http:) pages.
+  // Prefer execCommand there; clipboardWrite also allows it after async gaps (pick flow).
+  if (globalThis.isSecureContext === false) {
+    return copyTextToClipboardFallback(text);
+  }
   try {
     if (navigator.clipboard?.writeText) {
       await navigator.clipboard.writeText(text);
@@ -55,7 +65,9 @@ async function copyImageToClipboard(formatId, dataUrl) {
   }
   if (!clipboardCanWriteType(mimeType)) return false;
   try {
-    await navigator.clipboard.write([new ClipboardItem({ [mimeType]: blob })]);
+    await navigator.clipboard.write([
+      new ClipboardItem({ [mimeType]: toClipboardItemValue(blob) })
+    ]);
     return true;
   } catch {
     return false;
@@ -80,4 +92,11 @@ async function copyToClipboardForFormat(formatId, cached) {
   return copyTextToClipboard(cached);
 }
 
-export { canCopyFormatToClipboard, clipboardCanWriteType, copyImageToClipboard, copyTextToClipboard, copyTextToClipboardFallback, copyToClipboardForFormat };
+export {
+  canCopyFormatToClipboard,
+  clipboardCanWriteType,
+  copyImageToClipboard,
+  copyTextToClipboard,
+  copyTextToClipboardFallback,
+  copyToClipboardForFormat
+};
