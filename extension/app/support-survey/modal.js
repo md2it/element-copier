@@ -93,7 +93,7 @@ function createSupportSurveyModal(mountRoot, strings) {
     neverAsk.addEventListener("click", () => {
       void dismissNever();
     });
-    const noBtn = createSurveyButton(strings.supportSurveyNo);
+    const noBtn = createSurveyButton(strings.supportSurveyNo, "ec-support-survey-btn ec-support-survey-btn--secondary");
     noBtn.addEventListener("click", () => {
       renderFeedbackStep();
     });
