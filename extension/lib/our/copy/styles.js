@@ -83,11 +83,25 @@ function collectStylesheetContext(element) {
     sheets.push(sheet);
   };
   const addAdoptedFromRoot = (root2) => {
-    const adoptedSheets = root2.adoptedStyleSheets;
+    // Firefox content scripts: for...of on adoptedStyleSheets can throw
+    // TypeError: adoptedSheets is not iterable (bug 1770592).
+    // https://bugzilla.mozilla.org/show_bug.cgi?id=1770592
+    // Indexed access matches doc.styleSheets handling and works in Chrome.
+    let adoptedSheets;
+    try {
+      adoptedSheets = root2.adoptedStyleSheets;
+    } catch {
+      return;
+    }
     if (!adoptedSheets) return;
-    for (const sheet of adoptedSheets) {
-      adopted.add(sheet);
-      addSheet(sheet);
+    try {
+      for (let i = 0; i < adoptedSheets.length; i += 1) {
+        const sheet = adoptedSheets[i] ?? null;
+        if (sheet) adopted.add(sheet);
+        addSheet(sheet);
+      }
+    } catch {
+      // Skip adopted sheets when the host exposes a non-usable list.
     }
   };
   const doc = element.ownerDocument;

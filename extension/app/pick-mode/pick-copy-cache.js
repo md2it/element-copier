@@ -101,44 +101,44 @@ async function snapshotPickCopyCache(element, inlineImages = DEFAULT_INLINE_IMAG
     screenshotBackground = createScreenshotBackgroundSnapshot(element, computedStylesText);
   }
   for (const formatId of prioritizeSnapshotFormats(options.priorityFormatId)) {
-    // Developer tools visibility must not affect values used by a default action.
-    if (formatId !== "url" && !enabledFormats[formatId] && !DEVTOOLS_FORMAT_IDS.includes(formatId)) continue;
-    if (formatId === "markdown" || formatId === "markdownFile") {
-      if (markdownText === void 0) {
-        markdownText = await extractElementCopyText(element, "markdown", inlineImages);
-        await cacheEntry("markdown", markdownText);
+    try {
+      // Developer tools visibility must not affect values used by a default action.
+      if (formatId !== "url" && !enabledFormats[formatId] && !DEVTOOLS_FORMAT_IDS.includes(formatId)) continue;
+      if (formatId === "markdown" || formatId === "markdownFile") {
+        if (markdownText === void 0) {
+          markdownText = await extractElementCopyText(element, "markdown", inlineImages);
+          await cacheEntry("markdown", markdownText);
+        }
+        continue;
       }
-      continue;
-    }
-    if (formatId === "outerHTML" || formatId === "htmlFile") {
-      if (outerHtmlText === void 0) {
-        outerHtmlText = await extractElementCopyText(element, "outerHTML", inlineImages);
-        await cacheEntry("outerHTML", outerHtmlText);
+      if (formatId === "outerHTML" || formatId === "htmlFile") {
+        if (outerHtmlText === void 0) {
+          outerHtmlText = await extractElementCopyText(element, "outerHTML", inlineImages);
+          await cacheEntry("outerHTML", outerHtmlText);
+        }
+        continue;
       }
-      continue;
-    }
-    if (formatId === "computedStyles") {
-      const extractStartedAt2 = perfEnabled ? nowMs(doc) : 0;
-      const computedStylesText = await extractElementCopyText(
-        element,
-        "computedStyles",
-        inlineImages
-      );
-      if (perfEnabled) {
-        extractTimeMs += nowMs(doc) - extractStartedAt2;
+      if (formatId === "computedStyles") {
+        const extractStartedAt2 = perfEnabled ? nowMs(doc) : 0;
+        const computedStylesText = await extractElementCopyText(
+          element,
+          "computedStyles",
+          inlineImages
+        );
+        if (perfEnabled) {
+          extractTimeMs += nowMs(doc) - extractStartedAt2;
+        }
+        await cacheEntry(formatId, computedStylesText);
+        if (needsImageSnapshot) {
+          screenshotBackground = createScreenshotBackgroundSnapshot(element, computedStylesText);
+        }
+        continue;
       }
-      await cacheEntry(formatId, computedStylesText);
-      if (needsImageSnapshot) {
-        screenshotBackground = createScreenshotBackgroundSnapshot(element, computedStylesText);
-      }
-      continue;
-    }
-    if (isImageCopyFormat(formatId)) {
-      if (!screenshotBackground) {
-        await ensureScreenshotBackground();
-      }
-      if (!screenshotBackground) continue;
-      try {
+      if (isImageCopyFormat(formatId)) {
+        if (!screenshotBackground) {
+          await ensureScreenshotBackground();
+        }
+        if (!screenshotBackground) continue;
         if (!cachedImages) {
           const imageFormats = [];
           if (enabledFormats.png) imageFormats.push("png");
@@ -154,17 +154,17 @@ async function snapshotPickCopyCache(element, inlineImages = DEFAULT_INLINE_IMAG
         if (capturedImage) {
           await cacheEntry(formatId, capturedImage);
         }
-      } catch (error) {
-        console.warn("[Element Copier] image snapshot failed:", formatId, error);
+        continue;
       }
-      continue;
+      const extractStartedAt = perfEnabled ? nowMs(doc) : 0;
+      const extracted = await extractElementCopyText(element, formatId, inlineImages);
+      if (perfEnabled) {
+        extractTimeMs += nowMs(doc) - extractStartedAt;
+      }
+      await cacheEntry(formatId, extracted);
+    } catch (error) {
+      console.warn("[Element Copier] format snapshot failed:", formatId, error);
     }
-    const extractStartedAt = perfEnabled ? nowMs(doc) : 0;
-    const extracted = await extractElementCopyText(element, formatId, inlineImages);
-    if (perfEnabled) {
-      extractTimeMs += nowMs(doc) - extractStartedAt;
-    }
-    await cacheEntry(formatId, extracted);
   }
   cache.snapshot(entries);
   try {
