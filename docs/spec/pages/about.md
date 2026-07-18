@@ -1,6 +1,6 @@
 # PAGE ABOUT
 - Header "ABOUT ELEMENT COPIER"
-- First line: "Your activity: Copied elements: {count}"
+- First line: "Total elements copied: {count}"
 - Divider below the activity line
 - (copy) Copy to clipboard
 - (file-down) Download

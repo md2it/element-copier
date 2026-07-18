@@ -43,10 +43,10 @@ function createCopiedElementsStatistic(strings) {
   item.className = "ec-about-item";
   const label = document.createElement("span");
   label.className = "ec-about-text";
-  label.textContent = `${strings.aboutYourActivity}: ${strings.aboutCopiedElements.replace("{count}", "0")}`;
+  label.textContent = strings.aboutCopiedElements.replace("{count}", "0");
   item.append(createAboutIcon(ABOUT_BULLET_ICONS[0]), label);
   void readSupportSurveyState().then((state) => {
-    label.textContent = `${strings.aboutYourActivity}: ${strings.aboutCopiedElements.replace("{count}", String(state.actionCount))}`;
+    label.textContent = strings.aboutCopiedElements.replace("{count}", String(state.actionCount));
   });
   return item;
 }
@@ -264,7 +264,6 @@ function buildAboutPanelBody(body, strings) {
     li.append(createAboutIcon(item.iconHtml), label);
     list.appendChild(li);
   }
-  list.append(createCopiedElementsStatistic(strings));
   page.append(title, createPageDivider(), createCopiedElementsStatistic(strings), createPageDivider(), list, createAboutCredit(strings));
   body.append(page);
 }

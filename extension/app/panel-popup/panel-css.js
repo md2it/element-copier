@@ -1556,6 +1556,7 @@ export const PANEL_CSS = `.ec-panel-header,
 
 .ec-panel-page--about .ec-panel-page-title {
   width: 100%;
+  margin: 0 0 0.5rem;
   text-align: center;
 }
 
@@ -1572,7 +1573,7 @@ export const PANEL_CSS = `.ec-panel-header,
   display: flex;
   align-items: center;
   gap: 0.45rem;
-  margin-bottom: 0.35rem;
+  margin: 0 0 0.35rem;
   font-size: 0.84rem;
   line-height: 1.45;
   color: #374151;

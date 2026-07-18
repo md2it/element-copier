@@ -11,6 +11,9 @@ Version logic:
 
 ## RELEASES
 
+### 1.1.3
+- Refined activity statistics in About
+
 ### 1.1.2
 - Kept developer tool formats available for default actions when hidden in the interface
 - Fixed survey store link browser detection (Chrome vs Firefox)

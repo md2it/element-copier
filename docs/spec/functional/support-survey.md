@@ -56,7 +56,7 @@ You can support the project
 ## Information page
 
 - Show the cumulative successful action counter on the existing information page (for example, About or Info)
-- Use concise text, for example: "Copied elements: 102"
+- Use concise text, for example: "Total elements copied: 102"
 
 ---
 
