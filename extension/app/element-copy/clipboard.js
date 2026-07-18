@@ -2,6 +2,15 @@ import { copyFormattedTextToClipboard } from "../../lib/our/copy/formatted-text/
 import { dataUrlToBlob } from "./download.js";
 import { isImageCopyFormat } from "../copy/screenshot.js";
 import { parseFormattedTextCache } from "../../lib/our/copy/formatted-text/cache.js";
+import { ext } from "../../lib/our/api.js";
+
+function isFirefoxExtensionRuntime() {
+  try {
+    return String(ext.runtime.getURL("/")).startsWith("moz-extension:");
+  } catch {
+    return /Firefox\//.test(String(globalThis.navigator?.userAgent || ""));
+  }
+}
 
 function clipboardCanWriteType(mimeType) {
   if (typeof ClipboardItem === "undefined") return false;
@@ -60,6 +69,17 @@ async function copyImageToClipboard(formatId, dataUrl) {
   const blob = dataUrlToBlob(dataUrl);
   if (!blob) return false;
   const mimeType = blob.type || (formatId === "jpeg" ? "image/jpeg" : "image/png");
+  if (isFirefoxExtensionRuntime()) {
+    try {
+      const response = await ext.runtime.sendMessage({
+        type: "COPY_IMAGE_TO_CLIPBOARD",
+        formatId,
+        dataUrl
+      });
+      if (response?.ok === true) return true;
+    } catch {
+    }
+  }
   if (!navigator.clipboard?.write || typeof ClipboardItem === "undefined") {
     return false;
   }
@@ -76,6 +96,7 @@ async function copyImageToClipboard(formatId, dataUrl) {
 
 function canCopyFormatToClipboard(formatId) {
   if (!isImageCopyFormat(formatId)) return true;
+  if (isFirefoxExtensionRuntime()) return true;
   const mimeType = formatId === "jpeg" ? "image/jpeg" : "image/png";
   return clipboardCanWriteType(mimeType);
 }
@@ -96,6 +117,7 @@ export {
   canCopyFormatToClipboard,
   clipboardCanWriteType,
   copyImageToClipboard,
+  isFirefoxExtensionRuntime,
   copyTextToClipboard,
   copyTextToClipboardFallback,
   copyToClipboardForFormat

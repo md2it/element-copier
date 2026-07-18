@@ -1,5 +1,9 @@
 import { derivePlainFromClipboardHtml } from "./plain.js";
 
+function isFirefox() {
+  return /Firefox\//.test(navigator.userAgent);
+}
+
 function copyFormattedTextLegacy(html, plain) {
   const doc = document;
   const root2 = doc.documentElement ?? doc.body;
@@ -37,8 +41,10 @@ async function copyFormattedTextToClipboard(payload) {
   if (!html) return false;
   const plain = derivePlainFromClipboardHtml(html, document).trim();
   if (!plain) return false;
-  // Clipboard API is unavailable in content scripts on insecure (http:) pages.
-  if (globalThis.isSecureContext === false) {
+  // Firefox does not reliably support rich ClipboardItem writes in extension
+  // content scripts. Its legacy copy event supports both HTML and plain text.
+  // Clipboard API is also unavailable in content scripts on insecure (http:) pages.
+  if (isFirefox() || globalThis.isSecureContext === false) {
     return copyFormattedTextLegacy(html, plain);
   }
   try {
@@ -56,4 +62,4 @@ async function copyFormattedTextToClipboard(payload) {
   return copyFormattedTextLegacy(html, plain);
 }
 
-export { copyFormattedTextLegacy, copyFormattedTextToClipboard };
+export { copyFormattedTextLegacy, copyFormattedTextToClipboard, isFirefox };

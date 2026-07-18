@@ -23,6 +23,21 @@ assert.match(
   /Promise\.resolve/,
   "ClipboardItem values must be Promise-wrapped for older Firefox"
 );
+assert.match(
+  clipboardSource,
+  /COPY_IMAGE_TO_CLIPBOARD/,
+  "Firefox image copy must use its WebExtension clipboard API"
+);
+
+const backgroundSource = readFileSync(
+  new URL("../extension/app/background/main.js", import.meta.url),
+  "utf8"
+);
+assert.match(
+  backgroundSource,
+  /clipboard\.setImageData/,
+  "background must handle Firefox image clipboard writes"
+);
 
 const formattedSource = readFileSync(
   new URL("../extension/lib/our/copy/formatted-text/clipboard.js", import.meta.url),
@@ -30,8 +45,8 @@ const formattedSource = readFileSync(
 );
 assert.match(
   formattedSource,
-  /isSecureContext === false/,
-  "formatted copy must prefer legacy execCommand on insecure pages"
+  /isFirefox\(\) \|\| globalThis\.isSecureContext === false/,
+  "formatted copy must prefer legacy execCommand in Firefox and on insecure pages"
 );
 assert.match(
   formattedSource,

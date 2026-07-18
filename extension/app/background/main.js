@@ -326,6 +326,26 @@ ext.contextMenus.onClicked.addListener((info, tab) => {
 
 ext.runtime.onMessage.addListener(
   (message, sender, sendResponse) => {
+    if (message.type === "COPY_IMAGE_TO_CLIPBOARD") {
+      void (async () => {
+        const imageType = message.formatId === "jpeg" ? "jpeg" : message.formatId === "png" ? "png" : null;
+        const dataUrl = typeof message.dataUrl === "string" ? message.dataUrl : "";
+        const expectedPrefix = imageType === "jpeg" ? "data:image/jpeg" : "data:image/png";
+        if (!imageType || !dataUrl.startsWith(expectedPrefix) || typeof ext.clipboard?.setImageData !== "function") {
+          sendResponse({ ok: false });
+          return;
+        }
+        try {
+          const imageData = await (await fetch(dataUrl)).arrayBuffer();
+          await ext.clipboard.setImageData(imageData, imageType);
+          sendResponse({ ok: true });
+        } catch (error) {
+          console.warn("[Element Copier] Firefox image clipboard copy failed:", error);
+          sendResponse({ ok: false });
+        }
+      })();
+      return true;
+    }
     if (isBlockedNoticeDismissedMessage(message)) {
       onBlockedNoticeDismissed(message.tabId);
       return;
