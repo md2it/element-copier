@@ -20,7 +20,7 @@ The `unlimitedStorage` permission is needed because copied content—especially 
 
 ## clipboardWrite
 
-Earlier versions relied on browser clipboard APIs available in their copy flows and did not declare this permission. Element Copier now declares `clipboardWrite` so it can reliably place the result of an explicit user-initiated copy—including text, HTML, images, and other generated formats—on the system clipboard across its supported flows. The permission is not used to read clipboard contents, and copied data is never transmitted off the device.
+The `clipboardWrite` permission ensures that a copy action explicitly started by the user can finish after Element Copier has asynchronously picked an element, extracted its content, or generated the requested format. Browsers may no longer retain the original user activation after those steps; this permission lets the extension reliably place the requested text, HTML, image, or other generated format on the system clipboard instead of failing based on timing or browser behavior. The permission is not used to read clipboard contents, and copied data is never transmitted off the device.
 
 ---
 
