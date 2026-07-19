@@ -1,4 +1,4 @@
-import { FILES, INFO, KEYBOARD, PLAY, SETTINGS } from "../../lib/icons/index.js";
+import { FILES, INFO, KEYBOARD, PLAY, SETTINGS } from "../../lib/vendor/icons/index.js";
 
 var START_ITEM = {
   tab: "start",

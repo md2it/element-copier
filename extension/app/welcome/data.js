@@ -1,4 +1,4 @@
-import { ARROW_UP, HEART, PIN, PUZZLE } from "../../lib/icons/index.js";
+import { ARROW_UP, HEART, PIN, PUZZLE } from "../../lib/vendor/icons/index.js";
 import { LOCALES, LOCALE_BUTTON_LABELS } from "../i18n/types.js";
 import { PANEL_TITLE } from "../brand.js";
 import { buildAboutListItems } from "../about.js";

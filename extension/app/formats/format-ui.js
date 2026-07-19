@@ -1,5 +1,5 @@
 import { CLIPBOARD_DEFAULT_NOTHING, DEFAULT_ACTION_STORAGE_OPTIONS, encodeDefaultAction, ensureDefaultActionAllowsComputeImages, getDeveloperToolsEnabled, isDeveloperToolsGroup, isImageDefaultActionStorageValue, parseStoredDefaultAction, setDefaultAction, setDeveloperToolsEnabled } from "../settings/format-settings.js";
-import { COPY, EXTERNAL_LINK, INFO } from "../../lib/icons/index.js";
+import { COPY, EXTERNAL_LINK, INFO } from "../../lib/vendor/icons/index.js";
 import { COPY_FORMATS } from "./definitions.js";
 import { FRAME_LABEL_STYLES, getFrameLabelStyle, setFrameLabelStyle } from "../settings/frame-label-style.js";
 import { INLINE_IMAGES_MODES, getInlineImagesMode, setInlineImagesMode } from "../settings/inline-images.js";

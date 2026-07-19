@@ -1,5 +1,8 @@
-import { SHIELD_CHECK } from "../lib/icons/index.js";
-import { files_default } from "../lib/icons/lucide/files.js";
+import { INFO, SHIELD_CHECK } from "../lib/vendor/icons/index.js";
+import { chart_column_increasing_default } from "../lib/vendor/icons/lucide/chart-column-increasing.js";
+import { files_default } from "../lib/vendor/icons/lucide/files.js";
+import { square_check_default } from "../lib/vendor/icons/lucide/square-check.js";
+import { terminal_default } from "../lib/vendor/icons/lucide/terminal.js";
 
 var INACTIVE_BG = "#012292";
 
@@ -13,6 +16,10 @@ function stripComment3(svg) {
   return svg.replace(/<!--[\s\S]*?-->\s*/g, "").trim();
 }
 
+function lucideUiIcon(raw) {
+  return stripComment3(raw);
+}
+
 function innerSvgMarkup(svg) {
   const match = svg.match(/<svg[\s\S]*?>([\s\S]*)<\/svg>/i);
   return match ? match[1].trim() : svg;
@@ -21,11 +28,11 @@ function innerSvgMarkup(svg) {
 var filesInner = innerSvgMarkup(stripComment3(files_default));
 
 var ABOUT_SECTION_ICONS = {
-  overview: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>',
-  capabilities: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>',
+  overview: INFO,
+  capabilities: lucideUiIcon(square_check_default),
   privacy: SHIELD_CHECK,
-  code: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m4 17 6-6-6-6"/><path d="M12 19h8"/></svg>',
-  statistics: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 17V9"/><path d="M18 17V5"/><path d="M8 17v-3"/><path d="M3 17v-1"/><path d="M3 21h18"/></svg>'
+  code: lucideUiIcon(terminal_default),
+  statistics: lucideUiIcon(chart_column_increasing_default),
 };
 
 function toolbarWelcomeIconSvg(bg = INACTIVE_BG, size = 16) {

@@ -6,6 +6,9 @@ Regular SemVer logic.
 
 ## RELEASES
 
+### 1.1.10
+- Unified Lucide UI icons via shared vendor copies (`lib/vendor/icons`)
+
 ### 1.1.9
 - Welcome pin hint is positioned from the viewport edge (no fixed inset)
 
