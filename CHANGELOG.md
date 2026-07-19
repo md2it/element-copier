@@ -6,6 +6,9 @@ Regular SemVer logic.
 
 ## RELEASES
 
+### 1.1.9
+- Welcome pin hint is positioned from the viewport edge (no fixed inset)
+
 ### 1.1.8
 - Background loads through a single ES-module entry (`app/background/main.js`) for Chrome MV3 and Firefox 121+
 - Goal: one background load path for both browsers, without a second handwritten dependency list in the manifest
