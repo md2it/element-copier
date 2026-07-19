@@ -46,11 +46,20 @@ function collectImgAltPlain(container) {
   return parts.join("\n");
 }
 
+/** Parse clipboard/page HTML into a container in `doc` without assigning innerHTML. */
+function clipboardHtmlToContainer(html, doc) {
+  const parsed = new DOMParser().parseFromString(html, "text/html");
+  const container = doc.createElement("div");
+  for (const node of Array.from(parsed.body.childNodes)) {
+    container.appendChild(doc.importNode(node, true));
+  }
+  return container;
+}
+
 function hasNonWhitespaceTextInClipboardHtml(html, doc) {
   const fragment = extractClipboardHtmlFragment(html).trim();
   if (!fragment) return false;
-  const container = doc.createElement("div");
-  container.innerHTML = fragment;
+  const container = clipboardHtmlToContainer(fragment, doc);
   const walker = doc.createTreeWalker(container, NodeFilter.SHOW_TEXT);
   let node = walker.nextNode();
   while (node) {
@@ -64,8 +73,7 @@ function hasNonWhitespaceTextInClipboardHtml(html, doc) {
 function derivePlainFromClipboardHtml(html, doc) {
   const fragment = extractClipboardHtmlFragment(html).trim();
   if (!fragment) return "";
-  const container = doc.createElement("div");
-  container.innerHTML = fragment;
+  const container = clipboardHtmlToContainer(fragment, doc);
   const table = container.querySelector(":scope > table");
   if (table && container.children.length === 1) {
     const tsv = tableElementToPlain(table);

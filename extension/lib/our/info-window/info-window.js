@@ -19,10 +19,14 @@ function createInfoWindow(options) {
   closeBtn.type = "button";
   closeBtn.className = classes.close;
   closeBtn.setAttribute("aria-label", options.closeLabel);
-  closeBtn.innerHTML = options.closeIconHtml ?? "&times;";
+  closeBtn.textContent = options.closeIconText ?? "\u00D7";
   const content = document.createElement("div");
   content.className = classes.content;
-  content.innerHTML = options.contentHtml;
+  if (options.contentNode) {
+    content.append(options.contentNode);
+  } else if (typeof options.contentText === "string") {
+    content.textContent = options.contentText;
+  }
   windowEl.append(closeBtn, content);
   overlay.append(windowEl);
   let closed = false;

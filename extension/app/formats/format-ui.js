@@ -39,7 +39,7 @@ function openSettingsInfoWindow(anchor, strings, message) {
   para.textContent = message;
   const { root: root2 } = createInfoWindow({
     classes: INFO_WINDOW_CLASSES,
-    contentHtml: para.outerHTML,
+    contentNode: para,
     closeLabel: strings.infoWindowCloseLabel
   });
   container.appendChild(root2);

@@ -6,6 +6,9 @@ Regular SemVer logic.
 
 ## RELEASES
 
+### 1.1.11
+- Hardened clipboard HTML parsing and info-window content insertion against unsafe `innerHTML`
+
 ### 1.1.10
 - Unified Lucide UI icons via shared vendor copies (`lib/vendor/icons`)
 
