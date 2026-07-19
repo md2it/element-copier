@@ -100,8 +100,7 @@ var EN_MESSAGES = {
   welcomePinStep2: "In the list, find:",
   welcomePinStep3: "Click the pin button:",
   aboutBullets: [
-    "Copy to clipboard",
-    "Download",
+    "Copy to clipboard or download",
     "Remembers recent snapshots",
     "Texts: formatted, plain, markdown, HTML",
     "Images: PNG, JPEG",

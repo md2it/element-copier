@@ -261,14 +261,13 @@ function buildAboutPanelBody(body, strings) {
     return block;
   }
   const overview = { text: strings.aboutOverview ?? "Copy page elements in multiple formats." };
-  const copyDownload = { text: `${items[0].text} or ${items[1].text}` };
   page.append(
     title,
     createPageDivider(),
     section(strings.aboutOverviewHeading ?? "Overview", ABOUT_SECTION_ICONS.overview, [overview]),
-    section(strings.aboutCapabilitiesHeading ?? "Capabilities", ABOUT_SECTION_ICONS.capabilities, [copyDownload, ...items.slice(2, 7)]),
-    section(strings.aboutPrivacyHeading ?? "Privacy", ABOUT_SECTION_ICONS.privacy, items.slice(7, 9)),
-    section(strings.aboutCodeHeading ?? "Code", ABOUT_SECTION_ICONS.code, items.slice(9)),
+    section(strings.aboutCapabilitiesHeading ?? "Capabilities", ABOUT_SECTION_ICONS.capabilities, items.slice(0, 6)),
+    section(strings.aboutPrivacyHeading ?? "Privacy", ABOUT_SECTION_ICONS.privacy, items.slice(6, 8)),
+    section(strings.aboutCodeHeading ?? "Code", ABOUT_SECTION_ICONS.code, items.slice(8)),
     section(strings.aboutStatisticsHeading ?? "Statistics", ABOUT_SECTION_ICONS.statistics, [{ text: strings.aboutCopiedElements.replace("{count}", "0") }]),
     createAboutCredit(strings)
   );

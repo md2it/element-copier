@@ -27,9 +27,9 @@ function buildWelcomeAboutSections(strings) {
   const items = buildAboutListItems(strings);
   return [
     { heading: strings.aboutOverviewHeading, iconHtml: ABOUT_SECTION_ICONS.overview, items: [{ text: strings.aboutOverview }] },
-    { heading: strings.aboutCapabilitiesHeading, iconHtml: ABOUT_SECTION_ICONS.capabilities, items: [{ text: `${items[0].text} or ${items[1].text}` }, ...items.slice(2, 7)] },
-    { heading: strings.aboutPrivacyHeading, iconHtml: ABOUT_SECTION_ICONS.privacy, items: items.slice(7, 9) },
-    { heading: strings.aboutCodeHeading, iconHtml: ABOUT_SECTION_ICONS.code, items: items.slice(9) },
+    { heading: strings.aboutCapabilitiesHeading, iconHtml: ABOUT_SECTION_ICONS.capabilities, items: items.slice(0, 6) },
+    { heading: strings.aboutPrivacyHeading, iconHtml: ABOUT_SECTION_ICONS.privacy, items: items.slice(6, 8) },
+    { heading: strings.aboutCodeHeading, iconHtml: ABOUT_SECTION_ICONS.code, items: items.slice(8) },
     { heading: strings.aboutStatisticsHeading, iconHtml: ABOUT_SECTION_ICONS.statistics, items: [{ text: strings.aboutCopiedElements.replace("{count}", "0") }] }
   ];
 }
