@@ -94,7 +94,7 @@ var EN_MESSAGES = {
   aboutPrivacyHeading: "Privacy",
   aboutCodeHeading: "Code",
   aboutStatisticsHeading: "Statistics",
-  aboutOverview: "Copy page elements in multiple formats.",
+  aboutOverview: "Copy page elements in multiple formats",
   welcomePin: "To keep the extension handy:",
   welcomePinStep1: "The top bar has an extensions list",
   welcomePinStep2: "In the list, find:",

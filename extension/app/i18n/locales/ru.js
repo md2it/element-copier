@@ -87,7 +87,7 @@ var RU_MESSAGES = {
   aboutPrivacyHeading: "Приватность",
   aboutCodeHeading: "Код",
   aboutStatisticsHeading: "Статистика",
-  aboutOverview: "Копирует элементы страницы в разных форматах.",
+  aboutOverview: "Копирует элементы страницы в разных форматах",
   welcomePin: "Чтобы расширение было под рукой:",
   welcomePinStep1: "На верхней панели откройте список расширений",
   welcomePinStep2: "В списке найдите:",
