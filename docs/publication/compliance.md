@@ -18,6 +18,12 @@ The `unlimitedStorage` permission is needed because copied content—especially 
 
 ---
 
+## clipboardWrite
+
+Earlier versions relied on browser clipboard APIs available in their copy flows and did not declare this permission. Element Copier now declares `clipboardWrite` so it can reliably place the result of an explicit user-initiated copy—including text, HTML, images, and other generated formats—on the system clipboard across its supported flows. The permission is not used to read clipboard contents, and copied data is never transmitted off the device.
+
+---
+
 ## scripting
 
 The `scripting` permission is used solely to inject the extension’s own `content.js` into the active tab when the user turns on copy mode or runs a copy action and the script is not already running in that frame (for example on certain pages or embedded frames), so pick-mode highlighting, element selection, and format extraction can work on the page the user is interacting with.
