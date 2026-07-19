@@ -6,6 +6,11 @@ Regular SemVer logic.
 
 ## RELEASES
 
+### 1.1.8
+- Background loads through a single ES-module entry (`app/background/main.js`) for Chrome MV3 and Firefox 121+
+- Goal: one background load path for both browsers, without a second handwritten dependency list in the manifest
+- Prevents Chrome/Firefox background wiring from drifting apart when modules are added or reordered
+
 ### 1.1.7
 - Widened Welcome for denser About text on small screens
 
