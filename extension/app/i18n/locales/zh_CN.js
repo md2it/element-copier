@@ -87,14 +87,13 @@ var ZH_CN_MESSAGES = {
   aboutPrivacyHeading: "隐私",
   aboutCodeHeading: "代码",
   aboutStatisticsHeading: "统计",
-  aboutOverview: "以多种格式复制页面元素。",
+  aboutOverview: "以多种格式复制页面元素",
   welcomePin: "让扩展始终触手可及：",
   welcomePinStep1: "在顶部工具栏打开扩展列表",
   welcomePinStep2: "在列表中找到：",
   welcomePinStep3: "点击固定按钮：",
   aboutBullets: [
-    "复制到剪贴板",
-    "下载",
+    "复制到剪贴板或下载",
     "记住最近的快照",
     "文本：带格式、纯文本、markdown、HTML",
     "图片：PNG、JPEG",
@@ -103,7 +102,7 @@ var ZH_CN_MESSAGES = {
     "不使用网络",
     "不收集数据",
     "GitHub 上的代码",
-    "致谢 (MIT): Lucide, Modern-Screenshot, Turndown"
+    "致谢（MIT）：Lucide、Modern-Screenshot、Turndown"
   ],
   aboutProductName: "Element-Copier",
   aboutCreditAuthor: "md2it",
