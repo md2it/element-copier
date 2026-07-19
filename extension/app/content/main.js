@@ -166,7 +166,7 @@ function attachMessageHandler(state2) {
         if (defaultText !== void 0) {
           await performDefaultAction(defaultCacheKey, defaultText);
         } else {
-          console.warn("[Element Copier] default format not cached (disabled?)");
+          console.debug("[Element Copier] default format not cached (disabled?)");
         }
       }
       notifyElementPicked(element);
