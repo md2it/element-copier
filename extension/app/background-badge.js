@@ -114,7 +114,7 @@ function scheduleClearBlockedBadge(tabId, dismissMs) {
 }
 
 async function showBlockedPageFeedback(tabId, windowId, reason) {
-  console.warn("[Element Copier] page blocked:", reason ?? "unknown", tabId);
+  console.debug("[Element Copier] page blocked:", reason ?? "unknown", tabId);
   tabBlockedBadge.set(tabId, true);
   await syncToolbarBadge(tabId);
   const dismissMs = await getRestrictedNoticeDismissMs();
@@ -131,7 +131,7 @@ async function setToolbarBadge(tabId, text, backgroundColor = BADGE_SELECTION_BA
     }
     await ext.action.setBadgeText({ tabId, text });
   } catch (err) {
-    console.warn("[Element Copier] setBadgeText failed:", err);
+    console.debug("[Element Copier] setBadgeText failed:", err);
   }
 }
 

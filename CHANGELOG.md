@@ -6,6 +6,9 @@ Regular SemVer logic.
 
 ## RELEASES
 
+### 1.1.12
+- Reduced expected copy and fallback logs from warning level to debug level
+
 ### 1.1.11
 - Hardened clipboard HTML parsing and info-window content insertion against unsafe `innerHTML`
 

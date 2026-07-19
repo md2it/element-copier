@@ -17,7 +17,7 @@ async function showPrefixBadge(letter, tabId, backgroundColor = PREFIX_BADGE_BAC
     await setBadgeTextColor?.({ ...tabDetails, color: textColor });
     await ext.action.setBadgeText({ ...tabDetails, text });
   } catch (err) {
-    console.warn("[prefix-hint] setBadgeText failed:", err);
+    console.debug("[prefix-hint] setBadgeText failed:", err);
   }
 }
 
@@ -26,7 +26,7 @@ async function hidePrefixBadge(tabId) {
   try {
     await ext.action.setBadgeText({ ...tabDetails, text: "" });
   } catch (err) {
-    console.warn("[prefix-hint] clear badge failed:", err);
+    console.debug("[prefix-hint] clear badge failed:", err);
   }
 }
 

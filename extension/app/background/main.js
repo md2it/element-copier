@@ -48,7 +48,7 @@ async function injectContent(tabId, frameId) {
     });
     return true;
   } catch (err) {
-    console.warn("[Element Copier] injectContent failed:", err);
+    console.debug("[Element Copier] injectContent failed:", err);
     return false;
   }
 }
@@ -65,7 +65,7 @@ async function sendToTab(tabId, message, frameId) {
     const response = frameId === void 0 ? await ext.tabs.sendMessage(tabId, message) : await ext.tabs.sendMessage(tabId, message, { frameId });
     return isActivationSuccess(message, response);
   } catch (err) {
-    console.warn("[Element Copier] sendToTab failed:", err);
+    console.debug("[Element Copier] sendToTab failed:", err);
     return false;
   }
 }
@@ -103,7 +103,7 @@ async function setTabActive(tabId, active, windowId) {
     setTabActiveState(tabId, false);
     await syncIconForTab(tabId);
     await sendToTab(tabId, { type: "SET_ACTIVE", active: false }, MAIN_FRAME_ID);
-    console.warn(
+    console.debug(
       "[Element Copier] pick mode activation failed on tab",
       tabId,
       windowId ?? ""
@@ -340,7 +340,7 @@ ext.runtime.onMessage.addListener(
           await ext.clipboard.setImageData(imageData, imageType);
           sendResponse({ ok: true });
         } catch (error) {
-          console.warn("[Element Copier] Firefox image clipboard copy failed:", error);
+          console.debug("[Element Copier] Firefox image clipboard copy failed:", error);
           sendResponse({ ok: false });
         }
       })();

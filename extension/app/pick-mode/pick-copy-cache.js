@@ -71,7 +71,7 @@ async function snapshotPickCopyCache(element, inlineImages = DEFAULT_INLINE_IMAG
   try {
     await clearPickCopyCacheStorage();
   } catch (error) {
-    console.warn("[Element Copier] pick copy cache storage clear failed:", error);
+    console.debug("[Element Copier] pick copy cache storage clear failed:", error);
   }
   const enabledFormats = getCachedEnabledFormats();
   const entries = [];
@@ -163,7 +163,7 @@ async function snapshotPickCopyCache(element, inlineImages = DEFAULT_INLINE_IMAG
       }
       await cacheEntry(formatId, extracted);
     } catch (error) {
-      console.warn("[Element Copier] format snapshot failed:", formatId, error);
+      console.debug("[Element Copier] format snapshot failed:", formatId, error);
     }
   }
   cache.snapshot(entries);
@@ -186,7 +186,7 @@ async function snapshotPickCopyCache(element, inlineImages = DEFAULT_INLINE_IMAG
       storageTimeMs += nowMs(doc) - storageStartedAt;
     }
   } catch (error) {
-    console.warn("[Element Copier] pick copy cache storage write failed:", error);
+    console.debug("[Element Copier] pick copy cache storage write failed:", error);
   } finally {
     if (perfEnabled) {
       const totalMs = nowMs(doc) - snapshotStartedAt;

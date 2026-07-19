@@ -18,7 +18,7 @@ function openPanelInActionPopup(config, panelTab, target, fallbackOpenInTab, ext
       if (!openPopup) throw new Error("action.openPopup unavailable");
       await openPopup({ windowId });
     } catch (err) {
-      console.warn(`[${config.logLabel}] openPopup panel failed, using tab:`, err);
+      console.debug(`[${config.logLabel}] openPopup panel failed, using tab:`, err);
       await fallbackOpenInTab(panelTab);
     } finally {
       await ext.action.setPopup(clearPopupDetails);

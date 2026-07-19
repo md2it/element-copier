@@ -143,7 +143,7 @@ function attachMessageHandler(state2) {
             copiedFormatId = formatId;
             panelAction = "copy";
           } else {
-            console.warn("[Element Copier] clipboard copy failed");
+            console.debug("[Element Copier] clipboard copy failed");
           }
         } else {
           const saved = downloadTextAsFile(formatId, value, meta);
@@ -151,7 +151,7 @@ function attachMessageHandler(state2) {
             copiedFormatId = formatId;
             panelAction = "download";
           } else {
-            console.warn("[Element Copier] default download failed");
+            console.debug("[Element Copier] default download failed");
           }
         }
       };
@@ -237,7 +237,7 @@ function attachMessageHandler(state2) {
       notifyBackgroundActive(true);
       return true;
     } catch (err) {
-      console.warn("[Element Copier] activate failed:", err);
+      console.debug("[Element Copier] activate failed:", err);
       deactivate();
       return false;
     }

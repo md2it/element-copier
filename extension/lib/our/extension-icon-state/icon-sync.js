@@ -26,7 +26,7 @@ function createIconSync(config) {
       await ext.action.setIcon({ ...details, path: iconPaths });
     } catch (err) {
       if (details.tabId !== void 0) {
-        console.warn(`[${logLabel}] setIcon(tabId, path) failed:`, err);
+        console.debug(`[${logLabel}] setIcon(tabId, path) failed:`, err);
         try {
           await ext.action.setIcon({ path: iconPaths });
         } catch (err2) {
