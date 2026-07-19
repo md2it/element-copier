@@ -29,8 +29,7 @@ function buildWelcomeAboutSections(strings) {
     { heading: strings.aboutOverviewHeading, iconHtml: ABOUT_SECTION_ICONS.overview, items: [{ text: strings.aboutOverview }] },
     { heading: strings.aboutCapabilitiesHeading, iconHtml: ABOUT_SECTION_ICONS.capabilities, items: items.slice(0, 6) },
     { heading: strings.aboutPrivacyHeading, iconHtml: ABOUT_SECTION_ICONS.privacy, items: items.slice(6, 8) },
-    { heading: strings.aboutCodeHeading, iconHtml: ABOUT_SECTION_ICONS.code, items: items.slice(8) },
-    { heading: strings.aboutStatisticsHeading, iconHtml: ABOUT_SECTION_ICONS.statistics, items: [{ text: strings.aboutCopiedElements.replace("{count}", "0") }] }
+    { heading: strings.aboutCodeHeading, iconHtml: ABOUT_SECTION_ICONS.code, items: items.slice(8) }
   ];
 }
 
