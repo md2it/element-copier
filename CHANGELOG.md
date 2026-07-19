@@ -11,6 +11,9 @@ Version logic:
 
 ## RELEASES
 
+### 1.1.5
+- Refined the About page layout
+
 ### 1.1.4
 - Fixed Firefox TypeError when reading `adoptedStyleSheets` in content scripts ([bug 1770592](https://bugzilla.mozilla.org/show_bug.cgi?id=1770592))
 - Isolated format snapshot errors so one failing format no longer blocks the rest or opening results

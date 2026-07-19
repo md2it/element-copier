@@ -1,5 +1,5 @@
 import { ABOUT_PREFIX_CHORD_MAC_DISPLAY, ABOUT_PREFIX_CHORD_WIN_DISPLAY, getStartHotkeyActionLabel } from "../hotkeys/keys.js";
-import { ABOUT_CHECK_ICON, ABOUT_SECTION_ICONS } from "../icons.js";
+import { ABOUT_SECTION_ICONS } from "../icons.js";
 import { COPY_FORMATS } from "../formats/definitions.js";
 import { buildAboutListItems } from "../about.js";
 import { copyPickedFormatFromPanel } from "./copy-picked-format.js";
@@ -254,7 +254,7 @@ function buildAboutPanelBody(body, strings) {
       label.style.color = "inherit";
       label.addEventListener("click", (e) => e.stopPropagation());
     }
-    li.append(createAboutIcon(ABOUT_CHECK_ICON), label);
+    li.append(label);
     list.appendChild(li);
   }
     block.append(sectionTitle, list);

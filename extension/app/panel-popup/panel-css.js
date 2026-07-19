@@ -1561,11 +1561,11 @@ export const PANEL_CSS = `.ec-panel-header,
 }
 
 .ec-about-list {
-  list-style: none;
+  list-style: disc;
   width: 100%;
   max-width: 100%;
   margin: 0;
-  padding: 0;
+  padding-left: 1.1rem;
   text-align: left;
 }
 
@@ -1585,9 +1585,7 @@ export const PANEL_CSS = `.ec-panel-header,
 }
 
 .ec-about-item {
-  display: flex;
-  align-items: center;
-  gap: 0.35rem;
+  display: list-item;
   margin: 0 0 0.22rem;
   font-size: 0.8rem;
   line-height: 1.35;
@@ -1706,16 +1704,6 @@ export const PANEL_CSS = `.ec-panel-header,
   height: 1rem;
 }
 
-.ec-about-item .ec-about-icon,
-.ec-about-item .ec-about-icon svg {
-  width: 0.75rem;
-  height: 0.75rem;
-}
-
-.ec-about-item .ec-about-icon {
-  align-self: flex-start;
-  margin-top: 0.12rem;
-}
 
 .ec-about-kbd {
   display: inline-block;
