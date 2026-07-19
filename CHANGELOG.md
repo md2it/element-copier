@@ -6,6 +6,9 @@ Regular SemVer logic.
 
 ## RELEASES
 
+### 1.1.7
+- Widened Welcome for denser About text on small screens
+
 ### 1.1.6
 - Updated the Welcome page to match About
 
