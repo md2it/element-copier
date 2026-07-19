@@ -1526,7 +1526,7 @@ export const PANEL_CSS = `.ec-panel-header,
   align-items: center;
   width: 100%;
   margin-top: auto;
-  padding-top: 0.75rem;
+  padding-top: 0.35rem;
   text-align: center;
   font-size: 0.75rem;
   color: #6b7280;
@@ -1534,7 +1534,7 @@ export const PANEL_CSS = `.ec-panel-header,
 
 .ec-about-credit-divider {
   width: 100%;
-  margin: 0 0 0.5rem;
+  margin: 0 0 0.25rem;
   background: currentColor;
 }
 
@@ -1556,7 +1556,7 @@ export const PANEL_CSS = `.ec-panel-header,
 
 .ec-panel-page--about .ec-panel-page-title {
   width: 100%;
-  margin: 0 0 0.5rem;
+  margin: 0 0 0.25rem;
   text-align: center;
 }
 
@@ -1564,18 +1564,33 @@ export const PANEL_CSS = `.ec-panel-header,
   list-style: none;
   width: 100%;
   max-width: 100%;
-  margin: 0 0 0.85rem;
+  margin: 0;
   padding: 0;
   text-align: left;
+}
+
+.ec-about-section {
+  width: 100%;
+  margin: 0 0 0.5rem;
+}
+
+.ec-about-section-title {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin: 0 0 0.2rem;
+  font-size: 0.8rem;
+  line-height: 1.35;
+  color: #374151;
 }
 
 .ec-about-item {
   display: flex;
   align-items: center;
-  gap: 0.45rem;
-  margin: 0 0 0.35rem;
-  font-size: 0.84rem;
-  line-height: 1.45;
+  gap: 0.35rem;
+  margin: 0 0 0.22rem;
+  font-size: 0.8rem;
+  line-height: 1.35;
   color: #374151;
   text-align: left;
 }
@@ -1596,6 +1611,20 @@ export const PANEL_CSS = `.ec-panel-header,
 
 .ec-about-text {
   text-align: left;
+}
+
+.ec-panel-page--about .ec-about-text,
+.ec-panel-page--about .ec-about-section-title,
+.ec-panel-page--about .ec-about-icon,
+.ec-panel-page--about .ec-panel-page-title,
+.ec-panel-page--about .ec-about-credit,
+.ec-panel-page--about .ec-about-credit a:any-link {
+  color: #374151;
+}
+
+.ec-panel-page--about .ec-about-text:any-link {
+  color: inherit;
+  text-decoration: underline;
 }
 
 .ec-about-item--hotkey .ec-about-text {
@@ -1675,6 +1704,17 @@ export const PANEL_CSS = `.ec-panel-header,
   display: block;
   width: 1rem;
   height: 1rem;
+}
+
+.ec-about-item .ec-about-icon,
+.ec-about-item .ec-about-icon svg {
+  width: 0.75rem;
+  height: 0.75rem;
+}
+
+.ec-about-item .ec-about-icon {
+  align-self: flex-start;
+  margin-top: 0.12rem;
 }
 
 .ec-about-kbd {
@@ -1770,6 +1810,16 @@ export const PANEL_CSS = `.ec-panel-header,
 :host(.ec-panel-popup--dark) .ec-about-text,
 :host(.ec-panel-popup--dark) .ec-about-credit {
   color: #9ca3af;
+}
+
+:host(.ec-panel-popup--dark) .ec-panel-page--about .ec-about-section-title,
+:host(.ec-panel-popup--dark) .ec-panel-page--about .ec-about-icon,
+:host(.ec-panel-popup--dark) .ec-panel-page--about .ec-about-text,
+:host(.ec-panel-popup--dark) .ec-panel-page--about .ec-about-text:any-link,
+:host(.ec-panel-popup--dark) .ec-panel-page--about .ec-panel-page-title,
+:host(.ec-panel-popup--dark) .ec-panel-page--about .ec-about-credit,
+:host(.ec-panel-popup--dark) .ec-panel-page--about .ec-about-credit a:any-link {
+  color: #e5e7eb;
 }
 
 :host(.ec-panel-popup--dark) .ec-shortcuts-divider,

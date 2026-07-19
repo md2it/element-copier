@@ -1,16 +1,12 @@
 # PAGE ABOUT
-- Header "ABOUT ELEMENT COPIER"
-- First line: "Total elements copied: {count}"
-- Divider below the activity line
-- (copy) Copy to clipboard
-- (file-down) Download
-- (history) Remembers recent snapshots
-- (text-initial) Texts: formatted, plain, markdown, HTML
-- (image) Images: PNG, JPEG
-- (code) Code selectors: selector, JS path, XPath, full XPath
-- (code) Code styles: declared, computed
-- (shield-check) Doesn't use the network
-- (shield-check) Doesn't collect data
-- (git-fork) Code on GitHub // https://github.com/md2it/browser-extension-element-copier
-- (heart) Credits (MIT): [Lucide](https://github.com/lucide-icons/lucide), [Modern-Screenshot](https://github.com/qq15725/modern-screenshot), [Turndown](https://github.com/mixmark-io/turndown)
+
+- Header "ELEMENT COPIER"
+- Sections, in this order: Overview, Capabilities, Privacy, Code, Statistics
+- Section icons: info, square-check, shield-check, terminal, chart-column-increasing
+- Every content line is prefixed with the Lucide check icon.
+  - Overview: "Copy page elements in multiple formats."
+  - Capabilities: "Copy to clipboard or download"; existing snapshot, text, image, selector and style lines
+  - Privacy: existing network and data-collection lines
+  - Code: GitHub link and MIT credits
+  - Statistics: "Total elements copied: {count}"
 - Standard mini-footer at the bottom below a divider

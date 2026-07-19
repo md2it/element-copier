@@ -1,5 +1,5 @@
 import { ABOUT_PREFIX_CHORD_MAC_DISPLAY, ABOUT_PREFIX_CHORD_WIN_DISPLAY, getStartHotkeyActionLabel } from "../hotkeys/keys.js";
-import { ABOUT_BULLET_ICONS } from "../icons.js";
+import { ABOUT_CHECK_ICON, ABOUT_SECTION_ICONS } from "../icons.js";
 import { COPY_FORMATS } from "../formats/definitions.js";
 import { buildAboutListItems } from "../about.js";
 import { copyPickedFormatFromPanel } from "./copy-picked-format.js";
@@ -36,19 +36,6 @@ function createAboutIcon(iconHtml) {
   mark.setAttribute("aria-hidden", "true");
   mark.innerHTML = iconHtml;
   return mark;
-}
-
-function createCopiedElementsStatistic(strings) {
-  const item = document.createElement("p");
-  item.className = "ec-about-item";
-  const label = document.createElement("span");
-  label.className = "ec-about-text";
-  label.textContent = strings.aboutCopiedElements.replace("{count}", "0");
-  item.append(createAboutIcon(ABOUT_BULLET_ICONS[0]), label);
-  void readSupportSurveyState().then((state) => {
-    label.textContent = strings.aboutCopiedElements.replace("{count}", String(state.actionCount));
-  });
-  return item;
 }
 
 function createKbd(text) {
@@ -244,11 +231,17 @@ function buildAboutPanelBody(body, strings) {
   page.className = "ec-panel-page ec-panel-page--about";
   const title = document.createElement("h2");
   title.className = "ec-panel-page-title";
-  title.textContent = strings.tabAbout;
-  const list = document.createElement("ul");
-  list.className = "ec-about-list";
-  list.setAttribute("aria-label", strings.tabAbout);
-  for (const item of buildAboutListItems(strings)) {
+  title.textContent = strings.aboutPageTitle ?? "ELEMENT COPIER";
+  const items = buildAboutListItems(strings);
+  function section(heading, iconHtml, entries) {
+    const block = document.createElement("section");
+    block.className = "ec-about-section";
+    const sectionTitle = document.createElement("h3");
+    sectionTitle.className = "ec-about-section-title";
+    sectionTitle.append(createAboutIcon(iconHtml), document.createTextNode(heading));
+    const list = document.createElement("ul");
+    list.className = "ec-about-list";
+    for (const item of entries) {
     const li = document.createElement("li");
     li.className = "ec-about-item";
     const label = document.createElement(item.href ? "a" : "span");
@@ -261,10 +254,28 @@ function buildAboutPanelBody(body, strings) {
       label.style.color = "inherit";
       label.addEventListener("click", (e) => e.stopPropagation());
     }
-    li.append(createAboutIcon(item.iconHtml), label);
+    li.append(createAboutIcon(ABOUT_CHECK_ICON), label);
     list.appendChild(li);
   }
-  page.append(title, createPageDivider(), createCopiedElementsStatistic(strings), createPageDivider(), list, createAboutCredit(strings));
+    block.append(sectionTitle, list);
+    return block;
+  }
+  const overview = { text: strings.aboutOverview ?? "Copy page elements in multiple formats." };
+  const copyDownload = { text: `${items[0].text} or ${items[1].text}` };
+  page.append(
+    title,
+    createPageDivider(),
+    section(strings.aboutOverviewHeading ?? "Overview", ABOUT_SECTION_ICONS.overview, [overview]),
+    section(strings.aboutCapabilitiesHeading ?? "Capabilities", ABOUT_SECTION_ICONS.capabilities, [copyDownload, ...items.slice(2, 7)]),
+    section(strings.aboutPrivacyHeading ?? "Privacy", ABOUT_SECTION_ICONS.privacy, items.slice(7, 9)),
+    section(strings.aboutCodeHeading ?? "Code", ABOUT_SECTION_ICONS.code, items.slice(9)),
+    section(strings.aboutStatisticsHeading ?? "Statistics", ABOUT_SECTION_ICONS.statistics, [{ text: strings.aboutCopiedElements.replace("{count}", "0") }]),
+    createAboutCredit(strings)
+  );
+  const statisticText = page.querySelector(".ec-about-section:last-of-type .ec-about-text");
+  void readSupportSurveyState().then((state) => {
+    if (statisticText) statisticText.textContent = strings.aboutCopiedElements.replace("{count}", String(state.actionCount));
+  });
   body.append(page);
 }
 

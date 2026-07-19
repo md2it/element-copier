@@ -88,6 +88,13 @@ var EN_MESSAGES = {
   shortcutsWholePageBefore: "Do the steps above, but tap ",
   shortcutsWholePageAfter: " twice to capture the whole page immediately.",
   tabAbout: "ABOUT",
+  aboutPageTitle: "ELEMENT COPIER",
+  aboutOverviewHeading: "Overview",
+  aboutCapabilitiesHeading: "Capabilities",
+  aboutPrivacyHeading: "Privacy",
+  aboutCodeHeading: "Code",
+  aboutStatisticsHeading: "Statistics",
+  aboutOverview: "Copy page elements in multiple formats.",
   welcomePin: "To keep the extension handy:",
   welcomePinStep1: "The top bar has an extensions list",
   welcomePinStep2: "In the list, find:",
@@ -131,7 +138,7 @@ var LOCALE_MESSAGES = {
 };
 
 function t(locale) {
-  return LOCALE_MESSAGES[locale] ?? EN_MESSAGES;
+  return { ...EN_MESSAGES, ...(LOCALE_MESSAGES[locale] ?? {}) };
 }
 
 export { EN_MESSAGES, LOCALE_MESSAGES, t };
