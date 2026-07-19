@@ -4,7 +4,7 @@ import { PANEL_TITLE } from "../brand.js";
 import { buildAboutListItems } from "../about.js";
 import { isRtlLocale } from "../../lib/our/i18n/rtl.js";
 import { t } from "../i18n/strings.js";
-import { toolbarWelcomeIconSvg } from "../icons.js";
+import { ABOUT_SECTION_ICONS, toolbarWelcomeIconSvg } from "../icons.js";
 import { welcomeStepIcon } from "../../lib/our/welcome/step-icon.js";
 
 function buildWelcomeLocalePayload(locale) {
@@ -17,10 +17,21 @@ function buildWelcomeLocalePayload(locale) {
     pinStep1: strings.welcomePinStep1,
     pinStep2: strings.welcomePinStep2,
     pinStep3: strings.welcomePinStep3,
-    aboutHeading: strings.tabAbout,
-    aboutItems: buildAboutListItems(strings),
+    aboutSections: buildWelcomeAboutSections(strings),
+    aboutFooter: { productName: strings.aboutProductName, author: strings.aboutCreditAuthor },
     langAriaLabel: strings.pageSettingsTitle
   };
+}
+
+function buildWelcomeAboutSections(strings) {
+  const items = buildAboutListItems(strings);
+  return [
+    { heading: strings.aboutOverviewHeading, iconHtml: ABOUT_SECTION_ICONS.overview, items: [{ text: strings.aboutOverview }] },
+    { heading: strings.aboutCapabilitiesHeading, iconHtml: ABOUT_SECTION_ICONS.capabilities, items: [{ text: `${items[0].text} or ${items[1].text}` }, ...items.slice(2, 7)] },
+    { heading: strings.aboutPrivacyHeading, iconHtml: ABOUT_SECTION_ICONS.privacy, items: items.slice(7, 9) },
+    { heading: strings.aboutCodeHeading, iconHtml: ABOUT_SECTION_ICONS.code, items: items.slice(9) },
+    { heading: strings.aboutStatisticsHeading, iconHtml: ABOUT_SECTION_ICONS.statistics, items: [{ text: strings.aboutCopiedElements.replace("{count}", "0") }] }
+  ];
 }
 
 function buildWelcomeData(locale, extensionName, options) {
@@ -47,8 +58,8 @@ function buildWelcomeData(locale, extensionName, options) {
     pinHintIcon: welcomeStepIcon(PIN, 16),
     heartIcon: welcomeStepIcon(HEART, 56),
     isPinned,
-    aboutHeading: current.aboutHeading,
-    aboutItems: current.aboutItems,
+    aboutSections: current.aboutSections,
+    aboutFooter: current.aboutFooter,
     hasAbout: true,
     hasLocales: true,
     locales: [...LOCALES],

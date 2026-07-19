@@ -11,6 +11,9 @@ Version logic:
 
 ## RELEASES
 
+### 1.1.6
+- Updated the Welcome page to match About
+
 ### 1.1.5
 - Refined the About page layout
 

@@ -60,11 +60,7 @@ function stepWithExtension(text, iconSvg, iconUrl, name) {
 
 function createAboutItem(item) {
   const li = document.createElement("li");
-  li.className = `about-item about-item--${item.iconKind}`;
-  const mark = document.createElement("span");
-  mark.className = item.iconKind === "toolbar" ? "about-icon about-icon--toolbar" : "about-icon";
-  mark.setAttribute("aria-hidden", "true");
-  mark.innerHTML = item.iconHtml;
+  li.className = "about-item";
   const label = document.createElement(item.href ? "a" : "span");
   label.className = "about-text";
   label.textContent = item.text;
@@ -74,8 +70,43 @@ function createAboutItem(item) {
     label.rel = "noopener noreferrer";
     label.style.color = "inherit";
   }
-  li.append(mark, label);
+  li.append(label);
   return li;
+}
+
+function createAboutSection(section) {
+  const block = document.createElement("section");
+  block.className = "about-section";
+  const heading = document.createElement("h3");
+  heading.className = "about-section-heading";
+  const icon = document.createElement("span");
+  icon.className = "about-icon";
+  icon.setAttribute("aria-hidden", "true");
+  icon.innerHTML = section.iconHtml;
+  heading.append(icon, document.createTextNode(section.heading));
+  const list = document.createElement("ul");
+  list.className = "about-list";
+  list.append(...section.items.map(createAboutItem));
+  block.append(heading, list);
+  return block;
+}
+
+function createAboutFooter(footer) {
+  const block = document.createElement("footer");
+  block.className = "about-footer";
+  const divider = document.createElement("hr");
+  divider.className = "welcome-sep";
+  const product = document.createElement("p");
+  product.textContent = footer.productName;
+  const author = document.createElement("p");
+  const link = document.createElement("a");
+  link.href = "https://www.md2it.com/";
+  link.target = "_blank";
+  link.rel = "noopener noreferrer";
+  link.textContent = footer.author;
+  author.append("© ", link);
+  block.append(divider, product, author);
+  return block;
 }
 
 function mergeWelcomeLocale(base, localeCode) {
@@ -147,20 +178,17 @@ function populateWelcomeBody(body, data) {
   );
   pinBlock.append(pinHeading, steps);
   const nodes = [langBlock, pinSep, pinBlock];
-  const aboutItems = data.aboutItems;
-  if (data.hasAbout && Array.isArray(aboutItems) && aboutItems.length > 0) {
+  const aboutSections = data.aboutSections;
+  if (data.hasAbout && Array.isArray(aboutSections) && aboutSections.length > 0) {
     const aboutSep = document.createElement("hr");
     aboutSep.className = "welcome-sep";
     aboutSep.id = "about-sep";
-    const aboutHeading = document.createElement("p");
-    aboutHeading.className = "about-heading";
-    aboutHeading.id = "about-heading";
-    aboutHeading.textContent = data.aboutHeading;
-    const aboutList = document.createElement("ul");
-    aboutList.className = "about-list";
-    aboutList.id = "about-list";
-    aboutList.append(...aboutItems.map(createAboutItem));
-    nodes.push(aboutSep, aboutHeading, aboutList);
+    const about = document.createElement("div");
+    about.className = "about";
+    about.id = "about";
+    about.append(...aboutSections.map(createAboutSection));
+    if (data.aboutFooter) about.append(createAboutFooter(data.aboutFooter));
+    nodes.push(aboutSep, about);
   }
   body.replaceChildren(...nodes);
 }
