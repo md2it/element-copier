@@ -52,6 +52,7 @@
 - Markdown
 - HTML
 - تنسيقات التطوير والاختبار:
+   - Tag#id.class
    - Selector
    - مسار JS
    - XPath

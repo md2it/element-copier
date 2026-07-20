@@ -37,6 +37,7 @@ function tryPushCacheEntry(entries, key, value, doc) {
 var SNAPSHOT_CACHE_FORMAT_IDS = [
   "url",
   "outerHTML",
+  "tagIdClass",
   "computedStyles",
   "selector",
   "jsPath",

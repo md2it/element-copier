@@ -16,6 +16,7 @@ UNTERSTÜTZTE FORMATE
 - Seitenquellcode,
 - Viele Formate für Entwickler und Tester:
    - HTML,
+   - Tag#id.class,
    - Selektor,
    - JS-Pfad,
    - XPath,

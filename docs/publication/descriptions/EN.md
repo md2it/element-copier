@@ -16,6 +16,7 @@ SUPPORTED FORMATS
 - Page source code,
 - Many formats for developers and testers:
    - HTML,
+   - Tag#id.class,
    - Selector,
    - JS path,
    - XPath,

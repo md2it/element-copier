@@ -52,6 +52,7 @@ Element Copier peut traiter une page entière ou un élément précis et prépar
 - Markdown
 - HTML
 - Formats de développement et de test :
+   - Tag#id.class
    - Sélecteur
    - Chemin JS
    - XPath

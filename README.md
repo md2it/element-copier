@@ -54,6 +54,7 @@ Element Copier can process an entire page or a specific element and prepare the 
 - Markdown
 - HTML
 - Developer and testing formats:
+   - Tag#id.class
    - Selector
    - JS path
    - XPath

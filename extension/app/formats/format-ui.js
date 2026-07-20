@@ -212,6 +212,8 @@ function defaultActionOptionLabel(storageValue, strings) {
       return strings.settingsDefaultActionDownloadJpeg;
     case "copy:outerHTML":
       return strings.settingsDefaultActionCopyCode;
+    case "copy:tagIdClass":
+      return strings.settingsDefaultActionCopyTagIdClass;
     case "copy:selector":
       return strings.settingsDefaultActionCopySelector;
     case "copy:jsPath":

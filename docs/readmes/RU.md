@@ -54,6 +54,7 @@ Element Copier может обработать всю страницу или о
 - Markdown
 - HTML
 - Форматы для разработки и тестирования:
+   - Tag#id.class
    - Селектор
    - JS path
    - XPath

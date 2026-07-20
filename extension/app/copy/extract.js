@@ -6,6 +6,7 @@ import { getElementComputedStyles } from "../../lib/our/copy/styles-computed.js"
 import { getElementStyles } from "../../lib/our/copy/styles.js";
 import { getFullXPath, getXPath } from "../../lib/our/copy/xpath.js";
 import { getJsPath } from "../../lib/our/copy/js-path.js";
+import { formatTagIdClassLabel } from "../pick-mode/element-label.js";
 import { prepareElementForCopy } from "../../lib/our/copy/cleanup/index.js";
 import { serializeFormattedTextCache } from "../../lib/our/copy/formatted-text/cache.js";
 
@@ -57,6 +58,8 @@ async function extractElementCopyText(element, format, inlineImages = "all") {
     case "outerHTML":
     case "htmlFile":
       return getOuterHtml(element);
+    case "tagIdClass":
+      return formatTagIdClassLabel(element);
     case "selector":
       return getCssSelector(element);
     case "jsPath":

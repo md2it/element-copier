@@ -52,6 +52,7 @@ Element Copier puede procesar una página completa o un elemento específico y p
 - Markdown
 - HTML
 - Formatos para desarrollo y pruebas:
+   - Tag#id.class
    - Selector
    - Ruta JS
    - XPath

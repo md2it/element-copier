@@ -84,6 +84,7 @@ var DEFAULT_ACTION_STORAGE_OPTIONS = [
   "download:png",
   "download:jpeg",
   "copy:outerHTML",
+  "copy:tagIdClass",
   "copy:selector",
   "copy:jsPath",
   "copy:xpath",

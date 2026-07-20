@@ -52,6 +52,7 @@ Element Copier kann eine ganze Seite oder ein bestimmtes Element verarbeiten und
 - Markdown
 - HTML
 - Entwickler- und Testformate:
+   - Tag#id.class
    - Selektor
    - JS-Pfad
    - XPath

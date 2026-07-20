@@ -16,6 +16,7 @@ FORMATS PRIS EN CHARGE
 - Code source de la page,
 - De nombreux formats pour les développeurs et les testeurs :
    - HTML,
+   - Tag#id.class,
    - Sélecteur,
    - Chemin JS,
    - XPath,

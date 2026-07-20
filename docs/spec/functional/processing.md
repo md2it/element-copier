@@ -17,15 +17,16 @@ CACHE = saved to the cache/buffer
 2. Read the user settings. Disabled formats are not generated (skip their steps below)
 3. url // READY CACHE
 4. outerHTML // READY CACHE
-5. computedStyles // READY CACHE
-6. selector
-7. jsPath
-8. xpath
-9. fullXPath
-10. styles
-11. text
-12. markdown
-13. images // see ### Images
+5. tagIdClass
+6. computedStyles // READY CACHE
+7. selector
+8. jsPath
+9. xpath
+10. fullXPath
+11. styles
+12. text
+13. markdown
+14. images // see ### Images
 
 ### Images
 

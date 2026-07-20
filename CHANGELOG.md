@@ -6,6 +6,9 @@ Regular SemVer logic.
 
 ## RELEASES
 
+### 1.2.0
+- Added a new copy format: `tag#id.class` (available in the "Copied" panel and as a "Default action" option, between "Copy code" and "Copy selector")
+
 ### 1.1.12
 - Reduced expected copy and fallback logs from warning level to debug level
 

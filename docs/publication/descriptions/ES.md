@@ -16,6 +16,7 @@ FORMATOS COMPATIBLES
 - Código fuente de la página,
 - Muchos formatos para desarrolladores y testers:
    - HTML,
+   - Tag#id.class,
    - Selector,
    - Ruta JS,
    - XPath,

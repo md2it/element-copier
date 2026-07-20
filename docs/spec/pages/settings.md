@@ -22,6 +22,7 @@
    - Download PNG
    - Download JPEG
    - Copy code
+   - Copy tag#id.class
    - Copy selector
    - Copy JS path
    - Copy XPath

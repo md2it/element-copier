@@ -6,6 +6,12 @@ var COPY_FORMATS = [
     settingsGroup: "devtools"
   },
   {
+    id: "tagIdClass",
+    label: (s) => s.formatTagIdClass,
+    actionIcon: "copy",
+    settingsGroup: "devtools"
+  },
+  {
     id: "selector",
     label: (s) => s.formatSelector,
     actionIcon: "copy",

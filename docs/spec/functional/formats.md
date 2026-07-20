@@ -4,6 +4,7 @@
 
 ## Devtools
 - code
+- tag#id.class
 - selector
 - JS path
 - XPath
