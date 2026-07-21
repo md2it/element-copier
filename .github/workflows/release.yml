@@ -10,8 +10,16 @@ permissions:
 
 jobs:
   release:
-    uses: md2it/browser-extension-ci-cd/.github/workflows/release-extension.yml@v1.1.0
+    uses: md2it/browser-extension-ci-cd/.github/workflows/release-extension.yml@v1.3.0
     with:
       extension-root: extension
       zip-name: element-copier.zip
       changelog-path: CHANGELOG.md
+      chrome-extension-id: ${{ vars.CHROME_EXTENSION_ID }}
+      chrome-publisher-id: ${{ vars.CHROME_PUBLISHER_ID }}
+      amo-addon-id: ${{ vars.AMO_ADDON_ID }}
+      store-upload-enabled: ${{ vars.STORE_UPLOAD_ENABLED }}
+    secrets:
+      chrome-service-account-json: ${{ secrets.CHROME_SERVICE_ACCOUNT_JSON }}
+      amo-jwt-issuer: ${{ secrets.AMO_JWT_ISSUER }}
+      amo-jwt-secret: ${{ secrets.AMO_JWT_SECRET }}

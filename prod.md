@@ -39,6 +39,8 @@ npm run build:extension -- \
 
 The builder creates a temporary staging copy, minifies it, and writes the ZIP. It does not modify the extension source.
 
-## Store automation roadmap
+## Store automation
 
-The next release-stage improvement is automatic package upload to Chrome Web Store and Firefox Add-ons after the GitHub Release is created. Publication remains manual until the process is explicitly changed. Firefox listing text and screenshots are managed separately from ordinary code releases.
+After the GitHub Release is created, the central reusable workflow can upload the same ZIP to Chrome, but only when both `STORE_UPLOAD_ENABLED=true` and the product input are explicitly enabled. Required variables are `STORE_UPLOAD_ENABLED`, `CHROME_EXTENSION_ID`, `CHROME_PUBLISHER_ID`, and `AMO_ADDON_ID`; required secret is `CHROME_SERVICE_ACCOUNT_JSON`. AMO credentials, if created later, are `AMO_JWT_ISSUER` and `AMO_JWT_SECRET`.
+
+Chrome upload is not a publish call: the workflow never invokes `:publish`. AMO listed upload remains manual because the official AMO flow submits the version to the listed/moderation pipeline and does not guarantee upload-only behavior. To enable Chrome safely, grant the service account access, add the variables/secrets, then set `STORE_UPLOAD_ENABLED` to `true`; to disable it, unset/change that variable. No store integration is enabled by default.
