@@ -19,6 +19,13 @@
 
 Laden Sie das gesamte Verzeichnis [`extension`](../../extension) als entpackte Erweiterung.
 
+### GitHub Release
+
+Laden Sie das aktuelle Release-ZIP für die lokale Installation herunter:
+[element-copier.zip](https://github.com/md2it/element-copier/releases/latest/download/element-copier.zip)
+
+Entpacken Sie das Archiv und laden Sie den Ordner als entpackte Erweiterung.
+
 ## BESCHREIBUNG
 
 Kopieren und laden Sie Inhalte von Webseiten schnell in einem praktischen Format herunter.

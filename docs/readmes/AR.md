@@ -19,6 +19,13 @@
 
 حمّل مجلد [`extension`](../../extension) بالكامل كإضافة غير مضغوطة.
 
+### GitHub Release
+
+نزّل أحدث ملف ZIP للتثبيت المحلي:
+[element-copier.zip](https://github.com/md2it/element-copier/releases/latest/download/element-copier.zip)
+
+فُك ضغط الأرشيف وحمّل المجلد كإضافة غير مضغوطة.
+
 ## الوصف
 
 انسخ محتوى صفحات الويب ونزّله بسرعة وبتنسيق مناسب.

@@ -19,6 +19,13 @@
 
 Carga el directorio completo [`extension`](../../extension) como una extensión descomprimida.
 
+### GitHub Release
+
+Descarga el ZIP de la última versión para instalación local:
+[element-copier.zip](https://github.com/md2it/element-copier/releases/latest/download/element-copier.zip)
+
+Descomprime el archivo y carga la carpeta como una extensión descomprimida.
+
 ## DESCRIPCIÓN
 
 Copia y descarga rápidamente contenido de páginas web en un formato práctico.

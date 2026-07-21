@@ -21,6 +21,13 @@
 
 将整个 [`extension`](../../extension) 目录作为未打包的扩展程序加载。
 
+### GitHub Release
+
+下载最新版本的 ZIP 进行本地安装：
+[element-copier.zip](https://github.com/md2it/element-copier/releases/latest/download/element-copier.zip)
+
+解压归档后，将该文件夹作为未打包的扩展程序加载。
+
 ## 说明
 
 快速复制和下载网页内容，并转换为方便使用的格式。

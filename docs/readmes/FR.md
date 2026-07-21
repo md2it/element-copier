@@ -19,6 +19,13 @@
 
 Chargez l'intégralité du répertoire [`extension`](../../extension) comme extension non empaquetée.
 
+### GitHub Release
+
+Téléchargez le ZIP de la dernière version pour une installation locale :
+[element-copier.zip](https://github.com/md2it/element-copier/releases/latest/download/element-copier.zip)
+
+Décompressez l'archive et chargez le dossier comme extension non empaquetée.
+
 ## DESCRIPTION
 
 Copiez et téléchargez rapidement le contenu de pages web dans un format pratique.

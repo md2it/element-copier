@@ -23,7 +23,10 @@ Load the entire [`extension`](./extension) directory as an unpacked extension.
 
 ### GitHub Release
 
-Pushing a version tag that matches `manifest.json` (for example, `v1.2.0`) creates a GitHub Release with the packaged extension.
+Download the latest release ZIP for local install:
+[element-copier.zip](https://github.com/md2it/element-copier/releases/latest/download/element-copier.zip)
+
+Unpack the archive and load the folder as an unpacked extension.
 
 ## DESCRIPTION
 
