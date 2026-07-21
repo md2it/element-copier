@@ -28,7 +28,7 @@ SÉCURITÉ
 - Elle n'envoie aucune donnée.
 
 LANGUES DE L'INTERFACE
-Russe, anglais, espagnol, français, allemand, chinois simplifié, arabe.
+Anglais, français, allemand, espagnol, russe, arabe, chinois simplifié.
 
 FAIT AVEC AMOUR
 - Le formatage du texte via cette extension est meilleur qu'un simple copier-coller (pas parfait, mais bien mieux et bien plus pratique) ;

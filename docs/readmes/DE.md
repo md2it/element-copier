@@ -4,6 +4,12 @@
 =-=-=-=-=-=-=-=-= | DE | <a href="../../README.md">EN</a> | <a href="./ES.md">ES</a> | <a href="./FR.md">FR</a> | <a href="./RU.md">RU</a> | <a href="./ZH.md">中文</a> | <a href="./AR.md">عربي</a> | =-=-=-=-=-=-=-=-=
 </p>
 
+## BESCHREIBUNG
+
+Kopieren und laden Sie Inhalte von Webseiten schnell in einem praktischen Format herunter.
+
+Element Copier kann eine ganze Seite oder ein bestimmtes Element verarbeiten und das Ergebnis gleichzeitig in mehreren Formaten erstellen. Der zuletzt kopierte Inhalt bleibt für jedes aktivierte Format verfügbar.
+
 <p align="center">
   <a href="../publication/screenshots/DE-0.png"><img src="../publication/screenshots/DE-0.png" width="180" alt="Element Copier screenshot 1"></a>
 </p>
@@ -15,22 +21,14 @@
 - Chrome https://chromewebstore.google.com/detail/element-copier/gdcdnijkedjdjighmalgialikcgkibel
 - Firefox https://addons.mozilla.org/firefox/addon/element-copier/ (wird moderiert)
 
-### Entwicklungsmodus
+### Manuelle Installation
 
-Laden Sie das gesamte Verzeichnis [`extension`](../../extension) als entpackte Erweiterung.
+- **GitHub Release.** Laden Sie das aktuelle Release-ZIP für die lokale Installation herunter:
+  [element-copier.zip](https://github.com/md2it/element-copier/releases/latest/download/element-copier.zip)
 
-### GitHub Release
+  Entpacken Sie das Archiv und laden Sie den Ordner als entpackte Erweiterung.
 
-Laden Sie das aktuelle Release-ZIP für die lokale Installation herunter:
-[element-copier.zip](https://github.com/md2it/element-copier/releases/latest/download/element-copier.zip)
-
-Entpacken Sie das Archiv und laden Sie den Ordner als entpackte Erweiterung.
-
-## BESCHREIBUNG
-
-Kopieren und laden Sie Inhalte von Webseiten schnell in einem praktischen Format herunter.
-
-Element Copier kann eine ganze Seite oder ein bestimmtes Element verarbeiten und das Ergebnis gleichzeitig in mehreren Formaten erstellen. Der zuletzt kopierte Inhalt bleibt für jedes aktivierte Format verfügbar.
+- **Entwicklungsmodus.** Laden Sie das gesamte Verzeichnis [`extension`](../../extension) als entpackte Erweiterung.
 
 ## HAUPTFUNKTIONEN
 
@@ -43,14 +41,7 @@ Element Copier kann eine ganze Seite oder ein bestimmtes Element verarbeiten und
 - Helles und dunkles Design
 - Flexible Einstellungen
 
-## DATENSCHUTZ
-
-- Keine Datenerfassung
-- Kein Tracking
-- Keine Netzwerkanfragen
-- Seiteninhalte werden lokal im Browser verarbeitet
-
-## UNTERSTÜTZTE FORMATE
+### Unterstützte Formate
 
 - Rich Text zum Einfügen in Google Docs und Word
 - Bilder:
@@ -67,15 +58,12 @@ Element Copier kann eine ganze Seite oder ein bestimmtes Element verarbeiten und
    - Deklarierte Stile
    - Berechnete Stile
 
-## OBERFLÄCHENSPRACHEN
+### Produkthinweise
 
-- Englisch
-- Russisch
-- Spanisch
-- Französisch
-- Deutsch
-- Vereinfachtes Chinesisch
-- Arabisch
+- Die Rich-Text-Formatierung liefert bessere Ergebnisse als einfaches Kopieren und Einfügen
+- Tastaturkürzel und eine Standardaktion reduzieren die Anzahl der Schritte bei wiederholtem Kopieren
+- Entwicklerformate stellen häufig benötigte Prüfdaten ohne DevTools bereit
+- Die Markdown-Verarbeitung bewahrt nach Möglichkeit Layout, Links und Inhaltsbilder, einschließlich konvertierter SVG-Bilder
 
 ## VERWENDUNG
 
@@ -97,13 +85,6 @@ E = Erweiterung
 
 Weitere Informationen zu Tastaturkürzeln, Cache-Verhalten, Rich-Text-Kopieren und Aktionen mit kopierten Inhalten finden Sie unter [alle Benutzerpfade](../spec/user-path.md).
 
-## PRODUKTHINWEISE
-
-- Die Rich-Text-Formatierung liefert bessere Ergebnisse als einfaches Kopieren und Einfügen
-- Tastaturkürzel und eine Standardaktion reduzieren die Anzahl der Schritte bei wiederholtem Kopieren
-- Entwicklerformate stellen häufig benötigte Prüfdaten ohne DevTools bereit
-- Die Markdown-Verarbeitung bewahrt nach Möglichkeit Layout, Links und Inhaltsbilder, einschließlich konvertierter SVG-Bilder
-
 ## EINSCHRÄNKUNGEN
 
 - **Die Auswahl von Iframes unterscheidet sich** von der Auswahl anderer Elemente:
@@ -120,6 +101,23 @@ Weitere Informationen zu Tastaturkürzeln, Cache-Verhalten, Rich-Text-Kopieren u
 - **Die Behandlung kleiner Bilder in Markdown ist optional:**
    - Je nach Anwendungsfall sollen kleine Bilder einbezogen oder ausgeschlossen werden
    - Dieses Verhalten wird über eine separate Einstellung gesteuert
+
+## DATENSCHUTZ
+
+- Keine Datenerfassung
+- Kein Tracking
+- Keine Netzwerkanfragen
+- Seiteninhalte werden lokal im Browser verarbeitet
+
+## OBERFLÄCHENSPRACHEN
+
+- Englisch
+- Französisch
+- Deutsch
+- Spanisch
+- Russisch
+- Arabisch
+- Vereinfachtes Chinesisch
 
 ## LIZENZ
 

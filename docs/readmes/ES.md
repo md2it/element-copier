@@ -4,6 +4,12 @@
 =-=-=-=-=-=-=-=-= | <a href="./DE.md">DE</a> | <a href="../../README.md">EN</a> | ES | <a href="./FR.md">FR</a> | <a href="./RU.md">RU</a> | <a href="./ZH.md">中文</a> | <a href="./AR.md">عربي</a> | =-=-=-=-=-=-=-=-=
 </p>
 
+## DESCRIPCIÓN
+
+Copia y descarga rápidamente contenido de páginas web en un formato práctico.
+
+Element Copier puede procesar una página completa o un elemento específico y preparar el resultado en varios formatos a la vez. El último contenido copiado permanece disponible para cada formato habilitado.
+
 <p align="center">
   <a href="../publication/screenshots/ES-0.png"><img src="../publication/screenshots/ES-0.png" width="180" alt="Element Copier screenshot 1"></a>
 </p>
@@ -15,22 +21,14 @@
 - Chrome https://chromewebstore.google.com/detail/element-copier/gdcdnijkedjdjighmalgialikcgkibel
 - Firefox https://addons.mozilla.org/firefox/addon/element-copier/ (en moderación)
 
-### Modo de desarrollo
+### Instalación manual
 
-Carga el directorio completo [`extension`](../../extension) como una extensión descomprimida.
+- **GitHub Release.** Descarga el ZIP de la última versión para instalación local:
+  [element-copier.zip](https://github.com/md2it/element-copier/releases/latest/download/element-copier.zip)
 
-### GitHub Release
+  Descomprime el archivo y carga la carpeta como una extensión descomprimida.
 
-Descarga el ZIP de la última versión para instalación local:
-[element-copier.zip](https://github.com/md2it/element-copier/releases/latest/download/element-copier.zip)
-
-Descomprime el archivo y carga la carpeta como una extensión descomprimida.
-
-## DESCRIPCIÓN
-
-Copia y descarga rápidamente contenido de páginas web en un formato práctico.
-
-Element Copier puede procesar una página completa o un elemento específico y preparar el resultado en varios formatos a la vez. El último contenido copiado permanece disponible para cada formato habilitado.
+- **Modo de desarrollo.** Carga el directorio completo [`extension`](../../extension) como una extensión descomprimida.
 
 ## FUNCIONES PRINCIPALES
 
@@ -43,14 +41,7 @@ Element Copier puede procesar una página completa o un elemento específico y p
 - Temas claro y oscuro
 - Configuración flexible
 
-## PRIVACIDAD
-
-- No se recopilan datos
-- Sin seguimiento
-- Sin solicitudes de red
-- El contenido de la página se procesa localmente en el navegador
-
-## FORMATOS COMPATIBLES
+### Formatos compatibles
 
 - Texto enriquecido para pegar en Google Docs y Word
 - Imágenes:
@@ -67,15 +58,12 @@ Element Copier puede procesar una página completa o un elemento específico y p
    - Estilos declarados
    - Estilos calculados
 
-## IDIOMAS DE LA INTERFAZ
+### Notas del producto
 
-- Inglés
-- Ruso
-- Español
-- Francés
-- Alemán
-- Chino simplificado
-- Árabe
+- El formato de texto enriquecido está diseñado para ofrecer un resultado mejor que copiar y pegar de forma básica
+- Los atajos de teclado y una acción predeterminada reducen los pasos de las copias repetidas
+- Los formatos para desarrolladores ofrecen datos de inspección habituales sin abrir DevTools
+- El procesamiento de Markdown conserva, cuando es posible, el diseño, los enlaces y las imágenes del contenido, incluidas las imágenes SVG convertidas
 
 ## USO
 
@@ -97,13 +85,6 @@ E = Extensión
 
 Consulta [todas las rutas de usuario](../spec/user-path.md) para conocer los atajos de teclado, el comportamiento de la caché, la copia de texto enriquecido y las acciones sobre el contenido copiado.
 
-## NOTAS DEL PRODUCTO
-
-- El formato de texto enriquecido está diseñado para ofrecer un resultado mejor que copiar y pegar de forma básica
-- Los atajos de teclado y una acción predeterminada reducen los pasos de las copias repetidas
-- Los formatos para desarrolladores ofrecen datos de inspección habituales sin abrir DevTools
-- El procesamiento de Markdown conserva, cuando es posible, el diseño, los enlaces y las imágenes del contenido, incluidas las imágenes SVG convertidas
-
 ## LIMITACIONES
 
 - **La selección de iframes es diferente** a la de otros elementos:
@@ -120,6 +101,23 @@ Consulta [todas las rutas de usuario](../spec/user-path.md) para conocer los ata
 - **El tratamiento de imágenes pequeñas en Markdown es opcional:**
    - Algunos casos requieren incluirlas y otros excluirlas
    - Este comportamiento se controla mediante una configuración independiente
+
+## PRIVACIDAD
+
+- No se recopilan datos
+- Sin seguimiento
+- Sin solicitudes de red
+- El contenido de la página se procesa localmente en el navegador
+
+## IDIOMAS DE LA INTERFAZ
+
+- Inglés
+- Francés
+- Alemán
+- Español
+- Ruso
+- Árabe
+- Chino simplificado
 
 ## LICENCIA
 

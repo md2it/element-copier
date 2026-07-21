@@ -28,7 +28,7 @@ SICHERHEIT
 - Sie sendet keine Daten irgendwohin.
 
 OBERFLÄCHENSPRACHEN
-Russisch, Englisch, Spanisch, Französisch, Deutsch, vereinfachtes Chinesisch, Arabisch.
+Englisch, Französisch, Deutsch, Spanisch, Russisch, Arabisch, vereinfachtes Chinesisch.
 
 MIT LIEBE GEMACHT
 - Die Textformatierung über diese Erweiterung ist besser als einfaches Kopieren und Einfügen (nicht perfekt, aber deutlich besser und deutlich bequemer);

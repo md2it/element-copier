@@ -4,6 +4,12 @@
 =-=-=-=-=-=-=-=-= | <a href="./DE.md">DE</a> | <a href="../../README.md">EN</a> | <a href="./ES.md">ES</a> | FR | <a href="./RU.md">RU</a> | <a href="./ZH.md">中文</a> | <a href="./AR.md">عربي</a> | =-=-=-=-=-=-=-=-=
 </p>
 
+## DESCRIPTION
+
+Copiez et téléchargez rapidement le contenu de pages web dans un format pratique.
+
+Element Copier peut traiter une page entière ou un élément précis et préparer simultanément le résultat dans plusieurs formats. Le dernier contenu copié reste disponible pour chaque format activé.
+
 <p align="center">
   <a href="../publication/screenshots/FR-0.png"><img src="../publication/screenshots/FR-0.png" width="180" alt="Element Copier screenshot 1"></a>
 </p>
@@ -15,22 +21,14 @@
 - Chrome https://chromewebstore.google.com/detail/element-copier/gdcdnijkedjdjighmalgialikcgkibel
 - Firefox https://addons.mozilla.org/firefox/addon/element-copier/ (en cours de modération)
 
-### Mode développement
+### Installation manuelle
 
-Chargez l'intégralité du répertoire [`extension`](../../extension) comme extension non empaquetée.
+- **GitHub Release.** Téléchargez le ZIP de la dernière version pour une installation locale :
+  [element-copier.zip](https://github.com/md2it/element-copier/releases/latest/download/element-copier.zip)
 
-### GitHub Release
+  Décompressez l'archive et chargez le dossier comme extension non empaquetée.
 
-Téléchargez le ZIP de la dernière version pour une installation locale :
-[element-copier.zip](https://github.com/md2it/element-copier/releases/latest/download/element-copier.zip)
-
-Décompressez l'archive et chargez le dossier comme extension non empaquetée.
-
-## DESCRIPTION
-
-Copiez et téléchargez rapidement le contenu de pages web dans un format pratique.
-
-Element Copier peut traiter une page entière ou un élément précis et préparer simultanément le résultat dans plusieurs formats. Le dernier contenu copié reste disponible pour chaque format activé.
+- **Mode développement.** Chargez l'intégralité du répertoire [`extension`](../../extension) comme extension non empaquetée.
 
 ## FONCTIONNALITÉS PRINCIPALES
 
@@ -43,14 +41,7 @@ Element Copier peut traiter une page entière ou un élément précis et prépar
 - Thèmes clair et sombre
 - Paramètres flexibles
 
-## CONFIDENTIALITÉ
-
-- Aucune collecte de données
-- Aucun suivi
-- Aucune requête réseau
-- Le contenu des pages est traité localement dans le navigateur
-
-## FORMATS PRIS EN CHARGE
+### Formats pris en charge
 
 - Texte enrichi à coller dans Google Docs et Word
 - Images :
@@ -67,15 +58,12 @@ Element Copier peut traiter une page entière ou un élément précis et prépar
    - Styles déclarés
    - Styles calculés
 
-## LANGUES DE L'INTERFACE
+### Notes sur le produit
 
-- Anglais
-- Russe
-- Espagnol
-- Français
-- Allemand
-- Chinois simplifié
-- Arabe
+- La mise en forme du texte enrichi vise un meilleur résultat qu'un simple copier-coller
+- Les raccourcis clavier et une action par défaut réduisent le nombre d'étapes pour les copies répétées
+- Les formats destinés aux développeurs fournissent des données d'inspection courantes sans ouvrir les DevTools
+- Le traitement Markdown préserve autant que possible la mise en page, les liens et les images du contenu, y compris les images SVG converties
 
 ## UTILISATION
 
@@ -97,13 +85,6 @@ E = Extension
 
 Consultez [tous les parcours utilisateur](../spec/user-path.md) pour les raccourcis clavier, le fonctionnement du cache, la copie de texte enrichi et les actions sur le contenu copié.
 
-## NOTES SUR LE PRODUIT
-
-- La mise en forme du texte enrichi vise un meilleur résultat qu'un simple copier-coller
-- Les raccourcis clavier et une action par défaut réduisent le nombre d'étapes pour les copies répétées
-- Les formats destinés aux développeurs fournissent des données d'inspection courantes sans ouvrir les DevTools
-- Le traitement Markdown préserve autant que possible la mise en page, les liens et les images du contenu, y compris les images SVG converties
-
 ## LIMITATIONS
 
 - **La sélection d'une iframe diffère** de celle des autres éléments :
@@ -120,6 +101,23 @@ Consultez [tous les parcours utilisateur](../spec/user-path.md) pour les raccour
 - **La gestion des petites images dans Markdown est facultative :**
    - Certains usages nécessitent de les inclure, d'autres de les exclure
    - Ce comportement est contrôlé par un paramètre distinct
+
+## CONFIDENTIALITÉ
+
+- Aucune collecte de données
+- Aucun suivi
+- Aucune requête réseau
+- Le contenu des pages est traité localement dans le navigateur
+
+## LANGUES DE L'INTERFACE
+
+- Anglais
+- Français
+- Allemand
+- Espagnol
+- Russe
+- Arabe
+- Chinois simplifié
 
 ## LICENCE
 

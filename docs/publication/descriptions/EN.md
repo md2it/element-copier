@@ -28,7 +28,7 @@ SECURITY
 - It does not send any data anywhere.
 
 INTERFACE LANGUAGES
-Russian, English, Spanish, French, German, Simplified Chinese, Arabic.
+English, French, German, Spanish, Russian, Arabic, Simplified Chinese.
 
 MADE WITH LOVE
 - Text formatting through this extension is better than plain copy-paste (not perfect, but much better and much more convenient);

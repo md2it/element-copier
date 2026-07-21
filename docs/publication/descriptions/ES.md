@@ -28,7 +28,7 @@ SEGURIDAD
 - No envía ningún dato a ningún sitio.
 
 IDIOMAS DE LA INTERFAZ
-Ruso, inglés, español, francés, alemán, chino simplificado, árabe.
+Inglés, francés, alemán, español, ruso, árabe, chino simplificado.
 
 HECHO CON CARIÑO
 - El formato de texto con esta extensión es mejor que un copiar y pegar simple (no es perfecto, pero es mucho mejor y mucho más cómodo);

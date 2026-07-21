@@ -4,6 +4,12 @@
 =-=-=-=-=-=-=-=-= | <a href="./docs/readmes/DE.md">DE</a> | EN | <a href="./docs/readmes/ES.md">ES</a> | <a href="./docs/readmes/FR.md">FR</a> | <a href="./docs/readmes/RU.md">RU</a> | <a href="./docs/readmes/ZH.md">中文</a> | <a href="./docs/readmes/AR.md">عربي</a> | =-=-=-=-=-=-=-=-=
 </p>
 
+## DESCRIPTION
+
+Copy and download content from web pages quickly in a convenient format.
+
+Element Copier can process an entire page or a specific element and prepare the result in multiple formats at once. The latest copied content remains available for every enabled format.
+
 <p align="center">
   <a href="./docs/publication/screenshots/EN-0.png"><img src="./docs/publication/screenshots/EN-0.png" width="180" alt="Element Copier screenshot 1"></a>
   <a href="./docs/publication/screenshots/EN-1.png"><img src="./docs/publication/screenshots/EN-1.png" width="180" alt="Element Copier screenshot 2"></a>
@@ -17,22 +23,14 @@
 - Chrome https://chromewebstore.google.com/detail/element-copier/gdcdnijkedjdjighmalgialikcgkibel
 - Firefox https://addons.mozilla.org/firefox/addon/element-copier/ (under moderation)
 
-### Development mode
+### Manual installation
 
-Load the entire [`extension`](./extension) directory as an unpacked extension.
+- **GitHub Release.** Download the latest release ZIP for local install:
+  [element-copier.zip](https://github.com/md2it/element-copier/releases/latest/download/element-copier.zip)
 
-### GitHub Release
+  Unpack the archive and load the folder as an unpacked extension.
 
-Download the latest release ZIP for local install:
-[element-copier.zip](https://github.com/md2it/element-copier/releases/latest/download/element-copier.zip)
-
-Unpack the archive and load the folder as an unpacked extension.
-
-## DESCRIPTION
-
-Copy and download content from web pages quickly in a convenient format.
-
-Element Copier can process an entire page or a specific element and prepare the result in multiple formats at once. The latest copied content remains available for every enabled format.
+- **Development mode.** Load the entire [`extension`](./extension) directory as an unpacked extension.
 
 ## KEY FEATURES
 
@@ -45,14 +43,7 @@ Element Copier can process an entire page or a specific element and prepare the 
 - Light and dark themes
 - Flexible settings
 
-## PRIVACY
-
-- No data collection
-- No tracking
-- No network requests
-- Page content is processed locally in the browser
-
-## SUPPORTED FORMATS
+### Supported formats
 
 - Rich text for pasting into Google Docs and Word
 - Images:
@@ -69,15 +60,12 @@ Element Copier can process an entire page or a specific element and prepare the 
    - Declared styles
    - Computed styles
 
-## INTERFACE LANGUAGES
+### Product notes
 
-- English
-- Russian
-- Spanish
-- French
-- German
-- Simplified Chinese
-- Arabic
+- Rich-text formatting is designed to produce a better result than basic copy and paste
+- Keyboard shortcuts combined with a default action reduce the number of steps for repeated copying
+- Developer formats make common inspection data available without opening DevTools
+- Markdown processing preserves layout, links, and content images where possible, including converted SVG images
 
 ## USAGE
 
@@ -98,13 +86,6 @@ E = Extension
    - Stops element selection mode
 
 See [all user paths](./docs/spec/user-path.md) for keyboard shortcuts, cache behavior, rich-text copying, and actions on copied content.
-
-## PRODUCT NOTES
-
-- Rich-text formatting is designed to produce a better result than basic copy and paste
-- Keyboard shortcuts combined with a default action reduce the number of steps for repeated copying
-- Developer formats make common inspection data available without opening DevTools
-- Markdown processing preserves layout, links, and content images where possible, including converted SVG images
 
 ## LIMITATIONS
 
@@ -131,6 +112,23 @@ See [all user paths](./docs/spec/user-path.md) for keyboard shortcuts, cache beh
    - Other use cases require excluding them
    - The extension cannot predict the user's goal
    - This behavior is controlled by a separate setting
+
+## PRIVACY
+
+- No data collection
+- No tracking
+- No network requests
+- Page content is processed locally in the browser
+
+## INTERFACE LANGUAGES
+
+- English
+- French
+- German
+- Spanish
+- Russian
+- Arabic
+- Simplified Chinese
 
 ## LICENSE
 
