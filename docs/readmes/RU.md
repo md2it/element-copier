@@ -20,8 +20,8 @@ Element Copier может обработать всю страницу или о
 
 ### Магазины
 
-- Chrome https://chromewebstore.google.com/detail/element-copier/gdcdnijkedjdjighmalgialikcgkibel
-- Firefox https://addons.mozilla.org/firefox/addon/element-copier/ (на модерации)
+- [Chrome Web Store](https://chromewebstore.google.com/detail/element-copier/gdcdnijkedjdjighmalgialikcgkibel)
+- [Firefox Add-ons](https://addons.mozilla.org/firefox/addon/element-copier/)
 
 ### Ручная установка
 

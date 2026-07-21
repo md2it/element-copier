@@ -18,8 +18,8 @@
 
 ### المتاجر
 
-- Chrome https://chromewebstore.google.com/detail/element-copier/gdcdnijkedjdjighmalgialikcgkibel
-- Firefox https://addons.mozilla.org/firefox/addon/element-copier/ (قيد المراجعة)
+- [Chrome Web Store](https://chromewebstore.google.com/detail/element-copier/gdcdnijkedjdjighmalgialikcgkibel)
+- [Firefox Add-ons](https://addons.mozilla.org/firefox/addon/element-copier/)
 
 ### التثبيت اليدوي
 

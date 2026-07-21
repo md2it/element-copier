@@ -18,8 +18,8 @@ Element Copier puede procesar una página completa o un elemento específico y p
 
 ### Tiendas
 
-- Chrome https://chromewebstore.google.com/detail/element-copier/gdcdnijkedjdjighmalgialikcgkibel
-- Firefox https://addons.mozilla.org/firefox/addon/element-copier/ (en moderación)
+- [Chrome Web Store](https://chromewebstore.google.com/detail/element-copier/gdcdnijkedjdjighmalgialikcgkibel)
+- [Firefox Add-ons](https://addons.mozilla.org/firefox/addon/element-copier/)
 
 ### Instalación manual
 
