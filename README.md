@@ -21,6 +21,10 @@
 
 Load the entire [`extension`](./extension) directory as an unpacked extension.
 
+### GitHub Release
+
+Pushing a version tag that matches `manifest.json` (for example, `v1.2.0`) creates a GitHub Release with the packaged extension.
+
 ## DESCRIPTION
 
 Copy and download content from web pages quickly in a convenient format.

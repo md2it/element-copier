@@ -1,0 +1,17 @@
+name: Release extension
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    uses: md2it/browser-extension-ci-cd/.github/workflows/release-extension.yml@v1.1.0
+    with:
+      extension-root: extension
+      zip-name: element-copier.zip
+      changelog-path: CHANGELOG.md
