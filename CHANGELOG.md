@@ -6,6 +6,9 @@ Regular SemVer logic.
 
 ## RELEASES
 
+### 1.2.2
+- Test Chrome Web Store API upload while another version is under review
+
 ### 1.2.1
 - Prepared Chrome Web Store upload release
 
