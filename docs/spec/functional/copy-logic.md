@@ -5,7 +5,7 @@
 ## Starting a copy to the extension buffer
 
 - From selection mode: clicking the target element copies that element
-- Clicking "CAPTURE PAGE" copies the entire page
+- Clicking "NEW PAGE" copies the entire page
 
 ---
 

@@ -8,7 +8,7 @@
 
 ## Starting
 - By keyboard shortcut
-- By clicking the "PICK ELEMENT" button
+- By clicking the "NEW ELEMENT" button
 
 ## Stopping
 - By clicking the extension icon in the browser toolbar again

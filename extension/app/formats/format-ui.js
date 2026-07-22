@@ -471,7 +471,9 @@ function createCopiedFormatInlineList(group, labelText, strings, options, onSele
   label.id = labelId;
   label.className = "ec-settings-format-inline-list-label";
   label.textContent = labelText;
-  row.append(label);
+  const actions = document.createElement("div");
+  actions.className = "ec-copied-format-actions";
+  row.append(label, actions);
   for (const format of COPY_FORMATS) {
     if (format.settingsGroup !== group) continue;
     if (!shouldShowCopiedFormat(format.id, options)) continue;
@@ -488,7 +490,7 @@ function createCopiedFormatInlineList(group, labelText, strings, options, onSele
     const available = !settingsOff && inCache && clipboardWritable;
     const unavailableTooltip = !settingsOff && inCache && !clipboardWritable ? strings.copiedImageClipboardUnsupportedTooltip : !settingsOff && !inCache ? strings.copiedFormatNothingInCache : void 0;
     const actionKind = copiedFormatActionKind(format, false);
-    row.append(
+    actions.append(
       createFormatActionButton(
         format,
         strings,
@@ -518,7 +520,7 @@ function createCopiedFormatInlineList(group, labelText, strings, options, onSele
         document
       );
       const available = !settingsOff && inCache;
-      row.append(
+      actions.append(
         createFormatActionButton(
           format,
           strings,

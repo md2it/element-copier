@@ -1092,18 +1092,48 @@ export const PANEL_CSS = `.ec-panel-header,
 }
 
 .ec-copied-other-options {
-  display: flex;
+  display: grid;
+  grid-template-columns: max-content minmax(0, 1fr);
   flex: 0 0 auto;
-  flex-direction: column;
   align-items: stretch;
   justify-content: flex-start;
-  gap: 0;
+  row-gap: 0;
+  column-gap: 0.5rem;
   width: 100%;
   text-align: start;
 }
 
 .ec-copied-other-options .ec-settings-format-inline-list-label {
-  flex: 0 0 5.25rem;
+  grid-column: 1;
+}
+
+.ec-copied-other-options > .ec-copied-url-block,
+.ec-copied-other-options > .ec-copied-block {
+  grid-column: 1 / -1;
+}
+
+.ec-copied-other-options > .ec-copied-block {
+  display: grid;
+  grid-template-columns: subgrid;
+}
+
+.ec-copied-other-options .ec-settings-format-inline-list,
+.ec-copied-other-options .ec-copied-devtools-rows {
+  display: grid;
+  grid-template-columns: subgrid;
+  grid-column: 1 / -1;
+}
+
+.ec-copied-other-options .ec-copied-format-actions {
+  grid-column: 2;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem 0.45rem;
+}
+
+.ec-copied-other-options .ec-copied-devtools-row {
+  grid-template-columns: subgrid;
 }
 
 .ec-copied-url-block {
@@ -1405,7 +1435,7 @@ export const PANEL_CSS = `.ec-panel-header,
   align-items: center;
   justify-content: center;
   flex: 1 1 auto;
-  min-height: 3cm;
+  min-height: 2.5cm;
   gap: 0.25rem;
   width: 100%;
   padding-block: 2mm;

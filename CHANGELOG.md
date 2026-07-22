@@ -6,6 +6,11 @@ Regular SemVer logic.
 
 ## RELEASES
 
+### 1.3.1
+- Fixed the action popup at 500×600 px to stay within Chrome and Firefox limits
+- Aligned Copy and Download actions with Developer Tools fields on the Copied page
+- Renamed the element and page actions across all supported languages
+
 ### 1.3.0
 - Added `QA details`: a compact copy format with the page URL, element identifier, CSS selector, identifying attributes, capture timestamp, and browser environment
 

@@ -62,7 +62,7 @@
    - Clicking the row, including the label, copies the value to the clipboard
 
 ### Again block
-- Two inline buttons: "PICK ELEMENT" and "CAPTURE PAGE"
+- Two inline buttons: "NEW ELEMENT" and "NEW PAGE"
 - Button logic is identical to the buttons on the START page
 
 ---
@@ -97,5 +97,5 @@
    - Gray text:
       - I don't have anything saved in my memory. 
       - Should we copy something?
-   - "PICK ELEMENT" button
-   - Button logic is identical to the "PICK ELEMENT" button on the START page
+   - "NEW ELEMENT" button
+   - Button logic is identical to the "NEW ELEMENT" button on the START page

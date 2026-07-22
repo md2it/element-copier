@@ -3,7 +3,6 @@ import { CopierPanelWindow } from "./window.js";
 import { PANEL_POPUP_HOST_ATTR, PANEL_POPUP_ROOT_ID } from "./constants.js";
 import { bindPanelSessionPort, notifyPanelClosed } from "./lifecycle.js";
 import { bindPanelThemeSync } from "./panel-theme.js";
-import { fitActionPopupToHost } from "./fit-popup-height.js";
 import { getLocale } from "../storage.js";
 import { mountPanelShadowHost } from "../../lib/our/panel-shell/shadow-host.js";
 
@@ -43,7 +42,7 @@ async function mountPanelSurface(initialTab, { hostStyle, surface }) {
       setLocale: (next2) => {
         locale = next2;
       },
-      onAfterTabRender: surface === "popup" ? () => fitActionPopupToHost(host, locale) : void 0
+      onAfterTabRender: void 0
     });
     if (surface === "popup") {
       activePopupWindow = panelWindow;
