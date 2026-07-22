@@ -10,7 +10,7 @@ permissions:
 
 jobs:
   release:
-    uses: md2it/browser-extension-ci-cd/.github/workflows/release-extension.yml@v1.4.2
+    uses: md2it/browser-extension-ci-cd/.github/workflows/release-extension.yml@v1.4.3
     with:
       extension-root: extension
       zip-name: element-copier.zip
