@@ -6,9 +6,9 @@
 
 ## الوصف
 
-انسخ محتوى صفحات الويب ونزّله بسرعة وبتنسيق مناسب.
+انسخ ونزّل صفحات كاملة أو عناصر منفردة كنص منسّق وصور وMarkdown.
 
-يستطيع Element Copier معالجة صفحة كاملة أو عنصر محدد وإعداد النتيجة بعدة تنسيقات في الوقت نفسه. يظل آخر محتوى منسوخ متاحًا لكل تنسيق مفعّل.
+للمطورين والمختبرين: عناوين URL، وشفرة HTML، و`tag#id.class`، ومحددات CSS، ومسارات JS، وXPath وXPath الكامل، والأنماط المعلنة والمحسوبة، وبيانات مفصلة لتقارير الأخطاء.
 
 <p align="center">
   <a href="../publication/screenshots/AR-0.png"><img src="../publication/screenshots/AR-0.png" width="180" alt="Element Copier screenshot 1"></a>

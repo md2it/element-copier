@@ -6,9 +6,9 @@
 
 ## BESCHREIBUNG
 
-Kopieren und laden Sie Inhalte von Webseiten schnell in einem praktischen Format herunter.
+Kopieren und laden Sie ganze Webseiten oder einzelne Elemente als formatierten Text, Bilder und Markdown herunter.
 
-Element Copier kann eine ganze Seite oder ein bestimmtes Element verarbeiten und das Ergebnis gleichzeitig in mehreren Formaten erstellen. Der zuletzt kopierte Inhalt bleibt für jedes aktivierte Format verfügbar.
+Für Entwickler und Tester: URLs, HTML-Code, `tag#id.class`, CSS-Selektoren, JS-Pfade, XPath und vollständige XPath-Ausdrücke, deklarierte und berechnete Stile sowie Details für Fehlerberichte.
 
 <p align="center">
   <a href="../publication/screenshots/DE-0.png"><img src="../publication/screenshots/DE-0.png" width="180" alt="Element Copier screenshot 1"></a>

@@ -1,5 +1,5 @@
 ELEMENT COPIER
-Copiez et téléchargez rapidement le contenu des pages web dans un format pratique.
+Copiez et téléchargez n’importe quelle partie d’une page dans différents formats. Pour les tâches quotidiennes et professionnelles.
 
 FONCTIONNALITÉS
 - Copier une page entière ou un élément précis,

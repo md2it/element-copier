@@ -6,9 +6,9 @@
 
 ## 说明
 
-快速复制和下载网页内容，并转换为方便使用的格式。
+复制和下载整个网页或单个元素，可保存为富文本、图像和 Markdown。
 
-Element Copier 可以处理整个页面或指定元素，并同时生成多种格式的结果。每种已启用格式都会保留最近一次复制的内容。
+面向开发人员和测试人员：URL、HTML 代码、`tag#id.class`、CSS 选择器、JS 路径、XPath 和完整 XPath、声明样式和计算样式，以及缺陷报告所需的详细信息。
 
 <p align="center">
   <a href="../publication/screenshots/ZH-0.png"><img src="../publication/screenshots/ZH-0.png" width="180" alt="Element Copier screenshot 1"></a>

@@ -6,6 +6,9 @@ Regular SemVer logic.
 
 ## RELEASES
 
+### 1.3.2
+- Updated product descriptions and localized README copy for everyday and professional use cases
+
 ### 1.3.1
 - Fixed the action popup at 500×600 px to stay within Chrome and Firefox limits
 - Aligned Copy and Download actions with Developer Tools fields on the Copied page

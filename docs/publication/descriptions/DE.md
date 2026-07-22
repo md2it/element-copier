@@ -1,5 +1,5 @@
 ELEMENT COPIER
-Kopieren und laden Sie Inhalte von Webseiten schnell in einem praktischen Format herunter.
+Kopieren und laden Sie jeden Teil einer Webseite in verschiedenen Formaten herunter. Für alltägliche und professionelle Aufgaben.
 
 FUNKTIONEN
 - Ganze Seite oder ein bestimmtes Element kopieren,

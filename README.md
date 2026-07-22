@@ -6,9 +6,9 @@
 
 ## DESCRIPTION
 
-Copy and download content from web pages quickly in a convenient format.
+Copy and download entire pages or individual elements as rich text, images, and Markdown.
 
-Element Copier can process an entire page or a specific element and prepare the result in multiple formats at once. The latest copied content remains available for every enabled format.
+For developers and testers: URLs, HTML code, `tag#id.class`, CSS selectors, JS paths, XPath and full XPath, declared and computed styles, and bug-report details.
 
 <p align="center">
   <a href="./docs/publication/screenshots/EN-0.png"><img src="./docs/publication/screenshots/EN-0.png" width="180" alt="Element Copier screenshot 1"></a>

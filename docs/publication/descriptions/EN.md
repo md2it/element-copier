@@ -1,5 +1,5 @@
 ELEMENT COPIER
-Copy and download content from web pages quickly in a convenient format.
+Copy and download any part of a page in different formats. For everyday work and professional tasks.
 
 FEATURES
 - Copy an entire page or a specific element,
