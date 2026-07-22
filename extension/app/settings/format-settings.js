@@ -90,7 +90,8 @@ var DEFAULT_ACTION_STORAGE_OPTIONS = [
   "copy:xpath",
   "copy:fullXPath",
   "copy:styles",
-  "copy:computedStyles"
+  "copy:computedStyles",
+  "copy:qaDetails"
 ];
 
 var IMAGE_DEFAULT_ACTION_STORAGE_VALUES = [

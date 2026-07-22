@@ -226,6 +226,8 @@ function defaultActionOptionLabel(storageValue, strings) {
       return strings.settingsDefaultActionCopyStyles;
     case "copy:computedStyles":
       return strings.settingsDefaultActionCopyComputedStyles;
+    case "copy:qaDetails":
+      return strings.settingsDefaultActionCopyQaDetails;
   }
 }
 

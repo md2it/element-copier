@@ -29,6 +29,7 @@
    - Copy full XPath
    - Copy styles
    - Copy computed styles
+   - Copy QA details
 
 ### Inline images
 - Heading: "Inline images in text"

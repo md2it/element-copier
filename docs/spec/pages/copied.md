@@ -47,6 +47,7 @@
 
 ### Developer tools
 - Show the block only if enabled in the user settings
+- The final row is "QA details"; it copies a compact plain-text reference for bug reports
 - Each entry:
    - On a separate line
    - Format: [name as the row label] [copy field]

@@ -44,6 +44,7 @@ var SNAPSHOT_CACHE_FORMAT_IDS = [
   "xpath",
   "fullXPath",
   "styles",
+  "qaDetails",
   "text",
   "markdown",
   "png",

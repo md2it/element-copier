@@ -11,6 +11,18 @@
 - full XPath
 - styles
 - computed styles
+- QA details
+  - Plain-text bug-report reference generated when the element is selected:
+    ```text
+    THE ELEMENT:
+    - Page: https://example.com/products/42
+    - Element: button#checkout.btn.btn-primary
+    - Selector: main > section:nth-of-type(2) > article.product-card > button
+    - Attributes: type="button"; name="checkout"; aria-label="Checkout"; data-action="checkout"
+    - Timestamp: 2026-07-22T10:35:12+05:00
+    - Environment: Chrome 138 / Blink / macOS 15.5
+    ```
+  - Attributes include only `name`, `role`, `type`, `aria-*`, and `data-*`; HTML content and attribute values such as `value`, `href`, `src`, `style`, and event handlers are excluded
 
 ---
 

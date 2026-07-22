@@ -53,6 +53,90 @@ function getOuterHtml(element) {
   return wrapper.innerHTML;
 }
 
+function formatAttributeValue(value) {
+  return JSON.stringify(value);
+}
+
+function getQaAttributes(element) {
+  return [...element.attributes]
+    .filter(({ name }) => /^(?:name|role|type|aria-[\w-]+|data-[\w-]+)$/i.test(name))
+    .map(({ name, value }) => `${name}=${formatAttributeValue(value)}`)
+    .join("; ");
+}
+
+function toLocalIsoTimestamp(date = new Date()) {
+  const pad = (number) => String(number).padStart(2, "0");
+  const offsetMinutes = -date.getTimezoneOffset();
+  const offsetSign = offsetMinutes >= 0 ? "+" : "-";
+  const offsetHours = pad(Math.floor(Math.abs(offsetMinutes) / 60));
+  const offsetRemainder = pad(Math.abs(offsetMinutes) % 60);
+  return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}`
+    + `T${pad(date.getHours())}:${pad(date.getMinutes())}:${pad(date.getSeconds())}`
+    + `${offsetSign}${offsetHours}:${offsetRemainder}`;
+}
+
+function getBrowserNameAndVersion(userAgent) {
+  const matchers = [
+    [/(?:Edg|EdgA|EdgiOS)\/(\d+)/, "Edge"],
+    [/Firefox\/(\d+)/, "Firefox"],
+    [/FxiOS\/(\d+)/, "Firefox"],
+    [/OPR\/(\d+)/, "Opera"],
+    [/Chrome\/(\d+)/, "Chrome"],
+    [/CriOS\/(\d+)/, "Chrome"],
+    [/Version\/(\d+).*Safari\//, "Safari"]
+  ];
+  for (const [pattern, name] of matchers) {
+    const match = userAgent.match(pattern);
+    if (match) return `${name} ${match[1]}`;
+  }
+  return "Unknown browser";
+}
+
+function getBrowserEngine(userAgent) {
+  if (/(?:iPhone|iPad|iPod)/.test(userAgent)) return "WebKit";
+  if (/Firefox\//.test(userAgent) || /FxiOS\//.test(userAgent)) return "Gecko";
+  if (/Chrome\//.test(userAgent) || /CriOS\//.test(userAgent) || /Edg\//.test(userAgent) || /OPR\//.test(userAgent)) return "Blink";
+  if (/AppleWebKit\//.test(userAgent)) return "WebKit";
+  return "Unknown engine";
+}
+
+function getOperatingSystem(userAgent, platform = "") {
+  const mac = userAgent.match(/Mac OS X ([\d_]+)/);
+  if (mac) return `macOS ${mac[1].replaceAll("_", ".")}`;
+  const windows = userAgent.match(/Windows NT ([\d.]+)/);
+  if (windows) return `Windows ${windows[1]}`;
+  const android = userAgent.match(/Android ([\d.]+)/);
+  if (android) return `Android ${android[1]}`;
+  const ios = userAgent.match(/(?:iPhone|CPU) OS ([\d_]+)/);
+  if (ios) return `iOS ${ios[1].replaceAll("_", ".")}`;
+  if (/Linux/.test(platform) || /Linux/.test(userAgent)) return "Linux";
+  return platform || "Unknown OS";
+}
+
+function getQaEnvironment(element) {
+  const view = element.ownerDocument.defaultView;
+  const navigator2 = view?.navigator;
+  const userAgent = navigator2?.userAgent || "";
+  return [
+    getBrowserNameAndVersion(userAgent),
+    getBrowserEngine(userAgent),
+    getOperatingSystem(userAgent, navigator2?.platform)
+  ].join(" / ");
+}
+
+function getQaDetails(element) {
+  const attributes = getQaAttributes(element) || "none";
+  return [
+    "THE ELEMENT:",
+    `- Page: ${element.ownerDocument.location?.href || ""}`,
+    `- Element: ${formatTagIdClassLabel(element)}`,
+    `- Selector: ${getCssSelector(element)}`,
+    `- Attributes: ${attributes}`,
+    `- Timestamp: ${toLocalIsoTimestamp()}`,
+    `- Environment: ${getQaEnvironment(element)}`
+  ].join("\n");
+}
+
 async function extractElementCopyText(element, format, inlineImages = "all") {
   switch (format) {
     case "outerHTML":
@@ -60,6 +144,8 @@ async function extractElementCopyText(element, format, inlineImages = "all") {
       return getOuterHtml(element);
     case "tagIdClass":
       return formatTagIdClassLabel(element);
+    case "qaDetails":
+      return getQaDetails(element);
     case "selector":
       return getCssSelector(element);
     case "jsPath":
@@ -86,4 +172,4 @@ async function extractElementCopyText(element, format, inlineImages = "all") {
   }
 }
 
-export { extractElementCopyText, getDocumentBaseHref, getElementMarkdown, getFormattedTextHtml, getOuterHtml, getPrepareOptions };
+export { extractElementCopyText, getDocumentBaseHref, getElementMarkdown, getFormattedTextHtml, getOuterHtml, getPrepareOptions, getQaDetails };

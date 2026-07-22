@@ -24,9 +24,10 @@ CACHE = saved to the cache/buffer
 9. xpath
 10. fullXPath
 11. styles
-12. text
-13. markdown
-14. images // see ### Images
+12. QA details
+13. text
+14. markdown
+15. images // see ### Images
 
 ### Images
 

@@ -6,6 +6,9 @@ Regular SemVer logic.
 
 ## RELEASES
 
+### 1.3.0
+- Added `QA details`: a compact copy format with the page URL, element identifier, CSS selector, identifying attributes, capture timestamp, and browser environment
+
 ### 1.2.3
 - Improved release packaging and store-release automation
 

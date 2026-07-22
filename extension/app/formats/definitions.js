@@ -48,6 +48,12 @@ var COPY_FORMATS = [
     settingsGroup: "devtools"
   },
   {
+    id: "qaDetails",
+    label: (s) => s.formatQaDetails,
+    actionIcon: "copy",
+    settingsGroup: "devtools"
+  },
+  {
     id: "text",
     label: (s) => s.formatText,
     actionIcon: "copy",
