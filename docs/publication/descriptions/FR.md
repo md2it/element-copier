@@ -21,7 +21,8 @@ FORMATS PRIS EN CHARGE
    - Chemin JS,
    - XPath,
    - XPath complet,
-   - Styles déclarés et calculés.
+   - Styles déclarés et calculés,
+   - Détails QA pour les rapports de bugs.
 
 SÉCURITÉ
 - L'extension n'accède pas à Internet,

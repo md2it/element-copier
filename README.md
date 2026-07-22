@@ -59,6 +59,7 @@ Element Copier can process an entire page or a specific element and prepare the 
    - Full XPath
    - Declared styles
    - Computed styles
+   - QA details for bug reports
 
 ### Product notes
 

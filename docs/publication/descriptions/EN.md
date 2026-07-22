@@ -21,7 +21,8 @@ SUPPORTED FORMATS
    - JS path,
    - XPath,
    - full XPath,
-   - declared and computed styles.
+   - declared and computed styles,
+   - QA details for bug reports.
 
 SECURITY
 - The extension does not access the internet,

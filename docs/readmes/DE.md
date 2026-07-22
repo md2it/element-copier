@@ -57,6 +57,7 @@ Element Copier kann eine ganze Seite oder ein bestimmtes Element verarbeiten und
    - Vollständiger XPath
    - Deklarierte Stile
    - Berechnete Stile
+   - QA-Details für Fehlerberichte
 
 ### Produkthinweise
 

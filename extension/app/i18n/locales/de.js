@@ -103,6 +103,7 @@ var DE_MESSAGES = {
     "Bilder: PNG, JPEG",
     "Code-Selektoren: Selektor, JS-Pfad, XPath, vollständiger XPath",
     "Code-Stile: deklariert, berechnet",
+    "QA-Details für Fehlerberichte",
     "Nutzt kein Netzwerk",
     "Sammelt keine Daten",
     "Code auf GitHub",

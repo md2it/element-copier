@@ -103,6 +103,7 @@ var ZH_CN_MESSAGES = {
     "图片：PNG、JPEG",
     "代码选择器：选择器、JS 路径、XPath、完整 XPath",
     "代码样式：声明、计算",
+    "QA 详情用于缺陷报告",
     "不使用网络",
     "不收集数据",
     "GitHub 上的代码",

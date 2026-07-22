@@ -21,7 +21,8 @@ UNTERSTÜTZTE FORMATE
    - JS-Pfad,
    - XPath,
    - vollständiger XPath,
-   - deklarierte und berechnete Styles.
+   - deklarierte und berechnete Styles,
+   - QA-Details für Fehlerberichte.
 
 SICHERHEIT
 - Die Erweiterung greift nicht auf das Internet zu,

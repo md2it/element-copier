@@ -110,6 +110,7 @@ var EN_MESSAGES = {
     "Images: PNG, JPEG",
     "Code selectors: selector, JS path, XPath, full XPath",
     "Code styles: declared, computed",
+    "QA details for bug reports",
     "Doesn't use the network",
     "Doesn't collect data",
     "Code on GitHub",

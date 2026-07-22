@@ -21,7 +21,8 @@ FORMATOS COMPATIBLES
    - Ruta JS,
    - XPath,
    - XPath completo,
-   - estilos declarados y calculados.
+   - estilos declarados y calculados,
+   - Detalles de QA para informes de errores.
 
 SEGURIDAD
 - La extensión no accede a Internet,

@@ -103,6 +103,7 @@ var FR_MESSAGES = {
     "Images : PNG, JPEG",
     "Sélecteurs de code : sélecteur, chemin JS, XPath, XPath complet",
     "Styles de code : déclarés, calculés",
+    "Détails QA pour les rapports de bugs",
     "N'utilise pas le réseau",
     "Ne collecte pas de données",
     "Code sur GitHub",
