@@ -8,7 +8,7 @@ permissions:
 
 jobs:
   build:
-    uses: md2it/browser-extension-ci-cd/.github/workflows/build-extension.yml@v1.2.0
+    uses: md2it/browser-extension-ci-cd/.github/workflows/build-extension.yml@v1.4.2
     with:
       extension-root: extension
       zip-name: element-copier.zip
