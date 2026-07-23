@@ -1,24 +1,6 @@
 # ELEMENT COPIER
 
-<p align="center">
-=-=-=-=-=-=-=-=-= | <a href="./docs/readmes/DE.md">DE</a> | EN | <a href="./docs/readmes/ES.md">ES</a> | <a href="./docs/readmes/FR.md">FR</a> | <a href="./docs/readmes/RU.md">RU</a> | <a href="./docs/readmes/ZH.md">中文</a> | <a href="./docs/readmes/AR.md">عربي</a> | =-=-=-=-=-=-=-=-=
-</p>
-
-## DESCRIPTION
-
-Copy and download entire pages or individual elements as rich text, images, and Markdown.
-
-For developers and testers: URLs, HTML code, `tag#id.class`, CSS selectors, JS paths, XPath and full XPath, declared and computed styles, and bug-report details.
-
-<p align="center">
-  <a href="./docs/publication/screenshots/EN-0.png"><img src="./docs/publication/screenshots/EN-0.png" width="180" alt="Element Copier screenshot 1"></a>
-  <a href="./docs/publication/screenshots/EN-1.png"><img src="./docs/publication/screenshots/EN-1.png" width="180" alt="Element Copier screenshot 2"></a>
-  <a href="./docs/publication/screenshots/EN-2.png"><img src="./docs/publication/screenshots/EN-2.png" width="180" alt="Element Copier screenshot 3"></a>
-</p>
-
-## INSTALLATION
-
-<p align="center">
+<p align="center" id="installation">
   <a href="https://chromewebstore.google.com/detail/element-copier/gdcdnijkedjdjighmalgialikcgkibel">
     <picture>
       <source media="(prefers-color-scheme: dark)" srcset="https://shieldcn.dev/badge/Chrome%20Web%20Store.svg?logo=googlechrome&logoColor=4285F4&mode=dark">
@@ -35,14 +17,28 @@ For developers and testers: URLs, HTML code, `tag#id.class`, CSS selectors, JS p
   </a>
   <a href="https://github.com/md2it/element-copier/releases/latest/download/element-copier.zip">
     <picture>
-      <source media="(prefers-color-scheme: dark)" srcset="https://shieldcn.dev/badge/ZIP.svg?logo=lu:FileArchive&logoColor=CA8A04&mode=dark">
-      <source media="(prefers-color-scheme: light)" srcset="https://shieldcn.dev/badge/ZIP.svg?logo=lu:FileArchive&logoColor=CA8A04&mode=light">
-      <img src="https://shieldcn.dev/badge/ZIP.svg?logo=lu:FileArchive&logoColor=CA8A04&mode=dark" alt="GitHub Release ZIP">
+      <source media="(prefers-color-scheme: dark)" srcset="https://shieldcn.dev/badge/Latest%20Release%20ZIP.svg?logo=lu:FileArchive&logoColor=CA8A04&mode=dark">
+      <source media="(prefers-color-scheme: light)" srcset="https://shieldcn.dev/badge/Latest%20Release%20ZIP.svg?logo=lu:FileArchive&logoColor=CA8A04&mode=light">
+      <img src="https://shieldcn.dev/badge/Latest%20Release%20ZIP.svg?logo=lu:FileArchive&logoColor=CA8A04&mode=dark" alt="Latest Release ZIP">
     </picture>
   </a>
 </p>
 
-Unpack the ZIP and load the folder as an unpacked extension, or load [`extension`](./extension) directly for development mode.
+<p align="center" id="language">
+=-=-=-=-=-=-=-=-= | <a href="./docs/readmes/DE.md">DE</a> | EN | <a href="./docs/readmes/ES.md">ES</a> | <a href="./docs/readmes/FR.md">FR</a> | <a href="./docs/readmes/RU.md">RU</a> | <a href="./docs/readmes/ZH.md">中文</a> | <a href="./docs/readmes/AR.md">عربي</a> | =-=-=-=-=-=-=-=-=
+</p>
+
+## DESCRIPTION
+
+Copy and download entire pages or individual elements as rich text, images, and Markdown.
+
+For developers and testers: URLs, HTML code, `tag#id.class`, CSS selectors, JS paths, XPath and full XPath, declared and computed styles, and bug-report details.
+
+<p align="center" id="screenshots">
+  <a href="./docs/publication/screenshots/EN-0.png"><img src="./docs/publication/screenshots/EN-0.png" width="180" alt="Element Copier screenshot 1"></a>
+  <a href="./docs/publication/screenshots/EN-1.png"><img src="./docs/publication/screenshots/EN-1.png" width="180" alt="Element Copier screenshot 2"></a>
+  <a href="./docs/publication/screenshots/EN-2.png"><img src="./docs/publication/screenshots/EN-2.png" width="180" alt="Element Copier screenshot 3"></a>
+</p>
 
 ## KEY FEATURES
 
