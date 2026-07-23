@@ -50,6 +50,7 @@ For developers and testers: URLs, HTML code, `tag#id.class`, CSS selectors, JS p
 - Keyboard shortcuts
 - Light and dark themes
 - Flexible settings
+- Interface available in English, French, German, Spanish, Russian, Arabic, and Simplified Chinese
 
 ### Supported formats
 
@@ -76,25 +77,12 @@ For developers and testers: URLs, HTML code, `tag#id.class`, CSS selectors, JS p
 - Developer formats make common inspection data available without opening DevTools
 - Markdown processing preserves layout, links, and content images where possible, including converted SVG images
 
-## USAGE
+## PRIVACY
 
-U = User
-E = Extension
-
-1. U starts E by clicking its button in the browser toolbar
-2. E opens a window:
-   - If the cache is empty, E opens the START window
-   - If the cache is not empty, E opens the COPIED window
-3. U clicks START or START OVER
-4. U hovers over an element
-5. E highlights the element
-6. U clicks the element
-7. E performs all of the following:
-   - Saves data according to the settings
-   - Opens a window with information about the result
-   - Stops element selection mode
-
-See [all user paths](./docs/spec/user-path.md) for keyboard shortcuts, cache behavior, rich-text copying, and actions on copied content.
+- No data collection
+- No tracking
+- No network requests
+- Page content is processed locally in the browser
 
 ## LIMITATIONS
 
@@ -121,23 +109,6 @@ See [all user paths](./docs/spec/user-path.md) for keyboard shortcuts, cache beh
    - Other use cases require excluding them
    - The extension cannot predict the user's goal
    - This behavior is controlled by a separate setting
-
-## PRIVACY
-
-- No data collection
-- No tracking
-- No network requests
-- Page content is processed locally in the browser
-
-## INTERFACE LANGUAGES
-
-- English
-- French
-- German
-- Spanish
-- Russian
-- Arabic
-- Simplified Chinese
 
 ## LICENSE
 
