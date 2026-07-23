@@ -86,17 +86,26 @@ Für Entwickler und Tester: URLs, HTML-Code, tag#id.class, CSS-Selektoren, JS-Pf
 
 - **Die Auswahl von Iframes unterscheidet sich** von der Auswahl anderer Elemente:
    - Das Iframe wird als Ganzes ausgewählt
-   - Ursache ist eine Plattformbeschränkung; eine Injektion in das Iframe ist unerwünscht
-   - Die Auswahl sieht wegen anderer Ereignishandler anders aus, ohne die Funktion zu beeinträchtigen
+      - Dies liegt an einer Plattformbeschränkung
+      - Eine Injektion in das Iframe selbst gilt als unerwünscht
+   - Die Auswahl sieht optisch anders aus
+      - Dies liegt an unterschiedlichen Ereignishandlern
+      - Dies beeinträchtigt die Funktion nicht
+      - Eine Vereinheitlichung der Auswahl böte keinen funktionalen Nutzen
 - **Die Verarbeitung großer Seiten kann einige Zeit dauern:**
-   - Die Geschwindigkeit wird durch unverändert verwendete Drittanbieterbibliotheken begrenzt
+   - Die Geschwindigkeit wird durch Drittanbieterbibliotheken begrenzt
+   - Die Bibliotheken werden unverändert über einen Wrapper verwendet
+   - Dies ist eine bewusste Designentscheidung
    - Bilderzeugung und -speicherung können in den Einstellungen deaktiviert werden
    - Ohne Bildverarbeitung werden selbst sehr große Seiten in Sekundenbruchteilen verarbeitet
 - **Das Öffnen des Ergebnis-Pop-ups kann unterbrochen werden:**
    - Der Browser kann ein anderes Pop-up mit höherer Priorität öffnen
+   - Dies beeinträchtigt die Funktion der Erweiterung nicht
    - Bereits gestartete Prozesse werden trotzdem abgeschlossen
 - **Die Behandlung kleiner Bilder in Markdown ist optional:**
-   - Je nach Anwendungsfall sollen kleine Bilder einbezogen oder ausgeschlossen werden
+   - Manche Anwendungsfälle erfordern das Einbeziehen aller kleinen Bilder
+   - Andere Anwendungsfälle erfordern deren Ausschluss
+   - Die Erweiterung kann das Ziel des Nutzers nicht vorhersagen
    - Dieses Verhalten wird über eine separate Einstellung gesteuert
 
 ## LIZENZ

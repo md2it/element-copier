@@ -86,17 +86,26 @@ Pour les développeurs et les testeurs : URL, code HTML, tag#id.class, sélecteu
 
 - **La sélection d'une iframe diffère** de celle des autres éléments :
    - L'iframe est sélectionnée dans son ensemble
-   - Cette différence vient d'une limitation de la plateforme ; l'injection dans l'iframe n'est pas souhaitable
-   - La sélection a un aspect différent en raison de gestionnaires d'événements distincts, sans incidence fonctionnelle
+      - Cela est dû à une limitation de la plateforme
+      - Injecter du code dans l'iframe elle-même est considéré comme indésirable
+   - La sélection a un aspect visuellement différent
+      - Cela est dû à des gestionnaires d'événements différents
+      - Cela n'affecte pas le fonctionnement
+      - Uniformiser la sélection n'apporterait aucun bénéfice fonctionnel
 - **Le traitement des pages volumineuses peut prendre du temps :**
-   - La vitesse est limitée par des bibliothèques tierces utilisées sans modification
+   - La vitesse de traitement est limitée par des bibliothèques tierces
+   - Ces bibliothèques sont utilisées sans modification, via un wrapper
+   - Il s'agit d'un choix de conception intentionnel
    - La génération et l'enregistrement des images peuvent être désactivés dans les paramètres
    - Sans traitement d'images, même les pages très volumineuses sont traitées en une fraction de seconde
 - **L'ouverture de la fenêtre de résultat peut être interrompue :**
    - Le navigateur peut ouvrir une autre fenêtre prioritaire
+   - Cela n'affecte pas le fonctionnement de l'extension
    - Les processus déjà lancés seront tout de même terminés
 - **La gestion des petites images dans Markdown est facultative :**
-   - Certains usages nécessitent de les inclure, d'autres de les exclure
+   - Certains usages nécessitent de les inclure toutes
+   - D'autres usages nécessitent de les exclure
+   - L'extension ne peut pas deviner l'objectif de l'utilisateur
    - Ce comportement est contrôlé par un paramètre distinct
 
 ## LICENCE

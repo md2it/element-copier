@@ -86,17 +86,26 @@ Para desarrolladores y testers: URL, código HTML, tag#id.class, selectores CSS,
 
 - **La selección de iframes es diferente** a la de otros elementos:
    - El iframe se selecciona como un todo
-   - Esto se debe a una limitación de la plataforma; no se considera conveniente inyectar código dentro del iframe
-   - La selección se ve diferente por usar otros controladores de eventos, pero no afecta a la funcionalidad
+      - Esto se debe a una limitación de la plataforma
+      - Inyectar código dentro del propio iframe se considera indeseable
+   - La selección se ve diferente visualmente
+      - Esto se debe a otros controladores de eventos
+      - No afecta a la funcionalidad
+      - Unificar la selección no aportaría ningún beneficio funcional
 - **Las páginas grandes pueden tardar en procesarse:**
-   - La velocidad está limitada por bibliotecas de terceros que se usan sin modificaciones
+   - La velocidad de procesamiento está limitada por bibliotecas de terceros
+   - Las bibliotecas se usan sin modificaciones, a través de un wrapper
+   - Esto es una decisión de diseño intencionada
    - La generación y el guardado de imágenes se pueden desactivar en la configuración
    - Sin procesamiento de imágenes, incluso las páginas muy grandes se procesan en una fracción de segundo
 - **La apertura de la ventana emergente de resultados puede interrumpirse:**
    - El navegador puede abrir otra ventana emergente con mayor prioridad
+   - Esto no afecta a la funcionalidad de la extensión
    - Los procesos ya iniciados se completarán
 - **El tratamiento de imágenes pequeñas en Markdown es opcional:**
-   - Algunos casos requieren incluirlas y otros excluirlas
+   - Algunos casos de uso requieren recopilar todas las imágenes pequeñas
+   - Otros casos de uso requieren excluirlas
+   - La extensión no puede predecir el objetivo del usuario
    - Este comportamiento se controla mediante una configuración independiente
 
 ## LICENCIA
