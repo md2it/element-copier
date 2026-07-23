@@ -18,19 +18,31 @@ For developers and testers: URLs, HTML code, `tag#id.class`, CSS selectors, JS p
 
 ## INSTALLATION
 
-### Stores
+<p align="center">
+  <a href="https://chromewebstore.google.com/detail/element-copier/gdcdnijkedjdjighmalgialikcgkibel">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="https://shieldcn.dev/badge/Chrome%20Web%20Store.svg?logo=googlechrome&logoColor=4285F4&mode=dark">
+      <source media="(prefers-color-scheme: light)" srcset="https://shieldcn.dev/badge/Chrome%20Web%20Store.svg?logo=googlechrome&logoColor=4285F4&mode=light">
+      <img src="https://shieldcn.dev/badge/Chrome%20Web%20Store.svg?logo=googlechrome&logoColor=4285F4&mode=dark" alt="Chrome Web Store">
+    </picture>
+  </a>
+  <a href="https://addons.mozilla.org/firefox/addon/element-copier/">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="https://shieldcn.dev/badge/Firefox%20Add%E2%80%91ons.svg?logo=firefoxbrowser&logoColor=FF7139&mode=dark">
+      <source media="(prefers-color-scheme: light)" srcset="https://shieldcn.dev/badge/Firefox%20Add%E2%80%91ons.svg?logo=firefoxbrowser&logoColor=FF7139&mode=light">
+      <img src="https://shieldcn.dev/badge/Firefox%20Add%E2%80%91ons.svg?logo=firefoxbrowser&logoColor=FF7139&mode=dark" alt="Firefox Add-ons">
+    </picture>
+  </a>
+  <a href="https://github.com/md2it/element-copier/releases/latest/download/element-copier.zip">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="https://shieldcn.dev/badge/ZIP.svg?logo=lu:FileArchive&logoColor=CA8A04&mode=dark">
+      <source media="(prefers-color-scheme: light)" srcset="https://shieldcn.dev/badge/ZIP.svg?logo=lu:FileArchive&logoColor=CA8A04&mode=light">
+      <img src="https://shieldcn.dev/badge/ZIP.svg?logo=lu:FileArchive&logoColor=CA8A04&mode=dark" alt="GitHub Release ZIP">
+    </picture>
+  </a>
+</p>
 
-- [Chrome Web Store](https://chromewebstore.google.com/detail/element-copier/gdcdnijkedjdjighmalgialikcgkibel)
-- [Firefox Add-ons](https://addons.mozilla.org/firefox/addon/element-copier/)
-
-### Manual installation
-
-- **GitHub Release.** Download the latest release ZIP for local install:
-  [element-copier.zip](https://github.com/md2it/element-copier/releases/latest/download/element-copier.zip)
-
-  Unpack the archive and load the folder as an unpacked extension.
-
-- **Development mode.** Load the entire [`extension`](./extension) directory as an unpacked extension.
+Unpack the ZIP and load the folder as an unpacked extension, or load [`extension`](./extension) directly for development mode.
 
 ## KEY FEATURES
 
