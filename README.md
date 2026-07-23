@@ -32,7 +32,7 @@
 
 Copy and download entire pages or individual elements as rich text, images, and Markdown.
 
-For developers and testers: URLs, HTML code, `tag#id.class`, CSS selectors, JS paths, XPath and full XPath, declared and computed styles, and bug-report details.
+For developers and testers: URLs, HTML code, tag#id.class, CSS selectors, JS paths, XPath and full XPath, declared and computed styles, and bug-report details.
 
 <p align="center" id="screenshots">
   <a href="./docs/publication/screenshots/EN-0.png"><img src="./docs/publication/screenshots/EN-0.png" width="180" alt="Element Copier screenshot 1"></a>

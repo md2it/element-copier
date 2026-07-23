@@ -1,6 +1,30 @@
 # ELEMENT COPIER
 
-<p align="center">
+<p align="center" id="installation">
+  <a href="https://chromewebstore.google.com/detail/element-copier/gdcdnijkedjdjighmalgialikcgkibel">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="https://shieldcn.dev/badge/Chrome%20Web%20Store.svg?logo=googlechrome&logoColor=4285F4&mode=dark">
+      <source media="(prefers-color-scheme: light)" srcset="https://shieldcn.dev/badge/Chrome%20Web%20Store.svg?logo=googlechrome&logoColor=4285F4&mode=light">
+      <img src="https://shieldcn.dev/badge/Chrome%20Web%20Store.svg?logo=googlechrome&logoColor=4285F4&mode=dark" alt="Chrome Web Store">
+    </picture>
+  </a>
+  <a href="https://addons.mozilla.org/firefox/addon/element-copier/">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="https://shieldcn.dev/badge/Firefox%20Add%E2%80%91ons.svg?logo=firefoxbrowser&logoColor=FF7139&mode=dark">
+      <source media="(prefers-color-scheme: light)" srcset="https://shieldcn.dev/badge/Firefox%20Add%E2%80%91ons.svg?logo=firefoxbrowser&logoColor=FF7139&mode=light">
+      <img src="https://shieldcn.dev/badge/Firefox%20Add%E2%80%91ons.svg?logo=firefoxbrowser&logoColor=FF7139&mode=dark" alt="Firefox Add-ons">
+    </picture>
+  </a>
+  <a href="https://github.com/md2it/element-copier/releases/latest/download/element-copier.zip">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="https://shieldcn.dev/badge/Latest%20Release%20ZIP.svg?logo=lu:FileArchive&logoColor=CA8A04&mode=dark">
+      <source media="(prefers-color-scheme: light)" srcset="https://shieldcn.dev/badge/Latest%20Release%20ZIP.svg?logo=lu:FileArchive&logoColor=CA8A04&mode=light">
+      <img src="https://shieldcn.dev/badge/Latest%20Release%20ZIP.svg?logo=lu:FileArchive&logoColor=CA8A04&mode=dark" alt="Latest Release ZIP">
+    </picture>
+  </a>
+</p>
+
+<p align="center" id="language">
 =-=-=-=-=-=-=-=-= | <a href="./DE.md">DE</a> | <a href="../../README.md">EN</a> | <a href="./ES.md">ES</a> | <a href="./FR.md">FR</a> | <a href="./RU.md">RU</a> | <a href="./ZH.md">中文</a> | عربي | =-=-=-=-=-=-=-=-=
 </p>
 
@@ -8,27 +32,11 @@
 
 انسخ ونزّل صفحات كاملة أو عناصر منفردة كنص منسّق وصور وMarkdown.
 
-للمطورين والمختبرين: عناوين URL، وشفرة HTML، و`tag#id.class`، ومحددات CSS، ومسارات JS، وXPath وXPath الكامل، والأنماط المعلنة والمحسوبة، وبيانات مفصلة لتقارير الأخطاء.
+للمطورين والمختبرين: عناوين URL، وشفرة HTML، وtag#id.class، ومحددات CSS، ومسارات JS، وXPath وXPath الكامل، والأنماط المعلنة والمحسوبة، وبيانات مفصلة لتقارير الأخطاء.
 
-<p align="center">
+<p align="center" id="screenshots">
   <a href="../publication/screenshots/AR-0.png"><img src="../publication/screenshots/AR-0.png" width="180" alt="Element Copier screenshot 1"></a>
 </p>
-
-## التثبيت
-
-### المتاجر
-
-- [Chrome Web Store](https://chromewebstore.google.com/detail/element-copier/gdcdnijkedjdjighmalgialikcgkibel)
-- [Firefox Add-ons](https://addons.mozilla.org/firefox/addon/element-copier/)
-
-### التثبيت اليدوي
-
-- **GitHub Release.** نزّل أحدث ملف ZIP للتثبيت المحلي:
-  [element-copier.zip](https://github.com/md2it/element-copier/releases/latest/download/element-copier.zip)
-
-  فُك ضغط الأرشيف وحمّل المجلد كإضافة غير مضغوطة.
-
-- **وضع التطوير.** حمّل مجلد [`extension`](../../extension) بالكامل كإضافة غير مضغوطة.
 
 ## الميزات الرئيسية
 
@@ -40,6 +48,7 @@
 - اختصارات لوحة المفاتيح
 - سمة فاتحة وأخرى داكنة
 - إعدادات مرنة
+- الواجهة متاحة بالإنجليزية والفرنسية والألمانية والإسبانية والروسية والعربية والصينية المبسطة
 
 ### التنسيقات المدعومة
 
@@ -66,25 +75,12 @@
 - تتيح تنسيقات المطورين بيانات الفحص الشائعة دون فتح DevTools
 - تحافظ معالجة Markdown قدر الإمكان على التخطيط والروابط وصور المحتوى، بما فيها صور SVG المحوّلة
 
-## الاستخدام
+## الخصوصية
 
-U = المستخدم
-E = الإضافة
-
-1. يشغّل U الإضافة E بالنقر على زرها في شريط أدوات المتصفح
-2. تفتح E نافذة:
-   - إذا كانت ذاكرة التخزين المؤقت فارغة، تفتح E نافذة START
-   - إذا لم تكن فارغة، تفتح E نافذة COPIED
-3. ينقر U على START أو START OVER
-4. يمرر U المؤشر فوق عنصر
-5. تميّز E العنصر
-6. ينقر U على العنصر
-7. تنفذ E جميع الإجراءات التالية:
-   - تحفظ البيانات وفقًا للإعدادات
-   - تفتح نافذة تعرض معلومات عن النتيجة
-   - توقف وضع تحديد العناصر
-
-راجع [جميع مسارات المستخدم](../spec/user-path.md) لمعرفة اختصارات لوحة المفاتيح وسلوك ذاكرة التخزين المؤقت ونسخ النص المنسق والإجراءات المتاحة للمحتوى المنسوخ.
+- لا يتم جمع البيانات
+- لا يوجد تتبع
+- لا توجد طلبات شبكة
+- تتم معالجة محتوى الصفحة محليًا في المتصفح
 
 ## القيود
 
@@ -102,23 +98,6 @@ E = الإضافة
 - **معالجة الصور الصغيرة في Markdown اختيارية:**
    - تتطلب بعض حالات الاستخدام تضمينها، بينما تتطلب حالات أخرى استبعادها
    - يتم التحكم في هذا السلوك من خلال إعداد مستقل
-
-## الخصوصية
-
-- لا يتم جمع البيانات
-- لا يوجد تتبع
-- لا توجد طلبات شبكة
-- تتم معالجة محتوى الصفحة محليًا في المتصفح
-
-## لغات الواجهة
-
-- الإنجليزية
-- الفرنسية
-- الألمانية
-- الإسبانية
-- الروسية
-- العربية
-- الصينية المبسطة
 
 ## الترخيص
 

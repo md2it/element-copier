@@ -1,6 +1,30 @@
 # ELEMENT COPIER
 
-<p align="center">
+<p align="center" id="installation">
+  <a href="https://chromewebstore.google.com/detail/element-copier/gdcdnijkedjdjighmalgialikcgkibel">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="https://shieldcn.dev/badge/Chrome%20Web%20Store.svg?logo=googlechrome&logoColor=4285F4&mode=dark">
+      <source media="(prefers-color-scheme: light)" srcset="https://shieldcn.dev/badge/Chrome%20Web%20Store.svg?logo=googlechrome&logoColor=4285F4&mode=light">
+      <img src="https://shieldcn.dev/badge/Chrome%20Web%20Store.svg?logo=googlechrome&logoColor=4285F4&mode=dark" alt="Chrome Web Store">
+    </picture>
+  </a>
+  <a href="https://addons.mozilla.org/firefox/addon/element-copier/">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="https://shieldcn.dev/badge/Firefox%20Add%E2%80%91ons.svg?logo=firefoxbrowser&logoColor=FF7139&mode=dark">
+      <source media="(prefers-color-scheme: light)" srcset="https://shieldcn.dev/badge/Firefox%20Add%E2%80%91ons.svg?logo=firefoxbrowser&logoColor=FF7139&mode=light">
+      <img src="https://shieldcn.dev/badge/Firefox%20Add%E2%80%91ons.svg?logo=firefoxbrowser&logoColor=FF7139&mode=dark" alt="Firefox Add-ons">
+    </picture>
+  </a>
+  <a href="https://github.com/md2it/element-copier/releases/latest/download/element-copier.zip">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="https://shieldcn.dev/badge/Latest%20Release%20ZIP.svg?logo=lu:FileArchive&logoColor=CA8A04&mode=dark">
+      <source media="(prefers-color-scheme: light)" srcset="https://shieldcn.dev/badge/Latest%20Release%20ZIP.svg?logo=lu:FileArchive&logoColor=CA8A04&mode=light">
+      <img src="https://shieldcn.dev/badge/Latest%20Release%20ZIP.svg?logo=lu:FileArchive&logoColor=CA8A04&mode=dark" alt="Latest Release ZIP">
+    </picture>
+  </a>
+</p>
+
+<p align="center" id="language">
 =-=-=-=-=-=-=-=-= | <a href="./DE.md">DE</a> | <a href="../../README.md">EN</a> | ES | <a href="./FR.md">FR</a> | <a href="./RU.md">RU</a> | <a href="./ZH.md">中文</a> | <a href="./AR.md">عربي</a> | =-=-=-=-=-=-=-=-=
 </p>
 
@@ -8,27 +32,11 @@
 
 Copie y descargue páginas completas o elementos individuales como texto con formato, imágenes y Markdown.
 
-Para desarrolladores y testers: URL, código HTML, `tag#id.class`, selectores CSS, rutas JS, XPath y XPath completo, estilos declarados y calculados, y datos para informes de errores.
+Para desarrolladores y testers: URL, código HTML, tag#id.class, selectores CSS, rutas JS, XPath y XPath completo, estilos declarados y calculados, y datos para informes de errores.
 
-<p align="center">
+<p align="center" id="screenshots">
   <a href="../publication/screenshots/ES-0.png"><img src="../publication/screenshots/ES-0.png" width="180" alt="Element Copier screenshot 1"></a>
 </p>
-
-## INSTALACIÓN
-
-### Tiendas
-
-- [Chrome Web Store](https://chromewebstore.google.com/detail/element-copier/gdcdnijkedjdjighmalgialikcgkibel)
-- [Firefox Add-ons](https://addons.mozilla.org/firefox/addon/element-copier/)
-
-### Instalación manual
-
-- **GitHub Release.** Descarga el ZIP de la última versión para instalación local:
-  [element-copier.zip](https://github.com/md2it/element-copier/releases/latest/download/element-copier.zip)
-
-  Descomprime el archivo y carga la carpeta como una extensión descomprimida.
-
-- **Modo de desarrollo.** Carga el directorio completo [`extension`](../../extension) como una extensión descomprimida.
 
 ## FUNCIONES PRINCIPALES
 
@@ -40,6 +48,7 @@ Para desarrolladores y testers: URL, código HTML, `tag#id.class`, selectores CS
 - Atajos de teclado
 - Temas claro y oscuro
 - Configuración flexible
+- Interfaz disponible en inglés, francés, alemán, español, ruso, árabe y chino simplificado
 
 ### Formatos compatibles
 
@@ -66,25 +75,12 @@ Para desarrolladores y testers: URL, código HTML, `tag#id.class`, selectores CS
 - Los formatos para desarrolladores ofrecen datos de inspección habituales sin abrir DevTools
 - El procesamiento de Markdown conserva, cuando es posible, el diseño, los enlaces y las imágenes del contenido, incluidas las imágenes SVG convertidas
 
-## USO
+## PRIVACIDAD
 
-U = Usuario
-E = Extensión
-
-1. U inicia E haciendo clic en su botón de la barra de herramientas del navegador
-2. E abre una ventana:
-   - Si la caché está vacía, E abre la ventana START
-   - Si la caché no está vacía, E abre la ventana COPIED
-3. U hace clic en START o START OVER
-4. U pasa el cursor sobre un elemento
-5. E resalta el elemento
-6. U hace clic en el elemento
-7. E realiza todas las acciones siguientes:
-   - Guarda los datos según la configuración
-   - Abre una ventana con información sobre el resultado
-   - Detiene el modo de selección de elementos
-
-Consulta [todas las rutas de usuario](../spec/user-path.md) para conocer los atajos de teclado, el comportamiento de la caché, la copia de texto enriquecido y las acciones sobre el contenido copiado.
+- No se recopilan datos
+- Sin seguimiento
+- Sin solicitudes de red
+- El contenido de la página se procesa localmente en el navegador
 
 ## LIMITACIONES
 
@@ -102,23 +98,6 @@ Consulta [todas las rutas de usuario](../spec/user-path.md) para conocer los ata
 - **El tratamiento de imágenes pequeñas en Markdown es opcional:**
    - Algunos casos requieren incluirlas y otros excluirlas
    - Este comportamiento se controla mediante una configuración independiente
-
-## PRIVACIDAD
-
-- No se recopilan datos
-- Sin seguimiento
-- Sin solicitudes de red
-- El contenido de la página se procesa localmente en el navegador
-
-## IDIOMAS DE LA INTERFAZ
-
-- Inglés
-- Francés
-- Alemán
-- Español
-- Ruso
-- Árabe
-- Chino simplificado
 
 ## LICENCIA
 

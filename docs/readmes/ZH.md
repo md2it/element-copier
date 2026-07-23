@@ -1,6 +1,30 @@
 # ELEMENT COPIER
 
-<p align="center">
+<p align="center" id="installation">
+  <a href="https://chromewebstore.google.com/detail/element-copier/gdcdnijkedjdjighmalgialikcgkibel">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="https://shieldcn.dev/badge/Chrome%20Web%20Store.svg?logo=googlechrome&logoColor=4285F4&mode=dark">
+      <source media="(prefers-color-scheme: light)" srcset="https://shieldcn.dev/badge/Chrome%20Web%20Store.svg?logo=googlechrome&logoColor=4285F4&mode=light">
+      <img src="https://shieldcn.dev/badge/Chrome%20Web%20Store.svg?logo=googlechrome&logoColor=4285F4&mode=dark" alt="Chrome Web Store">
+    </picture>
+  </a>
+  <a href="https://addons.mozilla.org/firefox/addon/element-copier/">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="https://shieldcn.dev/badge/Firefox%20Add%E2%80%91ons.svg?logo=firefoxbrowser&logoColor=FF7139&mode=dark">
+      <source media="(prefers-color-scheme: light)" srcset="https://shieldcn.dev/badge/Firefox%20Add%E2%80%91ons.svg?logo=firefoxbrowser&logoColor=FF7139&mode=light">
+      <img src="https://shieldcn.dev/badge/Firefox%20Add%E2%80%91ons.svg?logo=firefoxbrowser&logoColor=FF7139&mode=dark" alt="Firefox Add-ons">
+    </picture>
+  </a>
+  <a href="https://github.com/md2it/element-copier/releases/latest/download/element-copier.zip">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="https://shieldcn.dev/badge/Latest%20Release%20ZIP.svg?logo=lu:FileArchive&logoColor=CA8A04&mode=dark">
+      <source media="(prefers-color-scheme: light)" srcset="https://shieldcn.dev/badge/Latest%20Release%20ZIP.svg?logo=lu:FileArchive&logoColor=CA8A04&mode=light">
+      <img src="https://shieldcn.dev/badge/Latest%20Release%20ZIP.svg?logo=lu:FileArchive&logoColor=CA8A04&mode=dark" alt="Latest Release ZIP">
+    </picture>
+  </a>
+</p>
+
+<p align="center" id="language">
 =-=-=-=-=-=-=-=-= | <a href="./DE.md">DE</a> | <a href="../../README.md">EN</a> | <a href="./ES.md">ES</a> | <a href="./FR.md">FR</a> | <a href="./RU.md">RU</a> | 中文 | <a href="./AR.md">عربي</a> | =-=-=-=-=-=-=-=-=
 </p>
 
@@ -8,29 +32,13 @@
 
 复制和下载整个网页或单个元素，可保存为富文本、图像和 Markdown。
 
-面向开发人员和测试人员：URL、HTML 代码、`tag#id.class`、CSS 选择器、JS 路径、XPath 和完整 XPath、声明样式和计算样式，以及缺陷报告所需的详细信息。
+面向开发人员和测试人员：URL、HTML 代码、tag#id.class、CSS 选择器、JS 路径、XPath 和完整 XPath、声明样式和计算样式，以及缺陷报告所需的详细信息。
 
-<p align="center">
+<p align="center" id="screenshots">
   <a href="../publication/screenshots/ZH-0.png"><img src="../publication/screenshots/ZH-0.png" width="180" alt="Element Copier screenshot 1"></a>
   <a href="../publication/screenshots/ZH-1.png"><img src="../publication/screenshots/ZH-1.png" width="180" alt="Element Copier screenshot 2"></a>
   <a href="../publication/screenshots/ZH-2.png"><img src="../publication/screenshots/ZH-2.png" width="180" alt="Element Copier screenshot 3"></a>
 </p>
-
-## 安装
-
-### 扩展商店
-
-- [Chrome Web Store](https://chromewebstore.google.com/detail/element-copier/gdcdnijkedjdjighmalgialikcgkibel)
-- [Firefox Add-ons](https://addons.mozilla.org/firefox/addon/element-copier/)
-
-### 手动安装
-
-- **GitHub Release.** 下载最新版本的 ZIP 进行本地安装：
-  [element-copier.zip](https://github.com/md2it/element-copier/releases/latest/download/element-copier.zip)
-
-  解压归档后，将该文件夹作为未打包的扩展程序加载。
-
-- **开发模式.** 将整个 [`extension`](../../extension) 目录作为未打包的扩展程序加载。
 
 ## 主要功能
 
@@ -42,6 +50,7 @@
 - 键盘快捷键
 - 浅色和深色主题
 - 灵活的设置
+- 界面支持英语、法语、德语、西班牙语、俄语、阿拉伯语和简体中文
 
 ### 支持的格式
 
@@ -68,25 +77,12 @@
 - 开发者格式无需打开 DevTools 即可提供常用检查数据
 - Markdown 处理会尽可能保留布局、链接和内容图像，包括转换后的 SVG 图像
 
-## 使用方法
+## 隐私
 
-U = 用户
-E = 扩展程序
-
-1. U 点击浏览器工具栏中的按钮启动 E
-2. E 打开一个窗口：
-   - 如果缓存为空，E 打开 START 窗口
-   - 如果缓存不为空，E 打开 COPIED 窗口
-3. U 点击 START 或 START OVER
-4. U 将鼠标悬停在某个元素上
-5. E 高亮显示该元素
-6. U 点击该元素
-7. E 执行以下所有操作：
-   - 按照设置保存数据
-   - 打开显示结果信息的窗口
-   - 停止元素选择模式
-
-有关键盘快捷键、缓存行为、富文本复制以及已复制内容的操作，请参阅[所有用户路径](../spec/user-path.md)。
+- 不收集数据
+- 不跟踪用户
+- 不发送网络请求
+- 页面内容仅在浏览器本地处理
 
 ## 限制
 
@@ -104,23 +100,6 @@ E = 扩展程序
 - **Markdown 中小图像的处理方式可以配置：**
    - 某些使用场景需要包含小图像，另一些则需要排除
    - 此行为由单独的设置控制
-
-## 隐私
-
-- 不收集数据
-- 不跟踪用户
-- 不发送网络请求
-- 页面内容仅在浏览器本地处理
-
-## 界面语言
-
-- 英语
-- 法语
-- 德语
-- 西班牙语
-- 俄语
-- 阿拉伯语
-- 简体中文
 
 ## 许可证
 
