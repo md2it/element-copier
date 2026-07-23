@@ -3,9 +3,9 @@
 <p align="center" id="installation">
   <a href="https://chromewebstore.google.com/detail/element-copier/gdcdnijkedjdjighmalgialikcgkibel" target="_blank" rel="noopener noreferrer">
     <picture>
-      <source media="(prefers-color-scheme: dark)" srcset="https://shieldcn.dev/badge/%D0%98%D0%BD%D1%82%D0%B5%D1%80%D0%BD%D0%B5%D1%82%E2%80%91%D0%BC%D0%B0%D0%B3%D0%B0%D0%B7%D0%B8%D0%BD%20Chrome.svg?logo=googlechrome&logoColor=4285F4&mode=dark">
-      <source media="(prefers-color-scheme: light)" srcset="https://shieldcn.dev/badge/%D0%98%D0%BD%D1%82%D0%B5%D1%80%D0%BD%D0%B5%D1%82%E2%80%91%D0%BC%D0%B0%D0%B3%D0%B0%D0%B7%D0%B8%D0%BD%20Chrome.svg?logo=googlechrome&logoColor=4285F4&mode=light">
-      <img src="https://shieldcn.dev/badge/%D0%98%D0%BD%D1%82%D0%B5%D1%80%D0%BD%D0%B5%D1%82%E2%80%91%D0%BC%D0%B0%D0%B3%D0%B0%D0%B7%D0%B8%D0%BD%20Chrome.svg?logo=googlechrome&logoColor=4285F4&mode=dark" alt="Интернет‑магазин Chrome">
+      <source media="(prefers-color-scheme: dark)" srcset="https://shieldcn.dev/badge/%D0%A0%D0%B0%D1%81%D1%88%D0%B8%D1%80%D0%B5%D0%BD%D0%B8%D1%8F%20Chrome.svg?logo=googlechrome&logoColor=4285F4&mode=dark">
+      <source media="(prefers-color-scheme: light)" srcset="https://shieldcn.dev/badge/%D0%A0%D0%B0%D1%81%D1%88%D0%B8%D1%80%D0%B5%D0%BD%D0%B8%D1%8F%20Chrome.svg?logo=googlechrome&logoColor=4285F4&mode=light">
+      <img src="https://shieldcn.dev/badge/%D0%A0%D0%B0%D1%81%D1%88%D0%B8%D1%80%D0%B5%D0%BD%D0%B8%D1%8F%20Chrome.svg?logo=googlechrome&logoColor=4285F4&mode=dark" alt="Расширения Chrome">
     </picture>
   </a>
   <a href="https://addons.mozilla.org/firefox/addon/element-copier/" target="_blank" rel="noopener noreferrer">

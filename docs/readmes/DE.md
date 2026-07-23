@@ -17,9 +17,9 @@
   </a>
   <a href="https://github.com/md2it/element-copier/releases/latest/download/element-copier.zip">
     <picture>
-      <source media="(prefers-color-scheme: dark)" srcset="https://shieldcn.dev/badge/Neuestes%20Release%20(ZIP).svg?logo=lu:FileArchive&logoColor=CA8A04&mode=dark">
-      <source media="(prefers-color-scheme: light)" srcset="https://shieldcn.dev/badge/Neuestes%20Release%20(ZIP).svg?logo=lu:FileArchive&logoColor=CA8A04&mode=light">
-      <img src="https://shieldcn.dev/badge/Neuestes%20Release%20(ZIP).svg?logo=lu:FileArchive&logoColor=CA8A04&mode=dark" alt="Neuestes Release (ZIP)">
+      <source media="(prefers-color-scheme: dark)" srcset="https://shieldcn.dev/badge/Neueste%20Version%20(ZIP).svg?logo=lu:FileArchive&logoColor=CA8A04&mode=dark">
+      <source media="(prefers-color-scheme: light)" srcset="https://shieldcn.dev/badge/Neueste%20Version%20(ZIP).svg?logo=lu:FileArchive&logoColor=CA8A04&mode=light">
+      <img src="https://shieldcn.dev/badge/Neueste%20Version%20(ZIP).svg?logo=lu:FileArchive&logoColor=CA8A04&mode=dark" alt="Neueste Version (ZIP)">
     </picture>
   </a>
 </p>
